@@ -27,11 +27,11 @@ public class PlayerFallState : PlayerAirState
     {
         base.Update();
 
-        //if(_stateMachine.Player.Controller.isGrounded)
-        //{
-        //    _stateMachine.ChangeState(_stateMachine.IdleState);
-        //    return;
-        //}
+        if (_stateMachine.Player.GroundCheck)
+        {
+            _stateMachine.ChangeState(_stateMachine.IdleState);
+            return;
+        }
     }
 
 }

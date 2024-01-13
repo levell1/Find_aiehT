@@ -15,6 +15,7 @@ public class PlayerAnimationData
     [SerializeField] private string _jumpParmaeterName = "Jump";
     // TODO
     [SerializeField] private string _fallParameterName = "Fall";
+    [SerializeField] private string _dashParameterName = "Dash";
 
     [SerializeField] private string _attackParameterName = "@Attack";
     //TODO
@@ -29,6 +30,7 @@ public class PlayerAnimationData
     public int JumpParameterHash { get; private set; }
     //TODO
     public int FallParameterHash { get; private set; }
+    public int DashParameterHash { get; private set; }
 
     public int AttackParameterHash { get; private set; }
     //TODO
@@ -45,6 +47,7 @@ public class PlayerAnimationData
         JumpParameterHash = Animator.StringToHash(_jumpParmaeterName);
         //TODO
         FallParameterHash = Animator.StringToHash(_fallParameterName);
+        DashParameterHash = Animator.StringToHash(_dashParameterName);
 
         AttackParameterHash = Animator.StringToHash(_attackParameterName);
         //TODO

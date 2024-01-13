@@ -13,9 +13,12 @@ public class Player : MonoBehaviour
 
     public Animator Animator { get; private set; }
     public PlayerInput Input { get; private set; }
-    //public CharacterController Controller { get; private set; }
     public Rigidbody Rigidbody { get; private set; }
     public Collider Collider { get; private set; }
+
+    public GroundCheck GroundCheck { get; private set; }
+    public JumpForceReceiver JumpReceiver { get; private set; }
+    public DashForceReceiver DashReceiver { get; private set; }
 
     private PlayerStateMachine _stateMachine;
     private void Awake()
@@ -26,7 +29,10 @@ public class Player : MonoBehaviour
         Collider = GetComponent<Collider>();
         Animator = GetComponentInChildren<Animator>();
         Input = GetComponent<PlayerInput>();
-        //Controller = GetComponent<CharacterController>();
+
+        GroundCheck = GetComponent<GroundCheck>();
+        JumpReceiver = GetComponent<JumpForceReceiver>();
+        DashReceiver = GetComponent<DashForceReceiver>();
 
         _stateMachine = new PlayerStateMachine(this);
     }
@@ -45,6 +51,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        _stateMachine.PhyscisUpdate();
     }
 
 }

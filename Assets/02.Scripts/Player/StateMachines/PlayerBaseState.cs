@@ -11,8 +11,6 @@ public class PlayerBaseState : IState
     protected PlayerStateMachine _stateMachine;
     protected readonly PlayerGroundData _groundData;
 
-    private bool _isGround;
-
     public PlayerBaseState(PlayerStateMachine playerStateMachine)
     {
         _stateMachine = playerStateMachine;
@@ -51,6 +49,7 @@ public class PlayerBaseState : IState
         input.PlayerActions.Run.started += OnRunStarted;
 
         input.PlayerActions.Jump.started += OnJumpStarted;
+        input.PlayerActions.Dash.started += OnDashStarted;
     }
 
     protected virtual void RemoveInputActionsCallbacks()
@@ -60,6 +59,7 @@ public class PlayerBaseState : IState
         input.PlayerActions.Run.started -= OnRunStarted;
 
         input.PlayerActions.Jump.started -= OnJumpStarted;
+        input.PlayerActions.Dash.started -= OnDashStarted;
     }
 
     protected virtual void OnRunStarted(InputAction.CallbackContext context)
@@ -73,6 +73,11 @@ public class PlayerBaseState : IState
     }
 
     protected virtual void OnJumpStarted(InputAction.CallbackContext context)
+    {
+
+    }
+
+    protected virtual void OnDashStarted(InputAction.CallbackContext context)
     {
 
     }
@@ -119,7 +124,12 @@ public class PlayerBaseState : IState
         return forward * _stateMachine.MovementInput.y + right * _stateMachine.MovementInput.x;
     }
 
-   
+    private float GetMovemenetSpeed()
+    {
+        float movementSpeed = _stateMachine.MovementSpeed * _stateMachine.MovementSpeedModifier;
+        return movementSpeed;
+    }
+
     private void Rotate(Vector3 movementDirection)
     {
         if (movementDirection != Vector3.zero)
@@ -127,13 +137,9 @@ public class PlayerBaseState : IState
             Transform playerTransform = _stateMachine.Player.transform;
             Quaternion targetRotation = Quaternion.LookRotation(movementDirection);
             playerTransform.rotation = Quaternion.Slerp(playerTransform.rotation, targetRotation, _stateMachine.RotationDamping * Time.deltaTime);
-        }
-    }
 
-    private float GetMovemenetSpeed()
-    {
-        float movementSpeed = _stateMachine.MovementSpeed * _stateMachine.MovementSpeedModifier;
-        return movementSpeed;
+            
+        }
     }
 
     protected void StartAnimation(int animationHash)
