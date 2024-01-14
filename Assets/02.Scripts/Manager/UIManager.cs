@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
 
     private void OpenPopup(string uiname) 
     {
+
         GameObject newUI = Instantiate(Resources.Load<GameObject>("Sound/SFX/" + uiname));
         newUI.SetActive(true); 
         openPopups.Push(newUI);

@@ -11,7 +11,7 @@ public class test : MonoBehaviour
     }
     void Start()
     {
-        GameObject a= GameManager.instance.ResourceManager.LoadPrefab("Sphere");
+       GameObject a= GameManager.instance.ResourceManager.LoadPrefab("Sphere");
        Instantiate(a);
     }
 
@@ -19,8 +19,8 @@ public class test : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            GameManager.instance.SoundManager.SFXPlay("sound", this.transform.position, 0.1f);
-            GameManager.instance.SoundManager.BgSoundPlay("BG1", 0.1f);
+            GameManager.instance.SoundManager.SFXPlay("sound", gameObject.transform.position, 0.1f);
+            GameManager.instance.SoundManager.BgSoundPlay("BG1");
         }
     }
 }
