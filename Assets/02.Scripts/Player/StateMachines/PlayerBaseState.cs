@@ -50,6 +50,9 @@ public class PlayerBaseState : IState
 
         input.PlayerActions.Jump.started += OnJumpStarted;
         input.PlayerActions.Dash.started += OnDashStarted;
+
+        input.PlayerActions.Attack.performed += OnAttackPerform;
+        input.PlayerActions.Attack.canceled+= OnAttackCanceled;
     }
 
     protected virtual void RemoveInputActionsCallbacks()
@@ -60,6 +63,10 @@ public class PlayerBaseState : IState
 
         input.PlayerActions.Jump.started -= OnJumpStarted;
         input.PlayerActions.Dash.started -= OnDashStarted;
+
+
+        input.PlayerActions.Attack.performed -= OnAttackPerform;
+        input.PlayerActions.Attack.canceled -= OnAttackCanceled;
     }
 
     protected virtual void OnRunStarted(InputAction.CallbackContext context)
@@ -80,6 +87,16 @@ public class PlayerBaseState : IState
     protected virtual void OnDashStarted(InputAction.CallbackContext context)
     {
 
+    }
+
+    protected virtual void OnAttackPerform(InputAction.CallbackContext context)
+    {
+        _stateMachine.IsAttacking = true;
+    }
+
+    protected virtual void OnAttackCanceled(InputAction.CallbackContext context)
+    {
+        _stateMachine.IsAttacking = false;
     }
 
     //
@@ -108,6 +125,11 @@ public class PlayerBaseState : IState
 
         rigidbody.velocity = movementDirection;
 
+    }
+
+    protected void ForceMove()
+    {
+        _stateMachine.Player.Rigidbody.AddForce(_stateMachine.Player.ForceReceiver.Movement * Time.deltaTime);
     }
 
     private Vector3 GetMovementDirection()
@@ -152,5 +174,25 @@ public class PlayerBaseState : IState
         _stateMachine.Player.Animator.SetBool(animationHash, false);
     }
 
+
+    protected float GetNormalizedTime(Animator animator, string tag)
+    {
+        AnimatorStateInfo currentInfo = animator.GetCurrentAnimatorStateInfo(0); // 현재 애니메이션에 대한 정보
+        AnimatorStateInfo nextInfo = animator.GetNextAnimatorStateInfo(0); // 다음 애니메이션에 대한 정보
+
+        if(animator.IsInTransition(0) && nextInfo.IsTag(tag)) // 다음 태그가 받아온 태그이고, 현재 애니메이션이 트랜지션을 타고 있는지
+        {
+            return nextInfo.normalizedTime; // 다음 애니메이션정보를 가져옴 (애니메이션마다 길이가 다르기 때문에 normalized해주는 거임)
+        }
+        else if(!animator.IsInTransition(0) && currentInfo.IsTag(tag)) // 애니메이션이 트랜지션을 타고있지 않다면
+        {
+            return currentInfo.normalizedTime; // 현재 애니메이션으로 돌아옴
+        }
+        else
+        {
+            return 0f;
+        }
+
+    }
 
 }

@@ -246,6 +246,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2749117374214474800, guid: 1aaf45fea9e84da4dbd0224c5d4c2ffe,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: b42940aef2afb8346bfc984741462a8a, type: 2}
     - target: {fileID: 9212053721651348683, guid: 1aaf45fea9e84da4dbd0224c5d4c2ffe,
         type: 3}
       propertyPath: m_RootOrder
@@ -454,7 +459,7 @@ Rigidbody:
   m_GameObject: {fileID: 518479775}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 1
+  m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -502,7 +507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 518479783}
-  _drag: 0.3
+  _drag: 0.1
 --- !u!114 &518479790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,7 +521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dashDuration: 0.3
-  _dashCoolTime: 2
+  _dashCoolTime: 5
 --- !u!1 &547963306
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,7 +725,7 @@ Transform:
   m_GameObject: {fileID: 751506570}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 2}
+  m_LocalScale: {x: 10, y: 1, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

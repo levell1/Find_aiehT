@@ -17,8 +17,8 @@ public class Player : MonoBehaviour
     public Collider Collider { get; private set; }
 
     public GroundCheck GroundCheck { get; private set; }
-    public JumpForceReceiver JumpReceiver { get; private set; }
-    public DashForceReceiver DashReceiver { get; private set; }
+    public ForceReceiver ForceReceiver { get; private set; }
+    public DashForceReceiver DashForceReceiver { get; private set; }
 
     private PlayerStateMachine _stateMachine;
     private void Awake()
@@ -31,8 +31,8 @@ public class Player : MonoBehaviour
         Input = GetComponent<PlayerInput>();
 
         GroundCheck = GetComponent<GroundCheck>();
-        JumpReceiver = GetComponent<JumpForceReceiver>();
-        DashReceiver = GetComponent<DashForceReceiver>();
+        ForceReceiver = GetComponent<ForceReceiver>();
+        DashForceReceiver = GetComponent<DashForceReceiver>();
 
         _stateMachine = new PlayerStateMachine(this);
     }

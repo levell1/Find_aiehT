@@ -16,6 +16,8 @@ public class PlayerStateMachine : StateMachine
 
     public PlayerDashState DashState { get; }
 
+    public PlayerComboAttackState ComboAttackState { get; }
+
     public Vector2 MovementInput { get; set; }
     public float MovementSpeed { get; private set; }
     public float RotationDamping { get; private set; }
@@ -23,6 +25,9 @@ public class PlayerStateMachine : StateMachine
 
     public float JumpForce { get; set; }
     public float DashForce { get; set; }
+
+    public bool IsAttacking { get; set; }
+    public int ComboIndex { get; set; }
 
     public Transform MainCameraTransform { get; set; }
 
@@ -37,6 +42,8 @@ public class PlayerStateMachine : StateMachine
         JumpState = new PlayerJumpState(this);
         FallState = new PlayerFallState(this);
         DashState = new PlayerDashState(this);
+
+        ComboAttackState = new PlayerComboAttackState(this);
 
         MainCameraTransform = Camera.main.transform;
 

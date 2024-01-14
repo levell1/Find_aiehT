@@ -7,10 +7,11 @@ public class DashForceReceiver : MonoBehaviour
      private Player _player;
    
     [SerializeField] private float _dashDuration = 0.5f;
-    [SerializeField] private float _dashCoolTime = 2f;
+    [SerializeField] private float _dashCoolTime = 5f;
 
     private float _dashTime = 0f;
     public bool _isDash { get; private set; }
+    private bool _isCollTime;
 
     //private Vector3 _dashStartPosition;
     //private Vector3 _dashTargetPosition;
@@ -18,6 +19,8 @@ public class DashForceReceiver : MonoBehaviour
     private void Start()
     {
         _player = GetComponent<Player>();
+        _isCollTime = false;
+        _isDash = false;
     }
 
     void FixedUpdate()
@@ -30,7 +33,9 @@ public class DashForceReceiver : MonoBehaviour
             {
                 _isDash = false;
 
-                Invoke("Reset", _dashCoolTime);
+                if(!_isCollTime ) 
+                    StartCoroutine(CollDown());
+                
             }
 
         }    
@@ -38,14 +43,13 @@ public class DashForceReceiver : MonoBehaviour
 
     public void Dash(float dashForce)
     {
-        if(_player.GroundCheck.IsGrounded())
+        if (_player.GroundCheck.IsGrounded() && !_isDash)
         {
             _isDash = true;
             _dashTime = 0f;
 
             StartCoroutine(DashCoroutine(dashForce));
 
-            Debug.Log(dashForce);
         }
        
     }
@@ -72,9 +76,11 @@ public class DashForceReceiver : MonoBehaviour
         yield return null;
     }
 
-    public void Reset()
+    IEnumerator CollDown()
     {
-        _player.Rigidbody.velocity = Vector3.zero;
+        _isCollTime = true;
+        yield return new WaitForSeconds(_dashCoolTime);
+        _isCollTime = false;
     }
 
 }
