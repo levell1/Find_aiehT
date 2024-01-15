@@ -20,10 +20,10 @@ public class TestPlayer : MonoBehaviour
         Vector3 move = new Vector3(h, 0, v).normalized;
 
         _rigidbody.velocity = move * Speed;
+    }
 
-        //if (!(h == 0 && v == 0))
-        //{
-        //    _rigidbody.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(move), Time.deltaTime * rotateSpeed);
-        //}
+    private void OnCollisionEnter(Collision collision)
+    {
+        
     }
 }
