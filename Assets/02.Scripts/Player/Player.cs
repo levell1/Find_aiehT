@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public GroundCheck GroundCheck { get; private set; }
     public ForceReceiver ForceReceiver { get; private set; }
     public DashForceReceiver DashForceReceiver { get; private set; }
+    public StaminaSystem StaminaSystem { get; private set; }
 
     private PlayerStateMachine _stateMachine;
     private void Awake()
@@ -33,6 +34,7 @@ public class Player : MonoBehaviour
         GroundCheck = GetComponent<GroundCheck>();
         ForceReceiver = GetComponent<ForceReceiver>();
         DashForceReceiver = GetComponent<DashForceReceiver>();
+        StaminaSystem = GetComponent<StaminaSystem>();
 
         _stateMachine = new PlayerStateMachine(this);
     }

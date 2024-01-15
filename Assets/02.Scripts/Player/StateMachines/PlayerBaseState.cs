@@ -41,7 +41,9 @@ public class PlayerBaseState : IState
     public virtual void Update()
     {
         Move();
+        RengenStamina();
     }
+
     protected virtual void AddInputActionsCallbacks()
     {
         PlayerInput input = _stateMachine.Player.Input;
@@ -162,6 +164,13 @@ public class PlayerBaseState : IState
 
             
         }
+    }
+
+    private void RengenStamina()
+    {
+        _stateMachine.RegenStamina = _stateMachine.Player.Data.GroundData.RegenerateStamina;
+
+        _stateMachine.Player.StaminaSystem.RegenerateStamina(_stateMachine.RegenStamina);
     }
 
     protected void StartAnimation(int animationHash)

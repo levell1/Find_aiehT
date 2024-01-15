@@ -25,9 +25,13 @@ public class PlayerStateMachine : StateMachine
 
     public float JumpForce { get; set; }
     public float DashForce { get; set; }
+    public bool IsDashCoolTime { get; set; }
 
-    public bool IsAttacking { get; set; }
+    public int DashStamina { get; set; }
+    public int RegenStamina { get; set; }
+
     public int ComboIndex { get; set; }
+    public bool IsAttacking { get; set; }
 
     public Transform MainCameraTransform { get; set; }
 

@@ -9,9 +9,11 @@ public class DashForceReceiver : MonoBehaviour
     [SerializeField] private float _dashDuration = 0.5f;
     [SerializeField] private float _dashCoolTime = 5f;
 
-    private float _dashTime = 0f;
-    public bool _isDash { get; private set; }
-    private bool _isCollTime;
+    private float _dashTime = 0f; // 대쉬를 하기위한 시간
+    private float _coolTime= 0f; //  쿨타임을 계산하기위한 시간
+
+    private bool _isDash;
+    public bool IsCoolTime { get; private set; } // true => 쿨타임 중
 
     //private Vector3 _dashStartPosition;
     //private Vector3 _dashTargetPosition;
@@ -19,7 +21,7 @@ public class DashForceReceiver : MonoBehaviour
     private void Start()
     {
         _player = GetComponent<Player>();
-        _isCollTime = false;
+        IsCoolTime = false;
         _isDash = false;
     }
 
@@ -33,17 +35,30 @@ public class DashForceReceiver : MonoBehaviour
             {
                 _isDash = false;
 
-                if(!_isCollTime ) 
-                    StartCoroutine(CollDown());
-                
+                if (!IsCoolTime)
+                    StartCoroutine(CoolDown());
+
             }
+            // 쿨타임을 위한 계산
+            else if (IsCoolTime)
+            {
+                _coolTime += Time.fixedDeltaTime;
+
+                if(_coolTime >= _dashCoolTime)
+                {
+                    IsCoolTime = false;
+                    _coolTime = 0f;
+                }
+
+            }
+
 
         }    
     }
 
     public void Dash(float dashForce)
     {
-        if (_player.GroundCheck.IsGrounded() && !_isDash)
+        if (_player.GroundCheck.IsGrounded() && !_isDash && !IsCoolTime)
         {
             _isDash = true;
             _dashTime = 0f;
@@ -76,11 +91,11 @@ public class DashForceReceiver : MonoBehaviour
         yield return null;
     }
 
-    IEnumerator CollDown()
+    IEnumerator CoolDown()
     {
-        _isCollTime = true;
+        IsCoolTime = true;
         yield return new WaitForSeconds(_dashCoolTime);
-        _isCollTime = false;
+        IsCoolTime = false;
     }
 
 }

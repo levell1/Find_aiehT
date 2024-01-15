@@ -37,6 +37,15 @@ public class PlayerData
     //[JsonProperty("PlayerGold")]
     //private float _playerGold;
 
+    //[SerializeField]  private string _playerName;
+    //[SerializeField]  private int _playerLevel;
+    //[SerializeField]  private int _playerMaxHealth;
+    //[SerializeField]  private int _playerMaxStamina;
+    //[SerializeField]  private int _playerAttack;
+    //[SerializeField]  private int _playerDef;
+    //[SerializeField]  private int _playerExp;
+    //[SerializeField]  private int _playerGold;
+
     [SerializeField] private string PlayerName;
     [SerializeField] private int PlayerLevel;
     [SerializeField] private int PlayerMaxHealth;
@@ -46,14 +55,15 @@ public class PlayerData
     [SerializeField] private int PlayerExp;
     [SerializeField] private int PlayerGold;
 
-    //[SerializeField]  private string _playerName;
-    //[SerializeField]  private int _playerLevel;
-    //[SerializeField]  private int _playerMaxHealth;
-    //[SerializeField]  private int _playerMaxStamina;
-    //[SerializeField]  private int _playerAttack;
-    //[SerializeField]  private int _playerDef;
-    //[SerializeField]  private int _playerExp;
-    //[SerializeField]  private int _playerGold;
+    public int GetPlayerMaxHealth()
+    {
+        return PlayerMaxHealth;
+    }
+
+    public int GetPlayerMaxStamina()
+    {
+        return PlayerMaxStamina;
+    }
 
 }
 

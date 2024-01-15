@@ -12,7 +12,11 @@ public class PlayerSO : ScriptableObject
 
     public void SetPlayerData(PlayerData newData)
     {
-
         PlayerData = newData;
+    }
+
+    public PlayerData GetPlayerData()
+    {
+        return PlayerData;
     }
 }
