@@ -10,6 +10,7 @@ public class TycoonManager : MonoBehaviour
     [SerializeField] private Transform _createCustomerPos;
 
     [SerializeField] private int _maxCustomerNum = 4;
+    [SerializeField] private float _customerSpawnTime = 1.0f;
 
     private int _currentCustomerNum = 0;
     private List<bool> _isCustomerSitting = new();
@@ -33,8 +34,8 @@ public class TycoonManager : MonoBehaviour
             //TODO: Object Pool?
 
             List<(Transform destination, int index)> availableDestinations = _destinations
-            .Select((d, index) => (d, index))
-            .Where(tuple => !_isCustomerSitting[tuple.index])
+            .Select((d, i) => (d, i))
+            .Where(tuple => !_isCustomerSitting[tuple.i])
             .ToList();
             
             if (availableDestinations.Count <= 0)
@@ -53,7 +54,7 @@ public class TycoonManager : MonoBehaviour
 
             ++_currentCustomerNum;
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(_customerSpawnTime);
         }
     }
 }
