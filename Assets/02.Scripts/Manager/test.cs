@@ -19,8 +19,8 @@ public class test : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            GameManager.instance.SoundManager.SFXPlay("sound", gameObject.transform.position, 0.1f);
-            GameManager.instance.SoundManager.BgSoundPlay("BG1");
+            //GameManager.instance.SoundManager.SFXPlay("sound", gameObject.transform.position, 0.1f);
+            GameManager.instance.SoundManager.BgSoundPlay("BG3");
         }
     }
 }

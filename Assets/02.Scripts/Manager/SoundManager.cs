@@ -128,27 +128,12 @@ public class SoundManager : MonoBehaviour
 
     public void SetMusicVolume(float volume)
     {
-        _mixer.SetFloat("BGM", Mathf.Log10(volume) * 20);
+        _mixer.SetFloat("BGVolume", Mathf.Log10(volume) * 20);
     }
 
     public void SetSFXVolume(float volume)
     {
-        _mixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
+        _mixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
     }
 
-    public void BGSoundVolume(Slider _bgmSlider)
-    {
-        _soundValue = _bgmSlider.value;
-        _mixer.SetFloat("BGVolume", _soundValue);
-    }
-    public void SFXSoundVolume(Slider _sfxSlider)
-    {
-        _soundValue = _sfxSlider.value;
-        _mixer.SetFloat("SFXVolume", _soundValue);
-    }
-    public void MasterVolume(Slider _masterSlider)
-    {
-        _soundValue = _masterSlider.value;
-        _mixer.SetFloat("Master", _soundValue);
-    }
 }
