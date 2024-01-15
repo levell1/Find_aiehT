@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class MWJTempPlayer : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float _moveSpeed = 5f;
 
     private void Update()
     {
@@ -13,6 +13,6 @@ public class MWJTempPlayer : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 moveDirection = new Vector3(horizontalInput, 0f, verticalInput);
-        transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        transform.Translate(moveDirection * _moveSpeed * Time.deltaTime);
     }
 }

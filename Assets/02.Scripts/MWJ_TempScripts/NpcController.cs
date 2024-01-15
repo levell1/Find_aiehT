@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,16 +8,13 @@ public class NpcController : MonoBehaviour
 {
     private NavMeshAgent _agent;
     private Animator _animator;
-    [SerializeField] private List<Transform> _destinations;
+
+    [NonSerialized] public int _seatNum = 0;
 
     private void OnEnable()
     {
         _agent = GetComponent<NavMeshAgent>();
-        // 순차적으로
-        // 랜덤 -> 자리에 있다면 다시 랜덤?
-        int randomDestinationNum = Random.Range(0, _destinations.Count);
-        _agent.SetDestination(_destinations[randomDestinationNum].position);
-        
+
         _animator = GetComponentInChildren<Animator>();
         _animator.SetBool("IsWalk", true);
     }
@@ -28,5 +26,11 @@ public class NpcController : MonoBehaviour
             _animator.SetBool("IsWalk", false);
             transform.rotation = Quaternion.identity;
         }
+    }
+
+    public void DecideDestination(Transform destinationTransform)
+    {
+        //TODO : 순차적으로 or 랜덤 -> 자리에 있다면 다시 랜덤?
+        _agent.SetDestination(destinationTransform.position);
     }
 }
