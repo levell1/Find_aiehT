@@ -17,12 +17,8 @@ public class JsonReader : MonoBehaviour
 
         Debug.Log(jsonText);
 
-        DummyData playerJsonData = JsonUtility.FromJson<DummyData>(jsonText);
+        PlayerJsonData playerJsonData = JsonUtility.FromJson<PlayerJsonData>(jsonText);
 
-        if (PlayerSO != null)
-        {
-            //PlayerSO.PlayerData = playerJsonData;
-            Debug.Log("After: " + PlayerSO.PlayerData.PlayerName); 
-        }
+        PlayerSO.SetPlayerData(playerJsonData.PlayerData);
     }
 }

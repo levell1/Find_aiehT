@@ -4,22 +4,32 @@ using UnityEngine;
 
 public class ForceReceiver : MonoBehaviour
 {
-    [SerializeField] public Player Player;
+    private Player Player;
     [SerializeField] private float _drag = 0.3f;
 
-    private Vector3 dampingVelocity;
+    private Vector3 _dampingVelocity;
     private Vector3 _impact;
+    private float _moveForce;
 
-    public Vector3 Movement => _impact; // 수직속도에 기타 영향을 줄 수 있는 impact를 더함
+    private float forceTime;
+
+    public Vector3 Movement => _impact * (-_moveForce); // 수직속도에 기타 영향을 줄 수 있는 impact를 더함
+
+    private void Start()
+    {
+        Player = GetComponent<Player>();
+    }
 
     void Update()
     {
-
-        if (Player.Rigidbody.velocity.y < 0f && Player.GroundCheck.IsGrounded())
+        forceTime = Time.deltaTime;
+        if (Player.Rigidbody.velocity.y <= 0f && Player.GroundCheck.IsGrounded())
         {
-            _impact = Vector3.SmoothDamp(_impact, Vector3.zero, ref dampingVelocity, _drag);
-
+            _moveForce = Physics.gravity.y * forceTime;
         }
+       
+        _impact = Vector3.SmoothDamp(_impact, Vector3.zero, ref _dampingVelocity, _drag);
+        Debug.Log(_impact);
     }
 
     public void Reset()

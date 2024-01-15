@@ -129,7 +129,7 @@ public class PlayerBaseState : IState
 
     protected void ForceMove()
     {
-        _stateMachine.Player.Rigidbody.AddForce(_stateMachine.Player.ForceReceiver.Movement * Time.deltaTime);
+        _stateMachine.Player.Rigidbody.AddForce(_stateMachine.Player.ForceReceiver.Movement);
     }
 
     private Vector3 GetMovementDirection()

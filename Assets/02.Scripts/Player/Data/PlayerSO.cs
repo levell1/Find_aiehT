@@ -8,11 +8,11 @@ public class PlayerSO : ScriptableObject
     [field: SerializeField] public PlayerGroundData GroundData { get; private set; }
     [field: SerializeField] public PlayerAirData AirData { get; private set; }
     [field: SerializeField] public PlayerAttackData AttackData { get; private set; }
-    [field: SerializeField] public PlayerData PlayerData { get; set; }
+    [field: SerializeField] public PlayerData PlayerData { get; private set; }
 
-    //public void SetPlayerData(PlayerData newData)
-    //{
+    public void SetPlayerData(PlayerData newData)
+    {
 
-    //    PlayerData = newData;
-    //}
+        PlayerData = newData;
+    }
 }
