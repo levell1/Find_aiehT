@@ -65,6 +65,16 @@ public class PlayerData
         return PlayerMaxStamina;
     }
 
+    public int GetPlayerAtk()
+    {
+        return PlayerAttack;
+    }
+
+    public int GetPlayerDef()
+    {
+        return PlayerDef;
+    }
+
 }
 
 [Serializable]

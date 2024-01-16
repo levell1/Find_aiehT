@@ -7,6 +7,8 @@ public class HealthSystem : MonoBehaviour
 {
     private PlayerSO _playerData;
     private int _maxHealth;
+    private int _playerDef;
+
     private int _health;
 
     public event Action OnDie;
@@ -20,13 +22,15 @@ public class HealthSystem : MonoBehaviour
         _maxHealth = _playerData.GetPlayerData().GetPlayerMaxHealth();
         _health = _maxHealth;
 
+        _playerDef = _playerData.GetPlayerData().GetPlayerDef();
+
         Debug.Log(_maxHealth);
     }
 
     public void TakeDamage(int damage)
     {
         if (_health == 0) return;
-        _health = Mathf.Max(_health - damage, 0);
+        _health = Mathf.Max((_health + _playerDef) - damage, 0);
 
         if (_health == 0)
             OnDie.Invoke();

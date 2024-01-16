@@ -20,6 +20,10 @@ public class Player : MonoBehaviour
     public ForceReceiver ForceReceiver { get; private set; }
     public DashForceReceiver DashForceReceiver { get; private set; }
     public StaminaSystem StaminaSystem { get; private set; }
+    public HealthSystem HealthSystem{ get; private set; }
+
+    [field: Header("Weapon")]
+    [field:SerializeField] public PlayerWeapon Weapon { get; private set; }
 
     private PlayerStateMachine _stateMachine;
     private void Awake()
@@ -34,7 +38,9 @@ public class Player : MonoBehaviour
         GroundCheck = GetComponent<GroundCheck>();
         ForceReceiver = GetComponent<ForceReceiver>();
         DashForceReceiver = GetComponent<DashForceReceiver>();
+
         StaminaSystem = GetComponent<StaminaSystem>();
+        HealthSystem = GetComponent<HealthSystem>();
 
         _stateMachine = new PlayerStateMachine(this);
     }
@@ -43,6 +49,7 @@ public class Player : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         _stateMachine.ChangeState(_stateMachine.IdleState);
+        HealthSystem.OnDie += OnDie;
     }
 
     private void Update()
@@ -54,6 +61,12 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         _stateMachine.PhyscisUpdate();
+    }
+
+    private void OnDie()
+    {
+        Animator.SetTrigger("Die");
+        enabled = false;
     }
 
 }

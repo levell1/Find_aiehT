@@ -13,12 +13,11 @@ public class PlayerAnimationData
 
     [SerializeField] private string _airParameterName = "@Air";
     [SerializeField] private string _jumpParmaeterName = "Jump";
-    // TODO
+
     [SerializeField] private string _fallParameterName = "Fall";
     [SerializeField] private string _dashParameterName = "Dash";
 
     [SerializeField] private string _attackParameterName = "@Attack";
-    //TODO
     [SerializeField] private string _comboAttackParameterName = "ComboAttack";
 
     public int GroundParameterHash { get; private set; }

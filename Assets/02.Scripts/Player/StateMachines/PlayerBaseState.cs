@@ -131,7 +131,10 @@ public class PlayerBaseState : IState
 
     protected void ForceMove()
     {
-        _stateMachine.Player.Rigidbody.AddForce(_stateMachine.Player.ForceReceiver.Movement);
+        int comboIndex = _stateMachine.ComboIndex;
+        float force = _stateMachine.Player.Data.AttackData.AttackInfoDatas[comboIndex].Force;
+
+        _stateMachine.Player.Rigidbody.AddForce(_stateMachine.Player.transform.forward * force);
     }
 
     private Vector3 GetMovementDirection()

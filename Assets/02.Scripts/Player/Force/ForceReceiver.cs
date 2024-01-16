@@ -13,8 +13,6 @@ public class ForceReceiver : MonoBehaviour
 
     private float forceTime;
 
-    public Vector3 Movement => _impact * (-_moveForce); // 수직속도에 기타 영향을 줄 수 있는 impact를 더함
-
     private void Start()
     {
         Player = GetComponent<Player>();
