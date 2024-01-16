@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
     private Stack<GameObject> openPopups = new Stack<GameObject>();
-    
+
     // Start is called before the first frame update
     void Start()
     {
