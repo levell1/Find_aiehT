@@ -9,6 +9,7 @@ public class CustomerController : MonoBehaviour
     private NavMeshAgent _agent;
     private Animator _animator;
     private GameObject _targetFood;
+    private bool isGetFood = false;
 
     private FoodPlace _targetFoodPlace;
     public FoodPlace TargetFoodPlace
@@ -17,7 +18,7 @@ public class CustomerController : MonoBehaviour
         set
         {
             _targetFoodPlace = value;
-            _targetFoodPlace.OnCustomerGetFood += PlayGetFoodAnition;
+            _targetFoodPlace.OnCustomerGetFood += GetFood;
         }
     }
 
@@ -42,11 +43,7 @@ public class CustomerController : MonoBehaviour
         }
     }
 
-    CustomerController()
-    {
-
-    }
-
+    public Transform ExitTransform { get; set; }
 
     private void OnEnable()
     {
@@ -62,11 +59,26 @@ public class CustomerController : MonoBehaviour
         {
             _animator.SetBool("IsWalk", false);
             transform.rotation = Quaternion.identity;
+
+            //TODO: Object Pool
+            if (isGetFood)
+                Destroy(gameObject);
         }
     }
 
-    private void PlayGetFoodAnition()
+    private void GetFood()
     {
         _animator.SetTrigger("GetFood");
+        StartCoroutine(ExitRestaurant());
+    }
+
+    IEnumerator ExitRestaurant()
+    {
+        yield return new WaitForSeconds(3f);
+
+        // ³ª°¡±â
+        _agent.SetDestination(ExitTransform.position);
+        _animator.SetBool("IsWalk", true);
+        isGetFood = true;
     }
 }

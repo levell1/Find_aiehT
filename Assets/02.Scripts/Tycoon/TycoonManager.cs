@@ -51,6 +51,7 @@ public class TycoonManager : MonoBehaviour
 
             int seatNum = Random.Range(0, availableDestinations.Count);
             customerController.AgentDestination = availableDestinations[seatNum].destination.transform;
+            customerController.ExitTransform = _createCustomerPos;
 
             //TODO: 목적지에 도착했을 때로 변경
 
@@ -67,4 +68,5 @@ public class TycoonManager : MonoBehaviour
             yield return new WaitForSeconds(_customerSpawnTime);
         }
     }
+
 }
