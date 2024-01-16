@@ -36,7 +36,6 @@ public class CustomerController : MonoBehaviour
 
     public Transform AgentDestination
     {
-        //TODO : 순차적으로 or 랜덤 -> 자리에 있다면 다시 랜덤?
         set
         {
             _agent.SetDestination(value.position);
@@ -76,7 +75,6 @@ public class CustomerController : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
 
-        // 나가기
         _agent.SetDestination(ExitTransform.position);
         _animator.SetBool("IsWalk", true);
         isGetFood = true;

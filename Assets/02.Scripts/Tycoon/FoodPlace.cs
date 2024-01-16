@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class FoodPlace : MonoBehaviour
 {
+    private const float _foodDestroyTime = 2.0f;
+    
     private CustomerController _currentCustomer;
     public CustomerController CurrentCustomer
     {
@@ -38,9 +40,16 @@ public class FoodPlace : MonoBehaviour
 
         OnCustomerGetFood.Invoke();
 
-        // TODO: 시간 살짝 지나고 사라지도록
-        Destroy(_currentFood.gameObject);
+        StartCoroutine(DestoryCurrentFood(_currentFood.gameObject));
+        
         _currentFood = null;
         _currentCustomer = null;
+    }
+
+    IEnumerator DestoryCurrentFood(GameObject food)
+    {
+        yield return new WaitForSeconds(_foodDestroyTime);
+
+        Destroy(food);
     }
 }
