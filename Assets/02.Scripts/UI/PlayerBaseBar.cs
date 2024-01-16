@@ -14,7 +14,7 @@ public class PlayerBaseBar : MonoBehaviour
     //플레이어 데이터 가져오기
     // 플레이어 의 수치 변경시 += ChangeHpBar();
 
-
+    //FIX
     // 테스트용 , Player Data 받아오기
     [SerializeField] protected int _currentValue = 10;
     [SerializeField] protected int _maxValue = 20;
