@@ -28,7 +28,6 @@ public class SoundManager : MonoBehaviour
         _audioClip = GetComponent<AudioClip>();
         _mixer = Resources.Load<AudioMixer>("Sound/AudioMixer");
         DontDestroyOnLoad(this);
-        
     }
 
     private void Start()
@@ -40,11 +39,15 @@ public class SoundManager : MonoBehaviour
 
     private void LoadedsceneEvent(Scene scene, LoadSceneMode arg1)
     {
-        if (scene.name == "KJW")
+        if (scene.name == "StartScene")
         {
             _bgFilename = "";
         }
-        else if (scene.name == "99.BJH")
+        else if (scene.name == "Village")
+        {
+            _bgFilename = "BG3";
+        }
+        else if (scene.name == "Store")
         {
             _bgFilename = "BG3";
         }

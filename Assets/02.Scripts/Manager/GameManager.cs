@@ -5,18 +5,17 @@ public class GameManager : MonoSingleton<GameManager>
 {
     private UIManager _uiManager;
     private SoundManager _soundManager;
-    private ResourceManager _resourceManager;
+    private ResourceManager _resourceManager = new ResourceManager();
 
 
-    public UIManager UIManager { get { return _uiManager; } }
-    public SoundManager SoundManager { get { return _soundManager; } }
-    public ResourceManager ResourceManager { get { return _resourceManager; } }
+    public UIManager UIManager { get { return instance._uiManager; } }
+    public SoundManager SoundManager { get { return instance._soundManager; } }
+    public ResourceManager ResourceManager { get { return instance._resourceManager; } }
 
     protected override void Awake()
     {
-        _uiManager = FindObjectOfType<UIManager>();
+        //_uiManager = FindObjectOfType<UIManager>();
         _soundManager = FindObjectOfType<SoundManager>();
-        _resourceManager = FindObjectOfType<ResourceManager>();
     }
     void Start()
     {

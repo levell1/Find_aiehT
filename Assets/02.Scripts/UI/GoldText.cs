@@ -15,7 +15,7 @@ public class GoldText : MonoBehaviour
         _glodText = GetComponent<TMP_Text>();
         //FIX
         //°ñµå°ª ¹Ù²ð ¶§ += gold
-        _goldAmount = 400;
+        _goldAmount = 412200;
     }
     private void Update()
     {

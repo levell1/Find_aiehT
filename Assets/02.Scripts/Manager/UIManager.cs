@@ -1,37 +1,53 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+
+public class UIManager
 {
-    private Stack<GameObject> openPopups = new Stack<GameObject>();
+    private int _order = 10;
+
+    private Stack<GameObject> _popupStack = new Stack<GameObject>();
     
-    // Start is called before the first frame update
-    void Start()
+    private Dictionary<string, GameObject> _popupUi = new Dictionary<string, GameObject>();
+
+    private void Start() 
     {
-        
+        popup();
     }
 
     private void Update()
     {
-        // 뒤로가기 키를 누르면 가장 최근에 열린 팝업을 닫습니다.
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             CloseLastPopup();
         }
     }
 
-    private void OpenPopup(string uiname) 
+    private void popup()
     {
-
-        GameObject newUI = Instantiate(Resources.Load<GameObject>("Sound/SFX/" + uiname));
-        newUI.SetActive(true); 
-        openPopups.Push(newUI);
+        var pre = Resources.LoadAll<GameObject>("Canvas");
+        foreach (var p in pre)
+        {
+            Debug.Log(p.name +","+p);
+            _popupUi.Add(p.name, p);
+        }
     }
+
+    //스택 0 이면 설정창 +스택 ++
     private void CloseLastPopup()
     {
-        throw new NotImplementedException();
+        if (_popupStack.Count == 0) 
+        {
+            
+        }
+        GameObject popup = _popupStack.Pop();
+        popup.SetActive(false);
+        popup = null;
+        _order--; 
     }
+
 }

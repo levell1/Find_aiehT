@@ -3,42 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI.Table;
+using UnityEngine.SceneManagement;
 
 public class TimeText : MonoBehaviour
 {
-    private TMP_Text _TimeText;
+    private TMP_Text _timeText;
 
-    float _min;
-    float _hour;
-
-    
+    private int _timer = 510;
 
     private void Awake()
     {
-        
-        _TimeText = GetComponent<TMP_Text>();
-        //FIX
-    }
-    private void Update()
-    {
-        
-
-        _TimeText.text = now.ToString("tt h:mm:ss"));
+        SceneManager.sceneLoaded += LoadedsceneEvent;
+        _timeText = GetComponent<TMP_Text>();
     }
 
-    private void timer() 
+    private void LoadedsceneEvent(Scene arg0, LoadSceneMode arg1)
     {
-        _min += Time.deltaTime*5/60;
-        if (_min>60)
-        {
-            _hour++;
-            _min = 0;
-        }
+        _timer += 10;
+        _timeText.text = (_timer / 60).ToString("D2") + ":" + (_timer % 60).ToString("D2");
+        //≈∏¿ÃƒÔ, ªÁ∏¡, ªı∑ŒΩ√¿€ Ω√ timer = 540
     }
 
-    public string GetTime(int data)
+    private void Start()
     {
-        return string.Format("{0:#,###}", data);
+        StartCoroutine(TimerCoroution());
+    }
+
+    IEnumerator TimerCoroution()
+    {
+        _timer += 5;
+
+        _timeText.text = (_timer / 60).ToString("D2") + ":" + (_timer % 60).ToString("D2") ;
+
+        yield return new WaitForSeconds(10f);
+
+        StartCoroutine(TimerCoroution());
     }
 }
