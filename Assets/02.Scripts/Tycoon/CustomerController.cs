@@ -10,6 +10,19 @@ public class CustomerController : MonoBehaviour
     private Animator _animator;
     private GameObject _targetFood;
 
+    private FoodPlace _targetFoodPlace;
+    public FoodPlace TargetFoodPlace
+    {
+        get {  return _targetFoodPlace; }
+        set
+        {
+            _targetFoodPlace = value;
+            _targetFoodPlace.OnCustomerGetFood += PlayGetFoodAnition;
+        }
+    }
+
+    public int SeatNum { get; set; }
+
     public GameObject TargetFood
     {
         get { return _targetFood; }
@@ -29,7 +42,11 @@ public class CustomerController : MonoBehaviour
         }
     }
 
-    [NonSerialized] public int _seatNum = 0;
+    CustomerController()
+    {
+
+    }
+
 
     private void OnEnable()
     {
@@ -46,5 +63,10 @@ public class CustomerController : MonoBehaviour
             _animator.SetBool("IsWalk", false);
             transform.rotation = Quaternion.identity;
         }
+    }
+
+    private void PlayGetFoodAnition()
+    {
+        _animator.SetTrigger("GetFood");
     }
 }

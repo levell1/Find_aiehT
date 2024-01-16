@@ -8,7 +8,7 @@ public class TycoonManager : MonoBehaviour
     [SerializeField] private List<GameObject> _customerPrefabs;
     [SerializeField] private List<GameObject> _customerTargetFoodPrefabs;
 
-    [SerializeField] private List<Transform> _destinations;
+    [SerializeField] private List<GameObject> _destinations;
     [SerializeField] private Transform _createCustomerPos;
 
     [SerializeField] private int _maxCustomerNum = 4;
@@ -16,6 +16,7 @@ public class TycoonManager : MonoBehaviour
 
     private int _currentCustomerNum = 0;
     private List<bool> _isCustomerSitting = new();
+    private List<(GameObject destination, int index)> availableDestinations = new();
 
     private void Start()
     {
@@ -35,7 +36,7 @@ public class TycoonManager : MonoBehaviour
         {
             // TODO: Object Pool
             // TODO: customer 쪽에서 해줘야 하나?
-            List<(Transform destination, int index)> availableDestinations = _destinations
+            availableDestinations = _destinations
             .Select((d, i) => (d, i))
             .Where(tuple => !_isCustomerSitting[tuple.i])
             .ToList();
@@ -46,14 +47,19 @@ public class TycoonManager : MonoBehaviour
             int customerTypeNum = Random.Range(0, _customerPrefabs.Count);
             GameObject customerObject = Instantiate(_customerPrefabs[customerTypeNum], _createCustomerPos);
 
-            CustomerController npcController = customerObject.GetComponent<CustomerController>();
+            CustomerController customerController = customerObject.GetComponent<CustomerController>();
 
             int seatNum = Random.Range(0, availableDestinations.Count);
-            npcController.AgentDestination = availableDestinations[seatNum].destination;
+            customerController.AgentDestination = availableDestinations[seatNum].destination.transform;
+
+            //TODO: 목적지에 도착했을 때로 변경
+
+            FoodPlace foodPlace = _destinations[availableDestinations[seatNum].index].gameObject.GetComponentInParent<FoodPlace>();
+            foodPlace.CurrentCustomer = customerController;
+            customerController.TargetFoodPlace = foodPlace;
 
             int targetFoodNum = Random.Range(0, _customerTargetFoodPrefabs.Count);
-            _destinations[seatNum].gameObject.GetComponentInParent<FoodPlace>().CurrentCustomer = npcController;
-            npcController.TargetFood = _customerTargetFoodPrefabs[targetFoodNum];
+            customerController.TargetFood = _customerTargetFoodPrefabs[targetFoodNum];
 
             _isCustomerSitting[availableDestinations[seatNum].index] = true;
             ++_currentCustomerNum;

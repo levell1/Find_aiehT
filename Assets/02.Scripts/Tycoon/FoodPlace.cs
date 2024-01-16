@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,9 +11,7 @@ public class FoodPlace : MonoBehaviour
         get { return _currentCustomer; }
         set { _currentCustomer = value; }
     }
-
-
-    // CookedFood 로 변경
+    
     private CookedFood _currentFood;
     public CookedFood CurrentFood
     {
@@ -30,13 +29,14 @@ public class FoodPlace : MonoBehaviour
             }
         }
     }
-    
+
+    public event Action OnCustomerGetFood;
+
     private void MatchWithCustomer()
     {
         // TODO: Get Gold
 
-        // TODO: Customer Happy Animation
-
+        OnCustomerGetFood.Invoke();
 
         // TODO: 시간 살짝 지나고 사라지도록
         Destroy(_currentFood.gameObject);
