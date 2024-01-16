@@ -14,7 +14,6 @@ public class GameManager : MonoSingleton<GameManager>
 
     protected override void Awake()
     {
-        //_uiManager = FindObjectOfType<UIManager>();
         _soundManager = FindObjectOfType<SoundManager>();
     }
     void Start()
@@ -22,7 +21,7 @@ public class GameManager : MonoSingleton<GameManager>
         
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
