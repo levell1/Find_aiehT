@@ -4,10 +4,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NpcController : MonoBehaviour
+public class CustomerController : MonoBehaviour
 {
     private NavMeshAgent _agent;
     private Animator _animator;
+    private GameObject _targetFood;
+
+    public GameObject TargetFood
+    {
+        get { return _targetFood; }
+        set
+        {
+            _targetFood = value;
+            Debug.Log(_targetFood.name);
+        }
+    }
+
+    public Transform AgentDestination
+    {
+        //TODO : 순차적으로 or 랜덤 -> 자리에 있다면 다시 랜덤?
+        set
+        {
+            _agent.SetDestination(value.position);
+        }
+    }
 
     [NonSerialized] public int _seatNum = 0;
 
@@ -26,11 +46,5 @@ public class NpcController : MonoBehaviour
             _animator.SetBool("IsWalk", false);
             transform.rotation = Quaternion.identity;
         }
-    }
-
-    public void DecideDestination(Transform destinationTransform)
-    {
-        //TODO : 순차적으로 or 랜덤 -> 자리에 있다면 다시 랜덤?
-        _agent.SetDestination(destinationTransform.position);
     }
 }

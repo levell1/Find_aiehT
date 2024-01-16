@@ -6,6 +6,8 @@ using UnityEngine;
 public class TycoonManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _customerPrefabs;
+    [SerializeField] private List<GameObject> _customerTargetFoodPrefabs;
+
     [SerializeField] private List<Transform> _destinations;
     [SerializeField] private Transform _createCustomerPos;
 
@@ -25,14 +27,14 @@ public class TycoonManager : MonoBehaviour
         StartCoroutine(CreateCustomerCoroutine());
     }
 
-    // TODO: _customerNum < _maxCustomerNum 일 경우 (나갔을 경우) startCoroutine
+    // TODO: _currentCustomerNum < _maxCustomerNum 일 경우 (나갔을 경우) startCoroutine
     // 아니면 함수로 만들기
     IEnumerator CreateCustomerCoroutine()
     {
         while (_currentCustomerNum < _maxCustomerNum)
         {
-            //TODO: Object Pool?
-
+            // TODO: Object Pool
+            // TODO: customer 쪽에서 해줘야 하나?
             List<(Transform destination, int index)> availableDestinations = _destinations
             .Select((d, i) => (d, i))
             .Where(tuple => !_isCustomerSitting[tuple.i])
@@ -44,14 +46,16 @@ public class TycoonManager : MonoBehaviour
             int customerTypeNum = Random.Range(0, _customerPrefabs.Count);
             GameObject customerObject = Instantiate(_customerPrefabs[customerTypeNum], _createCustomerPos);
 
-            int seatNum = UnityEngine.Random.Range(0, availableDestinations.Count);
-            Transform selectedDestination = availableDestinations[seatNum].destination;
-            
-            NpcController npcController = customerObject.GetComponent<NpcController>();
-            npcController.DecideDestination(selectedDestination);
+            CustomerController npcController = customerObject.GetComponent<CustomerController>();
+
+            int seatNum = Random.Range(0, availableDestinations.Count);
+            npcController.AgentDestination = availableDestinations[seatNum].destination;
+
+            int targetFoodNum = Random.Range(0, _customerTargetFoodPrefabs.Count);
+            _destinations[seatNum].gameObject.GetComponentInParent<FoodPlace>().CurrentCustomer = npcController;
+            npcController.TargetFood = _customerTargetFoodPrefabs[targetFoodNum];
 
             _isCustomerSitting[availableDestinations[seatNum].index] = true;
-
             ++_currentCustomerNum;
 
             yield return new WaitForSeconds(_customerSpawnTime);
