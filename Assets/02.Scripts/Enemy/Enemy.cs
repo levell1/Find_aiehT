@@ -13,6 +13,10 @@ public class Enemy : MonoBehaviour
     public Rigidbody Rigidbody { get; private set; }
     public Collider Collider { get; private set; }
     public Animator Animator { get; private set; }
+    public EnemyHealthSystem HealthSystem { get; private set; }
+
+    [field: Header("Weapon")]
+    [field: SerializeField] public EnemyAttackSpot Spot { get; private set; }
 
     private EnemyStateMachine _stateMachine;
 
@@ -23,13 +27,19 @@ public class Enemy : MonoBehaviour
         Rigidbody = GetComponent<Rigidbody>();
         Collider = GetComponent<Collider>();
         Animator = GetComponentInChildren<Animator>();
+        HealthSystem = GetComponent<EnemyHealthSystem>();
 
         _stateMachine = new EnemyStateMachine(this);
+    }
+    private void OnEnable()
+    {
+        gameObject.transform.position = new Vector3(4,0,2);
     }
 
     private void Start()
     {
         _stateMachine.ChangeState(_stateMachine.IdlingState);
+        HealthSystem.OnDie += OnDie;
     }
 
     private void Update()
@@ -42,5 +52,10 @@ public class Enemy : MonoBehaviour
     private void FixedUpdate()
     {
         _stateMachine.PhyscisUpdate();
+    }
+    private void OnDie()
+    {
+        Animator.SetTrigger("Die");
+        gameObject.SetActive(false);
     }
 }

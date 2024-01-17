@@ -37,14 +37,14 @@ public class EnemyAttackState : EnemyBaseState
         float normalizedTime = GetNormalizedTime(_stateMachine.Enemy.Animator, "Attack");
         if (normalizedTime < 1f)
         {
-            Debug.Log(normalizedTime);
+            _stateMachine.Enemy.Spot.gameObject.SetActive(true);
             if (normalizedTime >= _stateMachine.Enemy.Data.ForceTransitionTime)
                 TryApplyForce();
 
         }
         else
         {
-            Debug.Log("2222222");
+            _stateMachine.Enemy.Spot.gameObject.SetActive(false);
             if (IsInChaseRange())
             {
                 _stateMachine.ChangeState(_stateMachine.ChasingState);

@@ -102,12 +102,10 @@ public class EnemyBaseState : IState
 
         if (animator.IsInTransition(0) && nextInfo.IsTag(tag))
         {
-            Debug.Log("1111");
             return nextInfo.normalizedTime;
         }
         else if (!animator.IsInTransition(0) && currentInfo.IsTag(tag))
         {
-            Debug.Log("3333");
             return currentInfo.normalizedTime;
         }
         else
@@ -118,7 +116,7 @@ public class EnemyBaseState : IState
 
     protected bool IsInChaseRange()
     {
-        // if (stateMachine.Target.IsDead) { return false; }
+        if (_stateMachine.Target.IsDead) { return false; }
 
         float playerDistanceSqr = (_stateMachine.Target.transform.position - _stateMachine.Enemy.transform.position).sqrMagnitude;
 
