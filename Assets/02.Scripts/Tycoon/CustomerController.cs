@@ -59,9 +59,8 @@ public class CustomerController : MonoBehaviour
             _animator.SetBool("IsWalk", false);
             transform.rotation = Quaternion.identity;
 
-            //TODO: Object Pool
             if (isGetFood)
-                Destroy(gameObject);
+                GameManager.instance.PoolingManager.ReturnObject(gameObject);
         }
     }
 

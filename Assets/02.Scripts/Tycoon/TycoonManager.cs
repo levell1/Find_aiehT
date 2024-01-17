@@ -28,14 +28,13 @@ public class TycoonManager : MonoBehaviour
         StartCoroutine(CreateCustomerCoroutine());
     }
 
-    // TODO: _currentCustomerNum < _maxCustomerNum ÀÏ °æ¿ì (³ª°¬À» °æ¿ì) startCoroutine
-    // ¾Æ´Ï¸é ÇÔ¼ö·Î ¸¸µé±â
+    // TODO: _currentCustomerNum < _maxCustomerNum ì¼ ê²½ìš° (ë‚˜ê°”ì„ ê²½ìš°) startCoroutine
+    // ì•„ë‹ˆë©´ í•¨ìˆ˜ë¡œ ë§Œë“¤ê¸°
     IEnumerator CreateCustomerCoroutine()
     {
         while (_currentCustomerNum < _maxCustomerNum)
         {
-            // TODO: Object Pool
-            // TODO: customer ÂÊ¿¡¼­ ÇØÁà¾ß ÇÏ³ª?
+            // TODO: customer ìª½ì—ì„œ í•´ì¤˜ì•¼ í•˜ë‚˜?
             availableDestinations = _destinations
             .Select((d, i) => (d, i))
             .Where(tuple => !_isCustomerSitting[tuple.i])
@@ -45,7 +44,9 @@ public class TycoonManager : MonoBehaviour
                 yield break;
 
             int customerTypeNum = Random.Range(0, _customerPrefabs.Count);
-            GameObject customerObject = Instantiate(_customerPrefabs[customerTypeNum], _createCustomerPos);
+
+            // TODO: ê³ ì •ëœ stringê°’("Customer")ì€ ë”°ë¡œ íŒŒì¼ì„ ë§Œë“¤ì–´ì¤„ê¹Œ?
+            GameObject customerObject = GameManager.instance.PoolingManager.GetObject("Customer");
 
             CustomerController customerController = customerObject.GetComponent<CustomerController>();
 
@@ -53,7 +54,7 @@ public class TycoonManager : MonoBehaviour
             customerController.AgentDestination = availableDestinations[seatNum].destination.transform;
             customerController.ExitTransform = _createCustomerPos;
 
-            //TODO: ¸ñÀûÁö¿¡ µµÂøÇßÀ» ¶§·Î º¯°æ
+            //TODO: ëª©ì ì§€ì— ë„ì°©í–ˆì„ ë•Œë¡œ ë³€ê²½
 
             FoodPlace foodPlace = _destinations[availableDestinations[seatNum].index].gameObject.GetComponentInParent<FoodPlace>();
             foodPlace.CurrentCustomer = customerController;
@@ -68,5 +69,4 @@ public class TycoonManager : MonoBehaviour
             yield return new WaitForSeconds(_customerSpawnTime);
         }
     }
-
 }
