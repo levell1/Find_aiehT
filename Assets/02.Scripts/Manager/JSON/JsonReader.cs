@@ -21,37 +21,25 @@ public class JsonReader : MonoBehaviour
         //PlayerSO.SetPlayerData(playerJsonData.PlayerData);
 
         // LoadJson<PlayerJsonData>("PlayerData");
-        SaveJson();
 
         PlayerJsonData playerJsonData = LoadJson<PlayerJsonData>("PlayerData");
         PlayerSO.SetPlayerData(playerJsonData.PlayerData);
         
         PlayerSkillData skillData = LoadJson<PlayerSkillData>("PlayerSkillData");
+        PlayerSO.SetPlayerSkillData(skillData);
+    
     }
 
     public T LoadJson<T>(string FilePath)
     {
         // JSON 파일 경로 설정
-        string jsonFilePath = "Assets/Resources/JSON/PlayerSkillData.json"; // 연산량이 커짐
+        string jsonFilePath = "Assets/Resources/JSON/" + FilePath + ".json"; // 연산량이 커짐
 
         // JSON 파일에서 데이터 읽기
         string jsonText = File.ReadAllText(jsonFilePath);
 
         return JsonUtility.FromJson<T>(jsonText);
 
-    }
-
-    public void SaveJson()
-    {
-        List<SkillInfoData> skillInfoDatas = PlayerSO.SkillData.SkillInfoDatas;
-
-        SkillInfoData[] array = skillInfoDatas.ToArray();
-
-        Debug.Log(PlayerSO.SkillData.SkillInfoDatas.Count);
-
-        string json = JsonUtility.ToJson(array);
-
-        File.WriteAllText("Assets/Resources/JSON/DummyData.json", json);
     }
 
 }

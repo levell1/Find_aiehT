@@ -16,6 +16,11 @@ public class PlayerSO : ScriptableObject
         PlayerData = newData;
     }
 
+    public void SetPlayerSkillData(PlayerSkillData newData)
+    {
+        SkillData = newData;
+    }
+
     public PlayerData GetPlayerData()
     {
         return PlayerData;
