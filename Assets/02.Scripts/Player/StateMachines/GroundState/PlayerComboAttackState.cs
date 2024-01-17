@@ -7,7 +7,6 @@ public class PlayerComboAttackState : PlayerAttackState
 {
     private bool _alreadyAppliedForce; // 힘을 적용 햇는지 
     private bool _alreadyApplyCombo; // 콤보를 적용했는지
-    private bool _alreadyDealing;
 
     AttackInfoData _attackInfoData;
 
@@ -22,7 +21,6 @@ public class PlayerComboAttackState : PlayerAttackState
 
         _alreadyApplyCombo= false;
         _alreadyAppliedForce = false;
-        _alreadyDealing = false;
 
         int comboIndex = _stateMachine.ComboIndex;
         _attackInfoData = _stateMachine.Player.Data.AttackData.GetAttackInfo(comboIndex);
@@ -90,7 +88,6 @@ public class PlayerComboAttackState : PlayerAttackState
                 int totalDamage = playerAtk + damage;
 
                 _stateMachine.Player.Weapon.SetAttack(totalDamage);
-                _alreadyDealing = true;
 
                 _stateMachine.Player.Weapon.gameObject.SetActive(true);
 

@@ -18,6 +18,8 @@ public class PlayerStateMachine : StateMachine
 
     public PlayerComboAttackState ComboAttackState { get; }
 
+    public PlayerSkillState PlayerSkillState { get; }
+
     public Vector2 MovementInput { get; set; }
     public float MovementSpeed { get; private set; }
     public float RotationDamping { get; private set; }
@@ -27,6 +29,8 @@ public class PlayerStateMachine : StateMachine
     public float DashForce { get; set; }
     public bool IsDashCoolTime { get; set; }
 
+    public int MaxStamina { get; set; }
+    public int Stamina { get; set; }
     public int DashStamina { get; set; }
     public int RegenStamina { get; set; }
 
@@ -48,6 +52,7 @@ public class PlayerStateMachine : StateMachine
         DashState = new PlayerDashState(this);
 
         ComboAttackState = new PlayerComboAttackState(this);
+        PlayerSkillState = new PlayerSkillState(this);
 
         MainCameraTransform = Camera.main.transform;
 

@@ -16,6 +16,8 @@ public class PlayerDashState : PlayerGroundState
 
         _stateMachine.IsDashCoolTime = _stateMachine.Player.DashForceReceiver.IsCoolTime;
 
+        //_stateMachine.MaxStamina = _stateMachine.Player.Data.PlayerData.GetPlayerMaxStamina();
+
         if (_stateMachine.Player.StaminaSystem.CanUseDash(_stateMachine.DashStamina) && !_stateMachine.IsDashCoolTime)
         {
             _stateMachine.Player.DashForceReceiver.Dash(_stateMachine.DashForce);

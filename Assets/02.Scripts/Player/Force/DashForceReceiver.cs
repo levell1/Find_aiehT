@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class DashForceReceiver : MonoBehaviour
 {
-     private Player _player;
+    private Player _player;
+    private StaminaSystem _staminaSystem;
    
     [SerializeField] private float _dashDuration = 0.5f;
     [SerializeField] private float _dashCoolTime = 5f;
@@ -15,14 +16,26 @@ public class DashForceReceiver : MonoBehaviour
     private bool _isDash;
     public bool IsCoolTime { get; private set; } // true => 쿨타임 중
 
+    //private int _maxStamina;
+    //private int _stamina;
+
     //private Vector3 _dashStartPosition;
     //private Vector3 _dashTargetPosition;
 
     private void Start()
     {
         _player = GetComponent<Player>();
+        _staminaSystem = _player.GetComponent<StaminaSystem>();
+
+
         IsCoolTime = false;
         _isDash = false;
+
+        //_maxStamina = _player.Data.PlayerData.GetPlayerMaxStamina();
+        //_stamina = _maxStamina;
+
+        //Debug.Log(_maxStamina);
+        //Debug.Log(_stamina);
     }
 
     void FixedUpdate()
@@ -56,6 +69,20 @@ public class DashForceReceiver : MonoBehaviour
         }    
     }
 
+    //public bool CanUseDash(int dashStamina)
+    //{
+    //    return _stamina >= dashStamina;
+    //}
+
+    ///// 대쉬시 - 10;
+    //public void UseDash(int dashStamina)
+    //{
+    //    if (_stamina == 0) return;
+    //    _stamina = Mathf.Max(_stamina - dashStamina, 0);
+
+    //    //Debug.Log("스태미너" + _stamina);
+    //}
+
     public void Dash(float dashForce)
     {
         if (_player.GroundCheck.IsGrounded() && !_isDash && !IsCoolTime)
@@ -66,7 +93,7 @@ public class DashForceReceiver : MonoBehaviour
             StartCoroutine(DashCoroutine(dashForce));
 
         }
-       
+
     }
 
     IEnumerator DashCoroutine(float dashForce)

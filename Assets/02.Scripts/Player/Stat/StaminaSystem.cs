@@ -23,6 +23,7 @@ public class StaminaSystem : MonoBehaviour
         _regenTime = 0f;
     }
 
+
     public bool CanUseDash(int dashStamina)
     {
         return _stamina >= dashStamina;

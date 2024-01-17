@@ -55,6 +55,9 @@ public class PlayerBaseState : IState
 
         input.PlayerActions.Attack.performed += OnAttackPerform;
         input.PlayerActions.Attack.canceled+= OnAttackCanceled;
+
+        input.PlayerActions.Skill1.started += OnSkill1Started;
+        input.PlayerActions.Skill2.started += OnSkill2Started;
     }
 
     protected virtual void RemoveInputActionsCallbacks()
@@ -69,6 +72,9 @@ public class PlayerBaseState : IState
 
         input.PlayerActions.Attack.performed -= OnAttackPerform;
         input.PlayerActions.Attack.canceled -= OnAttackCanceled;
+
+        input.PlayerActions.Skill1.started -= OnSkill1Started;
+        input.PlayerActions.Skill2.started -= OnSkill2Started;
     }
 
     protected virtual void OnRunStarted(InputAction.CallbackContext context)
@@ -99,6 +105,16 @@ public class PlayerBaseState : IState
     protected virtual void OnAttackCanceled(InputAction.CallbackContext context)
     {
         _stateMachine.IsAttacking = false;
+    }
+
+    protected virtual void OnSkill1Started(InputAction.CallbackContext context)
+    {
+
+    }
+
+    protected virtual void OnSkill2Started(InputAction.CallbackContext context)
+    {
+
     }
 
     //
