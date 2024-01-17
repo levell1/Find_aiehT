@@ -9,10 +9,10 @@ public class JsonReader : MonoBehaviour
 
     private void Awake()
     {
-        // JSON ÆÄÀÏ °æ·Î ¼³Á¤
+        // JSON íŒŒì¼ ê²½ë¡œ ì„¤ì •
         string jsonFilePath = "Assets/Resources/JSON/PlayerData.json";
 
-        // JSON ÆÄÀÏ¿¡¼­ µ¥ÀÌÅÍ ÀĞ±â
+        // JSON íŒŒì¼ì—ì„œ ë°ì´í„° ì½ê¸°
         string jsonText = File.ReadAllText(jsonFilePath);
 
         PlayerJsonData playerJsonData = JsonUtility.FromJson<PlayerJsonData>(jsonText);

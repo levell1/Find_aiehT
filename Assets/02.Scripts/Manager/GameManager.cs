@@ -14,6 +14,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     protected override void Awake()
     {
+        base.Awake();
         _soundManager = FindObjectOfType<SoundManager>();
     }
     void Start()

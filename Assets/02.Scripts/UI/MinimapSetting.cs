@@ -20,6 +20,7 @@ public class MinimapSetting : MonoBehaviour
 
     private void Awake()
     {
+        _player = GameObject.FindWithTag("Player").transform;
         ChangeMapName("2");
     }
 
@@ -32,7 +33,7 @@ public class MinimapSetting : MonoBehaviour
     public void ChangeMapName(string mapname) 
     {
         //FIX
-        //¼Ò¸®º¯°æ½Ã, ¸Ê Æ®¸®°Å ½Ã ¹Ù²î°Ô ¼öÁ¤
+        //ì†Œë¦¬ë³€ê²½ì‹œ, ë§µ íŠ¸ë¦¬ê±° ì‹œ ë°”ë€Œê²Œ ìˆ˜ì •
         _mapName.text = mapname;
     }
 
