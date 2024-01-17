@@ -27,10 +27,10 @@ public class PoolingManager : MonoBehaviour
 
     private void Start()
     {
-        GetObject();
+        GetObject("1");
     }
 
-    private void Initialize() //¹Ì¸® »ı¼º ÇØµÑ ¿ÀºêÁ§Æ®
+    private void Initialize() //ë¯¸ë¦¬ ìƒì„± í•´ë‘˜ ì˜¤ë¸Œì íŠ¸
     {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
         foreach (var pool in Pools)
@@ -45,19 +45,25 @@ public class PoolingManager : MonoBehaviour
         }
     }
 
-    public void ReturnObject(GameObject obj) //¿ÀºêÁ§Æ® ºñÈ°¼ºÈ­ ½ÃÅ³ ¸Ş¼­µå
+    public void ReturnObject(GameObject obj) //ì˜¤ë¸Œì íŠ¸ ë¹„í™œì„±í™” ì‹œí‚¬ ë©”ì„œë“œ
     {
         _poolObject.Enqueue(obj);
         obj.SetActive(false);
     }
 
-    public GameObject GetObject() // È£Ãâ
+    public void GetObject(string objname) // í˜¸ì¶œ
     {
-        GameObject obj = _poolObject.Dequeue();
-        obj.SetActive(true);
-
-        return obj;
+        if (poolDictionary.ContainsKey(objname))
+        {
+            _poolObject = poolDictionary[objname];
+            GameObject obj = _poolObject.Dequeue();
+            obj.SetActive(true);
+        }
+        else
+        {
+            //_poolObject = null;
+        }
     }
 
-    //Ãß°¡ »ı»ê
+    //ì¶”ê°€ ìƒì‚°
 }
