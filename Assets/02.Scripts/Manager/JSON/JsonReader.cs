@@ -26,14 +26,13 @@ public class JsonReader : MonoBehaviour
         PlayerJsonData playerJsonData = LoadJson<PlayerJsonData>("PlayerData");
         PlayerSO.SetPlayerData(playerJsonData.PlayerData);
         
-        PlayerJsonSKillData playerJsonSkillData = LoadJson<PlayerJsonSKillData>("PlayerSkillData");
-        playerJsonSkillData.SetSkillData(playerJsonSkillData.PlayerSkillData);
+        PlayerSkillData skillData = LoadJson<PlayerSkillData>("PlayerSkillData");
     }
 
     public T LoadJson<T>(string FilePath)
     {
         // JSON 파일 경로 설정
-        string jsonFilePath = "Assets/Resources/JSON/" + FilePath + ".json"; // 연산량이 커짐
+        string jsonFilePath = "Assets/Resources/JSON/PlayerSkillData.json"; // 연산량이 커짐
 
         // JSON 파일에서 데이터 읽기
         string jsonText = File.ReadAllText(jsonFilePath);

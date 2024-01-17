@@ -2,17 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerFirstSkillState : MonoBehaviour
+public class PlayerFirstSkillState : PlayerSkillState
 {
-    // Start is called before the first frame update
-    void Start()
+    public PlayerFirstSkillState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
