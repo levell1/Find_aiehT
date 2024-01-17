@@ -5,7 +5,7 @@ using UnityEngine;
 public class ServingFood : MonoBehaviour
 {
     [SerializeField] private Transform _handTransform;
-    [SerializeField] private List<Transform> _servingStations;
+    [SerializeField] private List<GameObject> _servingStations;
 
     private GameObject _canHoldFood;
     private GameObject _HoldingFood;
@@ -38,6 +38,10 @@ public class ServingFood : MonoBehaviour
         if (_canHoldFood == null)
             return;
 
+        // TODO: 모든 자리를 FoodPlace로 만들면 if문은 제거
+        if (_canHoldFood.GetComponentInParent<FoodPlace>() != null)
+            _canHoldFood.GetComponentInParent<FoodPlace>().CurrentFood = null;
+
         _HoldingFood = _canHoldFood;
         _HoldingFood.transform.position = _handTransform.position;
         _HoldingFood.transform.SetParent(_handTransform);
@@ -47,22 +51,29 @@ public class ServingFood : MonoBehaviour
     private void PutdownFood()
     {
         float minDistance = Mathf.Infinity;
-        Transform targetTransform = null;
+        FoodPlace foodPlace = null;
 
-        foreach (Transform t in _servingStations)
+        // TODO
+        foreach (GameObject station in _servingStations)
         {
-            float d = Vector3.Distance(_handTransform.position, t.position);
-            if (d < minDistance && d < _minDistanceToPutFood)
+            FoodPlace stationFood = station.GetComponent<FoodPlace>();
+
+            if (stationFood.CurrentFood == null)
             {
-                minDistance = d;
-                targetTransform = t;
+                float d = Vector3.Distance(_handTransform.position, station.transform.position);
+                if (d < minDistance && d < _minDistanceToPutFood)
+                {
+                    minDistance = d;
+                    foodPlace = stationFood;
+                }
             }
         }
 
-        if (targetTransform != null)
+        if (foodPlace != null)
         {
-            _HoldingFood.transform.position = targetTransform.position;
-            _HoldingFood.transform.SetParent(null);
+            _HoldingFood.transform.position = foodPlace.gameObject.transform.position;
+            _HoldingFood.transform.SetParent(foodPlace.transform);
+            foodPlace.CurrentFood = _HoldingFood.GetComponent<CookedFood>();
             _isHold = false;
         }
     }
