@@ -1,37 +1,56 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
+using TMPro;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+
+public class UIManager
 {
-    private Stack<GameObject> openPopups = new Stack<GameObject>();
+
+    private int _order = 10;
+
+    private Stack<GameObject> _popupStack = new Stack<GameObject>();
     
-    // Start is called before the first frame update
-    void Start()
+    private Dictionary<string, GameObject> _popupUi = new Dictionary<string, GameObject>();
+
+    private void Start() 
+
     {
-        
+        popup();
     }
 
     private void Update()
     {
-        // µÚ·Î°¡±â Å°¸¦ ´©¸£¸é °¡Àå ÃÖ±Ù¿¡ ¿­¸° ÆË¾÷À» ´Ý½À´Ï´Ù.
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             CloseLastPopup();
         }
     }
 
-    private void OpenPopup(string uiname) 
+    private void popup()
     {
-
-        GameObject newUI = Instantiate(Resources.Load<GameObject>("Sound/SFX/" + uiname));
-        newUI.SetActive(true); 
-        openPopups.Push(newUI);
+        var pre = Resources.LoadAll<GameObject>("Canvas");
+        foreach (var p in pre)
+        {
+            Debug.Log(p.name +","+p);
+            _popupUi.Add(p.name, p);
+        }
     }
+
+    //ï¿½ï¿½ï¿½ï¿½ 0 ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ +ï¿½ï¿½ï¿½ï¿½ ++
     private void CloseLastPopup()
     {
-        throw new NotImplementedException();
+        if (_popupStack.Count == 0) 
+        {
+            
+        }
+        GameObject popup = _popupStack.Pop();
+        popup.SetActive(false);
+        popup = null;
+        _order--; 
     }
+
 }

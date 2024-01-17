@@ -6,57 +6,64 @@ using System;
 
 public class PoolingManager : MonoBehaviour
 {
+    public static PoolingManager Instance;
     [Serializable]
     public struct Pool
     {
-        public string tag;
-        public GameObject prefab;
-        public int size;
+        public string ObjectName;
+        public GameObject Prefab;
+        public int Size;
+        public Transform SpawnPoint;
     }
-    public List<Pool> pools;
-    public Dictionary<string, Queue<GameObject>> poolDictionary;
+    public List<Pool> Pools;
     Queue<GameObject> _poolObject = new Queue<GameObject>();
+    public Dictionary<string, Queue<GameObject>> poolDictionary;
 
     private void Awake()
     {
+        Instance = this;
         Initialize();
     }
 
-    private void Initialize() //¹Ì¸® »ı¼º ÇØµÑ ¿ÀºêÁ§Æ®
+    private void Start()
+    {
+        GetObject("1");
+    }
+
+    private void Initialize() //ë¯¸ë¦¬ ìƒì„± í•´ë‘˜ ì˜¤ë¸Œì íŠ¸
     {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
-        foreach (var pool in pools)
+        foreach (var pool in Pools)
         {
-            for (int i = 0; i < pool.size; i++)
+            for (int i = 0; i < pool.Size; i++)
             {
-                var newObj = Instantiate(pool.prefab);
+                var newObj = Instantiate(pool.Prefab, pool.SpawnPoint);
                 newObj.gameObject.SetActive(false);
                 _poolObject.Enqueue(newObj);
             }
-            poolDictionary.Add(pool.tag, _poolObject);
+            poolDictionary.Add(pool.ObjectName, _poolObject);
         }
     }
 
-    public void ReturnObject(GameObject obj) //¿ÀºêÁ§Æ® ºñÈ°¼ºÈ­ ½ÃÅ³ ¸Ş¼­µå
+    public void ReturnObject(GameObject obj) //ì˜¤ë¸Œì íŠ¸ ë¹„í™œì„±í™” ì‹œí‚¬ ë©”ì„œë“œ
     {
-        obj.SetActive(false);
         _poolObject.Enqueue(obj);
+        obj.SetActive(false);
     }
 
-    public GameObject SpawnFromPool(string tag) 
+    public void GetObject(string objname) // í˜¸ì¶œ
     {
-        if (!poolDictionary.ContainsKey(tag))
-            return null;
-
-        GameObject obj = poolDictionary[tag].Dequeue();
-        poolDictionary[tag].Enqueue(obj);
-
-        return obj;
+        if (poolDictionary.ContainsKey(objname))
+        {
+            _poolObject = poolDictionary[objname];
+            GameObject obj = _poolObject.Dequeue();
+            obj.SetActive(true);
+        }
+        else
+        {
+            //_poolObject = null;
+        }
     }
 
-    private void RespawnObject()
-    {
-        var newObj = Instantiate(gameObject);
-        newObj.gameObject.SetActive(false);
-    }
+    //ì¶”ê°€ ìƒì‚°
 }
