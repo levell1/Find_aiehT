@@ -1,20 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
 
-public class ResourceManager : MonoBehaviour
+public class ResourceManager
 {
-
-    private AudioClip LoadSoundResource(string ss) 
+    public T Load<T>(string path) where T : Object 
     {
-        return Resources.Load<AudioClip>("Sound/SFX/" + ss);
+        return Resources.Load<T>(path);
     }
 
-    public GameObject LoadPrefab(string ss)
+    public GameObject Instantiate(string path, Transform parent = null)
     {
-        return Resources.Load<GameObject>("Prefabs/" + ss);
+        GameObject prefab = Load<GameObject>(path);
+        if (prefab == null) return null;
+        
+        return Object.Instantiate(prefab, parent);
     }
 
-    //제네릭 사용해보기.
 }
