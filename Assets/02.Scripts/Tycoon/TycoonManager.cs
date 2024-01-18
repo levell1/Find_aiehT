@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +17,18 @@ public class TycoonManager : MonoBehaviour
     [SerializeField] private int _maxCustomerNum = 4;
     [SerializeField] private float _customerSpawnTime = 1.0f;
 
+    [SerializeField] private int _todayMaxCustomerNum = 6;
     [SerializeField] private int _currentCustomerNum = 0;
+
     private List<bool> _isCustomerSitting = new();
     private List<(GameObject destination, int index)> availableDestinations = new();
 
     private Coroutine _co = null;
     
     private int _agentPriority = 0;
+
+
+    public event Action<GameObject> OnCreateFood;
     
     private void Start()
     {
@@ -37,7 +43,9 @@ public class TycoonManager : MonoBehaviour
     private void Update()
     {
         // TODO: Customer가 나갔을 때, coroutine이나 함수 실행으로 변경
-        if (_currentCustomerNum < _maxCustomerNum && _co == null)
+        if (_currentCustomerNum < _maxCustomerNum
+            && _todayMaxCustomerNum > 0
+            && _co == null)
         {
             _co = StartCoroutine(CreateCustomerCoroutine());
             Debug.Log(_co);
@@ -52,7 +60,7 @@ public class TycoonManager : MonoBehaviour
 
     IEnumerator CreateCustomerCoroutine()
     {
-        while (_currentCustomerNum < _maxCustomerNum)
+        while (_currentCustomerNum < _maxCustomerNum && _todayMaxCustomerNum > 0)
         {
             yield return new WaitForSeconds(_customerSpawnTime);
 
@@ -69,9 +77,16 @@ public class TycoonManager : MonoBehaviour
             GameObject customerObject = GameManager.instance.PoolingManager.GetObject("Customer");
             CustomerController customerController = customerObject.GetComponent<CustomerController>();
 
-            int seatNum = Random.Range(0, availableDestinations.Count);
+            int seatNum = UnityEngine.Random.Range(0, availableDestinations.Count);
             customerController.AgentDestination = availableDestinations[seatNum].destination.transform;
-            //TODO: 목적지에 도착했을 때로 변경
+
+            //TODO: 목적지에 도착했을 때 정하는 것으로 변경
+            int targetFoodNum = UnityEngine.Random.Range(0, CustomerTargetFoodPrefabs.Count);
+            customerController.TargetFood = CustomerTargetFoodPrefabs[targetFoodNum];
+
+            OnCreateFood?.Invoke(CustomerTargetFoodPrefabs[targetFoodNum]);
+            
+
             int currentDestinationIndex = availableDestinations[seatNum].index;
 
             FoodPlace foodPlace = _destinations[currentDestinationIndex].GetComponentInParent<FoodPlace>(); 
@@ -83,6 +98,7 @@ public class TycoonManager : MonoBehaviour
 
             _isCustomerSitting[currentDestinationIndex] = true;
             ++_currentCustomerNum;
+            --_todayMaxCustomerNum;
         }
         _co = null;
     }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class ServingFood : MonoBehaviour
 {
     [SerializeField] private Transform _handTransform;
-    //[SerializeField] private List<GameObject> _servingStations;
 
     private GameObject _canHoldFood;
     private GameObject _HoldingFood;

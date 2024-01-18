@@ -69,7 +69,7 @@ public class CustomerController : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         _animator.SetBool("IsWalk", true);
 
-        SelectFood();
+        //SelectFood();
     }
 
     private void Update()
@@ -90,11 +90,11 @@ public class CustomerController : MonoBehaviour
         }
     }
 
-    private void SelectFood()
-    {
-        int targetFoodNum = UnityEngine.Random.Range(0, _tycoonManager.CustomerTargetFoodPrefabs.Count);
-        _targetFood = _tycoonManager.CustomerTargetFoodPrefabs[targetFoodNum];
-    }
+    //private void SelectFood()
+    //{
+    //    int targetFoodNum = UnityEngine.Random.Range(0, _tycoonManager.CustomerTargetFoodPrefabs.Count);
+    //    _targetFood = _tycoonManager.CustomerTargetFoodPrefabs[targetFoodNum];
+    //}
 
     private void GetFood()
     {
