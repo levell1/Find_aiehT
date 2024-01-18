@@ -26,6 +26,8 @@ public class EnemyChasingState : EnemyBaseState
     {
         base.Update();
 
+        _stateMachine.Enemy.Agent.SetDestination(_stateMachine.Target.transform.position);
+
         if (!IsInChaseRange())
         {
             _stateMachine.ChangeState(_stateMachine.IdlingState);
@@ -38,7 +40,7 @@ public class EnemyChasingState : EnemyBaseState
         }
     }
 
-    private bool IsInAttackRange()
+    public bool IsInAttackRange()
     {
          if (_stateMachine.Target.IsDead) { return false; }
 

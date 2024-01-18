@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 4671227706852869516}
   - component: {fileID: 3023268758593941630}
   - component: {fileID: 6409314890855898277}
+  - component: {fileID: 1673798750716848248}
   - component: {fileID: 913524769868879636}
+  - component: {fileID: 3289072839583184108}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -85,6 +87,18 @@ CapsuleCollider:
   m_Height: 1.32426
   m_Direction: 2
   m_Center: {x: 0, y: 0.4, z: 0}
+--- !u!114 &1673798750716848248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6379673434725088279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cc14e48b51806245904f925a336be8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &913524769868879636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,6 +120,34 @@ MonoBehaviour:
     _runsParameterName: Run
     _attackParameterName: '@Attack'
     _baseAttackParameterName: BaseAttack
+  <Spot>k__BackingField: {fileID: 1638304733293257010}
+  MinPatrolDistance: 5
+  MaxPatrolDistance: 10
+  DetectDistance: 5
+  PatrolDelay: 0
+  Agent: {fileID: 3289072839583184108}
+--- !u!195 &3289072839583184108
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6379673434725088279}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 2
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 200
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: -0.07
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &4933214223509698113
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -187,6 +229,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5242542814124237168}
+    - targetCorrespondingSourceObject: {fileID: -4348641708826727039, guid: 59f05ce7e8f01db448f74d11b071a69a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1638304733293257010}
   m_SourcePrefab: {fileID: 100100000, guid: 59f05ce7e8f01db448f74d11b071a69a, type: 3}
 --- !u!1 &563171320747809728 stripped
 GameObject:
@@ -217,6 +263,19 @@ CapsuleCollider:
   m_Height: 0.012000001
   m_Direction: 1
   m_Center: {x: 1.4718716e-15, y: 0.0026169373, z: -6.541215e-11}
+--- !u!114 &1638304733293257010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563171320747809728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bf1cf02342cd9c43bcaaf359188cc29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myCollider: {fileID: 6409314890855898277}
 --- !u!4 &4899060216731947434 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 59f05ce7e8f01db448f74d11b071a69a,

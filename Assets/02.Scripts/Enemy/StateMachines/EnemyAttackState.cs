@@ -32,7 +32,7 @@ public class EnemyAttackState : EnemyBaseState
         base.Update();
         
 
-        ForceMove();
+        //ForceMove();
 
         float normalizedTime = GetNormalizedTime(_stateMachine.Enemy.Animator, "Attack");
         if (normalizedTime < 1f)
@@ -48,14 +48,16 @@ public class EnemyAttackState : EnemyBaseState
             if (IsInChaseRange())
             {
                 _stateMachine.ChangeState(_stateMachine.ChasingState);
-                return;
+                //return;
             }
             else
             {
                 _stateMachine.ChangeState(_stateMachine.IdlingState);
-                return;
+                //return;
             }
         }
+        
+        
 
     }
 

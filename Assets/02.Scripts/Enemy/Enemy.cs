@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -18,7 +19,18 @@ public class Enemy : MonoBehaviour
     [field: Header("Weapon")]
     [field: SerializeField] public EnemyAttackSpot Spot { get; private set; }
 
+    [field: Header("Patrol")]
+    [field: SerializeField] public float MinPatrolDistance;
+    [field: SerializeField] public float MaxPatrolDistance;
+    [field: SerializeField] public float DetectDistance;
+
+
+    public float PatrolDelay = 0;
+
     private EnemyStateMachine _stateMachine;
+
+    public NavMeshAgent Agent;
+
 
     void Awake()
     {
@@ -33,7 +45,7 @@ public class Enemy : MonoBehaviour
     }
     private void OnEnable()
     {
-        gameObject.transform.position = new Vector3(4,0,2);
+        //gameObject.transform.position = new Vector3(4,0,2);
     }
 
     private void Start()
@@ -44,6 +56,8 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        PatrolDelay += Time.deltaTime;
+
         _stateMachine.HandleInput();
 
         _stateMachine.Update();

@@ -31,5 +31,12 @@ public class EnemyIdleState : EnemyBaseState
             _stateMachine.ChangeState(_stateMachine.ChasingState);
             return;
         }
+        
+        if (!IsInChaseRange() &&_stateMachine.Enemy.PatrolDelay > 3f)
+        {
+            _stateMachine.ChangeState(_stateMachine.WalkState);
+            _stateMachine.Enemy.PatrolDelay = 0f;
+            return;
+        }
     }
 }

@@ -52,7 +52,7 @@ public class EnemyBaseState : IState
     {
         Vector3 movementDirection = GetMovementDirection();
 
-        Rotate(movementDirection);
+        //Rotate(movementDirection);
         Move(movementDirection);
     }
 
@@ -63,7 +63,14 @@ public class EnemyBaseState : IState
 
     private Vector3 GetMovementDirection()
     {
-        return (_stateMachine.Target.transform.position - _stateMachine.Enemy.transform.position).normalized;
+        if (_stateMachine.ChasingState.IsInChaseRange())
+        {
+            return (_stateMachine.Target.transform.position - _stateMachine.Enemy.transform.position).normalized;
+        }
+        else
+        {
+            return (_stateMachine.WalkState.GetWanderLocation() - (_stateMachine.Enemy.transform.position)).normalized;
+        }
     }
 
     private void Move(Vector3 direction)
