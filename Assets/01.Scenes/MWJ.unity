@@ -211,7 +211,7 @@ Transform:
   m_Children:
   - {fileID: 1926039269}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &77932205 stripped
 GameObject:
@@ -904,16 +904,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _customerPrefabs:
   - {fileID: 7286533660298944346, guid: 50212dded5094404b97472c1e74324be, type: 3}
-  _customerTargetFoodPrefabs:
+  CustomerTargetFoodPrefabs:
   - {fileID: 919132149155446097, guid: 43c7a14216e2841899c7988a2dec1380, type: 3}
   _destinations:
   - {fileID: 1788871297}
   - {fileID: 2043400004}
   - {fileID: 2095197166}
   - {fileID: 604407829}
-  _createCustomerPos: {fileID: 956070420}
+  CreateCustomerPos: {fileID: 956070420}
   _maxCustomerNum: 4
   _customerSpawnTime: 1
+  _currentCustomerNum: 0
 --- !u!4 &1058520694
 Transform:
   m_ObjectHideFlags: 0
@@ -921,7 +922,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1058520692}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -930,7 +931,7 @@ Transform:
   - {fileID: 817721723}
   - {fileID: 576112518}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1401342049
 PrefabInstance:
@@ -943,7 +944,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 43c7a14216e2841899c7988a2dec1380,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 43c7a14216e2841899c7988a2dec1380,
         type: 3}
@@ -1456,7 +1457,7 @@ MonoBehaviour:
   - ObjectName: Customer
     Prefabs:
     - {fileID: 7286533660298944346, guid: 50212dded5094404b97472c1e74324be, type: 3}
-    Size: 4
+    Size: 10
     SpawnPoint: {fileID: 956070420}
 --- !u!4 &1926039269
 Transform:
@@ -1484,7 +1485,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 43c7a14216e2841899c7988a2dec1380,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 43c7a14216e2841899c7988a2dec1380,
         type: 3}

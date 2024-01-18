@@ -1,72 +1,87 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TycoonManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _customerPrefabs;
-    [SerializeField] private List<GameObject> _customerTargetFoodPrefabs;
+    [SerializeField] public List<GameObject> CustomerTargetFoodPrefabs;
 
-    [SerializeField] private List<GameObject> _destinations;
-    [SerializeField] private Transform _createCustomerPos;
+    [SerializeField] public List<GameObject> _destinations;
+    [SerializeField] public Transform CreateCustomerPos;
 
     [SerializeField] private int _maxCustomerNum = 4;
     [SerializeField] private float _customerSpawnTime = 1.0f;
 
-    private int _currentCustomerNum = 0;
+    [SerializeField] private int _currentCustomerNum = 0;
     private List<bool> _isCustomerSitting = new();
     private List<(GameObject destination, int index)> availableDestinations = new();
 
+    private Coroutine _co = null;
+    
+    private int _agentPriority = 0;
+    
     private void Start()
     {
         for (int i = 0; i < _destinations.Count; ++i)
         {
             _isCustomerSitting.Add(false);
+            _destinations[i].GetComponentInParent<FoodPlace>().SeatNum = i;
         }
-
-        StartCoroutine(CreateCustomerCoroutine());
     }
 
-    // TODO: _currentCustomerNum < _maxCustomerNum 일 경우 (나갔을 경우) startCoroutine
-    // 아니면 함수로 만들기
+    private void Update()
+    {
+        // TODO: Customer가 나갔을 때, coroutine이나 함수 실행으로 변경
+        if (_currentCustomerNum < _maxCustomerNum && _co == null)
+        {
+            _co = StartCoroutine(CreateCustomerCoroutine());
+            Debug.Log(_co);
+        }
+    }
+
+    public void CustomerExit(int seatNum)
+    {
+        _isCustomerSitting[seatNum] = false;
+        --_currentCustomerNum;
+    }
+
     IEnumerator CreateCustomerCoroutine()
     {
         while (_currentCustomerNum < _maxCustomerNum)
         {
+            yield return new WaitForSeconds(_customerSpawnTime);
+
             // TODO: customer 쪽에서 해줘야 하나?
             availableDestinations = _destinations
             .Select((d, i) => (d, i))
             .Where(tuple => !_isCustomerSitting[tuple.i])
             .ToList();
-            
+
             if (availableDestinations.Count <= 0)
                 yield break;
 
-            int customerTypeNum = Random.Range(0, _customerPrefabs.Count);
-
-            // TODO: 고정된 string값("Customer")은 따로 파일을 만들어줄까?
+            // TODO: 고정된 string값("Customer") 처리
             GameObject customerObject = GameManager.instance.PoolingManager.GetObject("Customer");
-
             CustomerController customerController = customerObject.GetComponent<CustomerController>();
 
             int seatNum = Random.Range(0, availableDestinations.Count);
             customerController.AgentDestination = availableDestinations[seatNum].destination.transform;
-            customerController.ExitTransform = _createCustomerPos;
-
             //TODO: 목적지에 도착했을 때로 변경
+            int currentDestinationIndex = availableDestinations[seatNum].index;
 
-            FoodPlace foodPlace = _destinations[availableDestinations[seatNum].index].gameObject.GetComponentInParent<FoodPlace>();
+            FoodPlace foodPlace = _destinations[currentDestinationIndex].GetComponentInParent<FoodPlace>(); 
             foodPlace.CurrentCustomer = customerController;
             customerController.TargetFoodPlace = foodPlace;
 
-            int targetFoodNum = Random.Range(0, _customerTargetFoodPrefabs.Count);
-            customerController.TargetFood = _customerTargetFoodPrefabs[targetFoodNum];
+            ++_agentPriority;
+            customerController.AgentPriority = _agentPriority;
 
-            _isCustomerSitting[availableDestinations[seatNum].index] = true;
+            _isCustomerSitting[currentDestinationIndex] = true;
             ++_currentCustomerNum;
-
-            yield return new WaitForSeconds(_customerSpawnTime);
         }
+        _co = null;
     }
 }

@@ -6,7 +6,6 @@ using System;
 
 public class PoolingManager : MonoBehaviour
 {
-    public static PoolingManager Instance;
     [Serializable]
     public struct Pool
     {
@@ -15,13 +14,13 @@ public class PoolingManager : MonoBehaviour
         public int Size;
         public Transform SpawnPoint;
     }
+
     public List<Pool> Pools;
     Queue<GameObject> _poolObject = new Queue<GameObject>();
     public Dictionary<string, Queue<GameObject>> poolDictionary;
 
     private void Awake()
     {
-        Instance = this;
         Initialize();
     }
 
@@ -62,7 +61,7 @@ public class PoolingManager : MonoBehaviour
         else
         {
             Debug.LogError($"{objname} - key값 존재하지 않음");
-            return null;
+            return null;    // TODO
         }
     }
 

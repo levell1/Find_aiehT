@@ -6,6 +6,9 @@ using UnityEngine.AI;
 
 public class CustomerController : MonoBehaviour
 {
+    #region Field
+    private TycoonManager _tycoonManager;
+
     private NavMeshAgent _agent;
     private Animator _animator;
     private GameObject _targetFood;
@@ -18,11 +21,10 @@ public class CustomerController : MonoBehaviour
         set
         {
             _targetFoodPlace = value;
+            // TODO: event 해제?
             _targetFoodPlace.OnCustomerGetFood += GetFood;
         }
     }
-
-    public int SeatNum { get; set; }
 
     public GameObject TargetFood
     {
@@ -41,15 +43,33 @@ public class CustomerController : MonoBehaviour
             _agent.SetDestination(value.position);
         }
     }
+    
+    public int AgentPriority
+    {
+        set
+        {
+            _agent.avoidancePriority = value;
+        }
+    }
 
-    public Transform ExitTransform { get; set; }
+    #endregion
+
+    #region Event
+
+    //public event Action OnCustomerExit;
+
+    #endregion
 
     private void OnEnable()
     {
+        _tycoonManager = GameManager.instance.TycoonManager;
+
         _agent = GetComponent<NavMeshAgent>();
 
         _animator = GetComponentInChildren<Animator>();
         _animator.SetBool("IsWalk", true);
+
+        SelectFood();
     }
 
     private void Update()
@@ -60,8 +80,20 @@ public class CustomerController : MonoBehaviour
             transform.rotation = Quaternion.identity;
 
             if (isGetFood)
+            {
+                isGetFood = false;
+
+                //OnCustomerExit?.Invoke();
+
                 GameManager.instance.PoolingManager.ReturnObject(gameObject);
+            }
         }
+    }
+
+    private void SelectFood()
+    {
+        int targetFoodNum = UnityEngine.Random.Range(0, _tycoonManager.CustomerTargetFoodPrefabs.Count);
+        _targetFood = _tycoonManager.CustomerTargetFoodPrefabs[targetFoodNum];
     }
 
     private void GetFood()
@@ -70,12 +102,17 @@ public class CustomerController : MonoBehaviour
         StartCoroutine(ExitRestaurant());
     }
 
+
+    #region Coroutine
+
     IEnumerator ExitRestaurant()
     {
         yield return new WaitForSeconds(3f);
 
-        _agent.SetDestination(ExitTransform.position);
+        _agent.SetDestination(GameManager.instance.TycoonManager.CreateCustomerPos.position);
         _animator.SetBool("IsWalk", true);
         isGetFood = true;
     }
+
+    #endregion
 }
