@@ -11,6 +11,8 @@ public class EnemyWalkState : EnemyBaseState
 
     public override void Enter()
     {
+        _stateMachine.Enemy.Agent.speed = 2f;
+
         base.Enter();
         StartAnimation(_stateMachine.Enemy.AnimationData.GroundParameterHash);
         StartAnimation(_stateMachine.Enemy.AnimationData.WalkParameterHash);

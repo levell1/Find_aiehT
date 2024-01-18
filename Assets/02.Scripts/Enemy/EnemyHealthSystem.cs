@@ -6,12 +6,12 @@ using UnityEngine;
 public class EnemyHealthSystem : MonoBehaviour
 {
     private EnemySO _enemySO;
-    private int _maxHealth;
-    private int _health;
+    public int _maxHealth;
+    public int _health;
 
     public event Action OnDie;
 
-    //public bool IsDead => _health == 0;
+    public bool IsDead;
 
     private void Start()
     {
@@ -21,12 +21,21 @@ public class EnemyHealthSystem : MonoBehaviour
         _health = _maxHealth;
     }
 
+    private void Update()
+    {
+        //TakeDamage(1);
+    }
+
     public void TakeDamage(int damage)
     {
-        if (_health <= 0)
-            OnDie.Invoke();
-
         if (_health <= 0) return;
         _health -= damage;
+
+        if (_health <= 0)
+        {
+            IsDead = true;
+            OnDie.Invoke();
+        }
+
     }
 }

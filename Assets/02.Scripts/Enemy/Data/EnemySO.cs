@@ -9,4 +9,5 @@ public class EnemySO : ScriptableObject
     [field: SerializeField] public float PlayerChasingRange { get; private set; }
     [field: SerializeField] public float AttackRange { get; private set; }
     [field: SerializeField] public int MaxHealth { get; private set; }
+    [field: SerializeField] public GameObject DropItem { get; private set; }
 }

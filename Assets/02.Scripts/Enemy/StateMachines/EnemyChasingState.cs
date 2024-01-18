@@ -9,6 +9,8 @@ public class EnemyChasingState : EnemyBaseState
     }
     public override void Enter()
     {
+        _stateMachine.Enemy.Agent.speed = 5f;
+
         base.Enter();
         StartAnimation(_stateMachine.Enemy.AnimationData.GroundParameterHash);
         StartAnimation(_stateMachine.Enemy.AnimationData.RunParameterHash);

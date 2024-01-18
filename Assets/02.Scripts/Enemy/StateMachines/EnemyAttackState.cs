@@ -13,6 +13,8 @@ public class EnemyAttackState : EnemyBaseState
         base.Enter();
         StartAnimation(_stateMachine.Enemy.AnimationData.AttackParameterHash);
         StartAnimation(_stateMachine.Enemy.AnimationData.BaseAttackParameterHash);
+
+        _stateMachine.Enemy.Spot.Collider.enabled = true;
     }
 
     public override void Exit()
@@ -21,30 +23,23 @@ public class EnemyAttackState : EnemyBaseState
         StopAnimation(_stateMachine.Enemy.AnimationData.AttackParameterHash);
         StopAnimation(_stateMachine.Enemy.AnimationData.BaseAttackParameterHash);
 
+        _stateMachine.Enemy.Spot.Collider.enabled = false;
     }
 
     public override void Update()
     {
         base.Update();
 
-        float normalizedTime = GetNormalizedTime(_stateMachine.Enemy.Animator, "Attack");
-        if (normalizedTime < 1f)
+        if (IsInChaseRange())
         {
-            _stateMachine.Enemy.Spot.gameObject.SetActive(true);
+            _stateMachine.ChangeState(_stateMachine.ChasingState);
+            return;
         }
         else
         {
-            _stateMachine.Enemy.Spot.gameObject.SetActive(false);
-            if (IsInChaseRange())
-            {
-                _stateMachine.ChangeState(_stateMachine.ChasingState);
-                return;
-            }
-            else
-            {
-                _stateMachine.ChangeState(_stateMachine.IdlingState);
-                return;
-            }
+            _stateMachine.ChangeState(_stateMachine.IdlingState);
+            return;
         }
+        
     }
 }
