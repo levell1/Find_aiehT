@@ -13,6 +13,7 @@ public class EnemyStateMachine : StateMachine
     public EnemyChasingState ChasingState { get; }
     public EnemyAttackState AttackState { get; }
     public EnemyWalkState WalkState { get; }
+    public EnemyDieState DieState { get; }
     public float MovementSpeed { get; private set; }
 
     public EnemyStateMachine(Enemy enemy)
@@ -24,5 +25,6 @@ public class EnemyStateMachine : StateMachine
         ChasingState = new EnemyChasingState(this);
         AttackState = new EnemyAttackState(this);
         WalkState = new EnemyWalkState(this);
+        DieState = new EnemyDieState(this);
     }
 }

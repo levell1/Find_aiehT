@@ -23,7 +23,7 @@ public class EnemyHealthSystem : MonoBehaviour
 
     private void Update()
     {
-        //TakeDamage(1);
+        TakeDamage(1);
     }
 
     public void TakeDamage(int damage)

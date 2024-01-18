@@ -27,6 +27,13 @@ public class EnemyChasingState : EnemyBaseState
     {
         base.Update();
 
+        if (_stateMachine.Enemy.HealthSystem.IsDead)
+        {
+            Debug.Log("c-d");
+            _stateMachine.ChangeState(_stateMachine.DieState);
+            return;
+        }
+
         _stateMachine.Enemy.Agent.SetDestination(_stateMachine.Target.transform.position);
 
         if (!IsInChaseRange())

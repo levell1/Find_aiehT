@@ -31,6 +31,13 @@ public class EnemyWalkState : EnemyBaseState
     {
         base.Update();
 
+        if (_stateMachine.Enemy.HealthSystem.IsDead)
+        {
+            Debug.Log("W-D");
+            _stateMachine.ChangeState(_stateMachine.DieState);
+            return;
+        }
+
         if (IsInChaseRange())
         {
             _stateMachine.ChangeState(_stateMachine.ChasingState);
@@ -38,8 +45,8 @@ public class EnemyWalkState : EnemyBaseState
         }
         else if(!IsInChaseRange() && _stateMachine.Enemy.Agent.remainingDistance < 1.5f)
         { 
-            _stateMachine.ChangeState(_stateMachine.IdlingState);
             _stateMachine.Enemy.PatrolDelay = 0f;
+            _stateMachine.ChangeState(_stateMachine.IdlingState);
             return;
         }
     }

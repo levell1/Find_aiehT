@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -69,9 +70,6 @@ public class Enemy : MonoBehaviour
 
     private void OnDie()
     {
-        Agent.speed = 0;
-        Animator.SetBool("Die",true);
         Collider.enabled = false;
-        enabled = false;
     }
 }

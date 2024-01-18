@@ -10,6 +10,7 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void Enter()
     {
+        _stateMachine.Enemy.Agent.speed = 0f;
         base.Enter();
         StartAnimation(_stateMachine.Enemy.AnimationData.AttackParameterHash);
         StartAnimation(_stateMachine.Enemy.AnimationData.BaseAttackParameterHash);
@@ -29,6 +30,14 @@ public class EnemyAttackState : EnemyBaseState
     public override void Update()
     {
         base.Update();
+
+        if (_stateMachine.Enemy.HealthSystem.IsDead)
+        {
+            Debug.Log("A-D");
+            _stateMachine.ChangeState(_stateMachine.DieState);
+            return;
+        }
+
 
         if (IsInChaseRange())
         {

@@ -14,6 +14,7 @@ public class EnemyAnimationData
     [SerializeField] private string _attackParameterName = "@Attack";
     [SerializeField] private string _baseAttackParameterName = "BaseAttack";
 
+    [SerializeField] private string _dieParameterName = "Die";
 
     public int GroundParameterHash { get; private set; }
     public int IdleParameterHash { get; private set; }
@@ -21,8 +22,9 @@ public class EnemyAnimationData
     public int RunParameterHash { get; private set; }
 
     public int AttackParameterHash { get; private set; }
-
     public int BaseAttackParameterHash { get; private set; }
+
+    public int DieParameterHash { get; private set; }
 
     public void Initialize()
     {
@@ -32,5 +34,6 @@ public class EnemyAnimationData
         RunParameterHash = Animator.StringToHash(_runsParameterName);
         AttackParameterHash = Animator.StringToHash(_attackParameterName);
         BaseAttackParameterHash = Animator.StringToHash(_baseAttackParameterName);
+        DieParameterHash = Animator.StringToHash(_dieParameterName);
     }
 }

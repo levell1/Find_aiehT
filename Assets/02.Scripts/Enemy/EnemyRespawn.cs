@@ -30,10 +30,9 @@ public class EnemyRespawn : MonoBehaviour
     private void Respawn()
     {
         _respawnTime = 0f;
-        _enemy.Animator.SetBool("Die", false);
         _enemy.HealthSystem.IsDead = false;
         _enemy.Collider.enabled = true;
-        _enemy.enabled = true;
+
         _enemy.HealthSystem._health = _enemy.HealthSystem._maxHealth;
 
         if (_enemySpawnPoint != null)

@@ -10,7 +10,7 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void Enter()
     {
-
+        _stateMachine.Enemy.Agent.speed = 0f;
         base.Enter();
         StartAnimation(_stateMachine.Enemy.AnimationData.GroundParameterHash);
         StartAnimation(_stateMachine.Enemy.AnimationData.IdleParameterHash);
@@ -25,6 +25,13 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void Update()
     {
+        if (_stateMachine.Enemy.HealthSystem.IsDead)
+        {
+            Debug.Log("I-D");
+            _stateMachine.ChangeState(_stateMachine.DieState);
+            return;
+        }
+
         if (IsInChaseRange())
         {
             _stateMachine.ChangeState(_stateMachine.ChasingState);
