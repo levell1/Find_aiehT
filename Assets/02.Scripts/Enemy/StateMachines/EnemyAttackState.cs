@@ -38,17 +38,22 @@ public class EnemyAttackState : EnemyBaseState
             return;
         }
 
-
-        if (IsInChaseRange())
+        if (IsInAttackRange())
         {
-            _stateMachine.ChangeState(_stateMachine.ChasingState);
-            return;
+            //TODO 딜레이
         }
         else
         {
-            _stateMachine.ChangeState(_stateMachine.IdlingState);
-            return;
+            if (IsInChaseRange())
+            {
+                _stateMachine.ChangeState(_stateMachine.ChasingState);
+                return;
+            }
+            else
+            {
+                _stateMachine.ChangeState(_stateMachine.IdlingState);
+                return;
+            }
         }
-        
     }
 }
