@@ -9,6 +9,7 @@ public class TycoonManager : MonoBehaviour
     [SerializeField] private List<GameObject> _customerPrefabs;
     [SerializeField] public List<GameObject> CustomerTargetFoodPrefabs;
 
+    public List<GameObject> ServingStations = new();
     [SerializeField] public List<GameObject> _destinations;
     [SerializeField] public Transform CreateCustomerPos;
 
@@ -29,6 +30,7 @@ public class TycoonManager : MonoBehaviour
         {
             _isCustomerSitting.Add(false);
             _destinations[i].GetComponentInParent<FoodPlace>().SeatNum = i;
+            ServingStations.Add(_destinations[i].transform.parent.gameObject);
         }
     }
 
