@@ -5,12 +5,9 @@ using UnityEngine;
 public class EnemyBaseState : IState
 {
     protected EnemyStateMachine _stateMachine;
-
-    protected readonly PlayerGroundData _groundData;
     public EnemyBaseState(EnemyStateMachine ememyStateMachine)
     {
         _stateMachine = ememyStateMachine;
-        _groundData = _stateMachine.Enemy.Data.GroundedData;
     }
 
     public virtual void Enter()
@@ -30,7 +27,7 @@ public class EnemyBaseState : IState
 
     public virtual void Update()
     {
-        Move();
+        //Move();
     }
 
     public virtual void PhysicsUpdate()
@@ -46,60 +43,6 @@ public class EnemyBaseState : IState
     protected void StopAnimation(int animationHash)
     {
         _stateMachine.Enemy.Animator.SetBool(animationHash, false);
-    }
-
-    private void Move()
-    {
-        Vector3 movementDirection = GetMovementDirection();
-
-        //Rotate(movementDirection);
-        Move(movementDirection);
-    }
-
-    protected void ForceMove()
-    {
-        _stateMachine.Enemy.Rigidbody.AddForce(Vector3.forward);
-    }
-
-    private Vector3 GetMovementDirection()
-    {
-        if (_stateMachine.ChasingState.IsInChaseRange())
-        {
-            return (_stateMachine.Target.transform.position - _stateMachine.Enemy.transform.position).normalized;
-        }
-        else
-        {
-            return (_stateMachine.WalkState.GetWanderLocation() - (_stateMachine.Enemy.transform.position)).normalized;
-        }
-    }
-
-    private void Move(Vector3 direction)
-    {
-        Rigidbody rigidbody = _stateMachine.Enemy.Rigidbody;
-        float movementSpeed = GetMovementSpeed();
-
-        direction *= movementSpeed;
-        direction.y = rigidbody.velocity.y;
-
-        rigidbody.velocity = direction;
-    }
-
-    private void Rotate(Vector3 direction)
-    {
-        if (direction != Vector3.zero)
-        {
-            direction.y = 0;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-
-            _stateMachine.Enemy.transform.rotation = Quaternion.Slerp(_stateMachine.Enemy.transform.rotation, targetRotation, _stateMachine.RotationDamping * Time.deltaTime);
-        }
-    }
-
-    protected float GetMovementSpeed()
-    {
-        float movementSpeed = _stateMachine.MovementSpeed * _stateMachine.MovementSpeedModifier;
-
-        return movementSpeed;
     }
 
     protected float GetNormalizedTime(Animator animator, string tag)
@@ -128,5 +71,14 @@ public class EnemyBaseState : IState
         float playerDistanceSqr = (_stateMachine.Target.transform.position - _stateMachine.Enemy.transform.position).sqrMagnitude;
 
         return playerDistanceSqr <= _stateMachine.Enemy.Data.PlayerChasingRange * _stateMachine.Enemy.Data.PlayerChasingRange;
+    }
+
+    protected bool IsInAttackRange()
+    {
+        if (_stateMachine.Target.IsDead) { return false; }
+
+        float playerDistanceSqr = (_stateMachine.Target.transform.position - _stateMachine.Enemy.transform.position).sqrMagnitude;
+
+        return playerDistanceSqr <= _stateMachine.Enemy.Data.AttackRange * _stateMachine.Enemy.Data.AttackRange;
     }
 }

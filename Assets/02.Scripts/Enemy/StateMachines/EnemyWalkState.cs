@@ -11,7 +11,6 @@ public class EnemyWalkState : EnemyBaseState
 
     public override void Enter()
     {
-        _stateMachine.MovementSpeedModifier = 1;
         base.Enter();
         StartAnimation(_stateMachine.Enemy.AnimationData.GroundParameterHash);
         StartAnimation(_stateMachine.Enemy.AnimationData.WalkParameterHash);
@@ -35,7 +34,7 @@ public class EnemyWalkState : EnemyBaseState
             _stateMachine.ChangeState(_stateMachine.ChasingState);
             return;
         }
-        else if(!IsInChaseRange() && _stateMachine.Enemy.Agent.remainingDistance < 0.1f)
+        else if(!IsInChaseRange() && _stateMachine.Enemy.Agent.remainingDistance < 1.5f)
         { 
             _stateMachine.ChangeState(_stateMachine.IdlingState);
             _stateMachine.Enemy.PatrolDelay = 0f;
@@ -60,9 +59,4 @@ public class EnemyWalkState : EnemyBaseState
 
         return hit.position;
     }
-
-
-
-
-
 }

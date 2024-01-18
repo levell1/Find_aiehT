@@ -10,7 +10,6 @@ public class EnemyIdleState : EnemyBaseState
 
     public override void Enter()
     {
-        _stateMachine.MovementSpeedModifier = 0f;
 
         base.Enter();
         StartAnimation(_stateMachine.Enemy.AnimationData.GroundParameterHash);
