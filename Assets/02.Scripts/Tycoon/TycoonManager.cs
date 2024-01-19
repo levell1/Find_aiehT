@@ -1,72 +1,105 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TycoonManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _customerPrefabs;
-    [SerializeField] private List<GameObject> _customerTargetFoodPrefabs;
+    [SerializeField] public List<GameObject> CustomerTargetFoodPrefabs;
 
-    [SerializeField] private List<GameObject> _destinations;
-    [SerializeField] private Transform _createCustomerPos;
+    public List<GameObject> ServingStations = new();
+    [SerializeField] public List<GameObject> _destinations;
+    [SerializeField] public Transform CreateCustomerPos;
 
     [SerializeField] private int _maxCustomerNum = 4;
     [SerializeField] private float _customerSpawnTime = 1.0f;
 
-    private int _currentCustomerNum = 0;
+    [SerializeField] private int _todayMaxCustomerNum = 6;
+    [SerializeField] private int _currentCustomerNum = 0;
+
     private List<bool> _isCustomerSitting = new();
     private List<(GameObject destination, int index)> availableDestinations = new();
 
+    private Coroutine _co = null;
+    
+    private int _agentPriority = 0;
+
+
+    public event Action<GameObject> OnCreateFood;
+    
     private void Start()
     {
         for (int i = 0; i < _destinations.Count; ++i)
         {
             _isCustomerSitting.Add(false);
+            _destinations[i].GetComponentInParent<FoodPlace>().SeatNum = i;
+            ServingStations.Add(_destinations[i].transform.parent.gameObject);
         }
-
-        StartCoroutine(CreateCustomerCoroutine());
     }
 
-    // TODO: _currentCustomerNum < _maxCustomerNum ¿œ ∞ÊøÏ (≥™∞¨¿ª ∞ÊøÏ) startCoroutine
-    // æ∆¥œ∏È «‘ºˆ∑Œ ∏∏µÈ±‚
+    private void Update()
+    {
+        // TODO: CustomerÍ∞Ä ÎÇòÍ∞îÏùÑ Îïå, coroutineÏù¥ÎÇò Ìï®Ïàò Ïã§ÌñâÏúºÎ°ú Î≥ÄÍ≤Ω
+        if (_currentCustomerNum < _maxCustomerNum
+            && _todayMaxCustomerNum > 0
+            && _co == null)
+        {
+            _co = StartCoroutine(CreateCustomerCoroutine());
+            Debug.Log(_co);
+        }
+    }
+
+    public void CustomerExit(int seatNum)
+    {
+        _isCustomerSitting[seatNum] = false;
+        --_currentCustomerNum;
+    }
+
     IEnumerator CreateCustomerCoroutine()
     {
-        while (_currentCustomerNum < _maxCustomerNum)
+        while (_currentCustomerNum < _maxCustomerNum && _todayMaxCustomerNum > 0)
         {
-            // TODO: Object Pool
-            // TODO: customer ¬ ø°º≠ «ÿ¡‡æﬂ «œ≥™?
+            yield return new WaitForSeconds(_customerSpawnTime);
+
+            // TODO: customer Ï™ΩÏóêÏÑú Ìï¥Ï§òÏïº ÌïòÎÇò?
             availableDestinations = _destinations
             .Select((d, i) => (d, i))
             .Where(tuple => !_isCustomerSitting[tuple.i])
             .ToList();
-            
+
             if (availableDestinations.Count <= 0)
                 yield break;
 
-            int customerTypeNum = Random.Range(0, _customerPrefabs.Count);
-            GameObject customerObject = Instantiate(_customerPrefabs[customerTypeNum], _createCustomerPos);
-
+            // TODO: Í≥†Ï†ïÎêú stringÍ∞í("Customer") Ï≤òÎ¶¨
+            GameObject customerObject = GameManager.instance.PoolingManager.GetObject("Customer");
             CustomerController customerController = customerObject.GetComponent<CustomerController>();
 
-            int seatNum = Random.Range(0, availableDestinations.Count);
+            int seatNum = UnityEngine.Random.Range(0, availableDestinations.Count);
             customerController.AgentDestination = availableDestinations[seatNum].destination.transform;
-            customerController.ExitTransform = _createCustomerPos;
 
-            //TODO: ∏Ò¿˚¡ˆø° µµ¬¯«ﬂ¿ª ∂ß∑Œ ∫Ø∞Ê
+            //TODO: Î™©Ï†ÅÏßÄÏóê ÎèÑÏ∞©ÌñàÏùÑ Îïå Ï†ïÌïòÎäî Í≤ÉÏúºÎ°ú Î≥ÄÍ≤Ω
+            int targetFoodNum = UnityEngine.Random.Range(0, CustomerTargetFoodPrefabs.Count);
+            customerController.TargetFood = CustomerTargetFoodPrefabs[targetFoodNum];
 
-            FoodPlace foodPlace = _destinations[availableDestinations[seatNum].index].gameObject.GetComponentInParent<FoodPlace>();
+            OnCreateFood?.Invoke(CustomerTargetFoodPrefabs[targetFoodNum]);
+            
+
+            int currentDestinationIndex = availableDestinations[seatNum].index;
+
+            FoodPlace foodPlace = _destinations[currentDestinationIndex].GetComponentInParent<FoodPlace>(); 
             foodPlace.CurrentCustomer = customerController;
             customerController.TargetFoodPlace = foodPlace;
 
-            int targetFoodNum = Random.Range(0, _customerTargetFoodPrefabs.Count);
-            customerController.TargetFood = _customerTargetFoodPrefabs[targetFoodNum];
+            ++_agentPriority;
+            customerController.AgentPriority = _agentPriority;
 
-            _isCustomerSitting[availableDestinations[seatNum].index] = true;
+            _isCustomerSitting[currentDestinationIndex] = true;
             ++_currentCustomerNum;
-
-            yield return new WaitForSeconds(_customerSpawnTime);
+            --_todayMaxCustomerNum;
         }
+        _co = null;
     }
-
 }

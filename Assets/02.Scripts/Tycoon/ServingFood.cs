@@ -5,7 +5,6 @@ using UnityEngine;
 public class ServingFood : MonoBehaviour
 {
     [SerializeField] private Transform _handTransform;
-    [SerializeField] private List<GameObject> _servingStations;
 
     private GameObject _canHoldFood;
     private GameObject _HoldingFood;
@@ -14,7 +13,7 @@ public class ServingFood : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             OnCatchFood();
         }
@@ -38,7 +37,7 @@ public class ServingFood : MonoBehaviour
         if (_canHoldFood == null)
             return;
 
-        // TODO: ∏µÁ ¿⁄∏Æ∏¶ FoodPlace∑Œ ∏∏µÈ∏È ifπÆ¿∫ ¡¶∞≈
+        // TODO: Î™®Îì† ÏûêÎ¶¨Î•º FoodPlaceÎ°ú ÎßåÎì§Î©¥ ifÎ¨∏ÏùÄ Ï†úÍ±∞
         if (_canHoldFood.GetComponentInParent<FoodPlace>() != null)
             _canHoldFood.GetComponentInParent<FoodPlace>().CurrentFood = null;
 
@@ -54,7 +53,7 @@ public class ServingFood : MonoBehaviour
         FoodPlace foodPlace = null;
 
         // TODO
-        foreach (GameObject station in _servingStations)
+        foreach (GameObject station in GameManager.instance.TycoonManager.ServingStations)
         {
             FoodPlace stationFood = station.GetComponent<FoodPlace>();
 
