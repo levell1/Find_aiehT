@@ -9,7 +9,7 @@ public class PlayerWeapon : MonoBehaviour
 
     private int _damage;
 
-    private List<Collider> _alreadyCollidedObjects = new List<Collider>();
+    private readonly List<Collider> _alreadyCollidedObjects = new List<Collider>();
 
     private void OnEnable()
     {

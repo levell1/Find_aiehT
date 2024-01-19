@@ -20,16 +20,19 @@ public class PlayerFirstSkillState : PlayerGroundState
 
     public override void Enter()
     {
+
+        
+
         int _skillIndex = 0;
         _stateMachine.MovementSpeedModifier = 0; // 공격할 때 안움직임
         _skillData = _stateMachine.Player.Data.SkillData.GetSkillData(_skillIndex);
 
+        int _skillCost = _skillData.GetSkillCost();
+        _stateMachine.IsSkillCoolTime = _stateMachine.Player.SkillCoolTimeController.IsCoolTime;
+
         base.Enter();
 
         StartAnimation(_stateMachine.Player.AnimationData.Skill1ParameterHash);
-
-        _stateMachine.IsSkillCoolTime = _stateMachine.Player.SkillCoolTimeController.IsCoolTime;
-        int _skillCost = _skillData.GetSkillCost();
 
         if (_stateMachine.Player.StaminaSystem.CanUseSkill(_skillCost) && !_stateMachine.IsSkillCoolTime)
         {
