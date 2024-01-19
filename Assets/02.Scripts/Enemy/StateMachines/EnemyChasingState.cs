@@ -43,7 +43,12 @@ public class EnemyChasingState : EnemyBaseState
         }
         else if (IsInAttackRange())
         {
-            _stateMachine.ChangeState(_stateMachine.AttackState);
+            _stateMachine.Enemy.transform.LookAt(_stateMachine.Target.transform);
+            if (_stateMachine.Enemy.AttackDelay > _stateMachine.Enemy.Data.AttackDelay)
+            {
+                _stateMachine.Enemy.AttackDelay = 0;
+                _stateMachine.ChangeState(_stateMachine.AttackState);
+            }
             return;
         }
     }

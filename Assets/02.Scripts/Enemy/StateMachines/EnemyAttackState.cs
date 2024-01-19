@@ -10,7 +10,7 @@ public class EnemyAttackState : EnemyBaseState
 
     public override void Enter()
     {
-        _stateMachine.Enemy.Agent.speed = 0f;
+        _stateMachine.Enemy.Agent.speed = 0.5f;
         base.Enter();
         StartAnimation(_stateMachine.Enemy.AnimationData.AttackParameterHash);
         StartAnimation(_stateMachine.Enemy.AnimationData.BaseAttackParameterHash);
@@ -37,10 +37,17 @@ public class EnemyAttackState : EnemyBaseState
             _stateMachine.ChangeState(_stateMachine.DieState);
             return;
         }
+        _stateMachine.Enemy.transform.LookAt(_stateMachine.Target.transform);
 
         if (IsInAttackRange())
         {
             //TODO 딜레이
+            AnimatorStateInfo animTime = _stateMachine.Enemy.Animator.GetCurrentAnimatorStateInfo(0);
+            if (animTime.normalizedTime >= 1f)
+            {
+                Debug.Log("A-I");
+                _stateMachine.ChangeState(_stateMachine.IdlingState);
+            }
         }
         else
         {
@@ -55,5 +62,6 @@ public class EnemyAttackState : EnemyBaseState
                 return;
             }
         }
+
     }
 }

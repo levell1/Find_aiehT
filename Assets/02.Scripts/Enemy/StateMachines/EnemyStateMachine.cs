@@ -14,7 +14,6 @@ public class EnemyStateMachine : StateMachine
     public EnemyAttackState AttackState { get; }
     public EnemyWalkState WalkState { get; }
     public EnemyDieState DieState { get; }
-    public float MovementSpeed { get; private set; }
 
     public EnemyStateMachine(Enemy enemy)
     {

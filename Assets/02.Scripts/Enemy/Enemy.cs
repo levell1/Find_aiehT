@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
     [field: SerializeField] public float DetectDistance;
 
     public float PatrolDelay = 0;
+    public float AttackDelay = 0;
 
     private EnemyStateMachine _stateMachine;
 
@@ -56,8 +57,6 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        PatrolDelay += Time.deltaTime;
-
         _stateMachine.HandleInput();
 
         _stateMachine.Update();
@@ -65,6 +64,9 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
+        PatrolDelay += Time.deltaTime;
+        AttackDelay += Time.deltaTime;
+
         _stateMachine.PhyscisUpdate();
     }
 
