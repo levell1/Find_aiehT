@@ -2,22 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSkillState : PlayerGroundState
+public class PlayerSkillState : MonoBehaviour
 {
-    public PlayerSkillState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
+    // Start is called before the first frame update
+    void Start()
     {
+        
     }
 
-    public override void Enter()
+    // Update is called once per frame
+    void Update()
     {
-        base.Enter();
-        StartAnimation(_stateMachine.Player.AnimationData.SkillParameterHash);
+        
     }
-
-    public override void Exit()
-    {
-        base.Exit();
-        StopAnimation(_stateMachine.Player.AnimationData.SkillParameterHash);
-    }
-
 }

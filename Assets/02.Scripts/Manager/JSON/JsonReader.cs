@@ -10,10 +10,10 @@ public class JsonReader : MonoBehaviour
 
     private void Awake()
     {
-        //// JSON ÆÄÀÏ °æ·Î ¼³Á¤
+        //// JSON ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         //string jsonFilePath = "Assets/Resources/JSON/PlayerData.json";
 
-        //// JSON ÆÄÀÏ¿¡¼­ µ¥ÀÌÅÍ ÀÐ±â
+        //// JSON ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð±ï¿½
         //string jsonText = File.ReadAllText(jsonFilePath);
 
         //PlayerJsonData playerJsonData = JsonUtility.FromJson<PlayerJsonData>(jsonText);
@@ -32,10 +32,10 @@ public class JsonReader : MonoBehaviour
 
     public T LoadJson<T>(string FilePath)
     {
-        // JSON ÆÄÀÏ °æ·Î ¼³Á¤
-        string jsonFilePath = "Assets/Resources/JSON/" + FilePath + ".json"; // ¿¬»ê·®ÀÌ Ä¿Áü
+        // JSON ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        string jsonFilePath = "Assets/Resources/JSON/" + FilePath + ".json"; // ï¿½ï¿½ï¿½ê·®ï¿½ï¿½ Ä¿ï¿½ï¿½
 
-        // JSON ÆÄÀÏ¿¡¼­ µ¥ÀÌÅÍ ÀÐ±â
+        // JSON ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð±ï¿½
         string jsonText = File.ReadAllText(jsonFilePath);
 
         return JsonUtility.FromJson<T>(jsonText);

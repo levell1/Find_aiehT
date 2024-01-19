@@ -23,22 +23,34 @@ public class StaminaSystem : MonoBehaviour
         _regenTime = 0f;
     }
 
-
     public bool CanUseDash(int dashStamina)
     {
         return _stamina >= dashStamina;
     }
 
-    /// ´ë½¬½Ã - 10;
+    /// ëŒ€ì‰¬ì‹œ - 10;
     public void UseDash(int dashStamina)
     {
         if (_stamina == 0) return;
         _stamina = Mathf.Max(_stamina - dashStamina, 0);
 
-        //Debug.Log("½ºÅÂ¹Ì³Ê" + _stamina);
+        //Debug.Log("ìŠ¤íƒœë¯¸ë„ˆ" + _stamina);
     }
 
-    /// ½ºÅÂ¹Ì³Ê ÃÊ´ç Àç»ı·Â
+    public bool CanUseSkill(int skillCost)
+    {
+        return _stamina >= skillCost;
+    }
+
+    public void UseSkill(int skillStamina)
+    {
+        if (_stamina == 0) return;
+        _stamina = Mathf.Max(_stamina - skillStamina, 0);
+        Debug.Log(_stamina);
+    }
+
+
+    /// ìŠ¤íƒœë¯¸ë„ˆ ì´ˆë‹¹ ì¬ìƒë ¥
     public void RegenerateStamina(int regenStamina)
     {
         if (_stamina == 100) return;
@@ -51,12 +63,9 @@ public class StaminaSystem : MonoBehaviour
 
             _regenTime = 0;
 
-            Debug.Log(_stamina);
-            Debug.Log("Àç»ı!");
+            //Debug.Log(_stamina);
+            //Debug.Log("ì¬ìƒ!");
         }
-
-        
-
     }
 
 }

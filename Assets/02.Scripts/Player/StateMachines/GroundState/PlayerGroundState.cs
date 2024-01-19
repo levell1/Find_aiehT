@@ -37,7 +37,7 @@ public class PlayerGroundState : PlayerBaseState
         base.PhysicsUpdate();
     }
 
-    // ÀÔ·ÂÅ°°¡ ¶¼Á³À» ¶§ÀÇ µ¿ÀÛÀÌ´Ù. ground¿¡¼­ ÇØÁÖ´Â ÀÌÀ¯´Â ground°¡ ¾Æ´Ñ ´Ù¸¥ state¿¡ ÀÖÀ» ¶§ÀÇ Å°ÀÔ·ÂÀÌ ¾ø´Â °æ¿ì´Â ¶Ç ´Ù¸¥ µ¿ÀÛÀ» ÇØ¾ßÇÏ±â ¶§¹®
+    // ì…ë ¥í‚¤ê°€ ë–¼ì¡Œì„ ë•Œì˜ ë™ì‘ì´ë‹¤. groundì—ì„œ í•´ì£¼ëŠ” ì´ìœ ëŠ” groundê°€ ì•„ë‹Œ ë‹¤ë¥¸ stateì— ìˆì„ ë•Œì˜ í‚¤ì…ë ¥ì´ ì—†ëŠ” ê²½ìš°ëŠ” ë˜ ë‹¤ë¥¸ ë™ì‘ì„ í•´ì•¼í•˜ê¸° ë•Œë¬¸
     protected override void OnMovementCanceled(InputAction.CallbackContext context)
     {
         if (_stateMachine.MovementInput == Vector2.zero)
@@ -59,6 +59,17 @@ public class PlayerGroundState : PlayerBaseState
     {
         _stateMachine.ChangeState(_stateMachine.DashState);
     }
+
+    protected override void OnSkill1Started(InputAction.CallbackContext context)
+    {
+        _stateMachine.ChangeState(_stateMachine.PlayerFirstSkillState);
+    }
+
+    protected override void OnSkill2Started(InputAction.CallbackContext context)
+    {
+        _stateMachine.ChangeState(_stateMachine.PlayerSecondSkillState);
+    }
+
 
     protected virtual void OnMove()
     {

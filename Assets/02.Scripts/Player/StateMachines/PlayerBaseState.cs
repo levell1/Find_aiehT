@@ -57,6 +57,7 @@ public class PlayerBaseState : IState
         input.PlayerActions.Attack.canceled+= OnAttackCanceled;
 
         input.PlayerActions.Skill1.started += OnSkill1Started;
+
         input.PlayerActions.Skill2.started += OnSkill2Started;
     }
 
@@ -74,6 +75,7 @@ public class PlayerBaseState : IState
         input.PlayerActions.Attack.canceled -= OnAttackCanceled;
 
         input.PlayerActions.Skill1.started -= OnSkill1Started;
+
         input.PlayerActions.Skill2.started -= OnSkill2Started;
     }
 
@@ -205,16 +207,16 @@ public class PlayerBaseState : IState
 
     protected float GetNormalizedTime(Animator animator, string tag)
     {
-        AnimatorStateInfo currentInfo = animator.GetCurrentAnimatorStateInfo(0); // ÇöÀç ¾Ö´Ï¸ŞÀÌ¼Ç¿¡ ´ëÇÑ Á¤º¸
-        AnimatorStateInfo nextInfo = animator.GetNextAnimatorStateInfo(0); // ´ÙÀ½ ¾Ö´Ï¸ŞÀÌ¼Ç¿¡ ´ëÇÑ Á¤º¸
+        AnimatorStateInfo currentInfo = animator.GetCurrentAnimatorStateInfo(0); // í˜„ì¬ ì• ë‹ˆë©”ì´ì…˜ì— ëŒ€í•œ ì •ë³´
+        AnimatorStateInfo nextInfo = animator.GetNextAnimatorStateInfo(0); // ë‹¤ìŒ ì• ë‹ˆë©”ì´ì…˜ì— ëŒ€í•œ ì •ë³´
 
-        if(animator.IsInTransition(0) && nextInfo.IsTag(tag)) // ´ÙÀ½ ÅÂ±×°¡ ¹Ş¾Æ¿Â ÅÂ±×ÀÌ°í, ÇöÀç ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ Æ®·£Áö¼ÇÀ» Å¸°í ÀÖ´ÂÁö
+        if(animator.IsInTransition(0) && nextInfo.IsTag(tag)) // ë‹¤ìŒ íƒœê·¸ê°€ ë°›ì•„ì˜¨ íƒœê·¸ì´ê³ , í˜„ì¬ ì• ë‹ˆë©”ì´ì…˜ì´ íŠ¸ëœì§€ì…˜ì„ íƒ€ê³  ìˆëŠ”ì§€
         {
-            return nextInfo.normalizedTime; // ´ÙÀ½ ¾Ö´Ï¸ŞÀÌ¼ÇÁ¤º¸¸¦ °¡Á®¿È (¾Ö´Ï¸ŞÀÌ¼Ç¸¶´Ù ±æÀÌ°¡ ´Ù¸£±â ¶§¹®¿¡ normalizedÇØÁÖ´Â °ÅÀÓ)
+            return nextInfo.normalizedTime; // ë‹¤ìŒ ì• ë‹ˆë©”ì´ì…˜ì •ë³´ë¥¼ ê°€ì ¸ì˜´ (ì• ë‹ˆë©”ì´ì…˜ë§ˆë‹¤ ê¸¸ì´ê°€ ë‹¤ë¥´ê¸° ë•Œë¬¸ì— normalizedí•´ì£¼ëŠ” ê±°ì„)
         }
-        else if(!animator.IsInTransition(0) && currentInfo.IsTag(tag)) // ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ Æ®·£Áö¼ÇÀ» Å¸°íÀÖÁö ¾Ê´Ù¸é
+        else if(!animator.IsInTransition(0) && currentInfo.IsTag(tag)) // ì• ë‹ˆë©”ì´ì…˜ì´ íŠ¸ëœì§€ì…˜ì„ íƒ€ê³ ìˆì§€ ì•Šë‹¤ë©´
         {
-            return currentInfo.normalizedTime; // ÇöÀç ¾Ö´Ï¸ŞÀÌ¼ÇÀ¸·Î µ¹¾Æ¿È
+            return currentInfo.normalizedTime; // í˜„ì¬ ì• ë‹ˆë©”ì´ì…˜ìœ¼ë¡œ ëŒì•„ì˜´
         }
         else
         {

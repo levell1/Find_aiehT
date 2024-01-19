@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     public DashForceReceiver DashForceReceiver { get; private set; }
     public StaminaSystem StaminaSystem { get; private set; }
     public HealthSystem HealthSystem{ get; private set; }
+    public SkillCoolTimeController SkillCoolTimeController { get; private set; }
 
     [field: Header("Weapon")]
     [field:SerializeField] public PlayerWeapon Weapon { get; private set; }
@@ -41,6 +42,8 @@ public class Player : MonoBehaviour
 
         StaminaSystem = GetComponent<StaminaSystem>();
         HealthSystem = GetComponent<HealthSystem>();
+
+        SkillCoolTimeController = GetComponent<SkillCoolTimeController>();
 
         _stateMachine = new PlayerStateMachine(this);
     }

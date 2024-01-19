@@ -5,8 +5,8 @@ using UnityEngine.Rendering;
 
 public class PlayerComboAttackState : PlayerAttackState
 {
-    private bool _alreadyAppliedForce; // ÈûÀ» Àû¿ë ÇŞ´ÂÁö 
-    private bool _alreadyApplyCombo; // ÄŞº¸¸¦ Àû¿ëÇß´ÂÁö
+    private bool _alreadyAppliedForce; // í˜ì„ ì ìš© í–‡ëŠ”ì§€ 
+    private bool _alreadyApplyCombo; // ì½¤ë³´ë¥¼ ì ìš©í–ˆëŠ”ì§€
 
     AttackInfoData _attackInfoData;
 
@@ -39,11 +39,11 @@ public class PlayerComboAttackState : PlayerAttackState
 
     private void TryComboAttack()
     {
-        if (_alreadyApplyCombo) return; // ÄŞº¸¸¦ ÀÌ¹Ì ÇÑ °æ¿ì¿¡ alreadyApplyCombo°¡ trueÀÌ±â ¶§¹®¿¡ return
+        if (_alreadyApplyCombo) return; // ì½¤ë³´ë¥¼ ì´ë¯¸ í•œ ê²½ìš°ì— alreadyApplyComboê°€ trueì´ê¸° ë•Œë¬¸ì— return
 
-        if (_attackInfoData.ComboStateIndex == -1) return; // ¸¶Áö¸· °ø°İÀÌ±â ¶§¹®¿¡ return
+        if (_attackInfoData.ComboStateIndex == -1) return; // ë§ˆì§€ë§‰ ê³µê²©ì´ê¸° ë•Œë¬¸ì— return
 
-        if (!_stateMachine.IsAttacking) return; // °ø°İÁßÀÌ ¾Æ´Ï±â ¶§¹®¿¡ return
+        if (!_stateMachine.IsAttacking) return; // ê³µê²©ì¤‘ì´ ì•„ë‹ˆê¸° ë•Œë¬¸ì— return
 
         _alreadyApplyCombo = true;
     }
@@ -70,7 +70,7 @@ public class PlayerComboAttackState : PlayerAttackState
 
         float normalizedTime = GetNormalizedTime(_stateMachine.Player.Animator, "Attack");
         
-        if (normalizedTime < 1f) // ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ÁøÇàÁß
+        if (normalizedTime < 1f) // ì• ë‹ˆë©”ì´ì…˜ì´ ì§„í–‰ì¤‘
         {
             if (normalizedTime >= _attackInfoData.ForceTransitionTime)
                 TryApplyForce();
@@ -91,10 +91,10 @@ public class PlayerComboAttackState : PlayerAttackState
 
                 _stateMachine.Player.Weapon.gameObject.SetActive(true);
 
-                Debug.Log("comboIndex" + comboIndex);
-                Debug.Log("playerAtk" + playerAtk);
-                Debug.Log("damage" + damage);
-                Debug.Log("totalDamage" + totalDamage);
+                //Debug.Log("comboIndex" + comboIndex);
+                //Debug.Log("playerAtk" + playerAtk);
+                //Debug.Log("damage" + damage);
+                //Debug.Log("totalDamage" + totalDamage);
 
         }
         else

@@ -18,7 +18,9 @@ public class PlayerStateMachine : StateMachine
 
     public PlayerComboAttackState ComboAttackState { get; }
 
-    public PlayerSkillState PlayerSkillState { get; }
+    public PlayerFirstSkillState PlayerFirstSkillState { get; }
+    public PlayerSecondSkillState PlayerSecondSkillState { get; }
+
 
     public Vector2 MovementInput { get; set; }
     public float MovementSpeed { get; private set; }
@@ -37,6 +39,9 @@ public class PlayerStateMachine : StateMachine
     public int ComboIndex { get; set; }
     public bool IsAttacking { get; set; }
 
+    public int SKillCost { get; set; }
+    public bool IsSkillCoolTime { get; set; }
+
     public Transform MainCameraTransform { get; set; }
 
     public PlayerStateMachine(Player player)
@@ -52,7 +57,9 @@ public class PlayerStateMachine : StateMachine
         DashState = new PlayerDashState(this);
 
         ComboAttackState = new PlayerComboAttackState(this);
-        PlayerSkillState = new PlayerSkillState(this);
+
+        PlayerFirstSkillState = new PlayerFirstSkillState(this);
+        PlayerSecondSkillState = new PlayerSecondSkillState(this);
 
         MainCameraTransform = Camera.main.transform;
 
