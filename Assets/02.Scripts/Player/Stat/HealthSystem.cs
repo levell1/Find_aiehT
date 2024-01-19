@@ -35,7 +35,7 @@ public class HealthSystem : MonoBehaviour
         if (_health == 0)
             OnDie.Invoke();
 
-        Debug.Log(_health);
+        //Debug.Log(_health);
     }
 
 }

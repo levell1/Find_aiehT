@@ -69,7 +69,8 @@ public class PlayerComboAttackState : PlayerAttackState
         ForceMove();
 
         float normalizedTime = GetNormalizedTime(_stateMachine.Player.Animator, "Attack");
-        
+        Collider WeaponCollider = _stateMachine.Player.Weapon.GetComponent<Collider>();
+
         if (normalizedTime < 1f) // 애니메이션이 진행중
         {
             if (normalizedTime >= _attackInfoData.ForceTransitionTime)
@@ -88,18 +89,25 @@ public class PlayerComboAttackState : PlayerAttackState
                 int totalDamage = playerAtk + damage;
 
                 _stateMachine.Player.Weapon.SetAttack(totalDamage);
+                _stateMachine.Player.Weapon.EnableCollider();
 
-                _stateMachine.Player.Weapon.gameObject.SetActive(true);
+            // TODO
+            //if (WeaponCollider != null)
+            //    WeaponCollider.enabled = true;
+            //Debug.Log(_stateMachine.Player.Weapon.gameObject.name);
 
-                //Debug.Log("comboIndex" + comboIndex);
-                //Debug.Log("playerAtk" + playerAtk);
-                //Debug.Log("damage" + damage);
-                //Debug.Log("totalDamage" + totalDamage);
+            //Debug.Log("comboIndex" + comboIndex);
+            //Debug.Log("playerAtk" + playerAtk);
+            //Debug.Log("damage" + damage);
+            //Debug.Log("totalDamage" + totalDamage);
 
         }
         else
         {
-            _stateMachine.Player.Weapon.gameObject.SetActive(false);
+            //if (WeaponCollider != null)
+            //    WeaponCollider.enabled = false;
+            //_stateMachine.Player.Weapon.gameObject.SetActive(false);
+            _stateMachine.Player.Weapon.DisableCollider();
 
             if (_alreadyApplyCombo)
             {

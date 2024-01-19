@@ -11,10 +11,8 @@ public class JsonReader : MonoBehaviour
 
     private void Awake()
     {
-        //// JSON ���� ��� ����
         //string jsonFilePath = "Assets/Resources/JSON/PlayerData.json";
 
-        //// JSON ���Ͽ��� ������ �б�
         //string jsonText = File.ReadAllText(jsonFilePath);
 
         //PlayerJsonData playerJsonData = JsonUtility.FromJson<PlayerJsonData>(jsonText);
@@ -37,7 +35,6 @@ public class JsonReader : MonoBehaviour
         jsonFilePathBuilder.Append(FilePath).Append(".json");
         string jsonFilePath = jsonFilePathBuilder.ToString();
 
-        // JSON ���Ͽ��� ������ �б�
         string jsonText = File.ReadAllText(jsonFilePath);
 
         return JsonUtility.FromJson<T>(jsonText);
