@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager>
 {
-    private UIManager _uiManager;
-    private SoundManager _soundManager;
+    private UIManager _uiManager = new UIManager();
+    private SoundManager _soundManager = new SoundManager();
     private ResourceManager _resourceManager = new ResourceManager();
     private PoolingManager _poolingManager = new PoolingManager();
     private TycoonManager _tycoonManager = new TycoonManager();
@@ -25,7 +25,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     void Start()
     {
-        
+        UIManager.CreateCanvas();
     }
 
     void Update()
