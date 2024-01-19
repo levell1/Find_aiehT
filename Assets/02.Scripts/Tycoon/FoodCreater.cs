@@ -5,25 +5,25 @@ using UnityEngine;
 public class FoodCreater : MonoBehaviour
 {
     private TycoonManager _tycoonManager;
-
     private Queue<GameObject> _foodQueue = new();
 
-    // TODO: bool isFoodHere을 FoodPlace로
-    private List<(Transform t, bool isFoodHere)> _createStations = new();
+    [SerializeField] private List<GameObject> _createStations;
 
-    [SerializeField] private List<Transform> _createPos;
+    //[SerializeField] private List<Transform> _createPos;
 
     private Coroutine _co;
+    private float _foodCreateDelayTime = 5f;
 
     private void Start()
     {
-        for (int i = 0; i < _createPos.Count; ++i)
-        {
-            _createStations.Add((_createPos[i], false));
-        }
-
         _tycoonManager = GameManager.instance.TycoonManager;
         _tycoonManager.OnCreateFood += StartCreateFood;
+
+        //for (int i = 0; i < _createPos.Count; ++i)
+        //{
+
+            //_createStations.Add((_createPos[i], _tycoonManager.ServingStations[i].GetComponent<FoodPlace>()));
+        //}
     }
 
     private void StartCreateFood(GameObject obj)
@@ -37,19 +37,21 @@ public class FoodCreater : MonoBehaviour
     }
 
     IEnumerator MakeFood()
-    {
+    { 
         while(_foodQueue.Count > 0)
         {
-            for(int i = 0; i< _createStations.Count; ++i)
+            for(int i = 0; i < _createStations.Count; ++i)
             {
-                if (!_createStations[i].Item2)
+                FoodPlace foodPlace = _createStations[i].GetComponent<FoodPlace>();
+                if (foodPlace.CurrentFood == null)
                 {
-                    GameObject food = Instantiate(_foodQueue.Dequeue(), _createStations[i].Item1);
-                    _createStations[i] = (_createStations[i].Item1, true);
+                    GameObject food = Instantiate(_foodQueue.Dequeue(), _createStations[i].transform);
+                    foodPlace.CurrentFood = food.GetComponent<CookedFood>();
+                    break;
                 }
             }
 
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(_foodCreateDelayTime);
         }
         
         _co = null;

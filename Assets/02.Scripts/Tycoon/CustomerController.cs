@@ -32,7 +32,6 @@ public class CustomerController : MonoBehaviour
         set
         {
             _targetFood = value;
-            Debug.Log(_targetFood.name);
         }
     }
 
@@ -51,6 +50,8 @@ public class CustomerController : MonoBehaviour
             _agent.avoidancePriority = value;
         }
     }
+
+    private Coroutine _co;
 
     #endregion
 
@@ -99,7 +100,9 @@ public class CustomerController : MonoBehaviour
     private void GetFood()
     {
         _animator.SetTrigger("GetFood");
-        StartCoroutine(ExitRestaurant());
+
+        if (_co == null)
+            _co = StartCoroutine(ExitRestaurant());
     }
 
 
@@ -112,6 +115,8 @@ public class CustomerController : MonoBehaviour
         _agent.SetDestination(GameManager.instance.TycoonManager.CreateCustomerPos.position);
         _animator.SetBool("IsWalk", true);
         isGetFood = true;
+
+        StopCoroutine(_co);
     }
 
     #endregion

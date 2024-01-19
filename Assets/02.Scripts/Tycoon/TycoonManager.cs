@@ -48,7 +48,6 @@ public class TycoonManager : MonoBehaviour
             && _co == null)
         {
             _co = StartCoroutine(CreateCustomerCoroutine());
-            Debug.Log(_co);
         }
     }
 
