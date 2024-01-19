@@ -190,7 +190,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &203648977
 PrefabInstance:
@@ -1647,7 +1647,7 @@ Transform:
   m_Children:
   - {fileID: 315243468}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1224006882
 GameObject:
@@ -2318,12 +2318,14 @@ MonoBehaviour:
     _idleParameterName: Idle
     _walkParameterName: Walk
     _runsParameterName: Run
+    _dashParameterName: Dash
     _airParameterName: '@Air'
     _jumpParmaeterName: Jump
     _fallParameterName: Fall
-    _dashParameterName: Dash
     _attackParameterName: '@Attack'
     _comboAttackParameterName: ComboAttack
+    _skill1ParamterName: Skill1
+    _skill2ParamterName: Skill2
   <Weapon>k__BackingField: {fileID: 0}
 --- !u!114 &1544931773
 MonoBehaviour:
@@ -2462,56 +2464,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1694264727}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1848760449
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1848760451}
-  - component: {fileID: 1848760450}
-  m_Layer: 0
-  m_Name: PoolingManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1848760450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1848760449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69407677a731cd742920ee70e289ff6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Pools:
-  - ObjectName: Carrot
-    Prefab: {fileID: 2931599777171156985, guid: 6babded354a0947f5816d671762d9241,
-      type: 3}
-    Size: 1
-    SpawnPoint: {fileID: 1161358965}
---- !u!4 &1848760451
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1848760449}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1875610801
 GameObject:
   m_ObjectHideFlags: 0
@@ -2608,7 +2560,7 @@ RectTransform:
   m_Children:
   - {fileID: 517077308}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2993,12 +2945,14 @@ MonoBehaviour:
     _idleParameterName: Idle
     _walkParameterName: Walk
     _runsParameterName: Run
+    _dashParameterName: Dash
     _airParameterName: '@Air'
     _jumpParmaeterName: Jump
     _fallParameterName: Fall
-    _dashParameterName: Dash
     _attackParameterName: '@Attack'
     _comboAttackParameterName: ComboAttack
+    _skill1ParamterName: Skill1
+    _skill2ParamterName: Skill2
   <Weapon>k__BackingField: {fileID: 632438836}
 --- !u!114 &2022424285
 MonoBehaviour:
@@ -3046,7 +3000,7 @@ PrefabInstance:
     - target: {fileID: 2152142965417073981, guid: d60b05f75edd13143bd057dd510feda7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2152142965417073981, guid: d60b05f75edd13143bd057dd510feda7,
         type: 3}
@@ -3119,7 +3073,7 @@ PrefabInstance:
     - target: {fileID: 3887564408917528904, guid: 28426194e7b4a6540b5f67c9a0b5ce06,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3887564408917528904, guid: 28426194e7b4a6540b5f67c9a0b5ce06,
         type: 3}
@@ -3187,7 +3141,7 @@ PrefabInstance:
     - target: {fileID: 1865208325774667467, guid: be93bd5e7c0bd544780c1284bcd4ff75,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1865208325774667467, guid: be93bd5e7c0bd544780c1284bcd4ff75,
         type: 3}
@@ -3260,7 +3214,7 @@ PrefabInstance:
     - target: {fileID: 3569857242755455803, guid: c5fe0afd3851e744da1594beea41aa25,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 3569857242755455803, guid: c5fe0afd3851e744da1594beea41aa25,
         type: 3}
@@ -3333,7 +3287,7 @@ PrefabInstance:
     - target: {fileID: 784866874480110532, guid: 5d94b23be30de6f4db85876d278775ac,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 784866874480110532, guid: 5d94b23be30de6f4db85876d278775ac,
         type: 3}
