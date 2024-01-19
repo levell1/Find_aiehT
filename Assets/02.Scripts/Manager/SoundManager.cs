@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
@@ -27,7 +27,6 @@ public class SoundManager : MonoBehaviour
     {
         _audioClip = GetComponent<AudioClip>();
         _mixer = Resources.Load<AudioMixer>("Sound/AudioMixer");
-        DontDestroyOnLoad(this);
     }
 
     private void Start()

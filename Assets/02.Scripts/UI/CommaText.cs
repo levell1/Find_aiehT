@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class GoldText : MonoBehaviour
+public class CommaText : MonoBehaviour
 {
     private TMP_Text _glodText;
     //FIX
-    //Å×½ºÆ®
-    public int _goldAmount;
+    //í…ŒìŠ¤íŠ¸
+    public int _Value;
 
     private void Awake()
     {
         _glodText = GetComponent<TMP_Text>();
         //FIX
-        //°ñµå°ª ¹Ù²ð ¶§ += gold
-        _goldAmount = 412200;
+        //ê³¨ë“œê°’ ë°”ë€” ë•Œ += _Value
+        _Value = 412200;
     }
     private void Update()
     {
-        _glodText.text = GetComma(_goldAmount).ToString();
+        _glodText.text = GetComma(_Value).ToString();
     }
     public string GetComma(int data)
     {

@@ -17,6 +17,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     protected override void Awake()
     {
+        base.Awake();
         _soundManager = FindObjectOfType<SoundManager>();
         _poolingManager = GetComponentInChildren<PoolingManager>();
         _tycoonManager = FindObjectOfType<TycoonManager>();
