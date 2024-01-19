@@ -9,7 +9,6 @@ public class EnemyDieState : EnemyBaseState
     }
     public override void Enter()
     {
-        Debug.Log("Enter");
         _stateMachine.Enemy.Agent.speed = 0f;
         base.Enter();
         StartAnimation(_stateMachine.Enemy.AnimationData.DieParameterHash);
@@ -17,7 +16,6 @@ public class EnemyDieState : EnemyBaseState
 
     public override void Exit()
     {
-        Debug.Log("Exit");
         base.Exit();
         StopAnimation(_stateMachine.Enemy.AnimationData.DieParameterHash);
     }

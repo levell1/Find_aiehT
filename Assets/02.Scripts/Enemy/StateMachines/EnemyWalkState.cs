@@ -33,7 +33,6 @@ public class EnemyWalkState : EnemyBaseState
         
         if (_stateMachine.Enemy.HealthSystem.IsDead)
         {
-            Debug.Log("W-D");
             _stateMachine.ChangeState(_stateMachine.DieState);
             return;
         }

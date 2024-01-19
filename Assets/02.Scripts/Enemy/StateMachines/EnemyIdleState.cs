@@ -27,7 +27,6 @@ public class EnemyIdleState : EnemyBaseState
     {
         if (_stateMachine.Enemy.HealthSystem.IsDead)
         {
-            Debug.Log("I-D");
             _stateMachine.ChangeState(_stateMachine.DieState);
             return;
         }

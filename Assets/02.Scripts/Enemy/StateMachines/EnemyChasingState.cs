@@ -29,7 +29,6 @@ public class EnemyChasingState : EnemyBaseState
 
         if (_stateMachine.Enemy.HealthSystem.IsDead)
         {
-            Debug.Log("c-d");
             _stateMachine.ChangeState(_stateMachine.DieState);
             return;
         }
