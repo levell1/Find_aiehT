@@ -13,6 +13,11 @@ public class PlayerWeapon : MonoBehaviour
 
     private void OnEnable()
     {
+        InitializeCollider();
+    }
+
+    private void InitializeCollider()
+    {
         _alreadyCollidedObjects.Clear();
     }
 
@@ -23,8 +28,9 @@ public class PlayerWeapon : MonoBehaviour
 
         _alreadyCollidedObjects.Add(other);
 
-        if(other.TryGetComponent(out HealthSystem health))
+        if(other.TryGetComponent(out EnemyHealthSystem health))
         {
+            Debug.Log("sddad");
             health.TakeDamage(_damage);
         }
 
@@ -33,6 +39,25 @@ public class PlayerWeapon : MonoBehaviour
     public void SetAttack(int damage)
     {
         this._damage = damage;
+    }
+
+    // 콜라이더를 활성화할 때 이 메서드 호출
+    public void EnableCollider()
+    {
+        if (_weaponCollider != null)
+        {
+            _weaponCollider.enabled = true;
+        }
+    }
+
+    // 콜라이더를 비활성화할 때 이 메서드 호출
+    public void DisableCollider()
+    {
+        if (_weaponCollider != null)
+        {
+            _weaponCollider.enabled = false;
+            InitializeCollider();
+        }
     }
 
 }

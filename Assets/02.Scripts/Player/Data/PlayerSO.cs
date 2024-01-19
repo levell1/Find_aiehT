@@ -10,6 +10,7 @@ public class PlayerSO : ScriptableObject
     [field: SerializeField] public PlayerAttackData AttackData { get; private set; }
     [field: SerializeField] public PlayerSkillData SkillData { get; set; }
     [field: SerializeField] public PlayerData PlayerData { get; private set; }
+    [field: SerializeField] public PlayerLevelData PlayerLevelData { get; private set; }
 
     public void SetPlayerData(PlayerData newData)
     {
@@ -19,6 +20,11 @@ public class PlayerSO : ScriptableObject
     public void SetPlayerSkillData(PlayerSkillData newData)
     {
         SkillData = newData;
+    }
+
+    public void SetPlayerLevelData(PlayerLevelData newData)
+    {
+        PlayerLevelData = newData;
     }
 
     public PlayerData GetPlayerData()

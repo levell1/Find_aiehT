@@ -37,5 +37,7 @@ public class EnemyHealthSystem : MonoBehaviour
             OnDie.Invoke();
         }
 
+        Debug.Log(_health);
+
     }
 }

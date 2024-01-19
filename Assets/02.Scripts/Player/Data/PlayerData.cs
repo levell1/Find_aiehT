@@ -55,25 +55,20 @@ public class PlayerData
     [SerializeField] private int PlayerExp;
     [SerializeField] private int PlayerGold;
 
-    public int GetPlayerMaxHealth()
-    {
-        return PlayerMaxHealth;
-    }
+    public int GetPlayerLevel() { return PlayerLevel; }
+    public int GetPlayerMaxHealth() { return PlayerMaxHealth; }
+    public int GetPlayerMaxStamina() { return PlayerMaxStamina; }
+    public int GetPlayerAtk() { return PlayerAttack; }
+    public int GetPlayerDef() { return PlayerDef; }
+    public int GetPlayerExp() { return PlayerExp; }
 
-    public int GetPlayerMaxStamina()
-    {
-        return PlayerMaxStamina;
-    }
-
-    public int GetPlayerAtk()
-    {
-        return PlayerAttack;
-    }
-
-    public int GetPlayerDef()
-    {
-        return PlayerDef;
-    }
+    public void SetPlayerLevel(int value) { PlayerLevel = value; }
+    public void SetPlayerMaxHealth(int value) { PlayerMaxHealth = value; }
+    public void SetPlayerMaxStamina(int value) { PlayerMaxStamina = value; }
+    public void SetPlayerAttack(int value) { PlayerAttack = value; }
+    public void SetPlayerDef(int value) { PlayerDef = value; }
+    public void SetPlayerExp(int value) { PlayerExp = value; }
+    public void SetPlayerGold(int value) { PlayerGold = value; }
 
 }
 
