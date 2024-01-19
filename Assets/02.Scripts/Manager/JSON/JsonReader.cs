@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using UnityEngine;
 
 public class JsonReader : MonoBehaviour
@@ -32,8 +33,9 @@ public class JsonReader : MonoBehaviour
 
     public T LoadJson<T>(string FilePath)
     {
-        // JSON ���� ��� ����
-        string jsonFilePath = "Assets/Resources/JSON/" + FilePath + ".json"; // ���귮�� Ŀ��
+        StringBuilder jsonFilePathBuilder = new StringBuilder("Assets/Resources/JSON/");
+        jsonFilePathBuilder.Append(FilePath).Append(".json");
+        string jsonFilePath = jsonFilePathBuilder.ToString();
 
         // JSON ���Ͽ��� ������ �б�
         string jsonText = File.ReadAllText(jsonFilePath);
