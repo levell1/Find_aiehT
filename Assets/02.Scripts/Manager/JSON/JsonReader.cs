@@ -26,7 +26,11 @@ public class JsonReader : MonoBehaviour
         
         PlayerSkillData skillData = LoadJson<PlayerSkillData>("PlayerSkillData");
         PlayerSO.SetPlayerSkillData(skillData);
-    
+
+        PlayerLevelData playerLevelData = LoadJson<PlayerLevelData>("LevelData");
+        PlayerSO.SetPlayerLevelData(playerLevelData);
+
+
     }
 
     public T LoadJson<T>(string FilePath)

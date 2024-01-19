@@ -30,6 +30,7 @@ public class HealthSystem : MonoBehaviour
     public void TakeDamage(int damage)
     {
         if (_health == 0) return;
+        //TODO DEF
         _health = Mathf.Max((_health + _playerDef) - damage, 0);
 
         if (_health == 0)

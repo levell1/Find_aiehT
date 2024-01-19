@@ -69,7 +69,6 @@ public class PlayerComboAttackState : PlayerAttackState
         ForceMove();
 
         float normalizedTime = GetNormalizedTime(_stateMachine.Player.Animator, "Attack");
-        Collider WeaponCollider = _stateMachine.Player.Weapon.GetComponent<Collider>();
 
         if (normalizedTime < 1f) // 애니메이션이 진행중
         {
