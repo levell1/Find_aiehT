@@ -30,10 +30,9 @@ public class EnemyWalkState : EnemyBaseState
     public override void Update()
     {
         base.Update();
-
+        
         if (_stateMachine.Enemy.HealthSystem.IsDead)
         {
-            Debug.Log("W-D");
             _stateMachine.ChangeState(_stateMachine.DieState);
             return;
         }

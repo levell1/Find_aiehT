@@ -27,13 +27,25 @@ public class EnemyIdleState : EnemyBaseState
     {
         if (_stateMachine.Enemy.HealthSystem.IsDead)
         {
-            Debug.Log("I-D");
             _stateMachine.ChangeState(_stateMachine.DieState);
+            return;
+        }
+
+        if (IsInAttackRange())
+        {
+            _stateMachine.Enemy.transform.LookAt(_stateMachine.Target.transform);
+            if (_stateMachine.Enemy.AttackDelay > _stateMachine.Enemy.Data.AttackDelay)
+            {
+                _stateMachine.Enemy.AttackDelay = 0;
+                _stateMachine.ChangeState(_stateMachine.AttackState);
+                return;
+            }
             return;
         }
 
         if (IsInChaseRange())
         {
+            _stateMachine.Enemy.transform.LookAt(_stateMachine.Target.transform);
             _stateMachine.ChangeState(_stateMachine.ChasingState);
             return;
         }

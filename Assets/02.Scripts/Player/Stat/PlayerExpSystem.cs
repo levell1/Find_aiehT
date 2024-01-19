@@ -30,7 +30,7 @@ public class PlayerExpSystem : MonoBehaviour
     {
         _playerExp += enemyExp;
 
-        //Debug.Log(_playerExp);
+        Debug.Log(_playerExp);
 
         if( _playerExp >= _maxExp )
         {

@@ -23,6 +23,7 @@ public class LevelInfoData
 
 }
 
+[Serializable]
 public class PlayerLevelData
 {
     [field: SerializeField] public List<LevelInfoData> LevelInfoData;

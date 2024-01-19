@@ -19,6 +19,8 @@ public class EnemyAttackSpot : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other == myCollider) return;
+        if (other.CompareTag("Enemy")) return;
+
         if (other.gameObject.TryGetComponent(out HealthSystem health))
         {
             health.TakeDamage(_enemySO.Damage);

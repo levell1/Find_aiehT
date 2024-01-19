@@ -33,14 +33,19 @@ public class EnemyAttackState : EnemyBaseState
 
         if (_stateMachine.Enemy.HealthSystem.IsDead)
         {
-            Debug.Log("A-D");
             _stateMachine.ChangeState(_stateMachine.DieState);
             return;
         }
+        _stateMachine.Enemy.transform.LookAt(_stateMachine.Target.transform);
 
         if (IsInAttackRange())
         {
-            //TODO 딜레이
+            AnimatorStateInfo animTime = _stateMachine.Enemy.Animator.GetCurrentAnimatorStateInfo(0);
+            if (animTime.normalizedTime >= 1f)
+            {
+                Debug.Log("A-I");
+                _stateMachine.ChangeState(_stateMachine.IdlingState);
+            }
         }
         else
         {
@@ -55,5 +60,6 @@ public class EnemyAttackState : EnemyBaseState
                 return;
             }
         }
+
     }
 }

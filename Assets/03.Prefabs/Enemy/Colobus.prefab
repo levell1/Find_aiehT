@@ -26,11 +26,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1336977415829048161}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0.01}
+  m_LocalPosition: {x: 0, y: 0.0028, z: 0.0136}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2999074714871863957}
+  m_Father: {fileID: 6104800817333646840}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &7448038511215297707
@@ -48,7 +48,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 2
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 4792476983419006921}
   m_Layer: 0
   m_Name: Colobus
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,9 +103,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6727348790459994442}
+  - {fileID: 2340210974069440039}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2415952632581577130
 Rigidbody:
@@ -212,6 +212,7 @@ MonoBehaviour:
   MaxPatrolDistance: 10
   DetectDistance: 5
   PatrolDelay: 0
+  AttackDelay: 0
   Agent: {fileID: 4792476983419006921}
 --- !u!195 &4792476983419006921
 NavMeshAgent:
@@ -317,15 +318,15 @@ PrefabInstance:
       addedObject: {fileID: 4150978260003613748}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 987300f45a3f86647ad6e04d1d9bc39b, type: 3}
---- !u!4 &2999074714871863957 stripped
+--- !u!4 &2340210974069440039 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -916416580517893068, guid: 987300f45a3f86647ad6e04d1d9bc39b,
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 987300f45a3f86647ad6e04d1d9bc39b,
     type: 3}
   m_PrefabInstance: {fileID: 2877976110029363660}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6727348790459994442 stripped
+--- !u!4 &6104800817333646840 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 987300f45a3f86647ad6e04d1d9bc39b,
+  m_CorrespondingSourceObject: {fileID: -916416580517893068, guid: 987300f45a3f86647ad6e04d1d9bc39b,
     type: 3}
   m_PrefabInstance: {fileID: 2877976110029363660}
   m_PrefabAsset: {fileID: 0}
