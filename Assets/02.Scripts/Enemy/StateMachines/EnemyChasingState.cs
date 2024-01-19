@@ -9,7 +9,8 @@ public class EnemyChasingState : EnemyBaseState
     }
     public override void Enter()
     {
-        _stateMachine.MovementSpeedModifier = 1;
+        _stateMachine.Enemy.Agent.speed = 5f;
+
         base.Enter();
         StartAnimation(_stateMachine.Enemy.AnimationData.GroundParameterHash);
         StartAnimation(_stateMachine.Enemy.AnimationData.RunParameterHash);
@@ -26,6 +27,15 @@ public class EnemyChasingState : EnemyBaseState
     {
         base.Update();
 
+        if (_stateMachine.Enemy.HealthSystem.IsDead)
+        {
+            Debug.Log("c-d");
+            _stateMachine.ChangeState(_stateMachine.DieState);
+            return;
+        }
+
+        _stateMachine.Enemy.Agent.SetDestination(_stateMachine.Target.transform.position);
+
         if (!IsInChaseRange())
         {
             _stateMachine.ChangeState(_stateMachine.IdlingState);
@@ -36,14 +46,5 @@ public class EnemyChasingState : EnemyBaseState
             _stateMachine.ChangeState(_stateMachine.AttackState);
             return;
         }
-    }
-
-    private bool IsInAttackRange()
-    {
-         if (_stateMachine.Target.IsDead) { return false; }
-
-        float playerDistanceSqr = (_stateMachine.Target.transform.position - _stateMachine.Enemy.transform.position).sqrMagnitude;
-
-        return playerDistanceSqr <= _stateMachine.Enemy.Data.AttackRange * _stateMachine.Enemy.Data.AttackRange;
     }
 }

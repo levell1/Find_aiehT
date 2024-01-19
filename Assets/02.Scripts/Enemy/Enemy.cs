@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -14,11 +16,24 @@ public class Enemy : MonoBehaviour
     public Collider Collider { get; private set; }
     public Animator Animator { get; private set; }
     public EnemyHealthSystem HealthSystem { get; private set; }
+    public EnemyRespawn EnemyRespawn { get; private set; }
 
     [field: Header("Weapon")]
     [field: SerializeField] public EnemyAttackSpot Spot { get; private set; }
 
+    [field: Header("Patrol")]
+    [field: SerializeField] public float MinPatrolDistance;
+    [field: SerializeField] public float MaxPatrolDistance;
+    [field: SerializeField] public float DetectDistance;
+
+    public float PatrolDelay = 0;
+
     private EnemyStateMachine _stateMachine;
+
+    public NavMeshAgent Agent;
+
+
+
 
     void Awake()
     {
@@ -28,12 +43,9 @@ public class Enemy : MonoBehaviour
         Collider = GetComponent<Collider>();
         Animator = GetComponentInChildren<Animator>();
         HealthSystem = GetComponent<EnemyHealthSystem>();
+        EnemyRespawn = GetComponent<EnemyRespawn>();
 
         _stateMachine = new EnemyStateMachine(this);
-    }
-    private void OnEnable()
-    {
-        gameObject.transform.position = new Vector3(4,0,2);
     }
 
     private void Start()
@@ -44,6 +56,8 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        PatrolDelay += Time.deltaTime;
+
         _stateMachine.HandleInput();
 
         _stateMachine.Update();
@@ -53,9 +67,9 @@ public class Enemy : MonoBehaviour
     {
         _stateMachine.PhyscisUpdate();
     }
+
     private void OnDie()
     {
-        Animator.SetTrigger("Die");
-        gameObject.SetActive(false);
+        Collider.enabled = false;
     }
 }

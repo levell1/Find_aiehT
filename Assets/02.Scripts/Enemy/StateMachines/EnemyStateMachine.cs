@@ -12,11 +12,9 @@ public class EnemyStateMachine : StateMachine
     public EnemyIdleState IdlingState { get; }
     public EnemyChasingState ChasingState { get; }
     public EnemyAttackState AttackState { get; }
-
-    public Vector2 MovementInput { get; set; }
+    public EnemyWalkState WalkState { get; }
+    public EnemyDieState DieState { get; }
     public float MovementSpeed { get; private set; }
-    public float RotationDamping { get; private set; }
-    public float MovementSpeedModifier { get; set; } = 1f;
 
     public EnemyStateMachine(Enemy enemy)
     {
@@ -26,8 +24,7 @@ public class EnemyStateMachine : StateMachine
         IdlingState = new EnemyIdleState(this);
         ChasingState = new EnemyChasingState(this);
         AttackState = new EnemyAttackState(this);
-
-        MovementSpeed = enemy.Data.GroundedData.BaseSpeed;
-        RotationDamping = enemy.Data.GroundedData.BaseRotationDamping;
+        WalkState = new EnemyWalkState(this);
+        DieState = new EnemyDieState(this);
     }
 }
