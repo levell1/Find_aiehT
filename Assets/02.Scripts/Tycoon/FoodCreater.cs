@@ -4,26 +4,21 @@ using UnityEngine;
 
 public class FoodCreater : MonoBehaviour
 {
-    private TycoonManager _tycoonManager;
-
     private Queue<GameObject> _foodQueue = new();
 
-    // TODO: bool isFoodHere을 FoodPlace로
-    private List<(Transform t, bool isFoodHere)> _createStations = new();
+    [SerializeField] private List<GameObject> _createStations;
 
-    [SerializeField] private List<Transform> _createPos;
-
+    private float _foodCreateDelayTime = 5f;
     private Coroutine _co;
 
-    private void Start()
+    public void SubscribeCreateFoodEvent(CustomerController customer)
     {
-        for (int i = 0; i < _createPos.Count; ++i)
-        {
-            _createStations.Add((_createPos[i], false));
-        }
+        customer.OnCreateFood += StartCreateFood;
+    }
 
-        _tycoonManager = GameManager.instance.TycoonManager;
-        _tycoonManager.OnCreateFood += StartCreateFood;
+    public void UnsubscribeCreateFoodEvent(CustomerController customer)
+    {
+        customer.OnCreateFood -= StartCreateFood;
     }
 
     private void StartCreateFood(GameObject obj)
@@ -37,23 +32,24 @@ public class FoodCreater : MonoBehaviour
     }
 
     IEnumerator MakeFood()
-    {
+    { 
         while(_foodQueue.Count > 0)
         {
-            for(int i = 0; i< _createStations.Count; ++i)
+            yield return new WaitForSeconds(_foodCreateDelayTime);
+
+            for (int i = 0; i < _createStations.Count; ++i)
             {
-                if (!_createStations[i].Item2)
+                FoodPlace foodPlace = _createStations[i].GetComponent<FoodPlace>();
+                if (foodPlace.CurrentFood == null)
                 {
-                    GameObject food = Instantiate(_foodQueue.Dequeue(), _createStations[i].Item1);
-                    _createStations[i] = (_createStations[i].Item1, true);
+                    GameObject food = Instantiate(_foodQueue.Dequeue(), _createStations[i].transform);
+                    foodPlace.CurrentFood = food.GetComponent<CookedFood>();
+                    break;
                 }
             }
-
-            yield return new WaitForSeconds(5f);
         }
         
         _co = null;
-
         yield break;
     }
 }

@@ -7,7 +7,7 @@ public class ServingFood : MonoBehaviour
     [SerializeField] private Transform _handTransform;
 
     private GameObject _canHoldFood;
-    private GameObject _HoldingFood;
+    private GameObject _holdingFood;
     private bool _isHold = false;
     private const float _minDistanceToPutFood = 1.3f;
 
@@ -34,16 +34,14 @@ public class ServingFood : MonoBehaviour
 
     private void PickupFood()
     {
-        if (_canHoldFood == null)
+        if (_canHoldFood == null || !_canHoldFood.GetComponent<CookedFood>().CanHold)
             return;
 
-        // TODO: 모든 자리를 FoodPlace로 만들면 if문은 제거
-        if (_canHoldFood.GetComponentInParent<FoodPlace>() != null)
-            _canHoldFood.GetComponentInParent<FoodPlace>().CurrentFood = null;
+        _canHoldFood.GetComponentInParent<FoodPlace>().CurrentFood = null;
 
-        _HoldingFood = _canHoldFood;
-        _HoldingFood.transform.position = _handTransform.position;
-        _HoldingFood.transform.SetParent(_handTransform);
+        _holdingFood = _canHoldFood;
+        _holdingFood.transform.position = _handTransform.position;
+        _holdingFood.transform.SetParent(_handTransform);
         _isHold = true;
     }
 
@@ -70,9 +68,9 @@ public class ServingFood : MonoBehaviour
 
         if (foodPlace != null)
         {
-            _HoldingFood.transform.position = foodPlace.gameObject.transform.position;
-            _HoldingFood.transform.SetParent(foodPlace.transform);
-            foodPlace.CurrentFood = _HoldingFood.GetComponent<CookedFood>();
+            _holdingFood.transform.position = foodPlace.gameObject.transform.position;
+            _holdingFood.transform.SetParent(foodPlace.transform);
+            foodPlace.CurrentFood = _holdingFood.GetComponent<CookedFood>();
             _isHold = false;
         }
     }
