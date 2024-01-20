@@ -17,13 +17,12 @@ public class UIManager
         var pre = Resources.LoadAll<GameObject>("UI/Canvas");
         foreach (var p in pre) 
         {
-            Debug.Log(p.name);
             _popupDic.Add(p.name, Object.Instantiate(p));
             _popupDic[p.name].SetActive(false);
         }
     }
 
-    public void Popup(string uiname)
+    public void ShowCanvas(string uiname)
     {
         _popupDic[uiname].GetComponent<Canvas>().sortingOrder = _canvasSortOrder;
         _popupStack.Push(_popupDic[uiname]);
@@ -32,19 +31,27 @@ public class UIManager
         Cursor.lockState = CursorLockMode.None;
     }
 
-    public void CloseLastPopup()
+    public void CloseLastCanvas()
     {
+        if (_popupStack.Count == 1)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
         if (_popupStack.Count == 0) 
         {
-            Popup("SettingUI");
+            ShowCanvas("SettingUI");
         }
-        else { 
-        GameObject currentUi = _popupStack.Pop();
-        currentUi.SetActive(false);
-        currentUi = null;
-        _canvasSortOrder--;
+        else 
+        { 
+            GameObject currentUi = _popupStack.Pop();
+            currentUi.SetActive(false);
+            currentUi = null;
+            _canvasSortOrder--;
         }
+
         
+
     }
 
 }

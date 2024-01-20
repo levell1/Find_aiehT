@@ -20,11 +20,7 @@ public class test : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Debug.Log("esc");
-            GameManager.instance.UIManager.CloseLastPopup();
-        }
+        
         if (Input.GetKeyDown(KeyCode.E))
         {
 
@@ -35,9 +31,21 @@ public class test : MonoBehaviour
             GameManager.instance.SoundManager.BgSoundPlay("BG3");
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("esc");
+            GameManager.instance.UIManager.CloseLastCanvas();
+        }
+
+
         if (Input.GetKeyDown(KeyCode.R))
         {
-            GameManager.instance.UIManager.Popup("ShopUI");
+            GameManager.instance.UIManager.ShowCanvas("ShopUI");
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            GameManager.instance.UIManager.ShowCanvas("InventoryUI");
         }
     }
 }
