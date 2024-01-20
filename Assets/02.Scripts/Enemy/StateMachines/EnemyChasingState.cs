@@ -33,9 +33,15 @@ public class EnemyChasingState : EnemyBaseState
             return;
         }
 
+        //TODO 조건추가
+        //if (_stateMachine.Enemy.HealthSystem.Hit)
+        //{
+        //    _stateMachine.Enemy.HealthSystem.Hit = false;
+        //}
+
         _stateMachine.Enemy.Agent.SetDestination(_stateMachine.Target.transform.position);
 
-        if (!IsInChaseRange())
+        if (!IsInChaseRange() && !_stateMachine.Enemy.HealthSystem.Hit)
         {
             _stateMachine.ChangeState(_stateMachine.IdlingState);
             return;

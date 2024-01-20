@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
     public float PatrolDelay = 0;
     public float AttackDelay = 0;
 
-    private EnemyStateMachine _stateMachine;
+    public EnemyStateMachine _stateMachine;
 
     public NavMeshAgent Agent;
 
