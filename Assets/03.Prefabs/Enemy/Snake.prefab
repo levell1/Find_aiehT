@@ -149,11 +149,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cc14e48b51806245904f925a336be8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hit: 0
-  _maxHealth: 0
-  _health: 0
+  MaxHealth: 0
+  Health: 0
   HpCanvas: {fileID: 6622019599496914345}
   HpBar: {fileID: 2557916105354833137}
+  Hit: 0
+  HitCool: 3
   IsDead: 0
 --- !u!114 &877618461414663906
 MonoBehaviour:
@@ -167,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddd566529265f5f4ba2414bc21f0401d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RespawnDelay: 11
+  RespawnDelay: 3
 --- !u!114 &4950570248029245563
 MonoBehaviour:
   m_ObjectHideFlags: 0
