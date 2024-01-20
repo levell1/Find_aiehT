@@ -34,7 +34,7 @@ public class ServingFood : MonoBehaviour
 
     private void PickupFood()
     {
-        if (_canHoldFood == null)
+        if (_canHoldFood == null || !_canHoldFood.GetComponent<CookedFood>().CanHold)
             return;
 
         _canHoldFood.GetComponentInParent<FoodPlace>().CurrentFood = null;

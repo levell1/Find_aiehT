@@ -51,8 +51,9 @@ public class FoodPlace : MonoBehaviour
         OnCustomerGetFood.Invoke();
 
         // TODO: 음식을 다시 잡지 못하도록 수정
-        _currentFood.GetComponent<Collider>().enabled = false;
-        StartCoroutine(DestoryCurrentFood(_currentFood.gameObject));
+        // TODO: Object Pool
+        _currentFood.CanHold = false;
+        StartCoroutine(DestoryCurrentFood(_currentFood));
         
         _currentFood = null;
         _currentCustomer = null;
@@ -61,11 +62,12 @@ public class FoodPlace : MonoBehaviour
 
     #region Coroutine
 
-    IEnumerator DestoryCurrentFood(GameObject food)
+    IEnumerator DestoryCurrentFood(CookedFood food)
     {
         yield return new WaitForSeconds(_foodDestroyTime);
 
-        Destroy(food);
+        food.CanHold = true;
+        Destroy(food.gameObject);
     }
 
     #endregion

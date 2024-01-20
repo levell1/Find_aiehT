@@ -11,5 +11,19 @@ public class CookedFood : MonoBehaviour
         private set { }
     }
 
+    private bool _canHold;
+    public bool CanHold {
+        get { return _canHold; }
+        set { _canHold = value; } 
+    }
 
+    private void Awake()
+    {
+        gameObject.tag = "CookedFood";
+    }
+
+    private void OnEnable()
+    {
+        _canHold = true;
+    }
 }
