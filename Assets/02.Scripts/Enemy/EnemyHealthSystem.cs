@@ -21,23 +21,15 @@ public class EnemyHealthSystem : MonoBehaviour
         _health = _maxHealth;
     }
 
-    private void Update()
-    {
-        //TakeDamage(1);
-    }
-
     public void TakeDamage(int damage)
     {
-        if (_health <= 0) return;
-        _health -= damage;
+        if (_health == 0) return;
+        _health = Mathf.Max(_health  - damage, 0);
 
-        if (_health <= 0)
+        if (_health == 0)
         {
             IsDead = true;
             OnDie.Invoke();
         }
-
-        Debug.Log(_health);
-
     }
 }

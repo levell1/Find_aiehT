@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyWalkState : EnemyBaseState
 {
     public EnemyWalkState(EnemyStateMachine ememyStateMachine) : base(ememyStateMachine)
-    {
+    { 
     }
 
     public override void Enter()
@@ -33,7 +33,6 @@ public class EnemyWalkState : EnemyBaseState
         
         if (_stateMachine.Enemy.HealthSystem.IsDead)
         {
-            Debug.Log("W-D");
             _stateMachine.ChangeState(_stateMachine.DieState);
             return;
         }
