@@ -9,12 +9,14 @@ public class EnemyHealthSystem : MonoBehaviour
 {
     private Enemy _enemy;
     private EnemySO _enemySO;
-    public bool Hit;
-    public int _maxHealth;
-    public int _health;
+    public int MaxHealth;
+    public int Health;
     //TODO 시간지나면 UI 안보이게 하기
     public Canvas HpCanvas;
     public Image HpBar;
+    public bool Hit;
+    public int HitCool;
+
     public event Action OnDie;
 
     public bool IsDead;
@@ -26,31 +28,49 @@ public class EnemyHealthSystem : MonoBehaviour
         _enemy = GetComponent<Enemy>();
         _enemySO = GetComponent<Enemy>().Data;
 
-        _maxHealth = _enemySO.MaxHealth;
-        _health = _maxHealth;
-
+        MaxHealth = _enemySO.MaxHealth;
+        Health = MaxHealth;
+        HpCanvas.gameObject.SetActive(false);
         _camera = Camera.main;
     }
 
     private void Update()
     {
-        HpCanvas.transform.LookAt(HpCanvas.transform.position + _camera.transform.rotation * Vector3.back, _camera.transform.rotation * Vector3.down);
-        HpBar.fillAmount = (float)_health / _maxHealth;
+        if (Hit)
+        {
+            HpCanvas.gameObject.SetActive(true);
+            //카메라 방향으로 캔버스 돌리기
+            HpCanvas.transform.LookAt(HpCanvas.transform.position + _camera.transform.rotation * Vector3.back, _camera.transform.rotation * Vector3.down);
+
+            StartCoroutine(HitCancel());
+        }
+        else
+        {
+            HpCanvas.gameObject.SetActive(false);
+        }
+
+        HpBar.fillAmount = (float)Health / MaxHealth;
     }
 
 
     public void TakeDamage(int damage)
     {
         Hit = true;
-        if (_health == 0) return;
-        _health = Mathf.Max(_health  - damage, 0);
+        if (Health == 0) return;
+        Health = Mathf.Max(Health - damage, 0);
 
         _enemy._stateMachine.ChangeState(_enemy._stateMachine.ChasingState);
 
-        if (_health == 0)
+        if (Health == 0)
         {
             IsDead = true;
             OnDie.Invoke();
         }
+    }
+
+    private IEnumerator HitCancel()
+    {
+        yield return new WaitForSeconds(HitCool); //해당시간동안 플레이어를 추격한다.
+        Hit = false;
     }
 }

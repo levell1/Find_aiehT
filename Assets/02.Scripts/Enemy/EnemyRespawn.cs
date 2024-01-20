@@ -33,7 +33,7 @@ public class EnemyRespawn : MonoBehaviour
         _enemy.HealthSystem.IsDead = false;
         _enemy.Collider.enabled = true;
 
-        _enemy.HealthSystem._health = _enemy.HealthSystem._maxHealth;
+        _enemy.HealthSystem.Health = _enemy.HealthSystem.MaxHealth;
 
         if (_enemySpawnPoint != null)
         {
