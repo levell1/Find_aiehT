@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class FoodCreater : MonoBehaviour
 {
-    private TycoonManager _tycoonManager;
     private Queue<GameObject> _foodQueue = new();
 
     [SerializeField] private List<GameObject> _createStations;
 
-    private float _foodCreateDelayTime = 3f;
+    private float _foodCreateDelayTime = 5f;
     private Coroutine _co;
 
-    private void Start()
+    public void SubscribeCreateFoodEvent(CustomerController customer)
     {
-        _tycoonManager = GameManager.instance.TycoonManager;
-        _tycoonManager.OnCreateFood += StartCreateFood;
+        customer.OnCreateFood += StartCreateFood;
+    }
+
+    public void UnsubscribeCreateFoodEvent(CustomerController customer)
+    {
+        customer.OnCreateFood -= StartCreateFood;
     }
 
     private void StartCreateFood(GameObject obj)
@@ -32,7 +35,9 @@ public class FoodCreater : MonoBehaviour
     { 
         while(_foodQueue.Count > 0)
         {
-            for(int i = 0; i < _createStations.Count; ++i)
+            yield return new WaitForSeconds(_foodCreateDelayTime);
+
+            for (int i = 0; i < _createStations.Count; ++i)
             {
                 FoodPlace foodPlace = _createStations[i].GetComponent<FoodPlace>();
                 if (foodPlace.CurrentFood == null)
@@ -42,8 +47,6 @@ public class FoodCreater : MonoBehaviour
                     break;
                 }
             }
-
-            yield return new WaitForSeconds(_foodCreateDelayTime);
         }
         
         _co = null;

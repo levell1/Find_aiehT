@@ -11,7 +11,7 @@ public class TycoonManager : MonoBehaviour
     [SerializeField] public List<GameObject> CustomerTargetFoodPrefabs;
 
     public List<GameObject> ServingStations = new();    // Add CreateStations In Inspector
-    [SerializeField] public List<GameObject> _destinations;
+    [SerializeField] private List<GameObject> _destinations;
     [SerializeField] public Transform CreateCustomerPos;
 
     [SerializeField] private int _maxCustomerNum = 4;
@@ -27,8 +27,9 @@ public class TycoonManager : MonoBehaviour
     
     private int _agentPriority = 0;
 
+    [SerializeField] public FoodCreater _FoodCreater;
 
-    public event Action<GameObject> OnCreateFood;
+    //public event Action<GameObject> OnCustomerCreate;
     
     private void Start()
     {
@@ -64,6 +65,7 @@ public class TycoonManager : MonoBehaviour
         {
             yield return new WaitForSeconds(_customerSpawnTime);
 
+            // 손님이 없는 자리만 List로
             // TODO: customer 쪽에서 해줘야 하나?
             availableDestinations = _destinations
             .Select((d, i) => (d, i))
@@ -73,30 +75,35 @@ public class TycoonManager : MonoBehaviour
             if (availableDestinations.Count <= 0)
                 yield break;
 
+            // 손님 생성
             // TODO: 고정된 string값("Customer") 처리
             GameObject customerObject = GameManager.instance.PoolingManager.GetObject("Customer");
             CustomerController customerController = customerObject.GetComponent<CustomerController>();
 
+            // 손님 자리 배치
             int seatNum = UnityEngine.Random.Range(0, availableDestinations.Count);
             customerController.AgentDestination = availableDestinations[seatNum].destination.transform;
 
-            //TODO: 목적지에 도착했을 때 정하는 것으로 변경
-            int targetFoodNum = UnityEngine.Random.Range(0, CustomerTargetFoodPrefabs.Count);
-            customerController.TargetFood = CustomerTargetFoodPrefabs[targetFoodNum];
+            // 손님 요청 음식 결정
+            // TODO: SO Data로 변경
+            _FoodCreater.SubscribeCreateFoodEvent(customerController);
 
-            OnCreateFood?.Invoke(CustomerTargetFoodPrefabs[targetFoodNum]);
-            
 
             int currentDestinationIndex = availableDestinations[seatNum].index;
 
+            // 손님의 자리(FoodPlace)에 손님 지정, 손님의 스크립트에 자리 지정 (이벤트를 위해)
             FoodPlace foodPlace = _destinations[currentDestinationIndex].GetComponentInParent<FoodPlace>(); 
             foodPlace.CurrentCustomer = customerController;
             customerController.TargetFoodPlace = foodPlace;
 
+            // AI 우선순위 지정
             ++_agentPriority;
             customerController.AgentPriority = _agentPriority;
 
+            // 자리가 있음을 알려주는 bool값 true
             _isCustomerSitting[currentDestinationIndex] = true;
+
+            // 현재 손님 수 ++, 오늘 올 손님 --
             ++_currentCustomerNum;
             --_todayMaxCustomerNum;
         }
