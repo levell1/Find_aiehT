@@ -10,4 +10,6 @@ public class CookedFood : MonoBehaviour
         get { return _foodName; }
         private set { }
     }
+
+
 }

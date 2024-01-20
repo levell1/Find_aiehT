@@ -37,9 +37,7 @@ public class ServingFood : MonoBehaviour
         if (_canHoldFood == null)
             return;
 
-        // TODO: 모든 자리를 FoodPlace로 만들면 if문은 제거
-        if (_canHoldFood.GetComponentInParent<FoodPlace>() != null)
-            _canHoldFood.GetComponentInParent<FoodPlace>().CurrentFood = null;
+        _canHoldFood.GetComponentInParent<FoodPlace>().CurrentFood = null;
 
         _holdingFood = _canHoldFood;
         _holdingFood.transform.position = _handTransform.position;

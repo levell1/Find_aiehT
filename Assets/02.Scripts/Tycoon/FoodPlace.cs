@@ -51,6 +51,7 @@ public class FoodPlace : MonoBehaviour
         OnCustomerGetFood.Invoke();
 
         // TODO: 음식을 다시 잡지 못하도록 수정
+        _currentFood.GetComponent<Collider>().enabled = false;
         StartCoroutine(DestoryCurrentFood(_currentFood.gameObject));
         
         _currentFood = null;
