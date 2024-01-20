@@ -9,21 +9,13 @@ public class FoodCreater : MonoBehaviour
 
     [SerializeField] private List<GameObject> _createStations;
 
-    //[SerializeField] private List<Transform> _createPos;
-
+    private float _foodCreateDelayTime = 3f;
     private Coroutine _co;
-    private float _foodCreateDelayTime = 5f;
 
     private void Start()
     {
         _tycoonManager = GameManager.instance.TycoonManager;
         _tycoonManager.OnCreateFood += StartCreateFood;
-
-        //for (int i = 0; i < _createPos.Count; ++i)
-        //{
-
-            //_createStations.Add((_createPos[i], _tycoonManager.ServingStations[i].GetComponent<FoodPlace>()));
-        //}
     }
 
     private void StartCreateFood(GameObject obj)
@@ -55,7 +47,6 @@ public class FoodCreater : MonoBehaviour
         }
         
         _co = null;
-
         yield break;
     }
 }

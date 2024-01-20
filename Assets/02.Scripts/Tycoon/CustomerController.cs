@@ -21,7 +21,6 @@ public class CustomerController : MonoBehaviour
         set
         {
             _targetFoodPlace = value;
-            // TODO: event 해제?
             _targetFoodPlace.OnCustomerGetFood += GetFood;
         }
     }
@@ -29,10 +28,7 @@ public class CustomerController : MonoBehaviour
     public GameObject TargetFood
     {
         get { return _targetFood; }
-        set
-        {
-            _targetFood = value;
-        }
+        set { _targetFood = value; }
     }
 
     public Transform AgentDestination
@@ -100,9 +96,10 @@ public class CustomerController : MonoBehaviour
     private void GetFood()
     {
         _animator.SetTrigger("GetFood");
-
         if (_co == null)
+        {
             _co = StartCoroutine(ExitRestaurant());
+        }
     }
 
 
@@ -116,7 +113,9 @@ public class CustomerController : MonoBehaviour
         _animator.SetBool("IsWalk", true);
         isGetFood = true;
 
-        StopCoroutine(_co);
+        _targetFoodPlace.OnCustomerGetFood -= GetFood;
+
+        _co = null;
     }
 
     #endregion
