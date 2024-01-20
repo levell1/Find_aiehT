@@ -36,7 +36,6 @@ public class EnemyAttackState : EnemyBaseState
             _stateMachine.ChangeState(_stateMachine.DieState);
             return;
         }
-        _stateMachine.Enemy.transform.LookAt(_stateMachine.Target.transform);
 
         if (IsInAttackRange())
         {

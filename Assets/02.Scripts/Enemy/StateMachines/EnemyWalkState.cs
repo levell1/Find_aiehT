@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyWalkState : EnemyBaseState
 {
     public EnemyWalkState(EnemyStateMachine ememyStateMachine) : base(ememyStateMachine)
-    {
+    { 
     }
 
     public override void Enter()
