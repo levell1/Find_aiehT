@@ -1,56 +1,57 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Xml.Linq;
-using TMPro;
 using UnityEngine;
 
 
 public class UIManager
 {
 
-    private int _order = 10;
+    private int _canvasSortOrder = 5;
 
     private Stack<GameObject> _popupStack = new Stack<GameObject>();
-    
-    private Dictionary<string, GameObject> _popupUi = new Dictionary<string, GameObject>();
+    public Dictionary<string, GameObject> _popupDic = new Dictionary<string, GameObject>();
 
-    private void Start() 
 
+    public void CreateCanvas() 
     {
-        popup();
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        var pre = Resources.LoadAll<GameObject>("UI/Canvas");
+        foreach (var p in pre) 
         {
-            CloseLastPopup();
+            _popupDic.Add(p.name, Object.Instantiate(p));
+            _popupDic[p.name].SetActive(false);
         }
     }
 
-    private void popup()
+    public void ShowCanvas(string uiname)
     {
-        var pre = Resources.LoadAll<GameObject>("Canvas");
-        foreach (var p in pre)
-        {
-            Debug.Log(p.name +","+p);
-            _popupUi.Add(p.name, p);
-        }
+        _popupDic[uiname].GetComponent<Canvas>().sortingOrder = _canvasSortOrder;
+        _popupStack.Push(_popupDic[uiname]);
+        _popupDic[uiname].SetActive(true);
+        _canvasSortOrder++;
+        Cursor.lockState = CursorLockMode.None;
     }
 
-    //���� 0 �̸� ����â +���� ++
-    private void CloseLastPopup()
+    public void CloseLastCanvas()
     {
+        if (_popupStack.Count == 1)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
         if (_popupStack.Count == 0) 
         {
-            
+            ShowCanvas("SettingUI");
         }
-        GameObject popup = _popupStack.Pop();
-        popup.SetActive(false);
-        popup = null;
-        _order--; 
+        else 
+        { 
+            GameObject currentUi = _popupStack.Pop();
+            currentUi.SetActive(false);
+            currentUi = null;
+            _canvasSortOrder--;
+        }
+
+        
+
     }
 
 }
