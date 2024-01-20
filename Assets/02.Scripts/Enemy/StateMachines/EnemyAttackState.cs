@@ -43,7 +43,7 @@ public class EnemyAttackState : EnemyBaseState
             AnimatorStateInfo animTime = _stateMachine.Enemy.Animator.GetCurrentAnimatorStateInfo(0);
             if (animTime.normalizedTime >= 1f)
             {
-                Debug.Log("A-I");
+                //Debug.Log("A-I");
                 _stateMachine.ChangeState(_stateMachine.IdlingState);
             }
         }

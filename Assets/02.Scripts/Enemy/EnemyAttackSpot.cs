@@ -6,9 +6,8 @@ public class EnemyAttackSpot : MonoBehaviour
 {
     private EnemySO _enemySO;
     [SerializeField] private Collider myCollider; //본인
+    [SerializeField] private float knockbackForce = 40f;
     public Collider Collider { get;  set; }
-
-    private float knockbackForce = 20f;
 
     private void Start()
     {
@@ -28,11 +27,9 @@ public class EnemyAttackSpot : MonoBehaviour
 
             if (rb != null)
             {
-                // 플레이어의 현재 위치와 적의 위치를 기반으로 방향을 계산
                 Vector3 knockbackDirection = (other.transform.position - transform.position).normalized;
 
-                // 플레이어의 방향으로 넉백을 가해줌
-                rb.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
+                rb.AddForce(knockbackDirection * knockbackForce, ForceMode.VelocityChange);
             }
 
 

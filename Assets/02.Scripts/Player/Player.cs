@@ -25,7 +25,8 @@ public class Player : MonoBehaviour
     public SkillCoolTimeController SkillCoolTimeController { get; private set; }
 
     [field: Header("Weapon")]
-    [field:SerializeField] public PlayerWeapon Weapon { get; private set; }
+    [field: SerializeField] public PlayerWeapon Weapon { get; private set; }
+    public SkillInstantiator SkillInstantiator { get; private set; }
 
     private PlayerStateMachine _stateMachine;
     private void Awake()
@@ -46,8 +47,10 @@ public class Player : MonoBehaviour
         PlayerExpSystem = GetComponent<PlayerExpSystem>();
 
         SkillCoolTimeController = GetComponent<SkillCoolTimeController>();
+        SkillInstantiator = GetComponent<SkillInstantiator>();
 
         _stateMachine = new PlayerStateMachine(this);
+
     }
 
     private void Start()
@@ -71,6 +74,12 @@ public class Player : MonoBehaviour
     private void OnDie()
     {
         Animator.SetTrigger("Die");
+        StartCoroutine(DieDelay());
+    }
+
+    IEnumerator DieDelay()
+    {
+        yield return new WaitForSeconds(0.1f);
         enabled = false;
     }
 

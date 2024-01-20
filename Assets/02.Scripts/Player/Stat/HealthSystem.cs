@@ -6,16 +6,15 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class HealthSystem : MonoBehaviour
 {
-    private Player _player;
+   [SerializeField] private float _invincibleTime = 3f; // 무적 시간 
+    
     private PlayerSO _playerData;
     private int _maxHealth;
     private int _playerDef;
 
     private int _health;
 
-    private float knockbackForce = 5f;
     private bool _isInvincible = false;
-    private float _invincibleTime = 3f; // 무적 시간 
 
     public event Action OnDie;
 
@@ -23,7 +22,6 @@ public class HealthSystem : MonoBehaviour
 
     private void Start()
     {
-        _player = GetComponent<Player>();
         _playerData = GetComponent<Player>().Data;
 
         _maxHealth = _playerData.GetPlayerData().GetPlayerMaxHealth();
