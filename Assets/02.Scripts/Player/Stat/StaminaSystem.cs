@@ -28,7 +28,7 @@ public class StaminaSystem : MonoBehaviour
     {
         _maxStamina = _playerData.GetPlayerData().GetPlayerMaxStamina();
         _stamina = _maxStamina;
-        OnChangeStaminaUI.Invoke(_stamina, _maxStamina);
+        OnChangeStaminaUI?.Invoke(_stamina, _maxStamina);
     }
 
     public bool CanUseDash(int dashStamina)
@@ -41,7 +41,7 @@ public class StaminaSystem : MonoBehaviour
     {
         if (_stamina == 0) return;
         _stamina = Mathf.Max(_stamina - dashStamina, 0);
-        OnChangeStaminaUI.Invoke(_stamina, _maxStamina);
+        OnChangeStaminaUI?.Invoke(_stamina, _maxStamina);
         //Debug.Log("스태미너" + _stamina);
     }
 
@@ -54,7 +54,7 @@ public class StaminaSystem : MonoBehaviour
     {
         if (_stamina == 0) return;
         _stamina = Mathf.Max(_stamina - skillStamina, 0);
-        OnChangeStaminaUI.Invoke(_stamina, _maxStamina);
+        OnChangeStaminaUI?.Invoke(_stamina, _maxStamina);
         Debug.Log(_stamina);
     }
 
@@ -69,7 +69,7 @@ public class StaminaSystem : MonoBehaviour
         if (_regenTime >= _targetRegenTime)
         {
             _stamina = Mathf.Min(_stamina + regenStamina, _maxStamina);
-            OnChangeStaminaUI.Invoke(_stamina, _maxStamina);
+            OnChangeStaminaUI?.Invoke(_stamina, _maxStamina);
             _regenTime = 0;
 
             //Debug.Log(_stamina);
