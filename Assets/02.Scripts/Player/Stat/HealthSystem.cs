@@ -36,7 +36,7 @@ public class HealthSystem : MonoBehaviour
     {
         _maxHealth = _playerData.GetPlayerData().GetPlayerMaxHealth();
         _health = _maxHealth;
-        OnChangeHpUI.Invoke(_health, _maxHealth);
+        OnChangeHpUI?.Invoke(_health, _maxHealth);
     }
 
     public void TakeDamage(int damage)
@@ -46,7 +46,7 @@ public class HealthSystem : MonoBehaviour
         if (_health == 0) return;
         //TODO DEF
         _health = Mathf.Max((_health + _playerDef) - damage, 0);
-        OnChangeHpUI.Invoke(_health, _maxHealth);
+        OnChangeHpUI?.Invoke(_health, _maxHealth);
 
         if (_health == 0)
             OnDie.Invoke();
