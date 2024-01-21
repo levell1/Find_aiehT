@@ -1,24 +1,26 @@
-
 using System.Collections.Generic;
 using UnityEngine;
-
 
 public class UIManager
 {
 
     private int _canvasSortOrder = 5;
-
     private Stack<GameObject> _popupStack = new Stack<GameObject>();
     public Dictionary<string, GameObject> _popupDic = new Dictionary<string, GameObject>();
 
-
     public void CreateCanvas() 
     {
-        var pre = Resources.LoadAll<GameObject>("UI/Canvas");
-        foreach (var p in pre) 
+        GameObject uiObject = GameObject.Find("Uis");
+        if (uiObject == null)
         {
-            _popupDic.Add(p.name, Object.Instantiate(p));
-            _popupDic[p.name].SetActive(false);
+            uiObject = new GameObject("Uis");
+        
+            var pre = Resources.LoadAll<GameObject>("UI/Canvas");
+            foreach (var p in pre) 
+            {
+                _popupDic.Add(p.name, Object.Instantiate(p,uiObject.transform));
+                _popupDic[p.name].SetActive(false);
+            }
         }
     }
 
@@ -49,9 +51,5 @@ public class UIManager
             currentUi = null;
             _canvasSortOrder--;
         }
-
-        
-
     }
-
 }

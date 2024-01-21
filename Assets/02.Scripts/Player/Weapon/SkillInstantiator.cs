@@ -86,7 +86,7 @@ public class SkillInstantiator : MonoBehaviour
 
     IEnumerator DelayInstantiate(GameObject tomatoPrefab)
     {
-        yield return new WaitForSeconds(_instantiateTime);
+        yield return new WaitForSeconds(_instantiateTime); 
         Instantiate(tomatoPrefab, SkillPos.transform.position, Quaternion.identity);
     }
 

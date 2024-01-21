@@ -1,23 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHPSteminaBar : PlayerBaseBar
+public class PlayerStatSlider : PlayerBaseSlider
 {
 
     [SerializeField] private Image _leftImage;
     [SerializeField] private Image _rightImage;
 
-    //플레이어 데이터 가져오기
-    // 플레이어 의 수치 변경시 += ChangeHpBar();
-
-
-    // Player Hp 변경 시
-    public override void ChangeHpBar() 
+    protected override void Awake()
     {
-        
+        base.Awake();
+    }
+
+    protected override void ChangeBar(int _currentValue,int _maxValue)
+    {
+        base.ChangeBar(_currentValue, _maxValue);
         if (_slider.value == 1)
         {
             _rightImage.color = new Color32(255, 255, 255, 255);
@@ -31,11 +28,9 @@ public class PlayerHPSteminaBar : PlayerBaseBar
         {
             _leftImage.color = new Color32(155, 140, 140, 60);
         }
-        else if(_slider.value != 0)
+        else if (_slider.value != 0)
         {
             _leftImage.color = new Color32(255, 255, 255, 255);
         }
-        base.ChangeHpBar();
     }
-
 }
