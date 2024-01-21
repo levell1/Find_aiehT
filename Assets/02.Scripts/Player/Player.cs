@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -27,6 +29,9 @@ public class Player : MonoBehaviour
     [field: Header("Weapon")]
     [field: SerializeField] public PlayerWeapon Weapon { get; private set; }
     public SkillInstantiator SkillInstantiator { get; private set; }
+
+    [field: Header("Interact")]
+    [field: SerializeField] public PlayerInteraction Interaction { get; private set; }
 
     private PlayerStateMachine _stateMachine;
     private void Awake()
@@ -58,6 +63,16 @@ public class Player : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         _stateMachine.ChangeState(_stateMachine.IdleState);
         HealthSystem.OnDie += OnDie;
+
+    }
+
+    // TODO 타이쿤일 때 무기 없어짐
+    private void OnEnable()
+    {
+        if (SceneManager.GetActiveScene().name == "MWJ")
+        {
+            Weapon.gameObject.SetActive(false);
+        }
     }
 
     private void Update()

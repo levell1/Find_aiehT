@@ -15,4 +15,5 @@ public class ResourceManager
         return Object.Instantiate(prefab, parent);
     }
 
+    //딕셔너리로 나중에 데이터 생기면 SPRITE 저장 ?
 }

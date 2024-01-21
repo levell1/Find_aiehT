@@ -25,12 +25,12 @@ public class EnemyAttackSpot : MonoBehaviour
             health.TakeDamage(_enemySO.Damage);
             Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
 
-            if (rb != null)
-            {
-                Vector3 knockbackDirection = (other.transform.position - transform.position).normalized;
+            //if (rb != null)
+            //{
+            //    Vector3 knockbackDirection = (other.transform.position - transform.position).normalized;
 
-                rb.AddForce(knockbackDirection * knockbackForce, ForceMode.VelocityChange);
-            }
+            //    rb.AddForce(knockbackDirection * knockbackForce, ForceMode.VelocityChange);
+            //}
 
 
         }
