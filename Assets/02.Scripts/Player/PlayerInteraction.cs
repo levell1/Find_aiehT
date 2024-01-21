@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,6 +14,10 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private Collider _playerCollider;
 
     private List<string> _interactionLayerList = new List<string>();
+
+    private List<ItemObject> _interactItemObejctList = new List<ItemObject>();
+
+    public event Action OnDestroy;
 
     private void Start()
     {
@@ -30,10 +35,11 @@ public class PlayerInteraction : MonoBehaviour
         {
             ItemObject itemObject = other.gameObject.GetComponent<ItemObject>();
 
+            _interactItemObejctList.Add(itemObject);
+
             //TODO 아이템의 정보를 가져옴
             _interactionLayerList.Add(itemObject.ItemData.ObjName);
             UpdateUI();
-            Test();
         }
     
     }
@@ -45,6 +51,7 @@ public class PlayerInteraction : MonoBehaviour
         if(itemObject != null)
         {
             _interactionLayerList.Remove(itemObject.ItemData.ObjName);
+            _interactItemObejctList.Remove(itemObject);
             UpdateUI();
         }
     }
@@ -53,14 +60,6 @@ public class PlayerInteraction : MonoBehaviour
     {
         _interactionLayerList.Clear();
         UpdateUI();
-    }
-
-    private void Test()
-    {
-        foreach(var item in _interactionLayerList)
-        {
-            Debug.Log(item);
-        }
     }
 
     private void UpdateUI()
@@ -74,6 +73,20 @@ public class PlayerInteraction : MonoBehaviour
             {
                 interactionText.text += "- " + item + "\n";
             }
+        }
+    }
+
+    public void DestroyItem()
+    {
+        if (_interactItemObejctList.Count > 0)
+        {
+            ItemObject itemObject = _interactItemObejctList[0];
+
+            _interactItemObejctList.Remove(itemObject);
+            _interactionLayerList.Remove(itemObject.ItemData.ObjName);
+
+            Destroy(itemObject.gameObject);
+            UpdateUI();
         }
     }
 
