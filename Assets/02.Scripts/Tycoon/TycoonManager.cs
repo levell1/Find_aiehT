@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class TycoonManager : MonoBehaviour
 {
+    [SerializeField] public FoodCreater _FoodCreater;
+
     [SerializeField] private List<GameObject> _customerPrefabs;
     [SerializeField] public List<GameObject> CustomerTargetFoodPrefabs;
 
@@ -27,10 +29,6 @@ public class TycoonManager : MonoBehaviour
     
     private int _agentPriority = 0;
 
-    [SerializeField] public FoodCreater _FoodCreater;
-
-    //public event Action<GameObject> OnCustomerCreate;
-    
     private void Start()
     {
         for (int i = 0; i < _destinations.Count; ++i)

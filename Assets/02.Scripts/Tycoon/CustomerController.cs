@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 public class CustomerController : MonoBehaviour
 {
@@ -13,7 +14,10 @@ public class CustomerController : MonoBehaviour
     private NavMeshAgent _agent;
     private Animator _animator;
     private GameObject _targetFood;
-    private bool isGetFood = false;
+
+    private float _waitTime = 20f;
+    private bool _isGetFood = false;
+    private bool _isOrderFood = false;
 
     private FoodPlace _targetFoodPlace;
     public FoodPlace TargetFoodPlace
@@ -34,22 +38,15 @@ public class CustomerController : MonoBehaviour
 
     public Transform AgentDestination
     {
-        set
-        {
-            _agent.SetDestination(value.position);
-        }
+        set { _agent.SetDestination(value.position); }
     }
     
     public int AgentPriority
     {
-        set
-        {
-            _agent.avoidancePriority = value;
-        }
+        set { _agent.avoidancePriority = value; }
     }
 
     private Coroutine _co;
-    private bool isCreateFood = false;
 
     #endregion
 
@@ -76,16 +73,23 @@ public class CustomerController : MonoBehaviour
             _animator.SetBool("IsWalk", false);
             transform.rotation = Quaternion.identity;
 
-            // TODO: 여기서 select?
-            if (!isCreateFood)
+            if (!_isOrderFood)
             {
                 SelectFood();
             }
-
-            if (isGetFood)
+            else if(_waitTime > 0)
             {
-                isGetFood = false;
+                _waitTime -= Time.deltaTime;
+            }
+
+            if (_isGetFood)
+            {
+                _isGetFood = false;
                 GameManager.instance.PoolingManager.ReturnObject(gameObject);
+            }
+            else if (_waitTime <= 0)
+            {
+                NoReceivedFood();
             }
         }
     }
@@ -98,7 +102,7 @@ public class CustomerController : MonoBehaviour
         _targetFood = foodPrefabs[targetFoodNum];
         OnCreateFood?.Invoke(foodPrefabs[targetFoodNum]);
 
-        isCreateFood = true;
+        _isOrderFood = true;
     }
 
     private void GetFood()
@@ -110,20 +114,31 @@ public class CustomerController : MonoBehaviour
         }
     }
 
+    private void NoReceivedFood()
+    {
+        _animator.SetTrigger("Angry");
+        if (_co == null)
+        {
+            _co = StartCoroutine(ExitRestaurant());
+        }
+    }
 
     #region Coroutine
 
     IEnumerator ExitRestaurant()
     {
-        yield return new WaitForSeconds(3f);
-
-        _agent.SetDestination(GameManager.instance.TycoonManager.CreateCustomerPos.position);
+        yield return new WaitForSeconds(2.5f);
+        
+        _agent.SetDestination(_tycoonManager.CreateCustomerPos.position);
         _animator.SetBool("IsWalk", true);
-        isGetFood = true;
-        isCreateFood = false;
+
+        _isGetFood = true;
+        _isOrderFood = false;
+        _waitTime = 3f;
 
         _targetFoodPlace.OnCustomerGetFood -= GetFood;
         _foodCreater.UnsubscribeCreateFoodEvent(this);
+
         _co = null;
     }
 
