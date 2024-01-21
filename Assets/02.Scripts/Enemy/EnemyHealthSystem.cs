@@ -11,7 +11,6 @@ public class EnemyHealthSystem : MonoBehaviour
     private EnemySO _enemySO;
     public int MaxHealth;
     public int Health;
-    //TODO 시간지나면 UI 안보이게 하기
     public Canvas HpCanvas;
     public Image HpBar;
     public bool Hit;
