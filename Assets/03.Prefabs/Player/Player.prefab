@@ -1,5 +1,76 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &327089716633170098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1099708535347778916}
+  - component: {fileID: 5579242781622690261}
+  - component: {fileID: 2492391161645144739}
+  m_Layer: 0
+  m_Name: InteractionRange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1099708535347778916
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327089716633170098}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2891377315053712284}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5579242781622690261
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327089716633170098}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.5, y: 1.5, z: 1.5}
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &2492391161645144739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327089716633170098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfed950dbd099ef4aa9e55c9ab2108e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionText: {fileID: 0}
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 16384
+  _playerCollider: {fileID: 7014752554354547227}
 --- !u!1 &6083748041204249505
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,7 +177,7 @@ Transform:
   - {fileID: 2891377315053712284}
   - {fileID: 3533890531207633210}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7154715293715450758
 MonoBehaviour:
@@ -148,6 +219,7 @@ MonoBehaviour:
     _skill1ParamterName: Skill1
     _skill2ParamterName: Skill2
   <Weapon>k__BackingField: {fileID: 3820498666183077411}
+  <Interaction>k__BackingField: {fileID: 2492391161645144739}
 --- !u!114 &99550134481033563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +407,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fbc8ea91b89ac741b3d7925275b60e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <SkillPos>k__BackingField: {fileID: 6083748041204249505}
+  SkillPos: {fileID: 6083748041204249505}
+  _instantiateTime: 0.5
 --- !u!1001 &2895708310501180672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -437,6 +510,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4401364574140060, guid: 19cb0ecf31924b745b73c080dd137730,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1099708535347778916}
     - targetCorrespondingSourceObject: {fileID: 4882568863522596, guid: 19cb0ecf31924b745b73c080dd137730,
         type: 3}
       insertIndex: -1
