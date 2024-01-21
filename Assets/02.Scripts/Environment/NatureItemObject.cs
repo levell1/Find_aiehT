@@ -35,7 +35,4 @@ public class NatureItemObject : MonoBehaviour
         _respawnTimer = ItemData.RespawnTime;
         gameObject.SetActive(true);
     }
-
-
-
 }

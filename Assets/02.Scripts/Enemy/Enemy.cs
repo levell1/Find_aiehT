@@ -73,18 +73,15 @@ public class Enemy : MonoBehaviour
     private void OnDie()
     {
         _stateMachine.Target.PlayerExpSystem.EnemyExpPlus(Data.DropEXP);
-
-        for (int i = 0; i < Data.DropItem.Length; i++)
+        if(Data.DropItem != null)
         {
-            //TODO 랜덤으로 생성 될지 말지 정해주기++
-            Instantiate(Data.DropItem[i], transform.position + Vector3.up * 2, Quaternion.identity);
+            for (int i = 0; i < Data.DropItem.Length; i++)
+            {
+                //TODO 랜덤으로 생성 될지 말지 정해주기++
+                Instantiate(Data.DropItem[i], transform.position + Vector3.up * 2, Quaternion.identity);
+            }
         }
-
-
-
-
         Collider.enabled = false;
-
     }
 
 }

@@ -6,7 +6,7 @@ public class EnemyAttackSpot : MonoBehaviour
 {
     private EnemySO _enemySO;
     [SerializeField] private Collider myCollider; //본인
-    [SerializeField] private float knockbackForce = 40f;
+    //[SerializeField] private float knockbackForce = 40f;
     public Collider Collider { get;  set; }
 
     private void Start()
@@ -23,14 +23,14 @@ public class EnemyAttackSpot : MonoBehaviour
         if (other.gameObject.TryGetComponent(out HealthSystem health))
         {
             health.TakeDamage(_enemySO.Damage);
-            Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
+            //Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
 
-            if (rb != null)
-            {
-                Vector3 knockbackDirection = (other.transform.position - transform.position).normalized;
+            //if (rb != null)
+            //{
+            //    Vector3 knockbackDirection = (other.transform.position - transform.position).normalized;
 
-                rb.AddForce(knockbackDirection * knockbackForce, ForceMode.VelocityChange);
-            }
+            //    rb.AddForce(knockbackDirection * knockbackForce, ForceMode.VelocityChange);
+            //}
 
 
         }
