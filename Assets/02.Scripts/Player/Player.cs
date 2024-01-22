@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
 
     [field: Header("Weapon")]
     [field: SerializeField] public PlayerWeapon Weapon { get; private set; }
-    [field: SerializeField] public SandSkill SandSkill { get; private set; }
+    [field: SerializeField] public PlayerSpreadSkill SandSkill { get; private set; }
     [field: SerializeField] public SkillParticle SkillParticle { get; private set; }
     public SkillInstantiator SkillInstantiator { get; private set; }
 

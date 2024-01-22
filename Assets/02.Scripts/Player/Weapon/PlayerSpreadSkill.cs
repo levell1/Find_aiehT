@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SandSkill : MonoBehaviour
+public class PlayerSpreadSkill : MonoBehaviour
 {
     [SerializeField] private MeshCollider _skillRangeCollider;
 
