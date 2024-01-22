@@ -15,6 +15,7 @@ public class SkillInfoData
     [field: SerializeField] private float SkillDistance;
     [field: SerializeField] private string SkillPrefabsName;
 
+    public string GetSkillName() { return SkillName; }
     public int GetSkillCost() { return SkillCost; }
     public int GetSkillDamage() { return SkillDamage; }
     public float GetSkillCoolTime() { return SkillCoolTime; }
