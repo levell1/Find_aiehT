@@ -20,8 +20,8 @@ public class PlayerAnimationData
     [SerializeField] private string _comboAttackParameterName = "ComboAttack";
 
     [SerializeField] private string _skillParameterName = "@Skill"; 
-    [SerializeField] private string _skill1ParamterName = "Skill1";
-    [SerializeField] private string _skill2ParamterName = "Skill2";
+    [SerializeField] private string _throwSkillParamterName = "Skill1";
+    [SerializeField] private string _spreadSkillParamterName = "Skill2";
 
     public int GroundParameterHash { get; private set; }
     public int IdleParameterHash { get; private set; }
@@ -39,8 +39,8 @@ public class PlayerAnimationData
     public int ComboAttackParameterHash { get; private set; }
 
     public int SkillParameterHash { get; private set; }
-    public int Skill1ParameterHash { get; private set; }
-    public int Skill2ParameterHash { get; private set; }
+    public int ThrowSkillParameterHash { get; private set; }
+    public int SpreadSkillParameterHash { get; private set; }
 
     public void Initialize()
     {
@@ -60,8 +60,8 @@ public class PlayerAnimationData
         ComboAttackParameterHash = Animator.StringToHash(_comboAttackParameterName);
 
         SkillParameterHash = Animator.StringToHash(_skillParameterName);
-        Skill1ParameterHash = Animator.StringToHash(_skill1ParamterName);
-        Skill2ParameterHash = Animator.StringToHash(_skill2ParamterName);
+        ThrowSkillParameterHash = Animator.StringToHash(_throwSkillParamterName);
+        SpreadSkillParameterHash = Animator.StringToHash(_spreadSkillParamterName);
 
 
     }

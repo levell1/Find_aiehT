@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSecondSkillState : PlayerSkillState
+public class PlayerSpreadSkillState : PlayerSkillState
 {
 
     SkillInfoData _skillData;
 
-    public PlayerSecondSkillState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
+    public PlayerSpreadSkillState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
     {
     }
     public override void Enter()
@@ -24,7 +24,7 @@ public class PlayerSecondSkillState : PlayerSkillState
 
         base.Enter();
 
-        StartAnimation(_stateMachine.Player.AnimationData.Skill2ParameterHash);
+        StartAnimation(_stateMachine.Player.AnimationData.SpreadSkillParameterHash);
 
         if (_stateMachine.Player.StaminaSystem.CanUseSkill(_skillCost) && !_stateMachine.Player.SecondSkillCoolTimeController.IsCoolTime)
         {
@@ -64,19 +64,17 @@ public class PlayerSecondSkillState : PlayerSkillState
     {
         base.Exit();
 
-        StopAnimation(_stateMachine.Player.AnimationData.Skill2ParameterHash);
+        StopAnimation(_stateMachine.Player.AnimationData.SpreadSkillParameterHash);
 
         _stateMachine.Player.SandSkill.DisableCollider();
     }
 
-    public override void Update()
+    public override void PhysicsUpdate()
     {
-        base.Update();
+        base.PhysicsUpdate();
 
         if (!_stateMachine.Player.SecondSkillCoolTimeController.IsCoolTime)
         {
-            Debug.Log("OFF");
-            _stateMachine.Player.SandSkill.DisableCollider();
             _stateMachine.ChangeState(_stateMachine.IdleState);
             return;
         }

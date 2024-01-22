@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerFirstSkillState : PlayerSkillState
+public class PlayerThrowSkillState : PlayerSkillState
 {
 
     SkillInfoData _skillData;
 
-    public PlayerFirstSkillState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
+    public PlayerThrowSkillState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
     {
     }
 
@@ -31,7 +31,7 @@ public class PlayerFirstSkillState : PlayerSkillState
 
         base.Enter();
 
-        StartAnimation(_stateMachine.Player.AnimationData.Skill1ParameterHash);
+        StartAnimation(_stateMachine.Player.AnimationData.ThrowSkillParameterHash);
 
         if (_stateMachine.Player.StaminaSystem.CanUseSkill(_skillCost) && !_stateMachine.Player.FirstSkillCoolTimeController.IsCoolTime)
         {
@@ -62,7 +62,7 @@ public class PlayerFirstSkillState : PlayerSkillState
     {
         base.Exit();
 
-        StopAnimation(_stateMachine.Player.AnimationData.Skill1ParameterHash);
+        StopAnimation(_stateMachine.Player.AnimationData.ThrowSkillParameterHash);
     }
 
     public override void PhysicsUpdate()
