@@ -7,6 +7,10 @@ public class PlayerHPBar : PlayerStatSlider
 
     public new void Awake()
     {
+        if (_healthSystem==null)
+        {
+            _healthSystem = GameObject.FindWithTag("Player").GetComponent<HealthSystem>();
+        }
         base.Awake();
         _healthSystem.OnChangeHpUI += base.ChangeBar;
     }

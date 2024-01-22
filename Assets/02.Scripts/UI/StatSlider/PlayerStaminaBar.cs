@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerStaminaBar : PlayerStatSlider
 {
@@ -7,6 +6,10 @@ public class PlayerStaminaBar : PlayerStatSlider
 
     public new void Awake()
     {
+        if (_staminaSystem == null)
+        {
+            _staminaSystem = GameObject.FindWithTag("Player").GetComponent<StaminaSystem>();
+        }
         base.Awake();
         _staminaSystem.OnChangeStaminaUI += base.ChangeBar;
     }
