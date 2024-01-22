@@ -17,7 +17,7 @@ public class TycoonManager : MonoBehaviour
     [SerializeField] public Transform CreateCustomerPos;
 
     [SerializeField] private int _maxCustomerNum = 4;
-    [SerializeField] private float _customerSpawnTime = 1.0f;
+    [SerializeField] private float _customerSpawnTime;
 
     [SerializeField] private int _todayMaxCustomerNum = 6;
     [SerializeField] private int _currentCustomerNum = 0;
@@ -61,8 +61,6 @@ public class TycoonManager : MonoBehaviour
     {
         while (_currentCustomerNum < _maxCustomerNum && _todayMaxCustomerNum > 0)
         {
-            yield return new WaitForSeconds(_customerSpawnTime);
-
             // 손님이 없는 자리만 List로
             // TODO: customer 쪽에서 해줘야 하나?
             availableDestinations = _destinations
@@ -104,6 +102,9 @@ public class TycoonManager : MonoBehaviour
             // 현재 손님 수 ++, 오늘 올 손님 --
             ++_currentCustomerNum;
             --_todayMaxCustomerNum;
+
+
+            yield return new WaitForSeconds(_customerSpawnTime);
         }
         _co = null;
     }

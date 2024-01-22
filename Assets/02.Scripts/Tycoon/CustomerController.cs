@@ -52,6 +52,7 @@ public class CustomerController : MonoBehaviour
     #region Event
 
     public event Action<GameObject> OnCreateFood;
+    public event Action OnCustomerExit;
 
     #endregion
 
@@ -87,6 +88,9 @@ public class CustomerController : MonoBehaviour
             if (_isGetFood)
             {
                 _isGetFood = false;
+
+                OnCustomerExit?.Invoke();
+                _targetFoodPlace.CurrentCustomer = null;
                 GameManager.instance.PoolingManager.ReturnObject(gameObject);
             }
         }
@@ -103,21 +107,16 @@ public class CustomerController : MonoBehaviour
 
     private void GetFood()
     {
-        _targetFoodPlace.OnCustomerGetFood -= GetFood;
-
         if (_co == null)
         {
             _animator.SetTrigger("GetFood");
-            _co = StartCoroutine(ExitRestaurant());
+
+            _co = StartCoroutine(EatFood());
         }
     }
 
     private void NoReceivedFood()
     {
-        //_targetFood = null;
-        _targetFoodPlace.CurrentCustomer = null;
-        _targetFoodPlace.OnCustomerGetFood -= GetFood;
-
         if (_co == null)
         {
             _animator.SetTrigger("Angry");
@@ -127,9 +126,22 @@ public class CustomerController : MonoBehaviour
 
     #region Coroutine
 
+    IEnumerator EatFood()
+    {
+        _animator.SetBool("IsEat", true);
+
+        yield return new WaitForSeconds(10f);
+
+        _animator.SetBool("IsEat", false);
+
+        StartCoroutine(ExitRestaurant());
+    }
+
     IEnumerator ExitRestaurant()
     {
-        yield return new WaitForSeconds(2.5f);
+        _targetFoodPlace.OnCustomerGetFood -= GetFood;
+
+        yield return new WaitForSeconds(5f);
 
         _agent.SetDestination(_tycoonManager.CreateCustomerPos.position);
         _animator.SetBool("IsWalk", true);
@@ -141,6 +153,7 @@ public class CustomerController : MonoBehaviour
         _foodCreater.UnsubscribeCreateFoodEvent(this);
 
         _co = null;
+        StopAllCoroutines();
     }
 
     #endregion
