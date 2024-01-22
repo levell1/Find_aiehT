@@ -24,7 +24,8 @@ public class Player : MonoBehaviour
     public StaminaSystem StaminaSystem { get; private set; }
     public HealthSystem HealthSystem{ get; private set; }
     public PlayerExpSystem PlayerExpSystem { get; private set; }
-    public SkillCoolTimeController SkillCoolTimeController { get; private set; }
+    public FirstSkillCoolTimeController FirstSkillCoolTimeController { get; private set; }
+    public SecondSkillCoolTimeController SecondSkillCoolTimeController { get; private set; }
 
     [field: Header("Weapon")]
     [field: SerializeField] public PlayerWeapon Weapon { get; private set; }
@@ -51,7 +52,8 @@ public class Player : MonoBehaviour
         HealthSystem = GetComponent<HealthSystem>();
         PlayerExpSystem = GetComponent<PlayerExpSystem>();
 
-        SkillCoolTimeController = GetComponent<SkillCoolTimeController>();
+        FirstSkillCoolTimeController = GetComponent<FirstSkillCoolTimeController>();
+        SecondSkillCoolTimeController = GetComponent<SecondSkillCoolTimeController>();
         SkillInstantiator = GetComponent<SkillInstantiator>();
 
         _stateMachine = new PlayerStateMachine(this);

@@ -50,6 +50,10 @@ public class SoundManager : MonoBehaviour
         {
             _bgFilename = "BG3";
         }
+        else
+        {
+            _bgFilename = "BG1";
+        }
         BgSoundPlay(_bgFilename);
     }
 
@@ -87,6 +91,7 @@ public class SoundManager : MonoBehaviour
         }
 
         GameObject AudioGo = new GameObject(BgName + "BGM");
+        DontDestroyOnLoad(AudioGo);
         AudioSource audiosource = AudioGo.AddComponent<AudioSource>();
         audiosource.outputAudioMixerGroup = _mixer.FindMatchingGroups("BGSound")[0];
         _audioClip = Resources.Load<AudioClip>("Sound/BGM/" + BgName);
@@ -107,6 +112,10 @@ public class SoundManager : MonoBehaviour
         {
             bgmsource.volume -= 0.03f;
             yield return new WaitForSeconds(0.3f);
+            if (bgmsource==null)
+            {
+                break;
+            }
         }
         Destroy(bgmsource.gameObject);
     }

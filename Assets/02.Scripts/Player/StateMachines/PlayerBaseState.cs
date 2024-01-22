@@ -59,6 +59,8 @@ public class PlayerBaseState : IState
         input.PlayerActions.Skill1.started += OnSkill1Started;
 
         input.PlayerActions.Skill2.started += OnSkill2Started;
+
+        input.PlayerActions.Interaction.started += OnInteractStarted;
     }
 
     protected virtual void RemoveInputActionsCallbacks()
@@ -77,6 +79,8 @@ public class PlayerBaseState : IState
         input.PlayerActions.Skill1.started -= OnSkill1Started;
 
         input.PlayerActions.Skill2.started -= OnSkill2Started;
+
+        input.PlayerActions.Interaction.started -= OnInteractStarted;
     }
 
     protected virtual void OnRunStarted(InputAction.CallbackContext context)
@@ -119,10 +123,17 @@ public class PlayerBaseState : IState
 
     }
 
+    //TODO NPC 상호작용 추가
+    protected virtual void OnInteractStarted(InputAction.CallbackContext context)
+    {
+        _stateMachine.Player.Interaction.DestroyItem(); 
+    }
+
     //
     private void ReadMovementInput()
     {
         _stateMachine.MovementInput = _stateMachine.Player.Input.PlayerActions.Move.ReadValue<Vector2>();
+
     }
 
     private void Move()

@@ -354,6 +354,118 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""TycoonPlayer"",
+            ""id"": ""711e2aef-0129-40da-8cf6-19a37c093ec6"",
+            ""actions"": [
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""d16d0355-38ec-4f9a-92c3-5db34bc5a072"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Run"",
+                    ""type"": ""Button"",
+                    ""id"": ""d619e425-0e25-4ebd-8657-73d6302185a8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interaction"",
+                    ""type"": ""Button"",
+                    ""id"": ""f34f5b78-b680-4125-97cc-1b516aaa8206"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""6da9d945-e9f4-407b-b376-e362562ed9d9"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Run"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1731e6d1-804e-447d-bebd-a3b6b406ca24"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interaction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""42155fdf-63f0-4586-b6fb-54401d6f608c"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""51841c72-121c-41f1-adde-334fed5df1b8"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""e483fdec-f277-4209-920a-6fb878b5ee8a"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""b8321852-c412-4d1d-a1e6-e4799c3a4219"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""7bf5b075-a030-4dd0-8814-f312dca92901"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -374,6 +486,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Skill2 = m_Player.FindAction("Skill2", throwIfNotFound: true);
         m_Player_Potion1 = m_Player.FindAction("Potion1", throwIfNotFound: true);
         m_Player_Potion2 = m_Player.FindAction("Potion2", throwIfNotFound: true);
+        // TycoonPlayer
+        m_TycoonPlayer = asset.FindActionMap("TycoonPlayer", throwIfNotFound: true);
+        m_TycoonPlayer_Move = m_TycoonPlayer.FindAction("Move", throwIfNotFound: true);
+        m_TycoonPlayer_Run = m_TycoonPlayer.FindAction("Run", throwIfNotFound: true);
+        m_TycoonPlayer_Interaction = m_TycoonPlayer.FindAction("Interaction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -581,6 +698,68 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+
+    // TycoonPlayer
+    private readonly InputActionMap m_TycoonPlayer;
+    private List<ITycoonPlayerActions> m_TycoonPlayerActionsCallbackInterfaces = new List<ITycoonPlayerActions>();
+    private readonly InputAction m_TycoonPlayer_Move;
+    private readonly InputAction m_TycoonPlayer_Run;
+    private readonly InputAction m_TycoonPlayer_Interaction;
+    public struct TycoonPlayerActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public TycoonPlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_TycoonPlayer_Move;
+        public InputAction @Run => m_Wrapper.m_TycoonPlayer_Run;
+        public InputAction @Interaction => m_Wrapper.m_TycoonPlayer_Interaction;
+        public InputActionMap Get() { return m_Wrapper.m_TycoonPlayer; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(TycoonPlayerActions set) { return set.Get(); }
+        public void AddCallbacks(ITycoonPlayerActions instance)
+        {
+            if (instance == null || m_Wrapper.m_TycoonPlayerActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_TycoonPlayerActionsCallbackInterfaces.Add(instance);
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
+            @Run.started += instance.OnRun;
+            @Run.performed += instance.OnRun;
+            @Run.canceled += instance.OnRun;
+            @Interaction.started += instance.OnInteraction;
+            @Interaction.performed += instance.OnInteraction;
+            @Interaction.canceled += instance.OnInteraction;
+        }
+
+        private void UnregisterCallbacks(ITycoonPlayerActions instance)
+        {
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
+            @Run.started -= instance.OnRun;
+            @Run.performed -= instance.OnRun;
+            @Run.canceled -= instance.OnRun;
+            @Interaction.started -= instance.OnInteraction;
+            @Interaction.performed -= instance.OnInteraction;
+            @Interaction.canceled -= instance.OnInteraction;
+        }
+
+        public void RemoveCallbacks(ITycoonPlayerActions instance)
+        {
+            if (m_Wrapper.m_TycoonPlayerActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ITycoonPlayerActions instance)
+        {
+            foreach (var item in m_Wrapper.m_TycoonPlayerActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_TycoonPlayerActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public TycoonPlayerActions @TycoonPlayer => new TycoonPlayerActions(this);
     public interface IPlayerActions
     {
         void OnLook(InputAction.CallbackContext context);
@@ -597,5 +776,11 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnSkill2(InputAction.CallbackContext context);
         void OnPotion1(InputAction.CallbackContext context);
         void OnPotion2(InputAction.CallbackContext context);
+    }
+    public interface ITycoonPlayerActions
+    {
+        void OnMove(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
+        void OnInteraction(InputAction.CallbackContext context);
     }
 }

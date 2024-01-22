@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class SkillCoolTimeController : MonoBehaviour
 {
-    private Player _player;
-    private float _coolTime;
+    protected float _coolTime;
 
     public bool IsCoolTime { get; private set; }
 
-    private void Start()
+    public virtual void Start()
     {
-        _player = GetComponent<Player>();
         IsCoolTime = false;
     }
 
-    public void StartCoolTime(float coolTime)
+    public virtual void StartCoolTime(float coolTime)
     {
         if(!IsCoolTime)
         {
@@ -31,9 +29,9 @@ public class SkillCoolTimeController : MonoBehaviour
 
         while (_coolTime > 0f)
         {
-            yield return new WaitForSeconds(1f); // 1초 기다립니다 (게임의 요구에 따라 조절 가능)
-            _coolTime--;
-
+           _coolTime -= Time.deltaTime;
+        
+          yield return null;
         }
 
         IsCoolTime = false;

@@ -7,7 +7,6 @@ public class PlayerFirstSkillState : PlayerGroundState
 {
 
     SkillInfoData _skillData;
-    float _startTime;
 
     public PlayerFirstSkillState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
     {
@@ -29,13 +28,13 @@ public class PlayerFirstSkillState : PlayerGroundState
 
         
         int _skillCost = _skillData.GetSkillCost();
-        _stateMachine.IsSkillCoolTime = _stateMachine.Player.SkillCoolTimeController.IsCoolTime;
+        _stateMachine.IsSkillCoolTime = _stateMachine.Player.FirstSkillCoolTimeController.IsCoolTime;
 
         base.Enter();
 
         StartAnimation(_stateMachine.Player.AnimationData.Skill1ParameterHash);
 
-        if (_stateMachine.Player.StaminaSystem.CanUseSkill(_skillCost) && !_stateMachine.IsSkillCoolTime)
+        if (_stateMachine.Player.StaminaSystem.CanUseSkill(_skillCost) && !_stateMachine.Player.FirstSkillCoolTimeController.IsCoolTime)
         {
             _stateMachine.Player.SkillInstantiator.InstantiateTomato();
 
@@ -49,7 +48,7 @@ public class PlayerFirstSkillState : PlayerGroundState
             Debug.Log("totalDamage: " + totalDamage);
             Debug.Log("사용");
 
-            _stateMachine.Player.SkillCoolTimeController.StartCoolTime(_skillData.GetSkillCoolTime());
+            _stateMachine.Player.FirstSkillCoolTimeController.StartCoolTime(_skillData.GetSkillCoolTime());
            
         }
        else
@@ -70,7 +69,7 @@ public class PlayerFirstSkillState : PlayerGroundState
     {
         base.PhysicsUpdate();
 
-        if (!_stateMachine.Player.SkillCoolTimeController.IsCoolTime)
+        if (!_stateMachine.Player.FirstSkillCoolTimeController.IsCoolTime)
         {
             _stateMachine.ChangeState(_stateMachine.IdleState);
             return;

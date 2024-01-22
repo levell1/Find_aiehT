@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class test : MonoBehaviour
 {
@@ -12,10 +13,10 @@ public class test : MonoBehaviour
     }
     void Start()
     {
-       
 
-       
-       
+        //GameManager.instance.UIManager.
+
+
     }
 
     private void Update()
@@ -29,6 +30,11 @@ public class test : MonoBehaviour
             Instantiate(a);
             //GameManager.instance.SoundManager.SFXPlay("sound", gameObject.transform.position, 0.1f);
             GameManager.instance.SoundManager.BgSoundPlay("BG3");
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            SceneManager.LoadScene("BJH");
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))

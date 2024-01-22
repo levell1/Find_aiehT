@@ -16,7 +16,7 @@ public class PlayerExpSystem : MonoBehaviour
     private StaminaSystem _staminaSystem;
     public event Action<int, int> OnChangeExpUI;
 
-    public event Action OnLevelUp;
+    public event Action<int> OnLevelUp;
 
     private void Start()
     {
@@ -25,8 +25,8 @@ public class PlayerExpSystem : MonoBehaviour
         _playerData = GetComponent<Player>().Data;
         _playerLevel = _playerData.PlayerData.GetPlayerLevel();
         _maxExp = _playerData.PlayerLevelData.GetLevelData(_playerLevel - 1).GetExp();
-
-        OnChangeExpUI.Invoke(_playerExp, _maxExp);
+        OnLevelUp?.Invoke(_playerLevel);
+        OnChangeExpUI?.Invoke(_playerExp, _maxExp);
         _playerExp = _playerData.PlayerData.GetPlayerExp();
 
         //Debug.Log("현재 경험치: " + _playerExp);
@@ -37,7 +37,7 @@ public class PlayerExpSystem : MonoBehaviour
     public void EnemyExpPlus(int enemyExp)
     {
         _playerExp += enemyExp;
-        OnChangeExpUI.Invoke(_playerExp, _maxExp);
+        OnChangeExpUI?.Invoke(_playerExp, _maxExp);
         Debug.Log(_playerExp);
 
         if( _playerExp >= _maxExp )
@@ -61,7 +61,8 @@ public class PlayerExpSystem : MonoBehaviour
 
         _healthSystem.SetMaxHealth();
         _staminaSystem.SetMaxStamina();
-        OnChangeExpUI.Invoke(_playerExp, _maxExp);
+        OnLevelUp?.Invoke(_playerLevel);
+        OnChangeExpUI?.Invoke(_playerExp, _maxExp);
         //Debug.Log("레벨업!");
 
         //int a = _playerData.PlayerData.GetPlayerLevel();

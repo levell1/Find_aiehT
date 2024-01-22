@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7559562347729991193}
   - component: {fileID: 1945225090826268193}
   - component: {fileID: 7362923814285176218}
-  m_Layer: 14
+  m_Layer: 7
   m_Name: Icosphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,8 +94,8 @@ GameObject:
   - component: {fileID: 4464589270626554627}
   - component: {fileID: 1122530284280112010}
   - component: {fileID: 1798621489070696803}
-  - component: {fileID: 2154661691718302302}
-  m_Layer: 14
+  - component: {fileID: 203544118243790131}
+  m_Layer: 7
   m_Name: AppleRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!136 &1798621489070696803
 CapsuleCollider:
@@ -169,7 +169,7 @@ CapsuleCollider:
   m_Height: 0.13929722
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2154661691718302302
+--- !u!114 &203544118243790131
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,10 +178,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3944793617797155257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 785343f1557020c479d352b4dfe20923, type: 3}
+  m_Script: {fileID: 11500000, guid: 4df37d98f50400a4ca8ed5112e382148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData: {fileID: 11400000, guid: c4eb8185bcf3a684b92ce92fee155ef1, type: 2}
+  RespawnTime: 0
 --- !u!1 &5145698924909905061
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +194,7 @@ GameObject:
   - component: {fileID: 2915137678843745032}
   - component: {fileID: 983494905587537652}
   - component: {fileID: 3241700782091746297}
-  m_Layer: 14
+  m_Layer: 7
   m_Name: Cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,6 +9,7 @@ public class PlayerStatSlider : PlayerBaseSlider
 
     protected override void Awake()
     {
+
         base.Awake();
     }
 
