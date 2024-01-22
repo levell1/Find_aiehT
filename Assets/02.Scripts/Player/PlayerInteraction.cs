@@ -38,6 +38,7 @@ public class PlayerInteraction : MonoBehaviour
         LayerDic.Add(LayerMask.NameToLayer("NpcInteract"), Enum.NPC);
 
     }
+    // TODO NPC 상호작용 추가
     private void OnTriggerEnter(Collider other)
     {
         if (other == _playerCollider) { return; }
@@ -53,7 +54,6 @@ public class PlayerInteraction : MonoBehaviour
 
                 _interactItemObejctList.Add(itemObject);
 
-                //TODO 아이템의 정보를 가져옴
                 _interactionLayerList.Add(itemObject.ItemData.ObjName);
                 UpdateUI();
             }
