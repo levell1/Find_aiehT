@@ -123,6 +123,7 @@ public class PlayerBaseState : IState
 
     }
 
+    //TODO NPC 상호작용 추가
     protected virtual void OnInteractStarted(InputAction.CallbackContext context)
     {
         _stateMachine.Player.Interaction.DestroyItem(); 

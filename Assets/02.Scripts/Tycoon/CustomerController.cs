@@ -12,13 +12,16 @@ public class CustomerController : MonoBehaviour
 
     private NavMeshAgent _agent;
     private Animator _animator;
-    private GameObject _targetFood;
-    private bool isGetFood = false;
+    private CookedFood _targetFood;
+
+    private float _waitTime = 10f;
+    private bool _isGetFood = false;
+    private bool _isOrderFood = false;
 
     private FoodPlace _targetFoodPlace;
     public FoodPlace TargetFoodPlace
     {
-        get {  return _targetFoodPlace; }
+        get { return _targetFoodPlace; }
         set
         {
             _targetFoodPlace = value;
@@ -26,7 +29,7 @@ public class CustomerController : MonoBehaviour
         }
     }
 
-    public GameObject TargetFood
+    public CookedFood TargetFood
     {
         get { return _targetFood; }
         set { _targetFood = value; }
@@ -34,28 +37,22 @@ public class CustomerController : MonoBehaviour
 
     public Transform AgentDestination
     {
-        set
-        {
-            _agent.SetDestination(value.position);
-        }
+        set { _agent.SetDestination(value.position); }
     }
-    
+
     public int AgentPriority
     {
-        set
-        {
-            _agent.avoidancePriority = value;
-        }
+        set { _agent.avoidancePriority = value; }
     }
 
     private Coroutine _co;
-    private bool isCreateFood = false;
 
     #endregion
 
     #region Event
 
     public event Action<GameObject> OnCreateFood;
+    public event Action OnCustomerExit;
 
     #endregion
 
@@ -71,20 +68,29 @@ public class CustomerController : MonoBehaviour
 
     private void Update()
     {
-        if(!_agent.hasPath)
+        if (!_agent.hasPath)
         {
             _animator.SetBool("IsWalk", false);
             transform.rotation = Quaternion.identity;
 
-            // TODO: 여기서 select?
-            if (!isCreateFood)
+            if (!_isOrderFood)
             {
                 SelectFood();
+                _isOrderFood = true;
             }
 
-            if (isGetFood)
+            _waitTime -= Time.deltaTime;
+            if (_waitTime <= 0)
             {
-                isGetFood = false;
+                NoReceivedFood();
+            }
+
+            if (_isGetFood)
+            {
+                _isGetFood = false;
+
+                OnCustomerExit?.Invoke();
+                _targetFoodPlace.CurrentCustomer = null;
                 GameManager.instance.PoolingManager.ReturnObject(gameObject);
             }
         }
@@ -93,38 +99,61 @@ public class CustomerController : MonoBehaviour
     private void SelectFood()
     {
         List<GameObject> foodPrefabs = _tycoonManager.CustomerTargetFoodPrefabs;
-        
-        int targetFoodNum = UnityEngine.Random.Range(0, foodPrefabs.Count);
-        _targetFood = foodPrefabs[targetFoodNum];
-        OnCreateFood?.Invoke(foodPrefabs[targetFoodNum]);
 
-        isCreateFood = true;
+        int targetFoodNum = UnityEngine.Random.Range(0, foodPrefabs.Count);
+        _targetFood = foodPrefabs[targetFoodNum].GetComponent<CookedFood>();
+        OnCreateFood?.Invoke(foodPrefabs[targetFoodNum]);
     }
 
     private void GetFood()
     {
-        _animator.SetTrigger("GetFood");
         if (_co == null)
         {
+            _animator.SetTrigger("GetFood");
+
+            _co = StartCoroutine(EatFood());
+        }
+    }
+
+    private void NoReceivedFood()
+    {
+        if (_co == null)
+        {
+            _animator.SetTrigger("Angry");
             _co = StartCoroutine(ExitRestaurant());
         }
     }
 
-
     #region Coroutine
+
+    IEnumerator EatFood()
+    {
+        _animator.SetBool("IsEat", true);
+
+        yield return new WaitForSeconds(10f);
+
+        _animator.SetBool("IsEat", false);
+
+        StartCoroutine(ExitRestaurant());
+    }
 
     IEnumerator ExitRestaurant()
     {
-        yield return new WaitForSeconds(3f);
-
-        _agent.SetDestination(GameManager.instance.TycoonManager.CreateCustomerPos.position);
-        _animator.SetBool("IsWalk", true);
-        isGetFood = true;
-        isCreateFood = false;
-
         _targetFoodPlace.OnCustomerGetFood -= GetFood;
+
+        yield return new WaitForSeconds(5f);
+
+        _agent.SetDestination(_tycoonManager.CreateCustomerPos.position);
+        _animator.SetBool("IsWalk", true);
+
+        _isGetFood = true;
+        _isOrderFood = false;
+        _waitTime = 3f;
+
         _foodCreater.UnsubscribeCreateFoodEvent(this);
+
         _co = null;
+        StopAllCoroutines();
     }
 
     #endregion
