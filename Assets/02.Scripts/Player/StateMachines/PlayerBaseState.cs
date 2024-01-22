@@ -132,6 +132,7 @@ public class PlayerBaseState : IState
     private void ReadMovementInput()
     {
         _stateMachine.MovementInput = _stateMachine.Player.Input.PlayerActions.Move.ReadValue<Vector2>();
+
     }
 
     private void Move()
