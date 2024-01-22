@@ -30,7 +30,6 @@ public class PlayerWeapon : MonoBehaviour
 
         if(other.TryGetComponent(out EnemyHealthSystem health))
         {
-            Debug.Log("sddad");
             health.TakeDamage(_damage);
         }
 

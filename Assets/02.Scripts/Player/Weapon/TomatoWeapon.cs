@@ -40,10 +40,6 @@ public class TomatoWeapon : MonoBehaviour
             _playerSO = _player.Data;
             _playerTrans = playerObject.transform;
         }
-        else
-        {
-            Debug.LogError("Player not found!");
-        }
 
         _damage = SkillTotalDamage();
         _distance = 0f;
@@ -77,11 +73,6 @@ public class TomatoWeapon : MonoBehaviour
             Destroy(_skillCollider.gameObject);
         }
 
-    }
-
-    public void SetSkillAttack(int damage)
-    {
-        this._damage = damage;
     }
 
     IEnumerator ShootSkill()

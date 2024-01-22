@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSecondSkillState : PlayerGroundState
+public class PlayerSecondSkillState : PlayerSkillState
 {
 
     SkillInfoData _skillData;
@@ -15,7 +15,7 @@ public class PlayerSecondSkillState : PlayerGroundState
         float normalizedTime = GetNormalizedTime(_stateMachine.Player.Animator, "Skill");
 
         int _skillIndex = 1;
-        _stateMachine.MovementSpeedModifier = 0; // 공격할 때 안움직임
+       
         _skillData = _stateMachine.Player.Data.SkillData.GetSkillData(_skillIndex);
 
 
@@ -28,19 +28,29 @@ public class PlayerSecondSkillState : PlayerGroundState
 
         if (_stateMachine.Player.StaminaSystem.CanUseSkill(_skillCost) && !_stateMachine.Player.SecondSkillCoolTimeController.IsCoolTime)
         {
-            _stateMachine.Player.SkillInstantiator.InstantiateTomato();
+            if(normalizedTime < 1f)
+            {
+                Debug.Log("ON");
+                _stateMachine.MovementSpeedModifier = 0; // 공격할 때 안움직임
+                _stateMachine.Player.SandSkill.EnableCollider();
+                _stateMachine.Player.SkillParticle.PlayParticle();
 
-            int skillDamage = _skillData.GetSkillDamage();
-            int playerDamage = _stateMachine.Player.Data.PlayerData.GetPlayerAtk();
+                int skillDamage = _skillData.GetSkillDamage();
+                int playerDamage = _stateMachine.Player.Data.PlayerData.GetPlayerAtk();
 
-            int totalDamage = skillDamage + playerDamage;
+                int totalDamage = skillDamage + playerDamage;
 
-            _stateMachine.Player.StaminaSystem.UseSkill(_skillCost);
+                Debug.Log(totalDamage);
+                _stateMachine.Player.SandSkill.SetAttack(totalDamage);
 
-            Debug.Log("totalDamage: " + totalDamage);
-            Debug.Log("사용");
+                _stateMachine.Player.StaminaSystem.UseSkill(_skillCost);
 
-            _stateMachine.Player.SecondSkillCoolTimeController.StartCoolTime(_skillData.GetSkillCoolTime());
+                _stateMachine.Player.SecondSkillCoolTimeController.StartCoolTime(_skillData.GetSkillCoolTime());
+            }
+            else
+            {
+                _stateMachine.Player.SandSkill.DisableCollider();
+            }
 
         }
         else
@@ -54,15 +64,19 @@ public class PlayerSecondSkillState : PlayerGroundState
     {
         base.Exit();
 
-        //StopAnimation(_stateMachine.Player.AnimationData.Skill2ParameterHash);
+        StopAnimation(_stateMachine.Player.AnimationData.Skill2ParameterHash);
+
+        _stateMachine.Player.SandSkill.DisableCollider();
     }
 
-    public override void PhysicsUpdate()
+    public override void Update()
     {
-        base.PhysicsUpdate();
+        base.Update();
 
         if (!_stateMachine.Player.SecondSkillCoolTimeController.IsCoolTime)
         {
+            Debug.Log("OFF");
+            _stateMachine.Player.SandSkill.DisableCollider();
             _stateMachine.ChangeState(_stateMachine.IdleState);
             return;
         }
@@ -71,6 +85,7 @@ public class PlayerSecondSkillState : PlayerGroundState
 
         if (normalizedTime >= 1f)
         {
+            _stateMachine.Player.SandSkill.DisableCollider();
             _stateMachine.ChangeState(_stateMachine.IdleState);
         }
 
