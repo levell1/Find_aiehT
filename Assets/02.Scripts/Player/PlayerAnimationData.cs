@@ -20,8 +20,8 @@ public class PlayerAnimationData
     [SerializeField] private string _comboAttackParameterName = "ComboAttack";
 
     [SerializeField] private string _skillParameterName = "@Skill"; 
-    [SerializeField] private string _throwSkillParamterName = "Skill1";
-    [SerializeField] private string _spreadSkillParamterName = "Skill2";
+    [SerializeField] private string _throwSkillParamterName = "ThrowSkill";
+    [SerializeField] private string _spreadSkillParamterName = "SpreadSkill";
 
     public int GroundParameterHash { get; private set; }
     public int IdleParameterHash { get; private set; }
