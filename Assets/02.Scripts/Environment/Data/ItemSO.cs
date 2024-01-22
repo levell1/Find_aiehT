@@ -5,8 +5,8 @@ using UnityEngine;
 
 public enum ItemType
 {
-    NatureItem,
-    DropItem
+    NATUREITEM,
+    DROPITEM
 }
 
 [CreateAssetMenu(fileName = "ItemSO", menuName = "Item")]

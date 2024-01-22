@@ -2,7 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEngine;
+
+public enum Enum
+{
+    ITEM,
+    NPC
+}
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -17,42 +24,53 @@ public class PlayerInteraction : MonoBehaviour
 
     private List<ItemObject> _interactItemObejctList = new List<ItemObject>();
 
-    public event Action OnDestroy;
+    private Dictionary<int, Enum> LayerDic = new Dictionary<int, Enum>();
 
     private void Start()
     {
         InitializeCollider();
-        _interactCollider =  GetComponent<Collider>();
-    }
 
+        _interactCollider = GetComponent<Collider>();
+
+        // 아이템
+        LayerDic.Add(LayerMask.NameToLayer("Item"), Enum.ITEM);
+        // 택시, 상점등
+        LayerDic.Add(LayerMask.NameToLayer("NpcInteract"), Enum.NPC);
+
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if(other == _playerCollider) { return; }
+        if (other == _playerCollider) { return; }
 
-        if(other == _interactCollider) { return; }
-    
-        if(((1 << other.gameObject.layer) & LayerMask.value) != 0)
+        if (other == _interactCollider) { return; }
+
+        /// DropItem의 경우
+        if (LayerDic.TryGetValue(other.gameObject.layer, out Enum _objectType))
         {
-            ItemObject itemObject = other.gameObject.GetComponent<ItemObject>();
+            if (_objectType == Enum.ITEM)
+            {
+                ItemObject itemObject = other.gameObject.GetComponent<ItemObject>();
 
-            _interactItemObejctList.Add(itemObject);
+                _interactItemObejctList.Add(itemObject);
 
-            //TODO 아이템의 정보를 가져옴
-            _interactionLayerList.Add(itemObject.ItemData.ObjName);
-            UpdateUI();
+                //TODO 아이템의 정보를 가져옴
+                _interactionLayerList.Add(itemObject.ItemData.ObjName);
+                UpdateUI();
+            }
+
         }
-    
+
     }
 
     private void OnTriggerExit(Collider other)
     {
         ItemObject itemObject = other.gameObject.GetComponent<ItemObject>();
 
-        if(itemObject != null)
+        if (itemObject != null)
         {
             _interactionLayerList.Remove(itemObject.ItemData.ObjName);
             _interactItemObejctList.Remove(itemObject);
-            UpdateUI();
+            UpdateUI(); 
         }
     }
 
@@ -85,7 +103,8 @@ public class PlayerInteraction : MonoBehaviour
             _interactItemObejctList.Remove(itemObject);
             _interactionLayerList.Remove(itemObject.ItemData.ObjName);
 
-            Destroy(itemObject.gameObject);
+            itemObject.GetItem();
+            //Destroy(itemObject.gameObject);
             UpdateUI();
         }
     }

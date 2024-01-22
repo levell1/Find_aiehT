@@ -29,11 +29,11 @@ public class ItemObject : MonoBehaviour
     public void GetItem() // 상호작용 됬을때
     {
         //인벤토리 Add
-        if (ItemData.type == ItemType.DropItem)
+        if (ItemData.type == ItemType.DROPITEM)
         {
             Destroy(gameObject);
         }
-        else if (ItemData.type == ItemType.NatureItem)
+        else if (ItemData.type == ItemType.NATUREITEM)
         {
             gameObject.SetActive(false);
         }
