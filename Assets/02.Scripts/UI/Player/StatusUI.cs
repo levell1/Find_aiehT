@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class StatusUI : MonoBehaviour
+
+public class StatusUI : BaseUI
 {
     private PlayerSO _playerData;
-    [Header("기본스텟")]
+
+    [Header("기본스탯")]
     [SerializeField] private TMP_Text _playerName;
     [SerializeField] private TMP_Text _playerLevel;
     [SerializeField] private TMP_Text _maxHealth;
@@ -16,9 +15,14 @@ public class StatusUI : MonoBehaviour
     [SerializeField] private TMP_Text _defence;
 
     [Header("장비 정보")]
+    [SerializeField] private TMP_Text[] _equipmentName= new TMP_Text[5];
+    [SerializeField] private Sprite[] _equipmentSprite= new Sprite[5];
+    [SerializeField] private TMP_Text _weaponName;
+    [SerializeField] private Sprite _weaponSprite;
     [SerializeField] private TMP_Text _equipmentHealth;
     [SerializeField] private TMP_Text _equipmentDef;
     [SerializeField] private TMP_Text _weaponDmg;
+
 
     [Header("스킬정보")]
     [SerializeField] private TMP_Text _qSkillName;
@@ -50,6 +54,13 @@ public class StatusUI : MonoBehaviour
         Debug.Log(_playerData.PlayerData.GetPlayerLevel().ToString());
 
         Debug.Log(_playerData.PlayerData.GetPlayerMaxHealth().ToString());
+
+        /*for (int i = 0; i < _equipmentName.Length; i++)
+        {
+            _equipmentName[i] = data.name+data.강화수치
+            _equipmentsprite[i] = data.sprite
+        }*/
+        //_WeaponName.text = .ToString();
 
         //_equipmentHealth.text = .ToString();
         //_equipmentDef.text = .ToString();

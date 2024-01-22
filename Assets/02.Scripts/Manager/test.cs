@@ -37,6 +37,11 @@ public class test : MonoBehaviour
             SceneManager.LoadScene("BJH");
         }
 
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            GameManager.instance.UIManager.ShowCanvas("GoDungeonUI");
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("esc");
@@ -46,7 +51,7 @@ public class test : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            GameManager.instance.UIManager.ShowCanvas("ShopUI");
+            GameManager.instance.UIManager.ShowCanvas("RestartUI");
         }
 
         if (Input.GetKeyDown(KeyCode.I))
