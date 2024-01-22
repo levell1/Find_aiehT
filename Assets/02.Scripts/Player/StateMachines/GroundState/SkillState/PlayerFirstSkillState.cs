@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerFirstSkillState : PlayerGroundState
+public class PlayerFirstSkillState : PlayerSkillState
 {
 
     SkillInfoData _skillData;
@@ -20,10 +20,9 @@ public class PlayerFirstSkillState : PlayerGroundState
 
     public override void Enter()
     {
-        float normalizedTime = GetNormalizedTime(_stateMachine.Player.Animator, "Skill");
-
+        
         int _skillIndex = 0;
-        _stateMachine.MovementSpeedModifier = 0; // 공격할 때 안움직임
+       
         _skillData = _stateMachine.Player.Data.SkillData.GetSkillData(_skillIndex);
 
         
@@ -36,6 +35,7 @@ public class PlayerFirstSkillState : PlayerGroundState
 
         if (_stateMachine.Player.StaminaSystem.CanUseSkill(_skillCost) && !_stateMachine.Player.FirstSkillCoolTimeController.IsCoolTime)
         {
+            _stateMachine.MovementSpeedModifier = 0; // 공격할 때 안움직임
             _stateMachine.Player.SkillInstantiator.InstantiateTomato();
 
             int skillDamage = _skillData.GetSkillDamage();

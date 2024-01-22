@@ -39,6 +39,8 @@ public class SkillInstantiator : MonoBehaviour
     //}
 
     [field: SerializeField] private GameObject SkillPos;
+   // [field: SerializeField] private GameObject ParticlePos;
+
     private GameObject _skillPrefabs;
 
     private List<GameObject> _skillPrefabList;
@@ -74,20 +76,35 @@ public class SkillInstantiator : MonoBehaviour
 
     }
 
-
     public void InstantiateTomato()
     {
         foreach (GameObject tomatoPrefab in _skillPrefabList.Where(Prefab => Prefab != null && Prefab.name == "Tomato"))
         {
-            StartCoroutine(DelayInstantiate(tomatoPrefab));
+            InstanatiateSkill(tomatoPrefab, SkillPos.transform.position);
         }
 
     }
 
-    IEnumerator DelayInstantiate(GameObject tomatoPrefab)
+    //public void InstantiateParticle()
+    //{
+    //    foreach (GameObject spreadPrefab in _skillPrefabList.Where(Prefab => Prefab != null && Prefab.name == "Spread"))
+    //    {
+    //        InstanatiateSkill(spreadPrefab, ParticlePos.transform.position);
+    //    }
+
+    //}
+
+    private void InstanatiateSkill(GameObject skillPrefabs, Vector3 position)
+    {
+        StartCoroutine(DelayInstantiate(skillPrefabs, position));
+    }
+
+    IEnumerator DelayInstantiate(GameObject skillPrefabs, Vector3 position)
     {
         yield return new WaitForSeconds(_instantiateTime); 
-        Instantiate(tomatoPrefab, SkillPos.transform.position, Quaternion.identity);
+        Instantiate(skillPrefabs, position, Quaternion.identity);
     }
+
+
 
 }
