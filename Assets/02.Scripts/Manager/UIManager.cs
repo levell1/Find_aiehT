@@ -14,7 +14,7 @@ public class UIManager
         if (uiObject == null)
         {
             uiObject = new GameObject("Uis");
-        
+            Object.DontDestroyOnLoad(uiObject);
             var pre = Resources.LoadAll<GameObject>("UI/Canvas");
             foreach (var p in pre) 
             {
@@ -52,4 +52,6 @@ public class UIManager
             _canvasSortOrder--;
         }
     }
+
+
 }

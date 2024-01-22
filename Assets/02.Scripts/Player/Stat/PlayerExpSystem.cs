@@ -16,7 +16,7 @@ public class PlayerExpSystem : MonoBehaviour
     private StaminaSystem _staminaSystem;
     public event Action<int, int> OnChangeExpUI;
 
-    public event Action OnLevelUp;
+    public event Action<int> OnLevelUp;
 
     private void Start()
     {
@@ -25,7 +25,7 @@ public class PlayerExpSystem : MonoBehaviour
         _playerData = GetComponent<Player>().Data;
         _playerLevel = _playerData.PlayerData.GetPlayerLevel();
         _maxExp = _playerData.PlayerLevelData.GetLevelData(_playerLevel - 1).GetExp();
-
+        OnLevelUp?.Invoke(_playerLevel);
         OnChangeExpUI?.Invoke(_playerExp, _maxExp);
         _playerExp = _playerData.PlayerData.GetPlayerExp();
 
@@ -61,6 +61,7 @@ public class PlayerExpSystem : MonoBehaviour
 
         _healthSystem.SetMaxHealth();
         _staminaSystem.SetMaxStamina();
+        OnLevelUp?.Invoke(_playerLevel);
         OnChangeExpUI?.Invoke(_playerExp, _maxExp);
         //Debug.Log("레벨업!");
 
