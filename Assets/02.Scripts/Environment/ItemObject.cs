@@ -1,18 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
-public class NatureItemObject : MonoBehaviour
+public class ItemObject : MonoBehaviour
 {
     public ItemSO ItemData;
     private float _respawnTimer;
     public float RespawnTime;
-
-    public void GetItem() // 상호작용 됬을때
-    {
-        //인벤토리 Add
-        gameObject.SetActive(false);
-    }
 
     private void Awake()
     {
@@ -28,6 +23,19 @@ public class NatureItemObject : MonoBehaviour
             {
                 ItemRespawn();
             }
+        }
+    }
+
+    public void GetItem() // 상호작용 됬을때
+    {
+        //인벤토리 Add
+        if (ItemData.type == ItemType.DropItem)
+        {
+            Destroy(gameObject);
+        }
+        else if (ItemData.type == ItemType.NatureItem)
+        {
+            gameObject.SetActive(false);
         }
     }
 

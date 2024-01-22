@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum ItemType
+{
+    NatureItem,
+    DropItem
+}
+
 [CreateAssetMenu(fileName = "ItemSO", menuName = "Item")]
 
 public class ItemSO : ScriptableObject
@@ -12,7 +19,7 @@ public class ItemSO : ScriptableObject
     [field: SerializeField] public Sprite Icon { get; private set; }
     [field: SerializeField] public int MaxStackAmount { get; private set; }
 
-    [field: SerializeField] public float RespawnTime;
+    [field: SerializeField] public ItemType type;
 
 
 }
