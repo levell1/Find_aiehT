@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Rendering;
 
 public class CustomerController : MonoBehaviour
 {
@@ -13,16 +12,16 @@ public class CustomerController : MonoBehaviour
 
     private NavMeshAgent _agent;
     private Animator _animator;
-    private GameObject _targetFood;
+    private CookedFood _targetFood;
 
-    private float _waitTime = 20f;
+    private float _waitTime = 10f;
     private bool _isGetFood = false;
     private bool _isOrderFood = false;
 
     private FoodPlace _targetFoodPlace;
     public FoodPlace TargetFoodPlace
     {
-        get {  return _targetFoodPlace; }
+        get { return _targetFoodPlace; }
         set
         {
             _targetFoodPlace = value;
@@ -30,7 +29,7 @@ public class CustomerController : MonoBehaviour
         }
     }
 
-    public GameObject TargetFood
+    public CookedFood TargetFood
     {
         get { return _targetFood; }
         set { _targetFood = value; }
@@ -40,7 +39,7 @@ public class CustomerController : MonoBehaviour
     {
         set { _agent.SetDestination(value.position); }
     }
-    
+
     public int AgentPriority
     {
         set { _agent.avoidancePriority = value; }
@@ -68,7 +67,7 @@ public class CustomerController : MonoBehaviour
 
     private void Update()
     {
-        if(!_agent.hasPath)
+        if (!_agent.hasPath)
         {
             _animator.SetBool("IsWalk", false);
             transform.rotation = Quaternion.identity;
@@ -76,10 +75,13 @@ public class CustomerController : MonoBehaviour
             if (!_isOrderFood)
             {
                 SelectFood();
+                _isOrderFood = true;
             }
-            else if(_waitTime > 0)
+
+            _waitTime -= Time.deltaTime;
+            if (_waitTime <= 0)
             {
-                _waitTime -= Time.deltaTime;
+                NoReceivedFood();
             }
 
             if (_isGetFood)
@@ -87,38 +89,38 @@ public class CustomerController : MonoBehaviour
                 _isGetFood = false;
                 GameManager.instance.PoolingManager.ReturnObject(gameObject);
             }
-            else if (_waitTime <= 0)
-            {
-                NoReceivedFood();
-            }
         }
     }
 
     private void SelectFood()
     {
         List<GameObject> foodPrefabs = _tycoonManager.CustomerTargetFoodPrefabs;
-        
-        int targetFoodNum = UnityEngine.Random.Range(0, foodPrefabs.Count);
-        _targetFood = foodPrefabs[targetFoodNum];
-        OnCreateFood?.Invoke(foodPrefabs[targetFoodNum]);
 
-        _isOrderFood = true;
+        int targetFoodNum = UnityEngine.Random.Range(0, foodPrefabs.Count);
+        _targetFood = foodPrefabs[targetFoodNum].GetComponent<CookedFood>();
+        OnCreateFood?.Invoke(foodPrefabs[targetFoodNum]);
     }
 
     private void GetFood()
     {
-        _animator.SetTrigger("GetFood");
+        _targetFoodPlace.OnCustomerGetFood -= GetFood;
+
         if (_co == null)
         {
+            _animator.SetTrigger("GetFood");
             _co = StartCoroutine(ExitRestaurant());
         }
     }
 
     private void NoReceivedFood()
     {
-        _animator.SetTrigger("Angry");
+        //_targetFood = null;
+        _targetFoodPlace.CurrentCustomer = null;
+        _targetFoodPlace.OnCustomerGetFood -= GetFood;
+
         if (_co == null)
         {
+            _animator.SetTrigger("Angry");
             _co = StartCoroutine(ExitRestaurant());
         }
     }
@@ -128,7 +130,7 @@ public class CustomerController : MonoBehaviour
     IEnumerator ExitRestaurant()
     {
         yield return new WaitForSeconds(2.5f);
-        
+
         _agent.SetDestination(_tycoonManager.CreateCustomerPos.position);
         _animator.SetBool("IsWalk", true);
 
@@ -136,7 +138,6 @@ public class CustomerController : MonoBehaviour
         _isOrderFood = false;
         _waitTime = 3f;
 
-        _targetFoodPlace.OnCustomerGetFood -= GetFood;
         _foodCreater.UnsubscribeCreateFoodEvent(this);
 
         _co = null;

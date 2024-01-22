@@ -10,14 +10,14 @@ public class FoodPlace : MonoBehaviour
     private const float _foodDestroyTime = 2.0f;
 
     public int SeatNum { get; set; }
-    
+
     private CustomerController _currentCustomer;
     public CustomerController CurrentCustomer
     {
         get { return _currentCustomer; }
         set { _currentCustomer = value; }
     }
-    
+
     private CookedFood _currentFood;
     public CookedFood CurrentFood
     {
@@ -40,21 +40,20 @@ public class FoodPlace : MonoBehaviour
     public event Action OnCustomerGetFood;
 
     #endregion
-    
+
     private void MatchWithCustomer()
     {
-        if (_currentCustomer.TargetFood.name != _currentFood.FoodName)
+        if (_currentCustomer.TargetFood.FoodName != _currentFood.FoodName)
             return;
 
         // TODO: Get Gold
-        
+
         OnCustomerGetFood.Invoke();
 
-        // TODO: 음식을 다시 잡지 못하도록 수정
         // TODO: Object Pool
         _currentFood.CanHold = false;
         StartCoroutine(DestoryCurrentFood(_currentFood));
-        
+
         _currentFood = null;
         _currentCustomer = null;
         GameManager.instance.TycoonManager.CustomerExit(SeatNum);

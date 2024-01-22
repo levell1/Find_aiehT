@@ -8,7 +8,7 @@ public class FoodCreater : MonoBehaviour
 
     [SerializeField] private List<GameObject> _createStations;
 
-    private float _foodCreateDelayTime = 5f;
+    private float _foodCreateDelayTime = 1f;
     private Coroutine _co;
 
     public void SubscribeCreateFoodEvent(CustomerController customer)
