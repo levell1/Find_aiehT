@@ -9,17 +9,17 @@ public class HealthSystem : MonoBehaviour
    [SerializeField] private float _invincibleTime = 3f; // 무적 시간 
     
     private PlayerSO _playerData;
-    public int _maxHealth;
-    private int _playerDef;
+    public float _maxHealth;
+    private float _playerDef;
 
-    public int _health;
+    public float _health;
 
     
 
     private bool _isInvincible = false;
 
     public event Action OnDie;
-    public  Action<int,int> OnChangeHpUI;
+    public  Action<float,float> OnChangeHpUI;
 
     public bool IsDead => _health == 0;
 
@@ -27,25 +27,40 @@ public class HealthSystem : MonoBehaviour
     {
         _playerData = GetComponent<Player>().Data;
         SetMaxHealth();
-        
-        _playerDef = _playerData.GetPlayerData().GetPlayerDef();
+
+        _playerDef = _playerData.PlayerData.GetPlayerDef();
         Debug.Log(_maxHealth);
     }
 
     public void SetMaxHealth() 
     {
-        _maxHealth = _playerData.GetPlayerData().GetPlayerMaxHealth();
+        _maxHealth = _playerData.PlayerData.GetPlayerMaxHealth();
         _health = _maxHealth;
         OnChangeHpUI?.Invoke(_health, _maxHealth);
     }
 
-    public void TakeDamage(int damage)
+    private float CaculateTotalDamage(float damage)
     {
+        float _defPer = _playerDef / (1 + _playerDef);
+        float _totalDamage = damage * (1 - _defPer);
+
+        return _totalDamage;
+    }
+
+
+    public void TakeDamage(float damage)
+    {
+        _playerDef = _playerData.PlayerData.GetPlayerDef();
+
         if (_isInvincible) return;
 
         if (_health == 0) return;
-        //TODO DEF
-        _health = Mathf.Max((_health + _playerDef) - damage, 0);
+
+       float _totalDamage = CaculateTotalDamage(damage);
+
+        Debug.Log("헬스" + _health);
+
+        _health = Mathf.Max(Mathf.Floor(_health - _totalDamage), 0);
         OnChangeHpUI?.Invoke(_health, _maxHealth);
 
         if (_health == 0)

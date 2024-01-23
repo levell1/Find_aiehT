@@ -13,7 +13,7 @@ public class PlayerStatSlider : PlayerBaseSlider
         base.Awake();
     }
 
-    protected override void ChangeBar(int _currentValue,int _maxValue)
+    protected override void ChangeBar(float _currentValue, float _maxValue)
     {
         base.ChangeBar(_currentValue, _maxValue);
         if (_slider.value == 1)

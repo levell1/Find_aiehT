@@ -136,7 +136,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Potion1"",
+                    ""name"": ""ShortcutKey1"",
                     ""type"": ""Button"",
                     ""id"": ""39e5d8d6-7cef-4566-b44d-13ce97900507"",
                     ""expectedControlType"": ""Button"",
@@ -145,7 +145,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Potion2"",
+                    ""name"": ""ShortcutKey2"",
                     ""type"": ""Button"",
                     ""id"": ""043f04c8-698c-458c-95c2-e0ec78c0d5f3"",
                     ""expectedControlType"": ""Button"",
@@ -316,7 +316,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Potion1"",
+                    ""action"": ""ShortcutKey1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -327,7 +327,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Potion2"",
+                    ""action"": ""ShortcutKey2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -484,8 +484,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_StatusMenu = m_Player.FindAction("StatusMenu", throwIfNotFound: true);
         m_Player_Skill1 = m_Player.FindAction("Skill1", throwIfNotFound: true);
         m_Player_Skill2 = m_Player.FindAction("Skill2", throwIfNotFound: true);
-        m_Player_Potion1 = m_Player.FindAction("Potion1", throwIfNotFound: true);
-        m_Player_Potion2 = m_Player.FindAction("Potion2", throwIfNotFound: true);
+        m_Player_ShortcutKey1 = m_Player.FindAction("ShortcutKey1", throwIfNotFound: true);
+        m_Player_ShortcutKey2 = m_Player.FindAction("ShortcutKey2", throwIfNotFound: true);
         // TycoonPlayer
         m_TycoonPlayer = asset.FindActionMap("TycoonPlayer", throwIfNotFound: true);
         m_TycoonPlayer_Move = m_TycoonPlayer.FindAction("Move", throwIfNotFound: true);
@@ -564,8 +564,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_StatusMenu;
     private readonly InputAction m_Player_Skill1;
     private readonly InputAction m_Player_Skill2;
-    private readonly InputAction m_Player_Potion1;
-    private readonly InputAction m_Player_Potion2;
+    private readonly InputAction m_Player_ShortcutKey1;
+    private readonly InputAction m_Player_ShortcutKey2;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -582,8 +582,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @StatusMenu => m_Wrapper.m_Player_StatusMenu;
         public InputAction @Skill1 => m_Wrapper.m_Player_Skill1;
         public InputAction @Skill2 => m_Wrapper.m_Player_Skill2;
-        public InputAction @Potion1 => m_Wrapper.m_Player_Potion1;
-        public InputAction @Potion2 => m_Wrapper.m_Player_Potion2;
+        public InputAction @ShortcutKey1 => m_Wrapper.m_Player_ShortcutKey1;
+        public InputAction @ShortcutKey2 => m_Wrapper.m_Player_ShortcutKey2;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -629,12 +629,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Skill2.started += instance.OnSkill2;
             @Skill2.performed += instance.OnSkill2;
             @Skill2.canceled += instance.OnSkill2;
-            @Potion1.started += instance.OnPotion1;
-            @Potion1.performed += instance.OnPotion1;
-            @Potion1.canceled += instance.OnPotion1;
-            @Potion2.started += instance.OnPotion2;
-            @Potion2.performed += instance.OnPotion2;
-            @Potion2.canceled += instance.OnPotion2;
+            @ShortcutKey1.started += instance.OnShortcutKey1;
+            @ShortcutKey1.performed += instance.OnShortcutKey1;
+            @ShortcutKey1.canceled += instance.OnShortcutKey1;
+            @ShortcutKey2.started += instance.OnShortcutKey2;
+            @ShortcutKey2.performed += instance.OnShortcutKey2;
+            @ShortcutKey2.canceled += instance.OnShortcutKey2;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -675,12 +675,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Skill2.started -= instance.OnSkill2;
             @Skill2.performed -= instance.OnSkill2;
             @Skill2.canceled -= instance.OnSkill2;
-            @Potion1.started -= instance.OnPotion1;
-            @Potion1.performed -= instance.OnPotion1;
-            @Potion1.canceled -= instance.OnPotion1;
-            @Potion2.started -= instance.OnPotion2;
-            @Potion2.performed -= instance.OnPotion2;
-            @Potion2.canceled -= instance.OnPotion2;
+            @ShortcutKey1.started -= instance.OnShortcutKey1;
+            @ShortcutKey1.performed -= instance.OnShortcutKey1;
+            @ShortcutKey1.canceled -= instance.OnShortcutKey1;
+            @ShortcutKey2.started -= instance.OnShortcutKey2;
+            @ShortcutKey2.performed -= instance.OnShortcutKey2;
+            @ShortcutKey2.canceled -= instance.OnShortcutKey2;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -774,8 +774,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnStatusMenu(InputAction.CallbackContext context);
         void OnSkill1(InputAction.CallbackContext context);
         void OnSkill2(InputAction.CallbackContext context);
-        void OnPotion1(InputAction.CallbackContext context);
-        void OnPotion2(InputAction.CallbackContext context);
+        void OnShortcutKey1(InputAction.CallbackContext context);
+        void OnShortcutKey2(InputAction.CallbackContext context);
     }
     public interface ITycoonPlayerActions
     {

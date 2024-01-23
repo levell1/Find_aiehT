@@ -78,7 +78,7 @@ public class FoodPlace : MonoBehaviour
 
     private void CustomerExit()
     {
-        GameManager.instance.TycoonManager.CustomerExit(SeatNum);
+        TycoonManager.Instance.CustomerExit(SeatNum);
     }
 
     #region Coroutine

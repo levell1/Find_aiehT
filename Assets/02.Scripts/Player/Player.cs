@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     public PlayerExpSystem PlayerExpSystem { get; private set; }
     public FirstSkillCoolTimeController FirstSkillCoolTimeController { get; private set; }
     public SecondSkillCoolTimeController SecondSkillCoolTimeController { get; private set; }
-
+    public ServingFood ServingFood { get; private set; }
 
     [field: Header("Weapon")]
     [field: SerializeField] public PlayerWeapon Weapon { get; private set; }
@@ -59,6 +59,8 @@ public class Player : MonoBehaviour
         SecondSkillCoolTimeController = GetComponent<SecondSkillCoolTimeController>();
         SkillInstantiator = GetComponent<SkillInstantiator>();
 
+        ServingFood = GetComponent<ServingFood>();
+
         _stateMachine = new PlayerStateMachine(this);
 
     }
@@ -69,11 +71,21 @@ public class Player : MonoBehaviour
         _stateMachine.ChangeState(_stateMachine.IdleState);
         HealthSystem.OnDie += OnDie;
 
+        _stateMachine.SceneName = SceneName();
+
+        Debug.Log(_stateMachine.SceneName);
+    }
+
+    public string SceneName()
+    {
+        return SceneManager.GetActiveScene().name;
     }
 
     // TODO 타이쿤일 때 무기 없어짐
     private void OnEnable()
     {
+        _stateMachine.SceneName = SceneName();
+
         if (SceneManager.GetActiveScene().name == "MWJ")
         {
             Weapon.gameObject.SetActive(false);

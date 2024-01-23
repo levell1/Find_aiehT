@@ -12,7 +12,7 @@ public class StaminaSystem : MonoBehaviour
     private int _maxStamina;
     private int _stamina;
 
-    public  Action<int, int> OnChangeStaminaUI;
+    public  Action<float, float> OnChangeStaminaUI;
 
     private float _regenTime;
 
@@ -26,7 +26,7 @@ public class StaminaSystem : MonoBehaviour
 
     public void SetMaxStamina()
     {
-        _maxStamina = _playerData.GetPlayerData().GetPlayerMaxStamina();
+        _maxStamina = _playerData.PlayerData.GetPlayerMaxStamina();
         _stamina = _maxStamina;
         OnChangeStaminaUI?.Invoke(_stamina, _maxStamina);
     }

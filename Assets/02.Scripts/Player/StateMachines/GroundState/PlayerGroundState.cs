@@ -60,12 +60,12 @@ public class PlayerGroundState : PlayerBaseState
         _stateMachine.ChangeState(_stateMachine.DashState);
     }
 
-    protected override void OnSkill1Started(InputAction.CallbackContext context)
+    protected override void OnThrowSkillStarted(InputAction.CallbackContext context)
     {
         _stateMachine.ChangeState(_stateMachine.PlayerFirstSkillState);
     }
 
-    protected override void OnSkill2Started(InputAction.CallbackContext context)
+    protected override void OnSpreadSkillStarted(InputAction.CallbackContext context)
     {
         _stateMachine.ChangeState(_stateMachine.PlayerSecondSkillState);
     }

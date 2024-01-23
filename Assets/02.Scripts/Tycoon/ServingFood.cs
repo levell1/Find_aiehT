@@ -15,20 +15,18 @@ public class ServingFood : MonoBehaviour
 
     private const float _minDistanceToPutFood = 1.3f;
 
-    private void Update()
+    public void TycoonInteraction()
     {
-        if (Input.GetKeyDown(KeyCode.L))
+        if (_isPossibleToClean)
         {
-            if (_isPossibleToClean)
-            {
-                OnCleaningFood();
-            }
-            else if (_canHoldFood != null || _holdingFood != null)
-            { 
-                OnCatchFood();
-            }
+            OnCleaningFood();
+        }
+        else if (_canHoldFood != null || _holdingFood != null)
+        {
+            OnCatchFood();
         }
     }
+
 
     // TODO: Change to InputSystem - OnCatchFood, OnCleaningFood
     public void OnCatchFood()
@@ -71,7 +69,7 @@ public class ServingFood : MonoBehaviour
         FoodPlace foodPlace = null;
 
         // TODO
-        foreach (GameObject station in GameManager.instance.TycoonManager.ServingStations)
+        foreach (GameObject station in TycoonManager.Instance.ServingStations)
         {
             FoodPlace stationFood = station.GetComponent<FoodPlace>();
 

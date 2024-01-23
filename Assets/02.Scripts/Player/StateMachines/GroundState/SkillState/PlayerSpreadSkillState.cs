@@ -35,10 +35,10 @@ public class PlayerSpreadSkillState : PlayerSkillState
                 _stateMachine.Player.SandSkill.EnableCollider();
                 _stateMachine.Player.SkillParticle.PlayParticle();
 
-                int skillDamage = _skillData.GetSkillDamage();
-                int playerDamage = _stateMachine.Player.Data.PlayerData.GetPlayerAtk();
+                float skillDamage = _skillData.GetSkillDamage();
+                float playerDamage = _stateMachine.Player.Data.PlayerData.GetPlayerAtk();
 
-                int totalDamage = skillDamage + playerDamage;
+                float totalDamage = skillDamage + playerDamage;
 
                 Debug.Log(totalDamage);
                 _stateMachine.Player.SandSkill.SetAttack(totalDamage);

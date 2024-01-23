@@ -177,8 +177,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1376830775797164244}
-  - component: {fileID: 2632813503320085545}
   - component: {fileID: 4543560148104602361}
+  - component: {fileID: 2632813503320085545}
   m_Layer: 0
   m_Name: TamagoSushi
   m_TagString: CookedFood
@@ -202,6 +202,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4543560148104602361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4097902096896807186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8983eed296e20f746ab0707c7893c0f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _foodSO: {fileID: 0}
+  _foodName: TamagoSushi
+  _edibleFoods:
+  - {fileID: 4402612543462444683}
+  - {fileID: 1996163319477085685}
 --- !u!136 &2632813503320085545
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -225,22 +242,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4543560148104602361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4097902096896807186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8983eed296e20f746ab0707c7893c0f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _foodName: TamagoSushi
-  _edibleFoods:
-  - {fileID: 4402612543462444683}
-  - {fileID: 1996163319477085685}
 --- !u!1 &4402612543462444683
 GameObject:
   m_ObjectHideFlags: 0

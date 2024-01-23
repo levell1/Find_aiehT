@@ -58,7 +58,7 @@ public class CustomerController : MonoBehaviour
 
     private void OnEnable()
     {
-        _tycoonManager = GameManager.instance.TycoonManager;
+        _tycoonManager = TycoonManager.Instance;
         _foodCreater = _tycoonManager._FoodCreater;
         _agent = GetComponent<NavMeshAgent>();
 

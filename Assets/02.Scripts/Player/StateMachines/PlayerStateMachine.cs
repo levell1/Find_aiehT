@@ -44,7 +44,9 @@ public class PlayerStateMachine : StateMachine
     public int SKillCost { get; set; }
     public bool IsSkillCoolTime { get; set; }
 
+    public string SceneName { get; set; } 
     public Transform MainCameraTransform { get; set; }
+
 
     public PlayerStateMachine(Player player)
     {

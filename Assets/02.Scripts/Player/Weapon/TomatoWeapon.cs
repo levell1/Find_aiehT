@@ -24,7 +24,7 @@ public class TomatoWeapon : MonoBehaviour
     private Vector3 _initiatePos;
 
     private const float _waitTime = 0.1f;
-    private int _damage;
+    private float _damage;
 
     private readonly List<Collider> _alreadyCollidedObjects = new List<Collider>();
 
@@ -111,10 +111,10 @@ public class TomatoWeapon : MonoBehaviour
     }
 
 
-    private int SkillTotalDamage()
+    private float SkillTotalDamage()
     {
-        int _playerDamage = _playerSO.PlayerData.GetPlayerAtk();
-        int _skillDamage = _playerSO.SkillData.GetSkillData(_skillIndex).GetSkillDamage();
+        float _playerDamage = _playerSO.PlayerData.GetPlayerAtk();
+        float _skillDamage = _playerSO.SkillData.GetSkillData(_skillIndex).GetSkillDamage();
 
         Debug.Log(_playerDamage + _skillDamage);
 
