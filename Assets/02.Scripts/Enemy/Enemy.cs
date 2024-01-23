@@ -34,8 +34,6 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent Agent;
 
 
-
-
     void Awake()
     {
         AnimationData.Initialize();

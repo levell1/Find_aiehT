@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6821316684364817788}
   - component: {fileID: 8897030679899381888}
   - component: {fileID: 6494855367015206285}
-  m_Layer: 14
+  m_Layer: 7
   m_Name: Cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,8 +94,8 @@ GameObject:
   - component: {fileID: 5416670838019810679}
   - component: {fileID: 7092567853158973019}
   - component: {fileID: 7249943628337368680}
-  - component: {fileID: 8980606821886027899}
-  m_Layer: 14
+  - component: {fileID: 2175745629139483964}
+  m_Layer: 7
   m_Name: AppleGreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ Transform:
   - {fileID: 6821316684364817788}
   - {fileID: 2177064646891602029}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &7092567853158973019
 CapsuleCollider:
@@ -169,7 +169,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8980606821886027899
+--- !u!114 &2175745629139483964
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -178,10 +178,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4638762322126651341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1e635b45646d534dbbd59df4e65d3c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 4df37d98f50400a4ca8ed5112e382148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData: {fileID: 11400000, guid: ce6be0c9d0569b74d996c4ca2c888f29, type: 2}
+  RespawnTime: 0
 --- !u!1 &8384329179019921406
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,7 +194,7 @@ GameObject:
   - component: {fileID: 2177064646891602029}
   - component: {fileID: 7791327195493062741}
   - component: {fileID: 1220709793517231086}
-  m_Layer: 14
+  m_Layer: 7
   m_Name: Icosphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
