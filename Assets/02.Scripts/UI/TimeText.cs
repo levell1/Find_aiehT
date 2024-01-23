@@ -1,6 +1,5 @@
-using System;
+
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,7 +20,7 @@ public class TimeText : MonoBehaviour
     {
         _timer += 10;
         _timeText.text = (_timer / 60).ToString("D2") + ":" + (_timer % 60).ToString("D2");
-        //Å¸ÀÌÄï, »ç¸Á, »õ·Î½ÃÀÛ ½Ã timer = 540
+        //íƒ€ì´ì¿¤, ì‚¬ë§, ìƒˆë¡œì‹œì‘ ì‹œ timer = 540
     }
 
     private void Start()

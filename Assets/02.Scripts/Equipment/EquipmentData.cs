@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
+
+[Serializable]
 public class EquipmentData
 {
     private int _level;
-    private EquipmentBase _equipment;
+    [field: SerializeField] private EquipmentBase _equipment;
     private float _sumhealth;
     private float _sumDef;
     private float _sumAttack;
@@ -15,6 +16,5 @@ public class EquipmentData
     public float Sumhealth { get { return _sumhealth; } set { _sumhealth = value; } }
     public float SumAttack { get { return _sumDef; } set { _sumDef = value; } }
     public float SumDef { get { return _sumAttack; } set { _sumAttack = value; } }
-
 
 }
