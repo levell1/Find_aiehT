@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GlobalTimeManager : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class GlobalTimeManager : MonoBehaviour
 
     private void Start()
     {
+        SceneManager.sceneLoaded += LoadedsceneEvent;
         _timeRate = 1.0f / FullDayLength; //얼마큼씩 변하는지 계산 1/하루
         DayTime = StartTime;
     }
@@ -25,13 +27,17 @@ public class GlobalTimeManager : MonoBehaviour
     private void Update()
     {
         DayTime = (DayTime + _timeRate * Time.deltaTime) % 1.0f;
-
         // 하루를 24시간으로 다시 나눠버리기~
         _totalHours = DayTime * 24f;
         Hour = Mathf.Floor(_totalHours);
         Minutes = Mathf.Floor((_totalHours - Hour) * 60f);
         string timeString = string.Format("{0:00}:{1:00}", Hour, Minutes);
         TimeText.text = timeString;
+    }
+
+    void LoadedsceneEvent(Scene arg0, LoadSceneMode arg1) //씬이동 패널티
+    {
+        DayTime += 1f / 24f;
     }
 }
 
