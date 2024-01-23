@@ -29,6 +29,38 @@ public class TycoonManager : MonoBehaviour
     
     private int _agentPriority = 0;
 
+
+    private static TycoonManager _instance;
+
+    public static TycoonManager Instance
+    {
+        get
+        {
+            if(_instance == null)
+            {
+                _instance = FindObjectOfType<TycoonManager>();
+                if(_instance == null)
+                {
+                    GameObject obj = new GameObject("TycoonManager");
+                    _instance = obj.AddComponent<TycoonManager>();
+                }
+            }
+            return _instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else if(_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void Start()
     {
         for (int i = 0; i < _destinations.Count; ++i)
