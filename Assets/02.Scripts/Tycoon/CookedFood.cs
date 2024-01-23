@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CookedFood : MonoBehaviour
 {
+    [SerializeField] private FoodSO _foodSO;
     [SerializeField] private string _foodName;
     [SerializeField] private List<GameObject> _edibleFoods;
     public string FoodName
