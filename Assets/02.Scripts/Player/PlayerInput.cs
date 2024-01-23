@@ -22,7 +22,7 @@ public class PlayerInput : MonoBehaviour
     private void InIt()
     {
        
-        if(SceneManager.GetActiveScene().name == "BJH_Tycoon")
+        if(SceneManager.GetActiveScene().name == "MWJ")
         {
             TycoonPlayerActions = InputActions.TycoonPlayer;
         }

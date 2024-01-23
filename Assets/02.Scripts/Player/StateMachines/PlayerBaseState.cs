@@ -47,40 +47,62 @@ public class PlayerBaseState : IState
     protected virtual void AddInputActionsCallbacks()
     {
         PlayerInput input = _stateMachine.Player.Input;
-        input.PlayerActions.Move.canceled += OnMovementCanceled;
-        input.PlayerActions.Run.started += OnRunStarted;
 
-        input.PlayerActions.Jump.started += OnJumpStarted;
-        input.PlayerActions.Dash.started += OnDashStarted;
+        if(_stateMachine.SceneName == "MWJ")
+        {
+            input.TycoonPlayerActions.Move.canceled += OnMovementCanceled;
+            input.TycoonPlayerActions.Run.started += OnRunStarted;
+            input.TycoonPlayerActions.Interaction.started += OnTycoonInteractionStarted;
+        }
+        else
+        {
+            input.PlayerActions.Move.canceled += OnMovementCanceled;
+            input.PlayerActions.Run.started += OnRunStarted;
 
-        input.PlayerActions.Attack.performed += OnAttackPerform;
-        input.PlayerActions.Attack.canceled+= OnAttackCanceled;
+            input.PlayerActions.Jump.started += OnJumpStarted;
+            input.PlayerActions.Dash.started += OnDashStarted;
 
-        input.PlayerActions.Skill1.started += OnSkill1Started;
+            input.PlayerActions.Attack.performed += OnAttackPerform;
+            input.PlayerActions.Attack.canceled += OnAttackCanceled;
 
-        input.PlayerActions.Skill2.started += OnSkill2Started;
+            input.PlayerActions.Skill1.started += OnThrowSkillStarted;
 
-        input.PlayerActions.Interaction.started += OnInteractStarted;
+            input.PlayerActions.Skill2.started += OnSpreadSkillStarted;
+
+            input.PlayerActions.Interaction.started += OnInteractStarted;
+        }
+      
     }
 
     protected virtual void RemoveInputActionsCallbacks()
     {
         PlayerInput input = _stateMachine.Player.Input;
-        input.PlayerActions.Move.canceled -= OnMovementCanceled;
-        input.PlayerActions.Run.started -= OnRunStarted;
 
-        input.PlayerActions.Jump.started -= OnJumpStarted;
-        input.PlayerActions.Dash.started -= OnDashStarted;
+        if (_stateMachine.SceneName == "MWJ")
+        {
+            input.TycoonPlayerActions.Move.canceled -= OnMovementCanceled;
+            input.TycoonPlayerActions.Run.started -= OnRunStarted;
+            input.TycoonPlayerActions.Interaction.started -= OnTycoonInteractionStarted;
+        }
+       else
+        {
+            input.PlayerActions.Move.canceled -= OnMovementCanceled;
+            input.PlayerActions.Run.started -= OnRunStarted;
+
+            input.PlayerActions.Jump.started -= OnJumpStarted;
+            input.PlayerActions.Dash.started -= OnDashStarted;
 
 
-        input.PlayerActions.Attack.performed -= OnAttackPerform;
-        input.PlayerActions.Attack.canceled -= OnAttackCanceled;
+            input.PlayerActions.Attack.performed -= OnAttackPerform;
+            input.PlayerActions.Attack.canceled -= OnAttackCanceled;
 
-        input.PlayerActions.Skill1.started -= OnSkill1Started;
+            input.PlayerActions.Skill1.started -= OnThrowSkillStarted;
 
-        input.PlayerActions.Skill2.started -= OnSkill2Started;
+            input.PlayerActions.Skill2.started -= OnSpreadSkillStarted;
 
-        input.PlayerActions.Interaction.started -= OnInteractStarted;
+            input.PlayerActions.Interaction.started -= OnInteractStarted;
+        }
+
     }
 
     protected virtual void OnRunStarted(InputAction.CallbackContext context)
@@ -113,12 +135,12 @@ public class PlayerBaseState : IState
         _stateMachine.IsAttacking = false;
     }
 
-    protected virtual void OnSkill1Started(InputAction.CallbackContext context)
+    protected virtual void OnThrowSkillStarted(InputAction.CallbackContext context)
     {
 
     }
 
-    protected virtual void OnSkill2Started(InputAction.CallbackContext context)
+    protected virtual void OnSpreadSkillStarted(InputAction.CallbackContext context)
     {
 
     }
@@ -129,11 +151,22 @@ public class PlayerBaseState : IState
         _stateMachine.Player.Interaction.DestroyItem(); 
     }
 
+    protected virtual void OnTycoonInteractionStarted(InputAction.CallbackContext context)
+    {
+        _stateMachine.Player.ServingFood.TycoonInteraction();
+    }
+
     //
     private void ReadMovementInput()
     {
-        _stateMachine.MovementInput = _stateMachine.Player.Input.PlayerActions.Move.ReadValue<Vector2>();
-
+        if (_stateMachine.SceneName == "MWJ")
+        {
+            _stateMachine.MovementInput = _stateMachine.Player.Input.TycoonPlayerActions.Move.ReadValue<Vector2>();
+        }
+        else
+        {
+            _stateMachine.MovementInput = _stateMachine.Player.Input.PlayerActions.Move.ReadValue<Vector2>();
+        }
     }
 
     private void Move()
