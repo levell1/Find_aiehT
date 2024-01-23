@@ -21,7 +21,9 @@ public class FoodPlace : MonoBehaviour
             if (value == null)
             {
                 if (_currentCustomer != null)
+                {
                     _currentCustomer.OnCustomerExit -= CustomerExit;
+                }
             }
 
             _currentCustomer = value;

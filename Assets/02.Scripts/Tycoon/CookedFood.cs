@@ -57,5 +57,8 @@ public class CookedFood : MonoBehaviour
     {
         _canHold = true;
         _shouldClean = false;
+
+        foreach (GameObject food in _edibleFoods)
+            food.SetActive(true);
     }
 }

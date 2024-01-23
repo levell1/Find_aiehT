@@ -133,6 +133,8 @@ public class ServingFood : MonoBehaviour
         }
     }
 
+    #region Coroutine
+
     IEnumerator CleanFood(GameObject food)
     {
         yield return new WaitForSeconds(0f);
@@ -141,4 +143,6 @@ public class ServingFood : MonoBehaviour
 
         Destroy(food);
     }
+
+    #endregion
 }
