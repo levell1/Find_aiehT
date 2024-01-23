@@ -11,7 +11,7 @@ public class DummyLoadTest : MonoBehaviour
 
         if(Input.GetKeyDown("y"))
         {
-            SceneManager.LoadScene("BJH_Tycoon");
+            SceneManager.LoadScene("MWJ");
         }
         else if(Input.GetKeyDown("x"))
         {

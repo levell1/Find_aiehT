@@ -12,7 +12,7 @@ public class PlayerGold : CommaText
     }
     private void Update()
     {
-        _Value = _playerData.GetPlayerData().GetPlayerGold();
+        _Value = _playerData.PlayerData.GetPlayerGold();
         base.Update();
     }
 }

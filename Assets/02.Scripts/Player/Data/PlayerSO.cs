@@ -27,9 +27,4 @@ public class PlayerSO : ScriptableObject
         PlayerLevelData = newData;
     }
 
-    public PlayerData GetPlayerData()
-    {
-        return PlayerData;
-    }
-
 }

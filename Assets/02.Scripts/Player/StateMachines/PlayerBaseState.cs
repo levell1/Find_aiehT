@@ -66,10 +66,12 @@ public class PlayerBaseState : IState
             input.PlayerActions.Attack.canceled += OnAttackCanceled;
 
             input.PlayerActions.Skill1.started += OnThrowSkillStarted;
-
             input.PlayerActions.Skill2.started += OnSpreadSkillStarted;
 
             input.PlayerActions.Interaction.started += OnInteractStarted;
+
+            input.PlayerActions.ShortcutKey1.started += OnUseHealthPotion;
+            input.PlayerActions.ShortcutKey2.started += OnUseStaminaPotion;
         }
       
     }
@@ -97,10 +99,12 @@ public class PlayerBaseState : IState
             input.PlayerActions.Attack.canceled -= OnAttackCanceled;
 
             input.PlayerActions.Skill1.started -= OnThrowSkillStarted;
-
             input.PlayerActions.Skill2.started -= OnSpreadSkillStarted;
 
             input.PlayerActions.Interaction.started -= OnInteractStarted;
+
+            input.PlayerActions.ShortcutKey1.started -= OnUseHealthPotion;
+            input.PlayerActions.ShortcutKey2.started -= OnUseStaminaPotion;
         }
 
     }
@@ -151,6 +155,18 @@ public class PlayerBaseState : IState
         _stateMachine.Player.Interaction.DestroyItem(); 
     }
 
+
+    protected virtual void OnUseHealthPotion(InputAction.CallbackContext context)
+    {
+        Debug.Log("HP");
+    }
+
+    protected virtual void OnUseStaminaPotion(InputAction.CallbackContext context)
+    {
+        Debug.Log("SP");
+    }
+
+    // Tycoon 상호작용
     protected virtual void OnTycoonInteractionStarted(InputAction.CallbackContext context)
     {
         _stateMachine.Player.ServingFood.TycoonInteraction();

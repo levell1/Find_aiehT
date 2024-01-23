@@ -14,7 +14,7 @@ public class PlayerExpSystem : MonoBehaviour
 
     private HealthSystem _healthSystem;
     private StaminaSystem _staminaSystem;
-    public event Action<int, int> OnChangeExpUI;
+    public event Action<float, float> OnChangeExpUI;
 
     public event Action<int> OnLevelUp;
 
