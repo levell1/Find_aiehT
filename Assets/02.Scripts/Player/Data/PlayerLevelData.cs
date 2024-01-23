@@ -8,17 +8,17 @@ public class LevelInfoData
 {
 
     [SerializeField] private int Level;
-    [SerializeField] private int Health;
-    [SerializeField] private int Stamina;
-    [SerializeField] private int Attack;
-    [SerializeField] private int Defence;
+    [SerializeField] private float Health;
+    [SerializeField] private float Stamina;
+    [SerializeField] private float Attack;
+    [SerializeField] private float Defence;
     [SerializeField] private int Exp;
 
     public int GetLevel() { return Level; }
-    public int GetHealth() { return Health; }
-    public int GetStamina() { return Stamina; }
-    public int GetAttack() { return Attack; }
-    public int GetDefence() { return Defence; }
+    public float GetHealth() { return Health; }
+    public float GetStamina() { return Stamina; }
+    public float GetAttack() { return Attack; }
+    public float GetDefence() { return Defence; }
     public int GetExp() { return Exp; }
 
 }
