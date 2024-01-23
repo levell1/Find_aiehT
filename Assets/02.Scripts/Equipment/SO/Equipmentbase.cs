@@ -14,6 +14,5 @@ public class EquipmentBase : ScriptableObject
     public int Level;
     public string Name;
     public int UpgradeGold;
-    public string info;
     public Sprite sprite;
 }
