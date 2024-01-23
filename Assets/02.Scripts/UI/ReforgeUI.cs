@@ -7,8 +7,9 @@ public class ReforgeUI : BaseUI
     [SerializeField] GameObject _backUI;
     [SerializeField] GameObject _selectUI;
 
-    [SerializeField] EquipmentBase _equipment;
+    [SerializeField] EquipmentData _equipmentdata;
 
+    [SerializeField] EquipmentBase _equipment;
     private void OnEnable()
     {
         

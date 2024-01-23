@@ -60,7 +60,11 @@ public class test : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
-            GameManager.instance.UIManager.ShowCanvas("StatusUI");
+            GameManager.instance.UIManager.ShowCanvas("PlayerStatusUI");
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            GameManager.instance.UIManager.ShowCanvas("ShopUI");
         }
     }
 }
