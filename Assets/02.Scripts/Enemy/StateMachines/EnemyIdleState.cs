@@ -33,7 +33,9 @@ public class EnemyIdleState : EnemyBaseState
 
         if (IsInAttackRange())
         {
-            _stateMachine.Enemy.transform.LookAt(_stateMachine.Target.transform);
+            Vector3 targetPosition = new Vector3(_stateMachine.Target.transform.position.x, _stateMachine.Enemy.transform.position.y, _stateMachine.Target.transform.position.z);
+            _stateMachine.Enemy.transform.LookAt(targetPosition);
+
             if (_stateMachine.Enemy.AttackDelay > _stateMachine.Enemy.Data.AttackDelay)
             {
                 _stateMachine.Enemy.AttackDelay = 0;
@@ -45,7 +47,9 @@ public class EnemyIdleState : EnemyBaseState
 
         if (IsInChaseRange())
         {
-            _stateMachine.Enemy.transform.LookAt(_stateMachine.Target.transform);
+            Vector3 targetPosition = new Vector3(_stateMachine.Target.transform.position.x, _stateMachine.Enemy.transform.position.y, _stateMachine.Target.transform.position.z);
+            _stateMachine.Enemy.transform.LookAt(targetPosition);
+
             _stateMachine.ChangeState(_stateMachine.ChasingState);
             return;
         }

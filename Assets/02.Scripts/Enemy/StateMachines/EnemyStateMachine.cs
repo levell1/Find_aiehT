@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class EnemyStateMachine : StateMachine
@@ -15,11 +16,11 @@ public class EnemyStateMachine : StateMachine
     public EnemyWalkState WalkState { get; }
     public EnemyDieState DieState { get; }
 
+
     public EnemyStateMachine(Enemy enemy)
     {
         Enemy = enemy;
         Target = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
         IdlingState = new EnemyIdleState(this);
         ChasingState = new EnemyChasingState(this);
         AttackState = new EnemyAttackState(this);

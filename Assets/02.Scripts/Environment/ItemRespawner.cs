@@ -4,26 +4,49 @@ using UnityEngine;
 
 public class ItemRespawner : MonoBehaviour
 {
-    public List<GameObject> Items = new List<GameObject>();
+    public List<GameObject> ItemWaitSpawnList = new List<GameObject>();
     public int CoCount;
-    public float RespawnTime;
+    public float RespawnTime; // TODO 아침까지 남은시간 구하기
+
+    //private float _remainigTime; // 다른 씬에서 소비한 시간 뺴기
+    private Coroutine respawnCoroutine;
 
     private void FixedUpdate()
     {
         if (CoCount == 1)
         {
-            StartCoroutine(RespawnItem());
+            respawnCoroutine = StartCoroutine(RespawnItem());
         }
     }
 
-    private IEnumerator RespawnItem()
+    private IEnumerator RespawnItem() //어쩌다보니 유사Queue 풀링
     {
         --CoCount;
-        if (Items[0] != null)
+        if (ItemWaitSpawnList[0] != null)
         {
             yield return new WaitForSeconds(RespawnTime);
-            Items[0].gameObject.SetActive(true);
-            Items.Remove(Items[0]);
+            ItemWaitSpawnList[0].gameObject.SetActive(true);
+            ItemWaitSpawnList.Remove(ItemWaitSpawnList[0]);
+        }
+    }
+
+    private void OnEnable() //게임을 시작했을때, 씬 으로 왔을 때
+    {
+        if (ItemWaitSpawnList.Count != 0)
+        {
+            for(int i = 0; i < ItemWaitSpawnList.Count; ++i)
+            {
+                ItemWaitSpawnList[0].gameObject.SetActive(true);
+            }
+            ItemWaitSpawnList.Clear();
+        }
+    }
+
+    private void OnDisable() //씬 이동할 때 따라다니지 않는 다면...
+    {
+        if (respawnCoroutine != null)
+        {
+            StopCoroutine(respawnCoroutine);
         }
     }
 }
