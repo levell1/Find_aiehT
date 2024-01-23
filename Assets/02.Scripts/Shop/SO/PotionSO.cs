@@ -4,7 +4,8 @@ using UnityEngine;
 public class PotionSO : ScriptableObject
 {
     public string Name;
-    public string info;
-    public int Heal;
+    public string Description;
+    public int HealingAmount;
     public Sprite sprite;
+    public int Price;
 }

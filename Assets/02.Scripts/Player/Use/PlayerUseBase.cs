@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class PlayerUseBase : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    Player _player;
+    private PotionSO _potionData;
+    private int _healingAmount;
+
+    private void Start()
     {
-        
+        _player = GetComponent<Player>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public virtual void UsePotion()
     {
-        
+        if (_potionData != null)
+        {
+            _healingAmount = _potionData.HealingAmount;
+            _player.HealthSystem.Healing(_healingAmount);
+        }
+
     }
+
 }

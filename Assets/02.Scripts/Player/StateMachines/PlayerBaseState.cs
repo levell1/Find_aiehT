@@ -158,12 +158,12 @@ public class PlayerBaseState : IState
 
     protected virtual void OnUseHealthPotion(InputAction.CallbackContext context)
     {
-        Debug.Log("HP");
+        _stateMachine.Player.PlayerUseHealthPotion.UsePotion();
     }
 
     protected virtual void OnUseStaminaPotion(InputAction.CallbackContext context)
     {
-        Debug.Log("SP");
+        _stateMachine.Player.PlayerUseStaminaPotion.UsePotion();
     }
 
     // Tycoon 상호작용

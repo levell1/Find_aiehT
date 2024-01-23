@@ -77,5 +77,9 @@ public class HealthSystem : MonoBehaviour
         _isInvincible = false;
     }
 
+    public void Healing(int healingAmount)
+    {
+        _health += healingAmount;
+    }
 
 }
