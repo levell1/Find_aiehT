@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class TimeCycle : MonoBehaviour
 {
-    [Range(0.0f, 1.0f)] //ÀÎ½ºÆåÅÍ Ã¢¿¡¼­ 0~1 ½ºÅ©·Ñ·Î Á¶Àı °¡´É
-    public float DayTime;
-    public float FullDayLength;  //ÇÏ·ç
-    public float StartTime = 0.4f;
-    private float _timeRate;
-    public Vector3 Noon;  //ºûÀÇ °¢µµ Á¶Àı
+    public Vector3 Noon;  //ë¹›ì˜ ê°ë„ ì¡°ì ˆ
 
     [Header("Sun")]
     public Light Sun;
@@ -22,31 +17,26 @@ public class TimeCycle : MonoBehaviour
     public AnimationCurve MoonIntensity;
 
     [Header("Other Lighting")]
-    public AnimationCurve LightingIntensityMultiplier;  //È¯°æ±¤
-    public AnimationCurve ReflectionIntensityMultiplier;  //¹İ»ç±¤
+    public AnimationCurve LightingIntensityMultiplier;  //í™˜ê²½ê´‘
+    public AnimationCurve ReflectionIntensityMultiplier;  //ë°˜ì‚¬ê´‘
 
-    private void Start()
-    {
-        _timeRate = 1.0f / FullDayLength; //¾ó¸¶Å­¾¿ º¯ÇÏ´ÂÁö °è»ê 1/ÇÏ·ç
-        DayTime = StartTime; //½ÃÀÛ½Ã°£À» Á¤ÇØ¼­ ¾ÆÄ§ºÎÅÍ ½ÃÀÛÇÏ´Â ´À³¦¾² µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ¸é ÇÊ¿ä ¾øÀ» µí
-    }
+    
 
     private void Update()
     {
-        DayTime = (DayTime + _timeRate * Time.deltaTime) % 1.0f; //ÆÛ¼¾Æ¼Áö·Î »ç¿ëÇÏ±â À§ÇØ 1.0f·Î ³ª´«´Ù. 0 ~ 0.9999 ±îÁö¸¸ »ç¿ë°¡´É
         UpdateLighting(Sun, SunColor, SunIntensity);
         UpdateLighting(Moon, MoonColor, MoonIntensity);
 
-        RenderSettings.ambientIntensity = LightingIntensityMultiplier.Evaluate(DayTime);
-        RenderSettings.reflectionIntensity = ReflectionIntensityMultiplier.Evaluate(DayTime);
+        RenderSettings.ambientIntensity = LightingIntensityMultiplier.Evaluate(GameManager.instance.GlobalTimeManager.DayTime);
+        RenderSettings.reflectionIntensity = ReflectionIntensityMultiplier.Evaluate(GameManager.instance.GlobalTimeManager.DayTime);
     }
 
     private void UpdateLighting(Light lightSource, Gradient colorGradient, AnimationCurve intensityCurve)
     {
-        float intensity = intensityCurve.Evaluate(DayTime);  //AnimationCurve.Evaluate(*)´Â *ÀÇ °ªÀÇ Ä¿ºê°ªÀ» ¸®ÅÏÇØÁØ´Ù. (±×·¡ÇÁ)
+        float intensity = intensityCurve.Evaluate(GameManager.instance.GlobalTimeManager.DayTime);  //AnimationCurve.Evaluate(*)ëŠ” *ì˜ ê°’ì˜ ì»¤ë¸Œê°’ì„ ë¦¬í„´í•´ì¤€ë‹¤. (ê·¸ë˜í”„)
 
-        lightSource.transform.eulerAngles = (DayTime - ((lightSource == Sun) ? 0.25f : 0.75f)) * Noon * 4.0f;
-        lightSource.color = colorGradient.Evaluate(DayTime);
+        lightSource.transform.eulerAngles = (GameManager.instance.GlobalTimeManager.DayTime - ((lightSource == Sun) ? 0.25f : 0.75f)) * Noon * 4.0f;
+        lightSource.color = colorGradient.Evaluate(GameManager.instance.GlobalTimeManager.DayTime);
         lightSource.intensity = intensity;
 
         GameObject go = lightSource.gameObject;

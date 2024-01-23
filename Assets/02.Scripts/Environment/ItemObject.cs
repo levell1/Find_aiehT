@@ -14,10 +14,6 @@ public class ItemObject : MonoBehaviour
     {
         _itemRespawner = GetComponentInParent<ItemRespawner>();
     }
-    private void OnEnable()
-    {
-        gameObject.transform.parent = null;
-    }
 
     public void GetItem()
     {
@@ -28,9 +24,7 @@ public class ItemObject : MonoBehaviour
         }
         else if (ItemData.type == ItemType.NATUREITEM)
         {
-            gameObject.transform.parent = _itemRespawner.transform;
             gameObject.SetActive(false);
-            ++_itemRespawner.CoCount;
             _itemRespawner.ItemWaitSpawnList.Add(gameObject);
         }
     }
