@@ -6,7 +6,7 @@ public class PlayerSpreadSkill : MonoBehaviour
 {
     [SerializeField] private MeshCollider _skillRangeCollider;
 
-    private int _damage;
+    private float _damage;
 
     private readonly List<Collider> _alreadyCollidedObjects = new List<Collider>();
 
@@ -40,7 +40,7 @@ public class PlayerSpreadSkill : MonoBehaviour
 
     }
 
-    public void SetAttack(int damage)
+    public void SetAttack(float damage)
     {
         this._damage = damage;
     }

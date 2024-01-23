@@ -12,7 +12,7 @@ public class AttackInfoData
     [field: SerializeField][field: Range(0f, 1f)] public float ComboTransitionTime { get; private set; }
     [field: SerializeField][field: Range(0f, 3f)] public float ForceTransitionTime { get; private set; }
     [field: SerializeField][field: Range(-10f, 20f)] public float Force { get; private set; }
-    [field: SerializeField] public int Damage { get; private set; }
+    [field: SerializeField] public float Damage { get; private set; }
 }
 
 
@@ -20,7 +20,7 @@ public class AttackInfoData
 public class PlayerAttackData
 {
     [field: SerializeField] public List<AttackInfoData> AttackInfoDatas { get; private set;}
-    public int GetAttackInfoCount() { return AttackInfoDatas.Count; } // ÇöÀç °¡Áö°í ÀÖ´Â ¾îÅÃÀÇ °³¼ö 
-    public AttackInfoData GetAttackInfo(int index) {  return AttackInfoDatas[index]; } // ÇöÀç »ç¿ëÁßÀÎ ¾îÅÃ(ÄŞº¸)ÀÇ µ¥ÀÌÅÍ
+    public int GetAttackInfoCount() { return AttackInfoDatas.Count; } // í˜„ì¬ ê°€ì§€ê³  ìˆëŠ” ì–´íƒì˜ ê°œìˆ˜ 
+    public AttackInfoData GetAttackInfo(int index) {  return AttackInfoDatas[index]; } // í˜„ì¬ ì‚¬ìš©ì¤‘ì¸ ì–´íƒ(ì½¤ë³´)ì˜ ë°ì´í„°
 
 }

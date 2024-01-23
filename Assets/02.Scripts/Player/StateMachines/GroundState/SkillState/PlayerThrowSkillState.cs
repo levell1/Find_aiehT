@@ -38,10 +38,10 @@ public class PlayerThrowSkillState : PlayerSkillState
             _stateMachine.MovementSpeedModifier = 0; // 공격할 때 안움직임
             _stateMachine.Player.SkillInstantiator.InstantiateTomato();
 
-            int skillDamage = _skillData.GetSkillDamage();
-            int playerDamage = _stateMachine.Player.Data.PlayerData.GetPlayerAtk();
+            float skillDamage = _skillData.GetSkillDamage();
+            float playerDamage = _stateMachine.Player.Data.PlayerData.GetPlayerAtk();
 
-            int totalDamage = skillDamage + playerDamage;
+            float totalDamage = skillDamage + playerDamage;
 
             _stateMachine.Player.StaminaSystem.UseSkill(_skillCost);
 

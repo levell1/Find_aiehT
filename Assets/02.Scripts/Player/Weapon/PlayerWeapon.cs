@@ -7,7 +7,7 @@ public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private Collider _weaponCollider;
 
-    private int _damage;
+    private float _damage;
 
     private readonly List<Collider> _alreadyCollidedObjects = new List<Collider>();
 
@@ -35,7 +35,7 @@ public class PlayerWeapon : MonoBehaviour
 
     }
 
-    public void SetAttack(int damage)
+    public void SetAttack(float damage)
     {
         this._damage = damage;
     }

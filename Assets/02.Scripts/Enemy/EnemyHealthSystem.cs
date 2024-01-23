@@ -9,8 +9,8 @@ public class EnemyHealthSystem : MonoBehaviour
 {
     private Enemy _enemy;
     private EnemySO _enemySO;
-    public int MaxHealth;
-    public int Health;
+    public float MaxHealth;
+    public float Health;
     public Canvas HpCanvas;
     public Image HpBar;
     public bool Hit;
@@ -48,11 +48,11 @@ public class EnemyHealthSystem : MonoBehaviour
             HpCanvas.gameObject.SetActive(false);
         }
 
-        HpBar.fillAmount = (float)Health / MaxHealth;
+        HpBar.fillAmount = Health / MaxHealth;
     }
 
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         Hit = true;
         if (Health == 0) return;
