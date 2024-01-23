@@ -27,8 +27,11 @@ public class Player : MonoBehaviour
     public FirstSkillCoolTimeController FirstSkillCoolTimeController { get; private set; }
     public SecondSkillCoolTimeController SecondSkillCoolTimeController { get; private set; }
 
+
     [field: Header("Weapon")]
     [field: SerializeField] public PlayerWeapon Weapon { get; private set; }
+    [field: SerializeField] public PlayerSpreadSkill SandSkill { get; private set; }
+    [field: SerializeField] public SkillParticle SkillParticle { get; private set; }
     public SkillInstantiator SkillInstantiator { get; private set; }
 
     [field: Header("Interact")]
