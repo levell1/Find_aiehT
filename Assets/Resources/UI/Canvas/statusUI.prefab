@@ -446,8 +446,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284539016
-  m_fontColor: {r: 0.53333336, g: 0.87843144, b: 0.37647063, a: 1}
+    rgba: 4282988799
+  m_fontColor: {r: 1, g: 0.21960786, b: 0.28627452, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6462,8 +6462,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294960989
+  m_fontColor: {r: 0.3647059, g: 0.9058824, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6540,7 +6540,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4137192709789637598
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6642,7 +6642,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8179322658251427347}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6244790241951738942}
+        m_TargetAssemblyTypeName: BaseUI, Assembly-CSharp
+        m_MethodName: CloseUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8505303391355909388
 GameObject:
   m_ObjectHideFlags: 0
@@ -6983,7 +6995,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 140, y: -270}
+  m_AnchoredPosition: {x: 140, y: -230}
   m_SizeDelta: {x: 280, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8743993793481626592
@@ -7317,12 +7329,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be3e8af17c0dceb4aa519cf4eac4a1af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _equipment:
+  - {fileID: 11400000, guid: ec362803175c4c241a9b79050ad35a69, type: 2}
+  - {fileID: 11400000, guid: 0f815c2108db9fd468648488966f9b5f, type: 2}
+  - {fileID: 11400000, guid: 519b0401488b23242bc71635fc34c745, type: 2}
+  - {fileID: 11400000, guid: ef84ecfcdf9cf564a93b53a83d3115c6, type: 2}
+  - {fileID: 11400000, guid: c1c27e4bb768fd749a74719e3a6663ab, type: 2}
+  - {fileID: 11400000, guid: b03b79861ff449c4ebe874638bfb3b91, type: 2}
   _playerName: {fileID: 4037498399356976967}
   _playerLevel: {fileID: 3531142938036993999}
   _maxHealth: {fileID: 514620781208312174}
   _maxStamina: {fileID: 5774200406264607788}
   _Attack: {fileID: 8827537119810088683}
   _defence: {fileID: 3646411596187583195}
+  _equipmentSprite:
+  - {fileID: 4501577070350182237}
+  - {fileID: 5238215133984218809}
+  - {fileID: 6394427505840876726}
+  - {fileID: 6161403322784038377}
+  - {fileID: 3596100059553157386}
+  - {fileID: 9069773747720858920}
+  _equipmentName:
+  - {fileID: 4035127262220635946}
+  - {fileID: 69207643725289868}
+  - {fileID: 6280595264513086198}
+  - {fileID: 3310725286517847718}
+  - {fileID: 7619005044571505792}
+  - {fileID: 3080376281745023675}
   _equipmentHealth: {fileID: 7406253292191331263}
   _equipmentDef: {fileID: 715524512969160262}
   _weaponDmg: {fileID: 3942617741001520087}
@@ -7710,6 +7743,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 140, y: -230}
+  m_AnchoredPosition: {x: 140, y: -270}
   m_SizeDelta: {x: 280, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}

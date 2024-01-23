@@ -34,8 +34,6 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent Agent;
 
 
-
-
     void Awake()
     {
         AnimationData.Initialize();
@@ -75,9 +73,9 @@ public class Enemy : MonoBehaviour
         _stateMachine.Target.PlayerExpSystem.EnemyExpPlus(Data.DropEXP);
         if(Data.DropItem != null)
         {
-            for (int i = 0; i < Data.DropItem.Length; i++)
+            int drop = UnityEngine.Random.Range(0, Data.DropItem.Length + 1);
+            for (int i = 0; i < drop; i++)
             {
-                //TODO 랜덤으로 생성 될지 말지 정해주기++
                 Instantiate(Data.DropItem[i], transform.position + Vector3.up * 2, Quaternion.identity);
             }
         }
