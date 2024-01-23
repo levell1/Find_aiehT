@@ -71,6 +71,8 @@ public class CustomerController : MonoBehaviour
         if (!_agent.hasPath)
         {
             _animator.SetBool("IsWalk", false);
+
+            // TODO: 의자 방향으로
             transform.rotation = Quaternion.identity;
 
             if (!_isOrderFood)
