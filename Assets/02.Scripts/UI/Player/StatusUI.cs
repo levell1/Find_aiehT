@@ -1,10 +1,19 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class StatusUI : BaseUI
 {
     private PlayerSO _playerData;
+    [SerializeField] private EquipmentBase[] _equipment= new EquipmentBase[6];
+
+    private int _sumequipDef = 0;
+    private int _sumequipHealth = 0;
+    private int _weponDmg= 0;
+
+    Weapon weapon;
+    Armor armor;
 
     [Header("기본스탯")]
     [SerializeField] private TMP_Text _playerName;
@@ -15,10 +24,9 @@ public class StatusUI : BaseUI
     [SerializeField] private TMP_Text _defence;
 
     [Header("장비 정보")]
-    [SerializeField] private TMP_Text[] _equipmentName= new TMP_Text[5];
-    [SerializeField] private Sprite[] _equipmentSprite= new Sprite[5];
-    [SerializeField] private TMP_Text _weaponName;
-    [SerializeField] private Sprite _weaponSprite;
+    [SerializeField] private Image[] _equipmentSprite = new Image[6];
+    [SerializeField] private TMP_Text[] _equipmentName= new TMP_Text[6];
+    
     [SerializeField] private TMP_Text _equipmentHealth;
     [SerializeField] private TMP_Text _equipmentDef;
     [SerializeField] private TMP_Text _weaponDmg;
@@ -44,6 +52,10 @@ public class StatusUI : BaseUI
 
     private void OnEnable()
     {
+        _sumequipDef = 0;
+        _sumequipHealth = 0;
+        _weponDmg = 0;
+
         _playerName.text = _playerData.PlayerData.GetPlayerName();
         _playerLevel.text = _playerData.PlayerData.GetPlayerLevel().ToString();
         _maxHealth.text = _playerData.PlayerData.GetPlayerMaxHealth().ToString();
@@ -51,20 +63,27 @@ public class StatusUI : BaseUI
         _Attack.text = _playerData.PlayerData.GetPlayerAtk().ToString();
         _defence.text = _playerData.PlayerData.GetPlayerDef().ToString();
 
-        Debug.Log(_playerData.PlayerData.GetPlayerLevel().ToString());
-
-        Debug.Log(_playerData.PlayerData.GetPlayerMaxHealth().ToString());
-
-        /*for (int i = 0; i < _equipmentName.Length; i++)
+        for (int i = 0; i < _equipment.Length; i++)
         {
-            _equipmentName[i] = data.name+data.강화수치
-            _equipmentsprite[i] = data.sprite
-        }*/
-        //_WeaponName.text = .ToString();
+            _equipmentName[i].text = _equipment[i].Name + "(+" + _equipment[i].Level.ToString() + ")";
+            _equipmentSprite[i].sprite = _equipment[i].sprite;
+            if (_equipment[i].type == EquipmentType.Armor)
+            {
+                armor = _equipment[i] as Armor;
+                _sumequipHealth += armor.ItemHealth;
+                _sumequipDef += armor.ItemDef;
+            }
+            if (_equipment[i].type == EquipmentType.Weapon)
+            {
+                weapon = _equipment[i] as Weapon;
+                _weponDmg = weapon.EquipmentAttack;
+            }
+        }
 
-        //_equipmentHealth.text = .ToString();
-        //_equipmentDef.text = .ToString();
-        // _weaponDmg.text = .ToString();
+
+        _equipmentHealth.text = _sumequipHealth.ToString();
+        _equipmentDef.text = _sumequipDef.ToString();
+        _weaponDmg.text = _weponDmg.ToString();
 
         _qSkillName.text = _playerData.SkillData.SkillInfoDatas[0].GetSkillName()+"(Q)";
         _qSkillDmg.text = _playerData.SkillData.SkillInfoDatas[0].GetSkillDamage().ToString();
