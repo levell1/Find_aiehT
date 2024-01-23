@@ -13,7 +13,7 @@ public class ServingFood : MonoBehaviour
     private bool _isHold = false;
     private bool _isPossibleToClean = false;
 
-    private const float _minDistanceToPutFood = 1.3f;
+    private const float _minDistanceToPutFood = 1.7f;
 
     public void TycoonInteraction()
     {
