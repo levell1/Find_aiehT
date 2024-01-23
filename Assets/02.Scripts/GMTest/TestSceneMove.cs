@@ -9,12 +9,12 @@ public class TestSceneMove : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
-            SceneManager.LoadScene("GMTestScene");
+            SceneManager.LoadScene("MWJ");
         }
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            SceneManager.LoadScene("KGM");
+            SceneManager.LoadScene("BJH");
         }
 
     }
