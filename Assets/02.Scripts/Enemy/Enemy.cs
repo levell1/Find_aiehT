@@ -54,6 +54,8 @@ public class Enemy : MonoBehaviour
     }
     private void OnEnable()
     {
+        SetData();
+
         if (NightCheck())
         {
             EnemyDamage *= 2f;

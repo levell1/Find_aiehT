@@ -22,6 +22,8 @@ public class EnemyHealthSystem : MonoBehaviour
 
     private Camera _camera;
 
+    Coroutine _coroutine;
+
     private void Start()
     {
         _enemy = GetComponent<Enemy>();
@@ -40,8 +42,10 @@ public class EnemyHealthSystem : MonoBehaviour
             HpCanvas.gameObject.SetActive(true);
             //카메라 방향으로 캔버스 돌리기
             HpCanvas.transform.LookAt(HpCanvas.transform.position + _camera.transform.rotation * Vector3.back, _camera.transform.rotation * Vector3.down);
-
-            StartCoroutine(HitCancel());
+            if (_coroutine == null)
+            {
+                _coroutine = StartCoroutine(HitCancel());
+            }
         }
         else
         {
@@ -71,5 +75,6 @@ public class EnemyHealthSystem : MonoBehaviour
     {
         yield return new WaitForSeconds(HitCool); //해당시간동안 플레이어를 추격한다.
         Hit = false;
+        _coroutine = null;
     }
 }
