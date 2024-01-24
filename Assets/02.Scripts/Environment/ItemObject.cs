@@ -28,7 +28,8 @@ public class ItemObject : MonoBehaviour
 
     public void GetItem()
     {
-        //인벤토리 Add
+        GameManager.instance.Inventory.AddItem(ItemData);
+
         if (ItemData.type == ItemType.DROPITEM)
         {
             Destroy(gameObject);
