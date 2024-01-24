@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
@@ -14,7 +15,7 @@ public class HealthSystem : MonoBehaviour
 
     public float _health;
 
-    
+    [SerializeField] EquipmentDatas _equipmentDatas;
 
     private bool _isInvincible = false;
 
@@ -25,16 +26,16 @@ public class HealthSystem : MonoBehaviour
 
     private void Start()
     {
+        _equipmentDatas = GetComponent<EquipmentDatas>();
         _playerData = GetComponent<Player>().Data;
         SetMaxHealth();
 
-        _playerDef = _playerData.PlayerData.GetPlayerDef();
         Debug.Log(_maxHealth);
     }
 
     public void SetMaxHealth() 
     {
-        _maxHealth = _playerData.PlayerData.GetPlayerMaxHealth();
+        _maxHealth = _playerData.PlayerData.GetPlayerMaxHealth()+ _equipmentDatas.SumHealth;
         _health = _maxHealth;
         OnChangeHpUI?.Invoke(_health, _maxHealth);
     }
@@ -50,8 +51,8 @@ public class HealthSystem : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        _playerDef = _playerData.PlayerData.GetPlayerDef();
-
+        _playerDef = _playerData.PlayerData.GetPlayerDef()+_equipmentDatas.SumDef;
+        Debug.Log(_playerDef);
         if (_isInvincible) return;
 
         if (_health == 0) return;
