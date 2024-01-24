@@ -14,9 +14,9 @@ public enum ItemType
 public class ItemSO : ScriptableObject
 {
     [field: SerializeField] public string ObjName { get; private set; }
-    [field: SerializeField] public string Discription { get; private set; }
+    [field: SerializeField] public string Description { get; private set; }
     [field: SerializeField] public int Price { get; private set; }
-    [field: SerializeField] public Sprite Icon { get; private set; }
+    [field: SerializeField] public Sprite Sprite { get; private set; }
     [field: SerializeField] public int MaxStackAmount { get; private set; }
 
     [field: SerializeField] public ItemType type;
