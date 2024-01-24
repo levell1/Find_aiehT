@@ -8,13 +8,16 @@ public class ShopPotion : MonoBehaviour
 {
     [HideInInspector] public PotionSO potionSO;
     public ShopPotionInfo shopPotionInfo;
+    public ShopPotionInfoPopup shopPotionInfoPopup;
 
     public Image potionImage;
-    private Button _button;
+    public Button buyButton;
+
+    private Button _slotButton;
 
     void Start()
     {
-        _button = GetComponent<Button>();
+        _slotButton = GetComponent<Button>();
     }
 
     public void Init(PotionSO data)
@@ -26,7 +29,13 @@ public class ShopPotion : MonoBehaviour
 
     public void SetItemInfo()
     {
-        _button.onClick.AddListener(() => { shopPotionInfo.ShowItemInfo(potionSO);});
+        _slotButton.onClick.RemoveAllListeners();
+
+        _slotButton.onClick.AddListener(() => 
+        { 
+            shopPotionInfo.ShowItemInfo(potionSO);
+            shopPotionInfoPopup.ShowPopup(potionSO);
+        });
     }
 
     //private void ShowItemInfo()

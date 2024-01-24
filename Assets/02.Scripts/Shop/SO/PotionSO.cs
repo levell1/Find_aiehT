@@ -9,4 +9,5 @@ public class PotionSO : ScriptableObject
     public int HealingAmount;
     public Sprite sprite;
     public int Price;
+    [HideInInspector] public int Quantity = 99;
 }

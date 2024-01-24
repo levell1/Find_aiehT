@@ -15,6 +15,7 @@ public class ShopInteraction : MonoBehaviour
         {
             shopPotions[i].Init(PotionDataList.ShopPotionList[i]);
             shopPotions[i].SetItemInfo();
+
         }
     }
 
