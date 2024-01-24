@@ -33,6 +33,7 @@ public class EquipmentDatas : MonoBehaviour
         SetEquipCurrent(i);
         SumEquipStat();
         _healthSystem.SetMaxHealth();
+        
     }
     public void SetEquipCurrent(int i) 
     { 

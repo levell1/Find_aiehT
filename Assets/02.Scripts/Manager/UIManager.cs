@@ -26,11 +26,13 @@ public class UIManager
 
     public void ShowCanvas(string uiname)
     {
+        if (!_popupDic[uiname].activeSelf) { 
         _popupDic[uiname].GetComponent<Canvas>().sortingOrder = _canvasSortOrder;
         _popupStack.Push(_popupDic[uiname]);
         _popupDic[uiname].SetActive(true);
         _canvasSortOrder++;
         Cursor.lockState = CursorLockMode.None;
+        }
     }
 
     public void CloseLastCanvas()

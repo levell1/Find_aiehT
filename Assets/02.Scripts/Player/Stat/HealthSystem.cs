@@ -30,14 +30,12 @@ public class HealthSystem : MonoBehaviour
         _playerData = GetComponent<Player>().Data;
         SetMaxHealth();
 
-        _playerDef = _playerData.PlayerData.GetPlayerDef();
         Debug.Log(_maxHealth);
     }
 
     public void SetMaxHealth() 
     {
         _maxHealth = _playerData.PlayerData.GetPlayerMaxHealth()+ _equipmentDatas.SumHealth;
-        
         _health = _maxHealth;
         OnChangeHpUI?.Invoke(_health, _maxHealth);
     }
@@ -53,8 +51,8 @@ public class HealthSystem : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        _playerDef = _playerData.PlayerData.GetPlayerDef();
-
+        _playerDef = _playerData.PlayerData.GetPlayerDef()+_equipmentDatas.SumDef;
+        Debug.Log(_playerDef);
         if (_isInvincible) return;
 
         if (_health == 0) return;
