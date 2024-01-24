@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerUseStaminaPotion : MonoBehaviour
+public class PlayerUseStaminaPotion : PlayerUseBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void UsePotion()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        base.UsePotion();
+        Debug.Log("SP포션 사용!");
     }
 }

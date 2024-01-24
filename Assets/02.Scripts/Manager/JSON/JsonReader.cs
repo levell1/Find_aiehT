@@ -30,7 +30,6 @@ public class JsonReader : MonoBehaviour
         PlayerLevelData playerLevelData = LoadJson<PlayerLevelData>("LevelData");
         PlayerSO.SetPlayerLevelData(playerLevelData);
 
-
     }
 
     public T LoadJson<T>(string FilePath)

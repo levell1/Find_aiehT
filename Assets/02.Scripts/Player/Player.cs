@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     public PlayerExpSystem PlayerExpSystem { get; private set; }
     public FirstSkillCoolTimeController FirstSkillCoolTimeController { get; private set; }
     public SecondSkillCoolTimeController SecondSkillCoolTimeController { get; private set; }
+    public PlayerUseHealthPotion PlayerUseHealthPotion { get; private set; }
+    public PlayerUseStaminaPotion PlayerUseStaminaPotion { get; private set; }
     public ServingFood ServingFood { get; private set; }
 
     [field: Header("Weapon")]
@@ -57,6 +59,10 @@ public class Player : MonoBehaviour
 
         FirstSkillCoolTimeController = GetComponent<FirstSkillCoolTimeController>();
         SecondSkillCoolTimeController = GetComponent<SecondSkillCoolTimeController>();
+
+        PlayerUseHealthPotion = GetComponent<PlayerUseHealthPotion>();
+        PlayerUseStaminaPotion = GetComponent<PlayerUseStaminaPotion>();
+
         SkillInstantiator = GetComponent<SkillInstantiator>();
 
         ServingFood = GetComponent<ServingFood>();

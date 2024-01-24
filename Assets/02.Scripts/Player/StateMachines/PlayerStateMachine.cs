@@ -18,9 +18,8 @@ public class PlayerStateMachine : StateMachine
 
     public PlayerComboAttackState ComboAttackState { get; }
 
-    public PlayerThrowSkillState PlayerFirstSkillState { get; }
-    public PlayerSpreadSkillState PlayerSecondSkillState { get; }
-
+    public PlayerThrowSkillState PlayerThrowSkillState { get; }
+    public PlayerSpreadSkillState PlayerSpreadSkillState { get; }
 
     public Vector2 MovementInput { get; set; }
     public float MovementSpeed { get; private set; }
@@ -62,8 +61,8 @@ public class PlayerStateMachine : StateMachine
 
         ComboAttackState = new PlayerComboAttackState(this);
 
-        PlayerFirstSkillState = new PlayerThrowSkillState(this);
-        PlayerSecondSkillState = new PlayerSpreadSkillState(this);
+        PlayerThrowSkillState = new PlayerThrowSkillState(this);
+        PlayerSpreadSkillState = new PlayerSpreadSkillState(this);
 
         MainCameraTransform = Camera.main.transform;
 

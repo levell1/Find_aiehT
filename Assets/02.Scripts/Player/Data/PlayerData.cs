@@ -48,8 +48,8 @@ public class PlayerData
 
     [SerializeField] private string PlayerName;
     [SerializeField] private int PlayerLevel;
-    [SerializeField] private int PlayerMaxHealth;
-    [SerializeField] private int PlayerMaxStamina;
+    [SerializeField] private float PlayerMaxHealth;
+    [SerializeField] private float PlayerMaxStamina;
     [SerializeField] private float PlayerAttack;
     [SerializeField] private float PlayerDef;
     [SerializeField] private int PlayerExp;
@@ -57,16 +57,16 @@ public class PlayerData
 
     public string GetPlayerName() { return PlayerName; }
     public int GetPlayerLevel() { return PlayerLevel; }
-    public int GetPlayerMaxHealth() { return PlayerMaxHealth; }
-    public int GetPlayerMaxStamina() { return PlayerMaxStamina; }
+    public float GetPlayerMaxHealth() { return PlayerMaxHealth; }
+    public float GetPlayerMaxStamina() { return PlayerMaxStamina; }
     public float GetPlayerAtk() { return PlayerAttack; }
     public float GetPlayerDef() { return PlayerDef; }
     public int GetPlayerExp() { return PlayerExp; }
     public int GetPlayerGold() { return PlayerGold; }
 
     public void SetPlayerLevel(int value) { PlayerLevel = value; }
-    public void SetPlayerMaxHealth(int value) { PlayerMaxHealth = value; }
-    public void SetPlayerMaxStamina(int value) { PlayerMaxStamina = value; }
+    public void SetPlayerMaxHealth(float value) { PlayerMaxHealth = value; }
+    public void SetPlayerMaxStamina(float value) { PlayerMaxStamina = value; }
     public void SetPlayerAttack(float value) { PlayerAttack = value; }
     public void SetPlayerDef(float value) { PlayerDef = value; }
     public void SetPlayerExp(int value) { PlayerExp = value; }

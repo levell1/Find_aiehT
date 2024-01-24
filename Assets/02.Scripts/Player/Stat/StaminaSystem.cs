@@ -9,8 +9,8 @@ public class StaminaSystem : MonoBehaviour
     [SerializeField] private float _targetRegenTime = 0.2f;
     
     private PlayerSO _playerData;
-    private int _maxStamina;
-    private int _stamina;
+    private float _maxStamina;
+    private float _stamina;
 
     public  Action<float, float> OnChangeStaminaUI;
 

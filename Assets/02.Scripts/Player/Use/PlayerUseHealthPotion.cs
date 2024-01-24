@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerUseHealthPotion : MonoBehaviour
+public class PlayerUseHealthPotion : PlayerUseBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void UsePotion()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        base.UsePotion();
+        Debug.Log("HP포션 사용!");
     }
 }

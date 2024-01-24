@@ -32,7 +32,7 @@ public class PlayerJumpState : PlayerAirState
         if (_stateMachine.Player.Rigidbody.velocity.y < 0)
         {
             _stateMachine.ChangeState(_stateMachine.FallState);
-            Debug.Log("떨어진다~");
+            //Debug.Log("떨어진다~");
             return;
         }
 
