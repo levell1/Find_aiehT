@@ -68,12 +68,13 @@ public class CustomerController : MonoBehaviour
 
     private void Update()
     {
+        //Debug.Log(Vector3.Distance(_agent.destination, transform.position));
+
         if (!_agent.hasPath)
         {
             _animator.SetBool("IsWalk", false);
 
-            // TODO: 의자 방향으로
-            transform.rotation = Quaternion.identity;
+            transform.rotation = _targetFoodPlace.gameObject.transform.rotation;
 
             if (!_isOrderFood)
             {
@@ -131,9 +132,7 @@ public class CustomerController : MonoBehaviour
     IEnumerator EatFood()
     {
         _animator.SetBool("IsEat", true);
-
         yield return new WaitForSeconds(10f);
-
         _animator.SetBool("IsEat", false);
 
         StartCoroutine(ExitRestaurant());

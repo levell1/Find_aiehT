@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class CookedFood : MonoBehaviour
@@ -7,10 +8,12 @@ public class CookedFood : MonoBehaviour
     [SerializeField] private FoodSO _foodSO;
     [SerializeField] private string _foodName;
     [SerializeField] private List<GameObject> _edibleFoods;
+
+    private CapsuleCollider _collider;
+
     public string FoodName
     {
         get { return _foodName; }
-        private set { }
     }
 
     private bool _canHold;
@@ -41,9 +44,15 @@ public class CookedFood : MonoBehaviour
         get { return _currentFoodPlace; }
         set
         {
-            if(value == null)
+            if (value == null)
             {
+                _currentFoodPlace.OnCustomerGetFood -= SetColliderEnable;
                 _currentFoodPlace.CurrentFood = null;
+                StopAllCoroutines();
+            }
+            else if(value.CurrentCustomer != null)
+            {
+                value.OnCustomerGetFood += SetColliderEnable;
             }
             _currentFoodPlace = value;
         }
@@ -52,6 +61,7 @@ public class CookedFood : MonoBehaviour
     private void Awake()
     {
         gameObject.tag = "CookedFood";
+        _collider = GetComponent<CapsuleCollider>();
     }
 
     private void OnEnable()
@@ -61,5 +71,17 @@ public class CookedFood : MonoBehaviour
 
         foreach (GameObject food in _edibleFoods)
             food.SetActive(true);
+    }
+
+    private void SetColliderEnable()
+    {
+        StartCoroutine(ColliderControl());
+    }
+
+    IEnumerator ColliderControl()
+    {
+        _collider.enabled = false;
+        yield return new WaitForSeconds(10f);
+        _collider.enabled = true;
     }
 }
