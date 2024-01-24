@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent Agent;
 
 
-    void Awake()
+    private void Awake()
     {
         AnimationData.Initialize();
 
@@ -45,6 +45,11 @@ public class Enemy : MonoBehaviour
         EnemyRespawn = GetComponent<EnemyRespawn>();
 
         _stateMachine = new EnemyStateMachine(this);
+    }
+
+    private void OnEnable()
+    {
+        NightStrongRedbullSuperPower();
     }
 
     private void Start()
@@ -80,6 +85,16 @@ public class Enemy : MonoBehaviour
             }
         }
         Collider.enabled = false;
+    }
+
+    private void NightStrongRedbullSuperPower()
+    {
+        if (GameManager.instance.GlobalTimeManager.Hour <= 6f && 18f <= GameManager.instance.GlobalTimeManager.Hour)
+        {
+            Data.Damage *= 2f;
+            Data.MaxHealth *= 2f;
+            Data.DropEXP *= 2;
+        }
     }
 
 }

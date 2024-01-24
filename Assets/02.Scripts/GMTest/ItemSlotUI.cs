@@ -12,7 +12,6 @@ public class ItemSlotUI : MonoBehaviour
     private ItemSlot _curSlot;
 
     public int index;
-    public bool equipped;
 
     public void Set(ItemSlot slot)
     {

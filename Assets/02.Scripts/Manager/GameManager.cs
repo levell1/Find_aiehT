@@ -23,7 +23,7 @@ public class GameManager : MonoSingleton<GameManager>
         _soundManager = FindObjectOfType<SoundManager>();
         _poolingManager = FindObjectOfType<PoolingManager>();
         _inventory = FindObjectOfType<Inventory>();
-        _globalTimeManager = GetComponentInChildren<GlobalTimeManager>();
+        _globalTimeManager = FindObjectOfType<GlobalTimeManager>();
     }
 
     void Start()

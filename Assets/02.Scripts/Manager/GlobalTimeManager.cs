@@ -12,8 +12,10 @@ public class GlobalTimeManager : MonoBehaviour
     public float FullDayLength;  //하루
     public float StartTime = 0.2f; //게임시작시 한번만 사용되는 변수
     private float _totalHours;
+    public float Day;
     public float Hour;
     public float Minutes;
+    private bool _isChangeDay;
     private float _timeRate;
     public TextMeshProUGUI TimeText;
 
@@ -31,13 +33,27 @@ public class GlobalTimeManager : MonoBehaviour
         _totalHours = DayTime * 24f;
         Hour = Mathf.Floor(_totalHours);
         Minutes = Mathf.Floor((_totalHours - Hour) * 60f);
-        string timeString = string.Format("{0:00}:{1:00}", Hour, Minutes);
+        string timeString = string.Format("{0}일차 {1:00}:{2:00}", Day, Hour, Minutes);
         TimeText.text = timeString;
+        ChangeDay();
     }
 
-    void LoadedsceneEvent(Scene arg0, LoadSceneMode arg1) //씬이동 패널티
+    private void LoadedsceneEvent(Scene arg0, LoadSceneMode arg1) //씬이동 패널티
     {
         DayTime += 1f / 24f;
+    }
+
+    private void ChangeDay()
+    {
+        if (Hour == 0 && !_isChangeDay)
+        {
+            _isChangeDay = true;
+            ++Day;
+        }
+        else if (Hour == 1)
+        {
+            _isChangeDay = false;
+        }
     }
 }
 
