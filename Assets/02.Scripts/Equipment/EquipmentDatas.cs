@@ -6,7 +6,7 @@ using UnityEngine;
 public class EquipmentDatas : MonoBehaviour
 {
     public EquipmentData[] EquipData = new EquipmentData[6];
-    [SerializeField] private HealthSystem _healthSystem;
+    private HealthSystem _healthSystem;
     private PlayerSO _playerData;
 
     public float SumHealth;
@@ -15,7 +15,6 @@ public class EquipmentDatas : MonoBehaviour
 
     private void Awake()
     {
-        _playerData = GetComponent<Player>().Data;
         _healthSystem = GetComponent<HealthSystem>();
     }
     private void Start()
@@ -26,6 +25,7 @@ public class EquipmentDatas : MonoBehaviour
             SetEquipCurrent(i);
         }
         SumEquipStat();
+        _healthSystem.SetMaxHealth();
     }
     public void EquipLevelUp(int i) 
     {

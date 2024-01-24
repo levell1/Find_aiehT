@@ -27,7 +27,15 @@ public class TomatoWeapon : MonoBehaviour
     private float _damage;
 
     private readonly List<Collider> _alreadyCollidedObjects = new List<Collider>();
+    private EquipmentDatas _equipmentDatas;
 
+    private void Awake()
+    {
+        if (_equipmentDatas == null)
+        {
+            _equipmentDatas = GameObject.FindWithTag("Player").GetComponent<EquipmentDatas>();
+        }
+    }
     private void Start()
     {
         _skillCollider = GetComponentInChildren<Collider>();
@@ -115,10 +123,10 @@ public class TomatoWeapon : MonoBehaviour
     {
         float _playerDamage = _playerSO.PlayerData.GetPlayerAtk();
         float _skillDamage = _playerSO.SkillData.GetSkillData(_skillIndex).GetSkillDamage();
-
+        float _weaponDamage = _equipmentDatas.SumDmg;
         Debug.Log(_playerDamage + _skillDamage);
 
-        return _playerDamage + _skillDamage;
+        return _playerDamage + _skillDamage + _weaponDamage;
     }
 
     IEnumerator SkillDistance()

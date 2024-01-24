@@ -7668,6 +7668,7 @@ GameObject:
   - component: {fileID: 1897554086197694359}
   - component: {fileID: 7014752554354547227}
   - component: {fileID: 6860366556918899620}
+  - component: {fileID: 255544903076035608}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -7693,7 +7694,7 @@ Transform:
   - {fileID: 2891377315053712284}
   - {fileID: 3533890531207633210}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7154715293715450758
 MonoBehaviour:
@@ -7798,6 +7799,7 @@ MonoBehaviour:
   _invincibleTime: 3
   _maxHealth: 0
   _health: 0
+  _equipmentDatas: {fileID: 0}
 --- !u!114 &1150510400777202919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7873,7 +7875,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36550b99fe4ef02479601030a34f07fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _potionData: {fileID: 0}
 --- !u!114 &4963824624968656356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7886,7 +7887,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7148759f867865049a996240fa975b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _potionData: {fileID: 0}
 --- !u!114 &3033728208536259882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7981,6 +7981,28 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &255544903076035608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8980220608949398442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c05935994617184eb54933852d29d27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EquipData:
+  - _equipment: {fileID: 11400000, guid: b1f4c32a016c0054ea63ba4383bbf901, type: 2}
+  - _equipment: {fileID: 11400000, guid: 813273085a49d1e40a687bef5125ace9, type: 2}
+  - _equipment: {fileID: 11400000, guid: b5fd164ba9041324c92d0301c0e928ff, type: 2}
+  - _equipment: {fileID: 11400000, guid: 50883ea5d7f0cc14fa357cc83a39b824, type: 2}
+  - _equipment: {fileID: 11400000, guid: 2cb1cdf4781ca5f4ab2340c28be8d2cd, type: 2}
+  - _equipment: {fileID: 11400000, guid: f85540e0fc276254e96b1dbcb16d3be6, type: 2}
+  SumHealth: 0
+  SumDef: 0
+  SumDmg: 0
 --- !u!1 &8993521162791815374
 GameObject:
   m_ObjectHideFlags: 0

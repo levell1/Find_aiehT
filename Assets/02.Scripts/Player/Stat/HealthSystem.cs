@@ -24,13 +24,14 @@ public class HealthSystem : MonoBehaviour
 
     public bool IsDead => _health == 0;
 
-    private void Start()
+    private void Awake()
     {
         _equipmentDatas = GetComponent<EquipmentDatas>();
         _playerData = GetComponent<Player>().Data;
+    }
+    private void Start()
+    {
         SetMaxHealth();
-
-        Debug.Log(_maxHealth);
     }
 
     public void SetMaxHealth() 

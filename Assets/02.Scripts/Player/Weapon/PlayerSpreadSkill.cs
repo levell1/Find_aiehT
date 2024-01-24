@@ -10,6 +10,16 @@ public class PlayerSpreadSkill : MonoBehaviour
 
     private readonly List<Collider> _alreadyCollidedObjects = new List<Collider>();
 
+    private EquipmentDatas _equipmentDatas;
+
+    private void Awake()
+    {
+        if (_equipmentDatas == null)
+        {
+            _equipmentDatas = GameObject.FindWithTag("Player").GetComponent<EquipmentDatas>();
+        }
+    }
+
     private void Start()
     {
         DisableCollider();
@@ -42,7 +52,7 @@ public class PlayerSpreadSkill : MonoBehaviour
 
     public void SetAttack(float damage)
     {
-        this._damage = damage;
+        this._damage = damage + _equipmentDatas.SumDmg * 2;
     }
 
     // 콜라이더를 활성화할 때 이 메서드 호출

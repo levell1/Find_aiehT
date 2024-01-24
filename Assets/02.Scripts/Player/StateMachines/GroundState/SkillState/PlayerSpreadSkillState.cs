@@ -7,6 +7,7 @@ public class PlayerSpreadSkillState : PlayerSkillState
 
     SkillInfoData _skillData;
 
+
     public PlayerSpreadSkillState(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
     {
     }
