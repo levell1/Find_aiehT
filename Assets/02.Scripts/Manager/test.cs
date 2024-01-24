@@ -39,7 +39,7 @@ public class test : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            GameManager.instance.UIManager.ShowCanvas("GoDungeonUI");
+            GameManager.instance.UIManager.ShowCanvas("ReforgeUI");
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))

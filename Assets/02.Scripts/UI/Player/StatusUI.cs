@@ -8,13 +8,11 @@ public class StatusUI : BaseUI
     private PlayerSO _playerData;
     [SerializeField] private EquipmentBase[] _equipment= new EquipmentBase[6];
 
-    private int _sumequipDef = 0;
-    private int _sumequipHealth = 0;
-    private int _weponDmg= 0;
+    private float _sumequipDef = 0;
+    private float _sumequipHealth = 0;
+    private float _weponDmg = 0;
 
-    Weapon weapon;
-    Armor armor;
-
+    [SerializeField] private EquipmentDatas _equipmentupgrade;
     [Header("기본스탯")]
     [SerializeField] private TMP_Text _playerName;
     [SerializeField] private TMP_Text _playerLevel;
@@ -44,6 +42,11 @@ public class StatusUI : BaseUI
 
     private void Awake()
     {
+
+        if (_equipmentupgrade == null)
+        {
+            _equipmentupgrade = GameObject.FindWithTag("Player").GetComponent<EquipmentDatas>();
+        }
         if (_playerData == null)
         {
             _playerData = GameObject.FindWithTag("Player").GetComponent<Player>().Data;
@@ -65,19 +68,12 @@ public class StatusUI : BaseUI
 
         for (int i = 0; i < _equipment.Length; i++)
         {
-            _equipmentName[i].text = _equipment[i].Name + "(+" + _equipment[i].Level.ToString() + ")";
-            _equipmentSprite[i].sprite = _equipment[i].sprite;
-            if (_equipment[i].type == EquipmentType.Armor)
-            {
-                armor = _equipment[i] as Armor;
-                _sumequipHealth += armor.ItemHealth;
-                _sumequipDef += armor.ItemDef;
-            }
-            if (_equipment[i].type == EquipmentType.Weapon)
-            {
-                weapon = _equipment[i] as Weapon;
-                _weponDmg = weapon.EquipmentAttack;
-            }
+            _equipmentName[i].text = _equipmentupgrade.EquipData[i].Equipment.Name + "(+" + _equipmentupgrade.EquipData[i].Level.ToString() + ")";
+            _equipmentSprite[i].sprite = _equipmentupgrade.EquipData[i].Equipment.sprite;
+
+            _sumequipHealth += _equipmentupgrade.EquipData[i].Currenthealth;
+            _sumequipDef += _equipmentupgrade.EquipData[i].CurrentDef;
+            _weponDmg += _equipmentupgrade.EquipData[i].CurrentAttack;
         }
 
 
