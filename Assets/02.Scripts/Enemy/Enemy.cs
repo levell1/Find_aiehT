@@ -33,6 +33,10 @@ public class Enemy : MonoBehaviour
 
     public NavMeshAgent Agent;
 
+    public float EnemyDamage;
+    public float EnemyMaxHealth;
+    public int EnemyDropEXP;
+
 
     private void Awake()
     {
@@ -45,11 +49,17 @@ public class Enemy : MonoBehaviour
         EnemyRespawn = GetComponent<EnemyRespawn>();
 
         _stateMachine = new EnemyStateMachine(this);
-    }
 
+        SetData();
+    }
     private void OnEnable()
     {
-        NightStrongRedbullSuperPower();
+        if (NightCheck())
+        {
+            EnemyDamage *= 2f;
+            EnemyMaxHealth *= 2f;
+            EnemyDropEXP *= 2;
+        }
     }
 
     private void Start()
@@ -75,7 +85,7 @@ public class Enemy : MonoBehaviour
 
     private void OnDie()
     {
-        _stateMachine.Target.PlayerExpSystem.EnemyExpPlus(Data.DropEXP);
+        _stateMachine.Target.PlayerExpSystem.EnemyExpPlus(EnemyDropEXP);
         if(Data.DropItem != null)
         {
             int drop = UnityEngine.Random.Range(0, Data.DropItem.Length + 1);
@@ -87,14 +97,22 @@ public class Enemy : MonoBehaviour
         Collider.enabled = false;
     }
 
-    private void NightStrongRedbullSuperPower()
+    private void SetData()
     {
-        if (GameManager.instance.GlobalTimeManager.Hour <= 6f && 18f <= GameManager.instance.GlobalTimeManager.Hour)
+        EnemyDamage = Data.Damage;
+        EnemyMaxHealth = Data.MaxHealth;
+        EnemyDropEXP = Data.DropEXP;
+    }
+    
+    private bool NightCheck()
+    {
+        if (GameManager.instance.GlobalTimeManager.Hour < 6f || 18f < GameManager.instance.GlobalTimeManager.Hour)
         {
-            Data.Damage *= 2f;
-            Data.MaxHealth *= 2f;
-            Data.DropEXP *= 2;
+            return true;
+        }
+        else
+        {
+            return false; 
         }
     }
-
 }

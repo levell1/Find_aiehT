@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyAttackSpot : MonoBehaviour
 {
+    private Enemy _enemy;
     private EnemySO _enemySO;
     [SerializeField] private Collider myCollider; //본인
     //[SerializeField] private float knockbackForce = 40f;
@@ -11,6 +12,7 @@ public class EnemyAttackSpot : MonoBehaviour
 
     private void Start()
     {
+        _enemy = GetComponentInParent<Enemy>();
         _enemySO = GetComponentInParent<Enemy>().Data;
         Collider = GetComponent<Collider>();
     }
@@ -22,7 +24,7 @@ public class EnemyAttackSpot : MonoBehaviour
 
         if (other.gameObject.TryGetComponent(out HealthSystem health))
         {
-            health.TakeDamage(_enemySO.Damage);
+            health.TakeDamage(_enemy.EnemyDamage);
             //Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();
 
             //if (rb != null)

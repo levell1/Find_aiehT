@@ -27,7 +27,7 @@ public class EnemyHealthSystem : MonoBehaviour
         _enemy = GetComponent<Enemy>();
         _enemySO = GetComponent<Enemy>().Data;
 
-        MaxHealth = _enemySO.MaxHealth;
+        MaxHealth = _enemy.EnemyMaxHealth;
         Health = MaxHealth;
         HpCanvas.gameObject.SetActive(false);
         _camera = Camera.main;
