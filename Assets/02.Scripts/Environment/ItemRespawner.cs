@@ -16,7 +16,7 @@ public class ItemRespawner : MonoBehaviour
 
     void ReSpwanItem()
     {
-        if (0.3f <= GameManager.instance.GlobalTimeManager.DayTime && GameManager.instance.GlobalTimeManager.DayTime < 0.31f)
+        if (GameManager.instance.GlobalTimeManager.Hour == 6f)
         {
             for (int i = 0; i < ItemWaitSpawnList.Count; i++)
             {
