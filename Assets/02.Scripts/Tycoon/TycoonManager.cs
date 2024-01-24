@@ -28,7 +28,7 @@ public class TycoonManager : MonoBehaviour
     private Coroutine _co = null;
     
     private int _agentPriority = 0;
-
+    private bool _isStart = false;
 
     private static TycoonManager _instance;
 
@@ -75,11 +75,15 @@ public class TycoonManager : MonoBehaviour
     private void Update()
     {
         // TODO: Customer가 나갔을 때, coroutine이나 함수 실행으로 변경
-        if (_currentCustomerNum < _maxCustomerNum
-            && _todayMaxCustomerNum > 0
-            && _co == null)
+        // TODO: 타이쿤 게임이 시작됐을 때
+        if (_isStart)
         {
-            _co = StartCoroutine(CreateCustomerCoroutine());
+            if (_currentCustomerNum < _maxCustomerNum
+                && _todayMaxCustomerNum > 0
+                && _co == null)
+            {
+                _co = StartCoroutine(CreateCustomerCoroutine());
+            }
         }
     }
 

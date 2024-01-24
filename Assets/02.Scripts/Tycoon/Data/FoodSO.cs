@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class Ingredient { public GameObject FoodObject; public int FoodNum; };
+public class Ingredient { public ItemSO IngredientSO; public int FoodNum; };
 
 [CreateAssetMenu(fileName = "FoodSO", menuName = "Food")]
 public class FoodSO : ScriptableObject
