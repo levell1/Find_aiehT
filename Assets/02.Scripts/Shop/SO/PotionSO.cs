@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "Potion", menuName = "Potion/Potion", order = 0)]
 public class PotionSO : ScriptableObject

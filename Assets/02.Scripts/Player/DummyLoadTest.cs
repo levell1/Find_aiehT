@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class DummyLoadTest : MonoBehaviour
 {
+    public GameObject Shop;
+    public ShopInteraction shopInteraction;
     
     void Update()
     {
@@ -16,6 +18,11 @@ public class DummyLoadTest : MonoBehaviour
         else if(Input.GetKeyDown("x"))
         {
             SceneManager.LoadScene("BJH");
+        }
+        else if( Input.GetKeyDown("z"))
+        {
+            Shop.SetActive(true);
+            shopInteraction.SetShop();
         }
         
     }

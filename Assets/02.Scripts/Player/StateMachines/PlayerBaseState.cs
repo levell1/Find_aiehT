@@ -72,6 +72,8 @@ public class PlayerBaseState : IState
 
             input.PlayerActions.ShortcutKey1.started += OnUseHealthPotion;
             input.PlayerActions.ShortcutKey2.started += OnUseStaminaPotion;
+
+            input.PlayerActions.Inventory.started += OnInventoryOpen;
         }
       
     }
@@ -164,6 +166,11 @@ public class PlayerBaseState : IState
     protected virtual void OnUseStaminaPotion(InputAction.CallbackContext context)
     {
         _stateMachine.Player.PlayerUseStaminaPotion.UsePotion();
+    }
+
+    protected virtual void  OnInventoryOpen(InputAction.CallbackContext context)
+    {
+        GameManager.instance.UIManager.ShowCanvas("InventoryUI");
     }
 
     // Tycoon 상호작용
