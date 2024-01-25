@@ -6,24 +6,26 @@ using UnityEngine.UI;
 
 public class ShopPotion : MonoBehaviour
 {
-    [HideInInspector] public PotionSO potionSO;
-    public ShopPotionInfo shopPotionInfo;
-    public ShopPotionInfoPopup shopPotionInfoPopup;
+    [HideInInspector] public PotionSO PotionSO;
 
-    public Image potionImage;
-    public Button buyButton;
+    [SerializeField] private PlayerSO _playerData;
+    public ShopPotionInfo ShopPotionInfo;
+    public ShopPotionInfoPopup ShopPotionInfoPopup;
+    public Button ShopPopupButton;
+
+    public Image PotionImage;
 
     private Button _slotButton;
 
-    void Start()
+    void OnEnable()
     {
         _slotButton = GetComponent<Button>();
     }
 
     public void Init(PotionSO data)
     {
-        potionSO = data;
-        potionImage.sprite = data.sprite;
+        PotionSO = data;
+        PotionImage.sprite = data.sprite;
 
     }
 
@@ -32,10 +34,32 @@ public class ShopPotion : MonoBehaviour
         _slotButton.onClick.RemoveAllListeners();
 
         _slotButton.onClick.AddListener(() => 
-        { 
-            shopPotionInfo.ShowItemInfo(potionSO);
-            shopPotionInfoPopup.ShowPopup(potionSO);
+        {
+            ShopPotionInfo.ShowItemInfo(PotionSO);
+            OnShopPopupButton();
+
         });
+    }
+
+    private void OnShopPopupButton()
+    {
+        ShopPopupButton.onClick.RemoveAllListeners();
+
+        ShopPopupButton.onClick.AddListener(() =>
+        {
+            if (_playerData.PlayerData.GetPlayerGold() >= PotionSO.Price)
+            {
+               
+                ShopPotionInfoPopup.ShowPopup(PotionSO);
+
+                ShopPotionInfoPopup.gameObject.SetActive(true);
+            }
+            else
+            {
+                Debug.Log("골드 부족");
+            }
+        });
+       
     }
 
     //private void ShowItemInfo()

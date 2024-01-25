@@ -23,8 +23,8 @@ public class DummyLoadTest : MonoBehaviour
         else if( Input.GetKeyDown("z"))
         {
             Shop.SetActive(true);
-            shopInteraction.SetShop();
             Inventory.SetActive(true);
+            shopInteraction.SetShop();
         }
         
     }
