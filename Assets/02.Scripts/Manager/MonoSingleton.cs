@@ -25,7 +25,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : Component
 
     protected virtual void Awake()
     {
-        if (_instance == null)
+        if (_instance == this)
         {
             _instance = this as T;
             DontDestroyOnLoad(gameObject);
