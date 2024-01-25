@@ -26,8 +26,6 @@ public class ServingFood : MonoBehaviour
         }
     }
 
-
-    // TODO: Change to InputSystem - OnCatchFood, OnCleaningFood
     public void OnCatchFood()
     {
         if (!_isHold)

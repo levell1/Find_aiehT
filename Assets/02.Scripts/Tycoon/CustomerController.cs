@@ -152,7 +152,7 @@ public class CustomerController : MonoBehaviour
         _agent.baseOffset = 0.0f;
         _isGetFood = true;
         _isOrderFood = false;
-        //_waitTime = _tycoonManager._customerWaitTime;
+        _waitTime = _tycoonManager._customerWaitTime;
 
         _foodCreater.UnsubscribeCreateFoodEvent(this);
 
