@@ -1,13 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EquipmentDatas : MonoBehaviour
 {
     public EquipmentData[] EquipData = new EquipmentData[6];
     private HealthSystem _healthSystem;
-    private PlayerSO _playerData;
 
     public float SumHealth;
     public float SumDef;
@@ -54,6 +50,5 @@ public class EquipmentDatas : MonoBehaviour
             SumDef += EquipData[i].CurrentDef;
             SumDmg += EquipData[i].CurrentAttack;
         }
-        
     }
 }
