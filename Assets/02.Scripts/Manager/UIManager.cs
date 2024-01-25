@@ -7,7 +7,7 @@ public class UIManager
     private int _canvasSortOrder = 5;
     private Stack<GameObject> _popupStack = new Stack<GameObject>();
     public Dictionary<string, GameObject> _popupDic = new Dictionary<string, GameObject>();
-
+    
     public void CreateCanvas() 
     {
         GameObject uiObject = GameObject.Find("Uis");

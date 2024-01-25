@@ -10,13 +10,13 @@ public class PlayerWeapon : MonoBehaviour
     private float _damage;
 
     private readonly List<Collider> _alreadyCollidedObjects = new List<Collider>();
-    private EquipmentDatas _equipmentDatas;
+    [SerializeField] private EquipmentDatas _equipmentDatas;
 
     private void Awake()
     {
         if (_equipmentDatas == null)
         {
-            _equipmentDatas = GameObject.FindWithTag("Player").GetComponent<EquipmentDatas>();
+            _equipmentDatas = transform.root.GetComponent<EquipmentDatas>();
         }
         
     }

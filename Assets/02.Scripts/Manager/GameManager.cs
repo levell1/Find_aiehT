@@ -19,17 +19,13 @@ public class GameManager : MonoSingleton<GameManager>
 
     protected override void Awake()
     {
-        base.Awake();
+       base.Awake();
         _soundManager = FindObjectOfType<SoundManager>();
         _poolingManager = FindObjectOfType<PoolingManager>();
         _inventory = FindObjectOfType<Inventory>();
         _globalTimeManager = FindObjectOfType<GlobalTimeManager>();
     }
 
-    void Start()
-    {
-        UIManager.CreateCanvas();
-    }
 
     void Update()
     {
