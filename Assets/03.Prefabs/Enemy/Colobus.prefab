@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4150978260003613748}
   - component: {fileID: 7448038511215297707}
   - component: {fileID: 6545666951819622049}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 7284893068164171864}
   - component: {fileID: 2098712171299413396}
   - component: {fileID: 2071405290570560676}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: HpBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ GameObject:
   - component: {fileID: 82595140303999524}
   - component: {fileID: 7996317605198892056}
   - component: {fileID: 5432638825926268928}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 1860646495510222723}
   - component: {fileID: 3990710474962864107}
   - component: {fileID: 1013261711951417381}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: HpBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 6768606593930880837}
   - component: {fileID: 7560496276223756030}
   - component: {fileID: 4792476983419006921}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Colobus
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -361,7 +361,7 @@ Transform:
   - {fileID: 2340210974069440039}
   - {fileID: 9193986797925630954}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &2168762680692715744
 CapsuleCollider:
@@ -382,10 +382,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.38
-  m_Height: 1.32426
+  m_Radius: 0.45916903
+  m_Height: 1.0726086
   m_Direction: 2
-  m_Center: {x: 0, y: 0.4, z: 0}
+  m_Center: {x: 0, y: 0.479169, z: -0.1258257}
 --- !u!114 &5836360251500486229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,6 +447,9 @@ MonoBehaviour:
   PatrolDelay: 0
   AttackDelay: 0
   Agent: {fileID: 4792476983419006921}
+  EnemyDamage: 0
+  EnemyMaxHealth: 0
+  EnemyDropEXP: 0
 --- !u!195 &4792476983419006921
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -477,6 +480,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3569857242755455803}
     m_Modifications:
+    - target: {fileID: -8829413960459475363, guid: 987300f45a3f86647ad6e04d1d9bc39b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 987300f45a3f86647ad6e04d1d9bc39b,
         type: 3}
       propertyPath: m_RootOrder
@@ -532,16 +540,76 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7578962059116251463, guid: 987300f45a3f86647ad6e04d1d9bc39b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -7363341349428450656, guid: 987300f45a3f86647ad6e04d1d9bc39b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -4645960684939705240, guid: 987300f45a3f86647ad6e04d1d9bc39b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -3906398804852728342, guid: 987300f45a3f86647ad6e04d1d9bc39b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 911088564753622055, guid: 987300f45a3f86647ad6e04d1d9bc39b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 987300f45a3f86647ad6e04d1d9bc39b,
         type: 3}
       propertyPath: m_Name
       value: Colobus_LOD0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 987300f45a3f86647ad6e04d1d9bc39b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 945614497576433354, guid: 987300f45a3f86647ad6e04d1d9bc39b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2668605608433959078, guid: 987300f45a3f86647ad6e04d1d9bc39b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2721391056207880248, guid: 987300f45a3f86647ad6e04d1d9bc39b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2932635810120784719, guid: 987300f45a3f86647ad6e04d1d9bc39b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3743993344710040121, guid: 987300f45a3f86647ad6e04d1d9bc39b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 987300f45a3f86647ad6e04d1d9bc39b,
         type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 40a135c99fdce2c4eb95e8e306ed8d49, type: 2}
+    - target: {fileID: 6741038887461283999, guid: 987300f45a3f86647ad6e04d1d9bc39b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

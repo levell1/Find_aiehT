@@ -55,5 +55,17 @@ public class GlobalTimeManager : MonoBehaviour
             _isChangeDay = false;
         }
     }
+
+    public bool NightCheck() //오전 0~6 , 오후 6~12
+    {
+        if (Hour <= 6f || 18f <= Hour)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 
