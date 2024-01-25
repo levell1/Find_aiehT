@@ -8,8 +8,6 @@ using UnityEngine;
 public class TycoonManager : MonoBehaviour
 {
     [SerializeField] public FoodCreater _FoodCreater;
-
-    [SerializeField] private List<GameObject> _customerPrefabs;
     [SerializeField] public List<GameObject> CustomerTargetFoodPrefabs;
 
     public List<GameObject> ServingStations = new();    // Add CreateStations In Inspector
@@ -18,6 +16,7 @@ public class TycoonManager : MonoBehaviour
 
     [SerializeField] private int _maxCustomerNum = 4;
     [SerializeField] private float _customerSpawnTime;
+    [SerializeField] public float _customerWaitTime;
 
     [SerializeField] private int _todayMaxCustomerNum = 6;
     [SerializeField] private int _currentCustomerNum = 0;
