@@ -76,7 +76,7 @@ public class TycoonManager : MonoBehaviour
     {
         // TODO: Customer가 나갔을 때, coroutine이나 함수 실행으로 변경
         // TODO: 타이쿤 게임이 시작됐을 때
-        if (_isStart)
+        //if (_isStart)
         {
             if (_currentCustomerNum < _maxCustomerNum
                 && _todayMaxCustomerNum > 0

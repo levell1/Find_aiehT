@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class CustomerController : MonoBehaviour
 {
     #region Field
+
     private TycoonManager _tycoonManager;
     private FoodCreater _foodCreater;
 
