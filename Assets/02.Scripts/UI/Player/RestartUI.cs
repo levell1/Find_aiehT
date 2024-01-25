@@ -16,10 +16,10 @@ public class RestartUI : BaseUI
         _text.SetActive(false);
         _backimage.color= new Color(0f, 0f, 0f, 0f);
         color = _backimage.color;
-        StartCoroutine(backblur());
+        StartCoroutine(BackBlur());
     }
 
-    IEnumerator backblur() 
+    IEnumerator BackBlur() 
     {
 
         while (_backimage.color.a < 1f) 

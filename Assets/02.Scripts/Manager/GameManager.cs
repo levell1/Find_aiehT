@@ -26,6 +26,10 @@ public class GameManager : MonoSingleton<GameManager>
         _globalTimeManager = FindObjectOfType<GlobalTimeManager>();
     }
 
+    private void Start()
+    {
+        _uiManager.CreateCanvas();
+    }
 
     void Update()
     {
