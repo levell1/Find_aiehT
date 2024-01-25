@@ -8,6 +8,8 @@ public class RestaurantUI : BaseUI
     [SerializeField] private GameObject[] _addedMenu = new GameObject[4];
     [SerializeField] private Button _addfoodButton;
     [SerializeField] private Button _startGameButton;
+    [SerializeField] private FoodDatas _foodDatas;
+    [SerializeField] private RecipeSlot[] _recipeSlots;
 
     private void OnEnable()
     {
@@ -15,6 +17,13 @@ public class RestaurantUI : BaseUI
     }
     private void Start()
     {
+        for (int i = 0; i < _recipeSlots.Length; i++)
+        {
+            _recipeSlots[i].Index = i;
+            _recipeSlots[i].FoodData = _foodDatas.FoodSoDatas[i];
+        }
+
+        
         for (int i = 0; i < _addMenuButton.Length; i++)
         {
             _addMenuButton[i].onClick.AddListener(ShowRecipe);
