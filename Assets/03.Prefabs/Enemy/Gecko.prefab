@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1311323149192035843}
   - component: {fileID: 9068881839488671640}
   - component: {fileID: 7821585539299215215}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: HpBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 3842840155462431457}
   - component: {fileID: 4501723967758133008}
   - component: {fileID: 7405652413890541921}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 5251500028727498175}
   - component: {fileID: 6200800888950507162}
   - component: {fileID: 7271259479325163191}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: HpBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 6203554089307719776}
   - component: {fileID: 270432660484044163}
   - component: {fileID: 3490972668415689859}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Gecko
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -292,7 +292,7 @@ Transform:
   - {fileID: 9199290604565018203}
   - {fileID: 8895721921308500804}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &1836423152838862791
 CapsuleCollider:
@@ -313,10 +313,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.38
-  m_Height: 1.32426
+  m_Radius: 0.47516257
+  m_Height: 1.0493189
   m_Direction: 2
-  m_Center: {x: 0, y: 0.4, z: 0}
+  m_Center: {x: 0, y: 0.49516255, z: -0.13747054}
 --- !u!114 &2289650029502292421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,6 +378,9 @@ MonoBehaviour:
   PatrolDelay: 0
   AttackDelay: 0
   Agent: {fileID: 3490972668415689859}
+  EnemyDamage: 0
+  EnemyMaxHealth: 0
+  EnemyDropEXP: 0
 --- !u!195 &3490972668415689859
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -411,7 +414,7 @@ GameObject:
   - component: {fileID: 7443179308102338516}
   - component: {fileID: 5076720537345671218}
   - component: {fileID: 2817000247384419072}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -477,6 +480,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 784866874480110532}
     m_Modifications:
+    - target: {fileID: -8829413960459475363, guid: a387e69fc974de148a9f773909c6c2a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a387e69fc974de148a9f773909c6c2a3,
         type: 3}
       propertyPath: m_RootOrder
@@ -532,16 +540,66 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4645960684939705240, guid: a387e69fc974de148a9f773909c6c2a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -3906398804852728342, guid: a387e69fc974de148a9f773909c6c2a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 911088564753622055, guid: a387e69fc974de148a9f773909c6c2a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a387e69fc974de148a9f773909c6c2a3,
         type: 3}
       propertyPath: m_Name
       value: Gecko_LOD0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a387e69fc974de148a9f773909c6c2a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 945614497576433354, guid: a387e69fc974de148a9f773909c6c2a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2668605608433959078, guid: a387e69fc974de148a9f773909c6c2a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2721391056207880248, guid: a387e69fc974de148a9f773909c6c2a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2932635810120784719, guid: a387e69fc974de148a9f773909c6c2a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3743993344710040121, guid: a387e69fc974de148a9f773909c6c2a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: a387e69fc974de148a9f773909c6c2a3,
         type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: c46728df213de13409227372b1198e45, type: 2}
+    - target: {fileID: 6741038887461283999, guid: a387e69fc974de148a9f773909c6c2a3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

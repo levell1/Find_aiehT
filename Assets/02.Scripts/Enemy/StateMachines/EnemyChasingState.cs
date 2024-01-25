@@ -49,6 +49,10 @@ public class EnemyChasingState : EnemyBaseState
                 _stateMachine.Enemy.AttackDelay = 0;
                 _stateMachine.ChangeState(_stateMachine.AttackState);
             }
+            else
+            {
+                _stateMachine.ChangeState(_stateMachine.IdlingState);
+            }
             return;
         }
     }

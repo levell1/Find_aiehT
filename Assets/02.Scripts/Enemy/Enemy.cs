@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
     {
         SetData();
 
-        if (NightCheck())
+        if (GameManager.instance.GlobalTimeManager.NightCheck())
         {
             EnemyDamage *= 2f;
             EnemyMaxHealth *= 2f;
@@ -87,11 +87,13 @@ public class Enemy : MonoBehaviour
 
     private void OnDie()
     {
+        // 경험치
         _stateMachine.Target.PlayerExpSystem.EnemyExpPlus(EnemyDropEXP);
+        //드랍아이템
         if(Data.DropItem != null)
         {
             int drop = UnityEngine.Random.Range(0, Data.DropItem.Length + 1);
-            for (int i = 0; i < drop; i++)
+            for (int i = 0; i < drop; ++i)
             {
                 Instantiate(Data.DropItem[i], transform.position + Vector3.up * 2, Quaternion.identity);
             }
@@ -106,15 +108,4 @@ public class Enemy : MonoBehaviour
         EnemyDropEXP = Data.DropEXP;
     }
     
-    private bool NightCheck()
-    {
-        if (GameManager.instance.GlobalTimeManager.Hour < 6f || 18f < GameManager.instance.GlobalTimeManager.Hour)
-        {
-            return true;
-        }
-        else
-        {
-            return false; 
-        }
-    }
 }
