@@ -12,10 +12,10 @@ public class PlayerLevel : MonoBehaviour
         {
             _playerExpSystem = GameObject.FindWithTag("Player").GetComponent<PlayerExpSystem>();
         }
-        _playerExpSystem.OnLevelUp += levelup;
+        _playerExpSystem.OnLevelUp += Levelup;
     }
 
-    void levelup(int level) 
+    private void Levelup(int level) 
     {
         _levelText.text = level.ToString();
     }

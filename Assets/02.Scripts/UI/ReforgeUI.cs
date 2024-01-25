@@ -36,7 +36,7 @@ public class ReforgeUI : BaseUI
 
     private void OnEnable()
     {
-        setImagename();
+        SetImageName();
         _selectUI.SetActive(false);
         _resultUI.SetActive(false);
     }
@@ -49,7 +49,7 @@ public class ReforgeUI : BaseUI
             _resultUI.SetActive(true);
             _resultText.text = "강화 성공";
             
-            setImagename();
+            SetImageName();
         }
         else
         {
@@ -58,10 +58,10 @@ public class ReforgeUI : BaseUI
             
         }
         _selectUI.SetActive(false);
-        Invoke("fialuifalse", 1f);
+        Invoke("FailUIFalse", 1f);
     }
 
-    private void fialuifalse() 
+    private void FailUIFalse() 
     {
         _resultUI.SetActive(false);
     }
@@ -79,34 +79,34 @@ public class ReforgeUI : BaseUI
         _equipicon.sprite = _equipmentupgrade.EquipData[_itemnum].Equipment.sprite;
         if (_equipmentupgrade.EquipData[_itemnum].CurrentDef != 0)
         {
-            _plusStatText.text = "방어력 + " + (nextstatDef() - _equipmentupgrade.EquipData[_itemnum].CurrentDef);
+            _plusStatText.text = "방어력 + " + (NextStatDef() - _equipmentupgrade.EquipData[_itemnum].CurrentDef);
         }
         else if (_equipmentupgrade.EquipData[_itemnum].Currenthealth != 0)
         {
-            _plusStatText.text = "최대체력 + " + (nextstatHealth()-_equipmentupgrade.EquipData[_itemnum].Currenthealth);
+            _plusStatText.text = "최대체력 + " + (NextStatHealth()-_equipmentupgrade.EquipData[_itemnum].Currenthealth);
         }
         else if (_equipmentupgrade.EquipData[_itemnum].CurrentAttack != 0)
         {
-            _plusStatText.text = "공격력 + " + (nextstatDmg()- _equipmentupgrade.EquipData[_itemnum].CurrentAttack);
+            _plusStatText.text = "공격력 + " + (NextStatDmg()- _equipmentupgrade.EquipData[_itemnum].CurrentAttack);
         }
 
 
         _selectUI.SetActive(true);
     }
 
-    private float nextstatHealth() 
+    private float NextStatHealth() 
     {
         return Mathf.Ceil(_equipmentupgrade.EquipData[_itemnum].Equipment.EquipmentHealth + _equipmentupgrade.EquipData[_itemnum].Equipment.EquipmentHealth * (Mathf.Pow(_equipmentupgrade.EquipData[_itemnum].Level+1, 2) / 2));
     }
-    private float nextstatDef()
+    private float NextStatDef()
     {
         return Mathf.Ceil(_equipmentupgrade.EquipData[_itemnum].Equipment.EquipmentDef + _equipmentupgrade.EquipData[_itemnum].Equipment.EquipmentDef * (Mathf.Pow(_equipmentupgrade.EquipData[_itemnum].Level + 1, 2) / 2));
     }
-    private float nextstatDmg()
+    private float NextStatDmg()
     {
         return Mathf.Ceil(_equipmentupgrade.EquipData[_itemnum].Equipment.EquipmentDmg + _equipmentupgrade.EquipData[_itemnum].Equipment.EquipmentDmg * (Mathf.Pow(_equipmentupgrade.EquipData[_itemnum].Level + 1, 2) / 2));
     }
-    private void setImagename()
+    private void SetImageName()
     {
         for (int i = 0; i < 6; i++)
         {
