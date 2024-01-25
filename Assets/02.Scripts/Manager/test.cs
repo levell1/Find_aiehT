@@ -19,9 +19,10 @@ public class test : MonoBehaviour
 
     }
 
+
     private void Update()
     {
-        
+
         if (Input.GetKeyDown(KeyCode.E))
         {
 
@@ -54,6 +55,10 @@ public class test : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             GameManager.instance.UIManager.ShowCanvas("InventoryUI");
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            GameManager.instance.UIManager.ShowCanvas("RestaurantUI");
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
