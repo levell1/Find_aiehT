@@ -37,8 +37,10 @@ AudioMixerController:
   m_ExposedParameters:
   - guid: 2f500d000e6bc1c43a5c06c87dc6d9d2
     name: BGSound
+  - guid: 2c38077cb9d45ca46b287a5eecfc4fd0
+    name: MasterSound
   - guid: f5a2e32a4731cfb4d8845c73d348ea78
-    name: SFX
+    name: SFXSound
   m_AudioMixerGroupViews:
   - guids:
     - 76e166594aa7fed4e8bc7a0ddf24332a
@@ -57,8 +59,8 @@ AudioMixerGroupController:
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 76e166594aa7fed4e8bc7a0ddf24332a
   m_Children:
-  - {fileID: -7210753865777896550}
   - {fileID: 7017982648899704465}
+  - {fileID: -7210753865777896550}
   m_Volume: 2c38077cb9d45ca46b287a5eecfc4fd0
   m_Pitch: 2892407d09a06a443a84e540352cc51a
   m_Send: 00000000000000000000000000000000
@@ -92,6 +94,7 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 9468859f9ae332a4c82a9fa2ab42128d
   m_FloatValues:
+    f5a2e32a4731cfb4d8845c73d348ea78: 0.10800299
     2c38077cb9d45ca46b287a5eecfc4fd0: 0.13552584
   m_TransitionOverrides: {}
 --- !u!244 &3054732531137223950

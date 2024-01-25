@@ -18,8 +18,6 @@ public class SoundManager : MonoBehaviour
 
     private Queue<AudioSource> _bgmqueue = new Queue<AudioSource>();
 
-    private float _soundValue;
-
     Coroutine coroutine = null;
 
 
@@ -130,21 +128,19 @@ public class SoundManager : MonoBehaviour
     }
 
 
-    //볼륨조절
-
     public void SetMasterVolume(float volume)
-    {
-        _mixer.SetFloat("Master", Mathf.Log10(volume) * 20);
+    {   
+        _mixer.SetFloat("MasterSound", volume);
     }
 
     public void SetMusicVolume(float volume)
     {
-        _mixer.SetFloat("BGVolume", Mathf.Log10(volume) * 20);
+        _mixer.SetFloat("BGSound", volume);
     }
 
     public void SetSFXVolume(float volume)
     {
-        _mixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
+        _mixer.SetFloat("SFXSound", volume);
     }
 
 }
