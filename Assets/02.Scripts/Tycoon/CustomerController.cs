@@ -14,7 +14,8 @@ public class CustomerController : MonoBehaviour
     private Animator _animator;
     private CookedFood _targetFood;
 
-    private float _waitTime = 10f;
+    private float _waitTime;
+    private const float _agentBaseOffset = 0.45f;
     private bool _isGetFood = false;
     private bool _isOrderFood = false;
 
@@ -64,16 +65,17 @@ public class CustomerController : MonoBehaviour
 
         _animator = GetComponentInChildren<Animator>();
         _animator.SetBool("IsWalk", true);
+        _agent.baseOffset = 0.0f;
+        _waitTime = _tycoonManager._customerWaitTime;
     }
 
     private void Update()
     {
-        //Debug.Log(Vector3.Distance(_agent.destination, transform.position));
-
         if (!_agent.hasPath)
         {
+            //TODO: 한번만 실행되도록
             _animator.SetBool("IsWalk", false);
-
+            _agent.baseOffset = _agentBaseOffset;
             transform.rotation = _targetFoodPlace.gameObject.transform.rotation;
 
             if (!_isOrderFood)
@@ -146,10 +148,11 @@ public class CustomerController : MonoBehaviour
 
         _agent.SetDestination(_tycoonManager.CreateCustomerPos.position);
         _animator.SetBool("IsWalk", true);
-
+       
+        _agent.baseOffset = 0.0f;
         _isGetFood = true;
         _isOrderFood = false;
-        _waitTime = 3f;
+        _waitTime = _tycoonManager._customerWaitTime;
 
         _foodCreater.UnsubscribeCreateFoodEvent(this);
 
