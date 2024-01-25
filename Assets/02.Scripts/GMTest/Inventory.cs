@@ -13,7 +13,7 @@ public class ItemSlot
 public class Inventory : MonoBehaviour
 {
     public ItemSlotUI[] UISlots;
-    public ItemSlot[] Slots;
+    public List<ItemSlot> Slots = new List<ItemSlot>();
 
     public GameObject InventoryUI;
 
@@ -26,9 +26,8 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         InventoryUI.SetActive(false);
-        Slots = new ItemSlot[UISlots.Length];
 
-        for (int i = 0; i < Slots.Length; i++)
+        for (int i = 0; i < Slots.Count; i++)
         {
             Slots[i] = new ItemSlot();
             UISlots[i].index = i;
@@ -72,7 +71,7 @@ public class Inventory : MonoBehaviour
 
     ItemSlot GetItemStack(ItemSO item) //최대수량보다 적은 아이템 중복 체크
     {
-        for (int i = 0; i < Slots.Length; i++)
+        for (int i = 0; i < Slots.Count; i++)
         {
             if (Slots[i].Item == item && Slots[i].Quantity < item.MaxStackAmount)
             {
@@ -84,7 +83,7 @@ public class Inventory : MonoBehaviour
 
     ItemSlot GetEmptySlot() // 빈슬롯 찾기
     {
-        for (int i = 0; i < Slots.Length; i++)
+        for (int i = 0; i < Slots.Count; i++)
         {
             if (Slots[i].Item == null)
             {
@@ -96,7 +95,9 @@ public class Inventory : MonoBehaviour
 
     void UpdateUI()
     {
-        for (int i = 0; i < Slots.Length; i++)
+        PushSlots();
+
+        for (int i = 0; i < Slots.Count; ++i)
         {
             if (Slots[i].Item != null) //슬롯에 아이템이 있으면 같은 인덱스의 UI슬롯에 넣는다.
             {
@@ -107,6 +108,31 @@ public class Inventory : MonoBehaviour
                 UISlots[i].Clear();
             }
         }
+    }
+
+    private void PushSlots()
+    {
+        int lastSlot = Slots.Count - 1;
+
+        for (int i = Slots.Count - 1; i >= 0; --i)
+        {
+            if (Slots[i].Item == null)
+            {
+                PullSlots(i, lastSlot);
+                --lastSlot;
+            }
+        }
+    }
+
+    private void PullSlots(int emptySlot, int lastSlot)
+    {
+        for (int i = emptySlot; i < lastSlot; ++i)
+        {
+            UISlots[i].Set(Slots[i + 1]);
+            Slots[i + 1].Item = null;
+        }
+        UISlots[lastSlot].Clear();
+        Slots[lastSlot].Item = null;
     }
 
     public void SelectItem(int index) // 선택한 아이템 하단에 정보 표시
