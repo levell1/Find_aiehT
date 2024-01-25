@@ -26,7 +26,8 @@ public class CookedFood : MonoBehaviour
     public bool ShouldClean
     {
         get { return _shouldClean; }
-        set { 
+        set
+        { 
             _shouldClean = value;
 
             if (_shouldClean)
