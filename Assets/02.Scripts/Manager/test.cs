@@ -25,9 +25,6 @@ public class test : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
 
-            GameObject a = GameManager.instance.ResourceManager.Load<GameObject>("Prefabs/Sphere");
-            GameManager.instance.ResourceManager.Instantiate("Prefabs/Sphere");
-            Instantiate(a);
             //GameManager.instance.SoundManager.SFXPlay("sound", gameObject.transform.position, 0.1f);
             GameManager.instance.SoundManager.BgSoundPlay("BG3");
         }

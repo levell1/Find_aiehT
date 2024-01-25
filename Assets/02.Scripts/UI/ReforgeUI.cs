@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -34,7 +32,13 @@ public class ReforgeUI : BaseUI
         {
             _playerData = GameObject.FindWithTag("Player").GetComponent<Player>().Data;
         }
+    }
 
+    private void OnEnable()
+    {
+        setImagename();
+        _selectUI.SetActive(false);
+        _resultUI.SetActive(false);
     }
 
     public void ClickUpgradeButton() 
@@ -67,11 +71,10 @@ public class ReforgeUI : BaseUI
         {
             if (EventSystem.current.currentSelectedGameObject.name == _selectButton[i].name)
             {
-                Debug.Log(EventSystem.current.currentSelectedGameObject.name);
-                Debug.Log(_selectButton[i].name);
                 _itemnum = i;   break;
             }
         }
+
         _goldText.text = _equipmentupgrade.EquipData[_itemnum].CurrentUpgradeGold.ToString()+"골드 필요";
         _equipicon.sprite = _equipmentupgrade.EquipData[_itemnum].Equipment.sprite;
         if (_equipmentupgrade.EquipData[_itemnum].CurrentDef != 0)
@@ -90,12 +93,7 @@ public class ReforgeUI : BaseUI
 
         _selectUI.SetActive(true);
     }
-    private void OnEnable()
-    {
-        setImagename();
-        _selectUI.SetActive(false);
-        _resultUI.SetActive(false);
-    }
+
     private float nextstatHealth() 
     {
         return Mathf.Ceil(_equipmentupgrade.EquipData[_itemnum].Equipment.EquipmentHealth + _equipmentupgrade.EquipData[_itemnum].Equipment.EquipmentHealth * (Mathf.Pow(_equipmentupgrade.EquipData[_itemnum].Level+1, 2) / 2));

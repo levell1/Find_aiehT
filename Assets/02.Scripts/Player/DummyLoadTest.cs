@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class DummyLoadTest : MonoBehaviour
 {
     public GameObject Shop;
+    public GameObject Inventory;
     public ShopInteraction shopInteraction;
     
     void Update()
@@ -23,6 +24,7 @@ public class DummyLoadTest : MonoBehaviour
         {
             Shop.SetActive(true);
             shopInteraction.SetShop();
+            Inventory.SetActive(true);
         }
         
     }
