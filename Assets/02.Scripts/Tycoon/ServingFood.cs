@@ -8,16 +8,15 @@ public class ServingFood : MonoBehaviour
 
     private GameObject _canHoldFood;
     private GameObject _holdingFood;
-    private GameObject _cleaningFood;
+    private List<GameObject> _cleaningFoods = new();
 
     private bool _isHold = false;
-    private bool _isPossibleToClean = false;
 
     private const float _minDistanceToPutFood = 2f;
 
     public void TycoonInteraction()
     {
-        if (_isPossibleToClean)
+        if (_cleaningFoods.Count > 0)
         {
             OnCleaningFood();
         }
@@ -27,8 +26,6 @@ public class ServingFood : MonoBehaviour
         }
     }
 
-
-    // TODO: Change to InputSystem - OnCatchFood, OnCleaningFood
     public void OnCatchFood()
     {
         if (!_isHold)
@@ -46,7 +43,6 @@ public class ServingFood : MonoBehaviour
         if (!_isHold)
         {
             CleaningFood();
-            _isPossibleToClean = false;
         }
     }
 
@@ -97,7 +93,9 @@ public class ServingFood : MonoBehaviour
     private void CleaningFood()
     {
         // TODO: Player Clean Anim, Player position 고정
-        StartCoroutine(CleanFood(_cleaningFood));
+        int lastIndex = _cleaningFoods.Count - 1;
+        StartCoroutine(CleanFood(_cleaningFoods[lastIndex]));
+        _cleaningFoods.RemoveAt(lastIndex);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -106,8 +104,7 @@ public class ServingFood : MonoBehaviour
         {
             if (other.gameObject.GetComponent<CookedFood>().ShouldClean)
             {
-                _isPossibleToClean = true;
-                _cleaningFood = other.gameObject;
+                _cleaningFoods.Add(other.gameObject);
             }
             else
             {
@@ -123,8 +120,10 @@ public class ServingFood : MonoBehaviour
         {
             if (other.gameObject.GetComponent<CookedFood>().ShouldClean)
             {
-                _isPossibleToClean = false;
-                _cleaningFood = null;
+                if(_cleaningFoods.Find(obj => other.gameObject) == other.gameObject)
+                {
+                    _cleaningFoods.Remove(other.gameObject);
+                }
             }
             else if (_canHoldFood == other.gameObject)
                 _canHoldFood = null;
