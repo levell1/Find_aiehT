@@ -42,7 +42,7 @@ public class StaminaSystem : MonoBehaviour
         if (Stamina == 0) return;
         Stamina = Mathf.Max(Stamina - dashStamina, 0);
         OnChangeStaminaUI?.Invoke(Stamina, MaxStamina);
-        //Debug.Log("스태미너" + _stamina);
+        Debug.Log("호출!!");
     }
 
     public bool CanUseSkill(int skillCost)
