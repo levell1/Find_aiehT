@@ -12,7 +12,8 @@ public class TycoonManager : MonoBehaviour
 
     public List<GameObject> ServingStations = new();    // Add CreateStations In Inspector
     [SerializeField] private List<GameObject> _destinations;
-    [SerializeField] public Transform CreateCustomerPos;
+    [SerializeField] public Transform CustomerCreatePos;
+    [SerializeField] public Transform CustomerExitPos;
 
     [SerializeField] private int _maxCustomerNum = 4;
     [SerializeField] private float _customerSpawnTime;
@@ -25,8 +26,8 @@ public class TycoonManager : MonoBehaviour
     private List<(GameObject destination, int index)> availableDestinations = new();
 
     private Coroutine _co = null;
-    
-    private int _agentPriority = 0;
+
+    private int _agentPriority = 0;    // Max Priority Num
     private bool _isStart = false;
 
     private static TycoonManager _instance;
@@ -58,6 +59,8 @@ public class TycoonManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Debug.Log(CustomerCreatePos.position);
     }
 
     private void Start()
@@ -130,7 +133,7 @@ public class TycoonManager : MonoBehaviour
             // AI 우선순위 지정
             ++_agentPriority;
             customerController.AgentPriority = _agentPriority;
-
+            
             // 자리가 있음을 알려주는 bool값 true
             _isCustomerSitting[currentDestinationIndex] = true;
 
