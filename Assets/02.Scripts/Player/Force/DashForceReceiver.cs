@@ -10,11 +10,11 @@ public class DashForceReceiver : MonoBehaviour
     [SerializeField] private float _dashDuration = 0.5f;
     [SerializeField] private float _dashCoolTime = 5f;
 
-    private float _dashTime = 0f; // ´ë½¬¸¦ ÇÏ±âÀ§ÇÑ ½Ã°£
-    private float _coolTime= 0f; //  ÄðÅ¸ÀÓÀ» °è»êÇÏ±âÀ§ÇÑ ½Ã°£
+    private float _dashTime = 0f; // ëŒ€ì‰¬ë¥¼ í•˜ê¸°ìœ„í•œ ì‹œê°„
+    private float _coolTime= 0f; //  ì¿¨íƒ€ìž„ì„ ê³„ì‚°í•˜ê¸°ìœ„í•œ ì‹œê°„
 
     private bool _isDash;
-    public bool IsCoolTime { get; private set; } // true => ÄðÅ¸ÀÓ Áß
+    public bool IsCoolTime { get; private set; } // true => ì¿¨íƒ€ìž„ ì¤‘
 
     //private int _maxStamina;
     //private int _stamina;
@@ -44,15 +44,15 @@ public class DashForceReceiver : MonoBehaviour
         {
             _dashTime += Time.fixedDeltaTime;
 
-            if(_dashTime >= _dashDuration )
+            if (!IsCoolTime)
+                StartCoroutine(CoolDown());
+
+            if (_dashTime >= _dashDuration )
             {
                 _isDash = false;
 
-                if (!IsCoolTime)
-                    StartCoroutine(CoolDown());
-
             }
-            // ÄðÅ¸ÀÓÀ» À§ÇÑ °è»ê
+            // ì¿¨íƒ€ìž„ì„ ìœ„í•œ ê³„ì‚°
             else if (IsCoolTime)
             {
                 _coolTime += Time.fixedDeltaTime;
@@ -74,13 +74,13 @@ public class DashForceReceiver : MonoBehaviour
     //    return _stamina >= dashStamina;
     //}
 
-    ///// ´ë½¬½Ã - 10;
+    ///// ëŒ€ì‰¬ì‹œ - 10;
     //public void UseDash(int dashStamina)
     //{
     //    if (_stamina == 0) return;
     //    _stamina = Mathf.Max(_stamina - dashStamina, 0);
 
-    //    //Debug.Log("½ºÅÂ¹Ì³Ê" + _stamina);
+    //    //Debug.Log("ìŠ¤íƒœë¯¸ë„ˆ" + _stamina);
     //}
 
     public void Dash(float dashForce)
