@@ -18,44 +18,94 @@ public class RecipeSlot : MonoBehaviour
     [SerializeField] private TMP_Text _foodDescriptionText;
     [SerializeField] private TMP_Text _foodPriceText;
     [SerializeField] private Image _infofoodImage;
-    [SerializeField] private Image _ingredientImage;
-    [SerializeField] private TMP_Text _ingredienName;
+
 
     [Header("재료 개수")]
-    [SerializeField] private TMP_Text countText;
-    [SerializeField] private TMP_Text needCountText;
-    [SerializeField] private TMP_Text myGroceryCount;
+    [SerializeField] private TMP_Text _countText;
+    [SerializeField] private Image[] _ingredientImage = new Image[6];
+    [SerializeField] private TMP_Text[] _ingredienName = new TMP_Text[6];
+    [SerializeField] private TMP_Text[] _needCountText = new TMP_Text[6];
+    [SerializeField] private TMP_Text[] _myGroceryCount = new TMP_Text[6];
     [SerializeField] private Button _decreaseButton;
     [SerializeField] private Button _increaseButton;
     [SerializeField] private Button _addfoodButton;
     [SerializeField] private GameObject _addfoodCheckPanel;
     [SerializeField] private Button _addfoodCheckButton;
-    [SerializeField] private int _InvenGroceryCount;
+    [SerializeField] private int[] _InvenGroceryCount = new int[6];
+
+    private ItemSlot[] _InvenData;
 
     private int _makeFoodCount;
-    private int _groceryCount;
+    private int[] _groceryCount = new int[6];
+    private int _grocerykindCount;
     private void Start()
     {
-        _makeFoodCount = 1;
-        
+        _InvenData = GameManager.instance.Inventory.Slots;
 
-        _groceryCount = FoodData.Ingredients[0].FoodNum;
+
+        _makeFoodCount = 1;
+        _grocerykindCount = FoodData.Ingredients.Count;
+
+        for (int i = 0; i < 6; i++)
+        {
+            if (i < _grocerykindCount)
+            {
+                _groceryCount[i] = FoodData.Ingredients[i].FoodNum;
+                continue;
+            }
+            _groceryCount[i]= 0;
+        }
+        
         _foodButton = GetComponent<Button>();
         _foodButton.onClick.AddListener(ClickFood);
 
         _foodImage = transform.GetChild(0).GetComponent<Image>();
         _foodImage.sprite = FoodData.FoodSprite;
 
-
-        needCountText.text = (_makeFoodCount * _groceryCount).ToString();
+        for (int i = 0; i < 6; i++)
+        {
+            if (i < _grocerykindCount)
+            {
+                _needCountText[i].text = (_makeFoodCount * _groceryCount[i]).ToString();
+                continue;
+            }
+            _needCountText[i].text = null;
+        }
+        
         
         
     }
 
     private void ClickFood() 
     {
-        _InvenGroceryCount = 5;
-        myGroceryCount.text = "/ " + _InvenGroceryCount.ToString();//인벤개수
+        for (int i = 0; i < FoodData.Ingredients.Count; i++)
+        {
+            for (int j = 0; j < _InvenData.Length; j++)
+            {
+                if (FoodData.Ingredients[i].IngredientSO == _InvenData[j].Item)
+                {
+                    _InvenGroceryCount[i] = _InvenData[j].Quantity;
+                    break;
+                }
+                _InvenGroceryCount[i] = 0;
+            }
+        }
+        for (int i = 0; i < 6; i++)
+        {
+            if (i< _grocerykindCount)
+            {
+                _myGroceryCount[i].text = "/ " + _InvenGroceryCount[i].ToString();//인벤개수
+                _ingredientImage[i].color = new Color(255, 255, 255, 1f);
+                _ingredientImage[i].sprite = FoodData.Ingredients[i].IngredientSO.Sprite;
+                _ingredienName[i].text = FoodData.Ingredients[i].IngredientSO.ObjName;
+                continue;
+            }
+            _ingredientImage[i].sprite = null;
+            _ingredientImage[i].color = new Color(255, 255, 255, 0f);
+            _ingredienName[i].text= null;
+            _myGroceryCount[i].text = null;//인벤개수
+        }
+        
 
         _makeFoodCount = 1;
         _foodInfoPanel.SetActive(true);
@@ -66,13 +116,12 @@ public class RecipeSlot : MonoBehaviour
         _increaseButton.onClick.AddListener(IncreaseCount);
         _decreaseButton.onClick.AddListener(DecreaseCount);
         GroceryText();
+
         _addfoodCheckPanel.SetActive(false);
         _foodNameText.text = FoodData.FoodName;
         _foodDescriptionText.text = FoodData.Description;
         _foodPriceText.text = FoodData.Price.ToString();
         _infofoodImage.sprite= FoodData.FoodSprite;
-        _ingredientImage.sprite = FoodData.Ingredients[0].IngredientSO.Sprite;
-        _ingredienName.text= FoodData.Ingredients[0].IngredientSO.ObjName;
     }
 
     private void AddMenu()
@@ -94,16 +143,32 @@ public class RecipeSlot : MonoBehaviour
 
     private void GroceryText() 
     {
-        countText.text = _makeFoodCount.ToString();
-        needCountText.text = (_makeFoodCount * _groceryCount).ToString();
-        if (_makeFoodCount * _groceryCount< _InvenGroceryCount)
+        _countText.text = _makeFoodCount.ToString();
+        
+
+        for (int i = 0; i < 6; i++)
         {
-            _addfoodButton.interactable = true;
+            if (i < _grocerykindCount)
+            {
+                _needCountText[i].text = (_makeFoodCount * _groceryCount[i]).ToString();
+                continue;
+            }
+            _needCountText[i].text = null;
         }
-        else
+
+        for (int i = 0; i < 6; i++)
         {
-            _addfoodButton.interactable = false;
+            if (_makeFoodCount * _groceryCount[i] <= _InvenGroceryCount[i])
+            {
+                _addfoodButton.interactable = true;
+            }
+            else
+            {
+                _addfoodButton.interactable = false;
+                break;
+            }
         }
+        
     }
 
 
