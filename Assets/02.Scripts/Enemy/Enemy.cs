@@ -98,6 +98,7 @@ public class Enemy : MonoBehaviour
                 Instantiate(Data.DropItem[i], transform.position + Vector3.up * 2, Quaternion.identity);
             }
         }
+        //콜라이더 비활성화
         Collider.enabled = false;
     }
 

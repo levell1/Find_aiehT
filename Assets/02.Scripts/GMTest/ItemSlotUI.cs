@@ -28,6 +28,7 @@ public class ItemSlotUI : MonoBehaviour
         QuatityText.text = string.Empty;
     }
 
+
     public void OnButtonClick() //버튼 클릭시 하단에 아이템 정보 변화
     {
         GameManager.instance.Inventory.SelectItem(index);
