@@ -68,7 +68,6 @@ public class HealthSystem : MonoBehaviour
         if (Health == 0)
             OnDie.Invoke();
 
-        Debug.Log(Health);
         StartCoroutine(InvincibleCooldown());
     }
 

@@ -6,6 +6,11 @@ public class PlayerUseHealthPotion : PlayerUseBase
 {
     public override void UsePotion()
     {
+        if (_player.HealthSystem.Health >= _player.HealthSystem.MaxHealth)
+        {
+            return;
+        }
+
         base.UsePotion();
     }
     protected override void Healing()

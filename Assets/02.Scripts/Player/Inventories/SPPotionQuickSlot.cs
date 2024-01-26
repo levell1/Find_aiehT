@@ -13,7 +13,7 @@ public class SPPotionQuickSlot : PotionQuickSlotBase
 
     protected override string GetPotionSpritePath()
     {
-        return "Images/Potion/St_1";
+        return "Images/Potion/SP_1";
     }
 
 }

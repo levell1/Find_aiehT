@@ -6,6 +6,10 @@ public class PlayerUseStaminaPotion : PlayerUseBase
 {
     public override void UsePotion()
     {
+        if (_player.StaminaSystem.Stamina >= _player.StaminaSystem.MaxStamina)
+        {
+            return;
+        }
         base.UsePotion();
     }
 
