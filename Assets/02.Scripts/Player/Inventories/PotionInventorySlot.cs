@@ -8,12 +8,27 @@ public class PotionInventorySlot : MonoBehaviour
 {
     [HideInInspector] public PotionSO PotionSO;
 
+    public Player Player;
     public ShopPotionInfoPopup ShopPotionInfoPopup;
+    public HPPotionQuickSlot HPPotionQuickSlot;
+    public SPPotionQuickSlot SPPotionQuickSlot;
 
     public Image PotionImage;
     public TMP_Text PotionAmount;
 
     private int _initQuantity;
+    private Button _potionInvenButton;
+
+    void OnEnable()
+    {
+        _potionInvenButton = GetComponent<Button>();
+        
+        _potionInvenButton.onClick.RemoveAllListeners();
+        _potionInvenButton.onClick.AddListener(SetQuickSlot);
+
+        Player.PlayerUseHealthPotion.OnPotionUsed += UpdateUsedHPPotionQuantity;
+        Player.PlayerUseStaminaPotion.OnPotionUsed += UpdateUsedSPPotionQuantity;
+    }
 
     public void Init(PotionSO data)
     {
@@ -38,5 +53,45 @@ public class PotionInventorySlot : MonoBehaviour
             UpdateUI();
         }
     }
+
+    public void SetQuickSlot()
+    {
+        if(PotionSO.Kind == Kind.HP)
+        {
+            HPPotionQuickSlot.ShowPotionToQuickslot(PotionSO, _initQuantity);
+            Player.PlayerUseHealthPotion.Potion(PotionSO, _initQuantity);
+        }
+        else if(PotionSO.Kind == Kind.SP)
+        {
+            SPPotionQuickSlot.ShowPotionToQuickslot(PotionSO, _initQuantity);
+            Player.PlayerUseStaminaPotion.Potion(PotionSO, _initQuantity);
+        }
+    }
+
+    // 포션 사용 후 UI 업데이트
+    public void UpdateUsedHPPotionQuantity(int quantity)
+    {
+        if (PotionSO == HPPotionQuickSlot.PotionSO)
+        {
+            _initQuantity = quantity;
+            UpdateUI();
+
+            SetQuickSlot();
+        }
+      
+    }
+
+    public void UpdateUsedSPPotionQuantity(int quantity)
+    {
+        if (PotionSO == SPPotionQuickSlot.PotionSO)
+        {
+            _initQuantity = quantity;
+            UpdateUI();
+
+            SetQuickSlot();
+        }
+
+    }
+
 
 }

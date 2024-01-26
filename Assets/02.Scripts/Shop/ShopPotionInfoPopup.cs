@@ -21,7 +21,7 @@ public class ShopPotionInfoPopup : MonoBehaviour
 
     [SerializeField] private Button _successButton;
 
-    public static Action<int> OnPurchaseSuccessAction;
+    public event Action<int> OnPurchaseSuccessAction;
 
     private int _itemCurQuantity = 1;
     private int _itemCurGold;
@@ -135,8 +135,10 @@ public class ShopPotionInfoPopup : MonoBehaviour
 
         if (_playerData.PlayerData.GetPlayerGold() >= _itemTotalPrice)
         {
-           OnPurchaseSuccessAction?.Invoke(_itemCurQuantity);
+            OnPurchaseSuccessAction?.Invoke(_itemCurQuantity);
             _playerData.PlayerData.SetPlayerGold(_playerData.PlayerData.GetPlayerGold() - _itemTotalPrice);
+
+            gameObject.SetActive(false);
         }
         else
         {
