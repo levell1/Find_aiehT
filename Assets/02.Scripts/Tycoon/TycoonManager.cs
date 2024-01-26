@@ -17,7 +17,7 @@ public class TycoonManager : MonoBehaviour
 
     [SerializeField] private int _maxCustomerNum = 4;
     [SerializeField] private float _customerSpawnTime;
-    [SerializeField] public float _customerWaitTime;
+    [SerializeField] public float CustomerWaitTime;
 
     [SerializeField] private int _todayMaxCustomerNum = 6;
     [SerializeField] private int _currentCustomerNum = 0;

@@ -61,27 +61,27 @@ public class CustomerController : MonoBehaviour
 
     #endregion
 
-    private void OnEnable()
+    private void Awake()
     {
-        _tycoonManager = TycoonManager.Instance;
-        _foodCreater = _tycoonManager._FoodCreater;
-
         _agent = GetComponent<NavMeshAgent>();
         _collider = GetComponent<Collider>();
         _animator = GetComponentInChildren<Animator>();
+    }
 
-        _animator.SetBool("IsWalk", true);
-        _agent.baseOffset = 0.0f;
-        _waitTime = _tycoonManager._customerWaitTime;
-        _isOrderFood = false;
-
-        ais.Clear();
+    private void OnEnable()
+    {
+        Init();
     }
 
     private void Update()
     {
-        if (!_agent.hasPath)
+        if (_agent.remainingDistance <= _agent.stoppingDistance)
         {
+            if(_agent.destination == _tycoonManager.CustomerCreatePos.position)
+            {
+
+            }
+
             if (!_isOrderFood)
             {
                 SelectFood();
@@ -111,11 +111,29 @@ public class CustomerController : MonoBehaviour
                 GameManager.instance.PoolingManager.ReturnObject(gameObject);
             }
         }
-
-        //TODO
-        ais.RemoveAll(ai => !ai.activeInHierarchy);
+        else
+        {
+            //TODO
+            ais.RemoveAll(ai => !ai.activeInHierarchy);
+        }
     }
 
+    private void Init()
+    {
+        _tycoonManager = TycoonManager.Instance;
+        _foodCreater = _tycoonManager._FoodCreater;
+
+        _animator.SetBool("IsWalk", true);
+        _agent.baseOffset = 0.0f;
+        _waitTime = _tycoonManager.CustomerWaitTime;
+        _isOrderFood = false;
+
+        transform.rotation = Quaternion.identity;
+        _animator.gameObject.transform.localPosition = Vector3.zero;
+        _animator.gameObject.transform.localRotation = Quaternion.identity;
+
+        ais.Clear();
+    }
 
     private void SelectFood()
     {
@@ -145,6 +163,20 @@ public class CustomerController : MonoBehaviour
         }
     }
 
+    private void RemoveList(Collider other)
+    {
+        if (ais.Contains(other.gameObject))
+        {
+            ais.Remove(other.gameObject);
+        }
+
+        if (ais.Count == 0)
+        {
+            _agent.isStopped = false;
+            _animator.SetBool("IsIdle", false);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("AI"))
@@ -153,15 +185,12 @@ public class CustomerController : MonoBehaviour
 
             if (Mathf.Approximately(_agent.destination.x, _tycoonManager.CustomerCreatePos.position.x)
                 && Mathf.Approximately(_agent.destination.z, _tycoonManager.CustomerCreatePos.position.z)
-                && otherAgent.isStopped == false)
+                && otherAgent.isStopped == false
+                && !ais.Contains(other.gameObject))
             {
-                if (!ais.Contains(other.gameObject))
-                {
-                    ais.Add(other.gameObject);
-                    _agent.isStopped = true;
-                    _animator.SetBool("IsIdle", true);
-
-                }
+                ais.Add(other.gameObject);
+                _agent.isStopped = true;
+                _animator.SetBool("IsIdle", true);
             }
         }
     }
@@ -171,17 +200,9 @@ public class CustomerController : MonoBehaviour
         if (other.gameObject.CompareTag("AI"))
         {
             NavMeshAgent otherAgent = other.gameObject.GetComponent<NavMeshAgent>();
-
             if (otherAgent.isStopped == true)
             {
-                if (ais.Contains(other.gameObject))
-                    ais.Remove(other.gameObject);
-
-                if (ais.Count == 0)
-                {
-                    _agent.isStopped = false;
-                    _animator.SetBool("IsIdle", false);
-                }
+                RemoveList(other);
             }
         }
     }
@@ -190,14 +211,7 @@ public class CustomerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("AI"))
         {
-            if (ais.Contains(other.gameObject))
-                ais.Remove(other.gameObject);
-
-            if (ais.Count == 0)
-            {
-                _agent.isStopped = false;
-                _animator.SetBool("IsIdle", false);
-            }
+            RemoveList(other);
         }
     }
 
@@ -225,11 +239,10 @@ public class CustomerController : MonoBehaviour
         _agent.baseOffset = 0.0f;
         _isGetFood = true;
 
-
         _collider.enabled = true;
         _agent.isStopped = false;
 
-        _waitTime = _tycoonManager._customerWaitTime;
+        _waitTime = _tycoonManager.CustomerWaitTime;
 
         _foodCreater.UnsubscribeCreateFoodEvent(this);
 
