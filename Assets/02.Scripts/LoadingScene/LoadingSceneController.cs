@@ -1,8 +1,8 @@
-
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 public class LoadingSceneController : MonoBehaviour
 {
     static string nextScene;
@@ -14,7 +14,7 @@ public class LoadingSceneController : MonoBehaviour
         nextScene = sceneName;
         SceneManager.LoadScene("LoadingScene");
     }
-
+    
     private void Start()
     {
         StartCoroutine(LoadSceneProcess());
