@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,6 +36,10 @@ public class RestaurantUI : BaseUI
             _addMenuButton[i].gameObject.SetActive(true);
             _addedMenu[i].SetActive(false);
         }
+        for (int i = 0; i < _recipeSlots.Length; i++)
+        {
+            _recipeSlots[i].GetComponent<Button>().interactable = true;
+        }
     }
     private void Awake()
     {
@@ -48,6 +53,7 @@ public class RestaurantUI : BaseUI
         _basicFoodPrice.text = _foodDatas[0].Price.ToString();
         for (int i = 0; i < _recipeSlots.Length; i++)
         {
+            _recipeSlots[i].GetComponent<Button>().interactable = true;
             _recipeSlots[i].Index = i;
             _recipeSlots[i].FoodData = _foodDatas[i+1];
         }

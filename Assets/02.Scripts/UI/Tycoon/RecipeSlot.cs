@@ -38,8 +38,6 @@ public class RecipeSlot : MonoBehaviour
     private int _grocerykindCount;
     private void Start()
     {
-        gameObject.GetComponent<Button>().interactable = true;
-        _InvenData = GameManager.instance.Inventory.Slots;
 
         _makeFoodCount = 1;
         _grocerykindCount = FoodData.Ingredients.Count;
@@ -70,9 +68,9 @@ public class RecipeSlot : MonoBehaviour
             _needCountText[i].text = null;
         }
     }
-
     private void ClickFood() 
     {
+        _InvenData = GameManager.instance.Inventory.Slots;
         for (int i = 0; i < FoodData.Ingredients.Count; i++)
         {
             for (int j = 0; j < _InvenData.Count; j++)
@@ -130,7 +128,8 @@ public class RecipeSlot : MonoBehaviour
         gameObject.GetComponent<Button>().interactable = false;
         for (int i = 0; i < _grocerykindCount; i++)
         {
-            GameManager.instance.Inventory.RemoveItem(FoodData.Ingredients[i].IngredientSO, FoodData.Ingredients[i].FoodNum * _makeFoodCount);
+            GameManager.instance.Inventory.RemoveItem(FoodData.Ingredients[i].IngredientSO, _groceryCount[i] * _makeFoodCount);
+            _InvenGroceryCount[i] = 0;
         }
         
     }
