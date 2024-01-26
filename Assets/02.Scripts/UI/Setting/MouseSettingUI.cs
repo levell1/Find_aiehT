@@ -10,7 +10,11 @@ public class MouseSettingUI : MonoBehaviour
     private void Awake()
     {
         _slider = GetComponent<Slider>();
-        _virtualcamera = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>();
+        if (GameObject.Find("Virtual Camera")!=null)
+        {
+            _virtualcamera = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>();
+        }
+        
     }
     private void Start()
     {

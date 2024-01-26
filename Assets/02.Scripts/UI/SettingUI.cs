@@ -10,6 +10,7 @@ public class SettingUI : BaseUI
     [SerializeField] private GameObject _savePanel;
     [SerializeField] private GameObject _ExitCheck;
     [SerializeField] private Button _exitButton;
+    [SerializeField] private Button _keyControlButton;
     private void Awake()
     {
         
@@ -24,6 +25,7 @@ public class SettingUI : BaseUI
         _checksaveButton.onClick.AddListener(SaveGame);
         _checkExitButton.onClick.AddListener(ShowExitGame);
         _exitButton.onClick.AddListener(ExitGame);
+        _keyControlButton.onClick.AddListener(ShowControlKey);
     }
 
     void SaveGame() 
@@ -33,6 +35,10 @@ public class SettingUI : BaseUI
     void ShowExitGame() 
     {
         _ExitCheck.SetActive(true);
+    }
+    void ShowControlKey()
+    {
+        GameManager.instance.UIManager.ShowCanvas("ControlKeyUI");
     }
     void ExitGame()
     {

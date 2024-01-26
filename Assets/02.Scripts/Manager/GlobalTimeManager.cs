@@ -34,7 +34,11 @@ public class GlobalTimeManager : MonoBehaviour
         Hour = Mathf.Floor(_totalHours);
         Minutes = Mathf.Floor((_totalHours - Hour) * 60f);
         string timeString = string.Format("{0}일차 {1:00}:{2:00}", Day, Hour, Minutes);
-        TimeText.text = timeString;
+        if (TimeText!=null)
+        {
+            TimeText.text = timeString;
+        }
+        
         ChangeDay();
     }
 
