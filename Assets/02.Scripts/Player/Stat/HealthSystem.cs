@@ -10,10 +10,10 @@ public class HealthSystem : MonoBehaviour
    [SerializeField] private float _invincibleTime = 3f; // 무적 시간 
     
     private PlayerSO _playerData;
-    public float _maxHealth;
+    public float MaxHealth;
     private float _playerDef;
 
-    public float _health;
+    public float Health;
 
     [SerializeField] EquipmentDatas _equipmentDatas;
 
@@ -22,7 +22,7 @@ public class HealthSystem : MonoBehaviour
     public event Action OnDie;
     public  Action<float,float> OnChangeHpUI;
 
-    public bool IsDead => _health == 0;
+    public bool IsDead => Health == 0;
 
     private void Awake()
     {
@@ -36,9 +36,9 @@ public class HealthSystem : MonoBehaviour
 
     public void SetMaxHealth() 
     {
-        _maxHealth = _playerData.PlayerData.GetPlayerMaxHealth()+ _equipmentDatas.SumHealth;
-        _health = _maxHealth;
-        OnChangeHpUI?.Invoke(_health, _maxHealth);
+        MaxHealth = _playerData.PlayerData.GetPlayerMaxHealth()+ _equipmentDatas.SumHealth;
+        Health = MaxHealth;
+        OnChangeHpUI?.Invoke(Health, MaxHealth);
     }
 
     private float CaculateTotalDamage(float damage)
@@ -56,19 +56,18 @@ public class HealthSystem : MonoBehaviour
         Debug.Log(_playerDef);
         if (_isInvincible) return;
 
-        if (_health == 0) return;
+        if (Health == 0) return;
 
        float _totalDamage = CaculateTotalDamage(damage);
 
-        Debug.Log("헬스" + _health);
+        Debug.Log("헬스" + Health);
 
-        _health = Mathf.Max(Mathf.Floor(_health - _totalDamage), 0);
-        OnChangeHpUI?.Invoke(_health, _maxHealth);
+        Health = Mathf.Max(Mathf.Floor(Health - _totalDamage), 0);
+        OnChangeHpUI?.Invoke(Health, MaxHealth);
 
-        if (_health == 0)
+        if (Health == 0)
             OnDie.Invoke();
 
-        Debug.Log(_health);
         StartCoroutine(InvincibleCooldown());
     }
 
@@ -81,7 +80,14 @@ public class HealthSystem : MonoBehaviour
 
     public void Healing(int healingAmount)
     {
-        _health += healingAmount;
+        if(Health < MaxHealth)
+        {
+            Health += healingAmount;
+
+            Health = Mathf.Min(Health, MaxHealth);
+
+            OnChangeHpUI?.Invoke(Health, MaxHealth);
+        }
     }
 
 }
