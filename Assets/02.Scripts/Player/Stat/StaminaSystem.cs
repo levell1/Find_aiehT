@@ -77,4 +77,17 @@ public class StaminaSystem : MonoBehaviour
         }
     }
 
+    public void Healing(int healingAmount)
+    {
+        if (_stamina < _maxStamina)
+        {
+            _stamina += healingAmount;
+
+            _stamina = Mathf.Min(_stamina, _maxStamina);
+
+            OnChangeStaminaUI?.Invoke(_stamina, _maxStamina);
+        }
+
+    }
+
 }

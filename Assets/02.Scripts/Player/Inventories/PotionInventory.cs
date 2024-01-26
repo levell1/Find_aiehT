@@ -7,6 +7,7 @@ public class PotionInventory : MonoBehaviour
 {
     public PotionDataListSO PotionDataList;
     public PotionInventorySlot[] Potions;
+    public ShopPotionInfoPopup ShopPotionInfoPopup;
 
     private void OnEnable()
     {
@@ -14,7 +15,7 @@ public class PotionInventory : MonoBehaviour
         {
             Potions[i].Init(PotionDataList.ShopPotionList[i]);
 
-            ShopPotionInfoPopup.OnPurchaseSuccessAction +=Potions[i].UpdatePotionQuantity;
+            ShopPotionInfoPopup.OnPurchaseSuccessAction += Potions[i].UpdatePotionQuantity;
         }
 
         

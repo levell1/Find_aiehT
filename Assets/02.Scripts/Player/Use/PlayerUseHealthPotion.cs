@@ -7,6 +7,21 @@ public class PlayerUseHealthPotion : PlayerUseBase
     public override void UsePotion()
     {
         base.UsePotion();
-        Debug.Log("HP포션 사용!");
+    }
+    protected override void Healing()
+    {
+        base.Healing();
+
+        if (_quantity > 0)
+        {
+            Debug.Log(_player.HealthSystem.Health);
+            _player.HealthSystem.Healing(_healingAmount);
+
+        }
+        else
+        {
+            Debug.Log("포션이 다 떨어졌습니다. 장착해주세요");
+        }
+
     }
 }
