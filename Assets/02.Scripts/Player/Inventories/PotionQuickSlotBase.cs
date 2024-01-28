@@ -11,6 +11,8 @@ public abstract class PotionQuickSlotBase : MonoBehaviour
     public Image PotionImage;
     public TMP_Text PotionQuantity;
 
+    private int _quantity;
+
 
     protected virtual void Start()
     {
@@ -18,6 +20,7 @@ public abstract class PotionQuickSlotBase : MonoBehaviour
 
         SetDefaultSprite(potionSpritePath);
     }
+
     protected abstract string GetPotionSpritePath();
 
     protected void SetDefaultSprite(string spritePath)
@@ -34,9 +37,17 @@ public abstract class PotionQuickSlotBase : MonoBehaviour
     public void ShowPotionToQuickslot(PotionSO data, int quantity)
     {
         PotionSO = data;
+        _quantity = quantity;
 
         PotionQuantity.text = quantity.ToString();
         PotionImage.sprite = data.sprite;
+
+    }
+
+    protected virtual void UpdateUI(int quantity) 
+    {
+        _quantity = quantity;
+        PotionQuantity.text = _quantity.ToString();
 
     }
 

@@ -10,6 +10,7 @@ public class PlayerDashState : PlayerGroundState
     }
     public override void Enter()
     {
+        base.Enter();
 
         _stateMachine.DashForce = _stateMachine.Player.Data.GroundData.DashForce;
         _stateMachine.DashStamina = _stateMachine.Player.Data.GroundData.DashStamina;
@@ -19,22 +20,22 @@ public class PlayerDashState : PlayerGroundState
         //_stateMachine.MaxStamina = _stateMachine.Player.Data.PlayerData.GetPlayerMaxStamina();
         if(_stateMachine.Player.GroundCheck.IsGrounded())
         {
+                
             if (_stateMachine.Player.StaminaSystem.CanUseDash(_stateMachine.DashStamina) && !_stateMachine.IsDashCoolTime)
             {
-                _stateMachine.Player.DashForceReceiver.Dash(_stateMachine.DashForce);
+              
                 _stateMachine.Player.StaminaSystem.UseDash(_stateMachine.DashStamina);
-                base.Enter();
+                _stateMachine.Player.DashForceReceiver.Dash(_stateMachine.DashForce);
+
                 StartAnimation(_stateMachine.Player.AnimationData.DashParameterHash);
             }
             else
             {
                 _stateMachine.ChangeState(_stateMachine.IdleState);
             }
+
         }
-        else
-        {
-            _stateMachine.ChangeState(_stateMachine.IdleState);
-        }
+       
     }
 
     public override void Exit()

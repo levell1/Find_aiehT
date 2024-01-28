@@ -10,7 +10,7 @@ public class PlayerUseBase : MonoBehaviour
     protected int _healingAmount;
     protected int _quantity;
 
-    private float _coolTime;
+    public float CoolTime;
     private bool _isCoolTime = false;
 
     public event Action<int> OnPotionUsed;
@@ -38,7 +38,7 @@ public class PlayerUseBase : MonoBehaviour
         }
         else
         {
-            _coolTime = 3f;
+            CoolTime = 3f;
 
             Healing();
             _quantity--;
@@ -51,13 +51,14 @@ public class PlayerUseBase : MonoBehaviour
 
     protected virtual void Healing() {}
 
+    // 쿨타임
     IEnumerator CoolTimeController()
     {
         _isCoolTime = true;
 
-        while(_coolTime > 0f)
+        while(CoolTime > 0f)
         {
-            _coolTime -= Time.deltaTime;
+            CoolTime -= Time.deltaTime;
 
             yield return null;
         }
