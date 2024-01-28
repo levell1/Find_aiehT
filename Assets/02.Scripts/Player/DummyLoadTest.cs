@@ -26,6 +26,10 @@ public class DummyLoadTest : MonoBehaviour
             Inventory.SetActive(true);
             shopInteraction.SetShop();
         }
+        else if(Input.GetKeyDown("v"))
+        {
+            Inventory.SetActive(true);
+        }
         
     }
 }

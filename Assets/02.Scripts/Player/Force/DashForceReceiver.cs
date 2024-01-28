@@ -13,7 +13,7 @@ public class DashForceReceiver : MonoBehaviour
     private float _dashTime = 0f; // 대쉬를 하기위한 시간
     private float _coolTime= 0f; //  쿨타임을 계산하기위한 시간
 
-    private bool _isDash;
+    public bool IsDash;
     public bool IsCoolTime { get; private set; } // true => 쿨타임 중
 
     //private int _maxStamina;
@@ -29,7 +29,7 @@ public class DashForceReceiver : MonoBehaviour
 
 
         IsCoolTime = false;
-        _isDash = false;
+        IsDash = false;
 
         //_maxStamina = _player.Data.PlayerData.GetPlayerMaxStamina();
         //_stamina = _maxStamina;
@@ -40,17 +40,18 @@ public class DashForceReceiver : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(_isDash)
+        if(IsDash)
         {
             _dashTime += Time.fixedDeltaTime;
 
-            if (!IsCoolTime)
-                StartCoroutine(CoolDown());
+           
 
             if (_dashTime >= _dashDuration )
             {
-                _isDash = false;
+                IsDash = false;
 
+                if (!IsCoolTime)
+                    StartCoroutine(CoolDown());
             }
             // 쿨타임을 위한 계산
             else if (IsCoolTime)
@@ -85,9 +86,9 @@ public class DashForceReceiver : MonoBehaviour
 
     public void Dash(float dashForce)
     {
-        if (_player.GroundCheck.IsGrounded() && !_isDash && !IsCoolTime)
+        if (_player.GroundCheck.IsGrounded() && !IsDash && !IsCoolTime)
         {
-            _isDash = true;
+            IsDash = true;
             _dashTime = 0f;
 
             StartCoroutine(DashCoroutine(dashForce));

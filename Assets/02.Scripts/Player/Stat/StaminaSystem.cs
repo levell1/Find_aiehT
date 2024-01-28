@@ -7,8 +7,9 @@ using UnityEngine;
 public class StaminaSystem : MonoBehaviour
 {
     [SerializeField] private float _targetRegenTime = 0.2f;
-    
+
     private PlayerSO _playerData;
+    private DashForceReceiver _dash;
     public float MaxStamina;
     public float Stamina;
 
@@ -19,6 +20,8 @@ public class StaminaSystem : MonoBehaviour
     private void Start()
     {
         _playerData = GetComponent<Player>().Data;
+        _dash = GetComponent<Player>().DashForceReceiver;
+
         SetMaxStamina();
 
         _regenTime = 0f;
@@ -39,10 +42,10 @@ public class StaminaSystem : MonoBehaviour
     /// 대쉬시 - 10;
     public void UseDash(int dashStamina)
     {
-        if (Stamina == 0) return;
+        if (Stamina == 0 || _dash.IsDash) return;
+
         Stamina = Mathf.Max(Stamina - dashStamina, 0);
         OnChangeStaminaUI?.Invoke(Stamina, MaxStamina);
-        Debug.Log("호출!!");
     }
 
     public bool CanUseSkill(int skillCost)
