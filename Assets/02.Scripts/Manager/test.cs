@@ -32,7 +32,8 @@ public class test : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            SceneManager.LoadScene("BJH");
+            LoadingSceneController.LoadScene("BJH");
+            //SceneManager.LoadScene("BJH");
         }
 
         if (Input.GetKeyDown(KeyCode.K))

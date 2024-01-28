@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,7 +17,7 @@ public class GroceriesUI : MonoBehaviour
     {
         MakeFoodCount = 1;
         GroceryCount = 4;
-        countText.text = MakeFoodCount.ToString();
+        //countText.text = MakeFoodCount.ToString();
 
         needCountText.text = (MakeFoodCount * GroceryCount).ToString();
         _increaseButton.onClick.AddListener(IncreaseCount);

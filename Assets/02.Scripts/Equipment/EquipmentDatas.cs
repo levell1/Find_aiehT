@@ -17,6 +17,7 @@ public class EquipmentDatas : MonoBehaviour
     {
         for (int i = 0; i < 6; i++)
         {
+            //데이터 불러와서 level에 저장
             EquipData[i].Level = 0;
             SetEquipCurrent(i);
         }

@@ -8,6 +8,7 @@ public class GameManager : MonoSingleton<GameManager>
     private ResourceManager _resourceManager = new ResourceManager();
     private PoolingManager _poolingManager = new PoolingManager();
     private GlobalTimeManager _globalTimeManager = new GlobalTimeManager();
+    private DataManager _dataManager = new DataManager();
     private Inventory _inventory = new Inventory();
 
     public UIManager UIManager { get { return instance._uiManager; } }
@@ -15,6 +16,7 @@ public class GameManager : MonoSingleton<GameManager>
     public ResourceManager ResourceManager { get { return instance._resourceManager; } }
     public PoolingManager PoolingManager { get { return instance._poolingManager; } }
     public GlobalTimeManager GlobalTimeManager { get { return instance._globalTimeManager; } }
+    public DataManager DataManager { get { return instance._dataManager; } }
     public Inventory Inventory { get { return instance._inventory; } }
 
     protected override void Awake()
@@ -22,6 +24,7 @@ public class GameManager : MonoSingleton<GameManager>
        base.Awake();
         _soundManager = FindObjectOfType<SoundManager>();
         _poolingManager = FindObjectOfType<PoolingManager>();
+        _dataManager = FindObjectOfType<DataManager>();
         _inventory = FindObjectOfType<Inventory>();
         _globalTimeManager = FindObjectOfType<GlobalTimeManager>();
     }

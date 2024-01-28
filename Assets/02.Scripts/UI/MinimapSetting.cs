@@ -54,7 +54,14 @@ public class MinimapSetting : MonoBehaviour
     private void Update()
     {
         transform.position = new Vector3(_player.position.x, 10, _player.position.z);
-
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        {
+            ZoomIn();
+        }
+        if (Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
+            ZoomOut();
+        }
     }
     
     // 플레이어가 어느 지역 가면 changeMapName
