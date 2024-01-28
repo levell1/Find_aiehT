@@ -59,8 +59,6 @@ public class TycoonManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        Debug.Log(CustomerCreatePos.position);
     }
 
     private void Start()

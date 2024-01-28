@@ -18,10 +18,10 @@ public class CustomerController : MonoBehaviour
 
     private float _waitTime;
     private const float _agentBaseOffset = 0.45f;
-    private bool _isGetFood = false;
+    private bool _isExit = false;
     private bool _isOrderFood = false;
 
-    List<GameObject> ais = new();
+    private List<GameObject> _collidingAIs = new();
 
     private FoodPlace _targetFoodPlace;
     public FoodPlace TargetFoodPlace
@@ -61,11 +61,19 @@ public class CustomerController : MonoBehaviour
 
     #endregion
 
+    #region MonoBehaviour
+
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
         _collider = GetComponent<Collider>();
         _animator = GetComponentInChildren<Animator>();
+    }
+
+    private void Start()
+    {
+        _tycoonManager = TycoonManager.Instance;
+        _foodCreater = _tycoonManager._FoodCreater;
     }
 
     private void OnEnable()
@@ -77,9 +85,8 @@ public class CustomerController : MonoBehaviour
     {
         if (_agent.remainingDistance <= _agent.stoppingDistance)
         {
-            if(_agent.destination == _tycoonManager.CustomerCreatePos.position)
+            if(_agent.destination != _tycoonManager.CustomerCreatePos.position)
             {
-
             }
 
             if (!_isOrderFood)
@@ -102,10 +109,11 @@ public class CustomerController : MonoBehaviour
                 NoReceivedFood();
             }
 
-            if (_isGetFood)
+            if (_isExit)
             {
-                _isGetFood = false;
+                _isExit = false;
 
+                StopAllCoroutines();
                 OnCustomerExit?.Invoke();
                 _targetFoodPlace.CurrentCustomer = null;
                 GameManager.instance.PoolingManager.ReturnObject(gameObject);
@@ -114,25 +122,70 @@ public class CustomerController : MonoBehaviour
         else
         {
             //TODO
-            ais.RemoveAll(ai => !ai.activeInHierarchy);
+            _collidingAIs.RemoveAll(ai => !ai.activeInHierarchy);
+            foreach(GameObject ai in _collidingAIs)
+            {
+                if (!ai.GetComponent<NavMeshAgent>().isStopped)
+                {
+                    RemoveList(ai);
+                }
+            }
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("AI"))
+        {
+            NavMeshAgent otherAgent = other.gameObject.GetComponent<NavMeshAgent>();
+
+            if (Mathf.Approximately(_agent.destination.x, _tycoonManager.CustomerCreatePos.position.x)
+                && Mathf.Approximately(_agent.destination.z, _tycoonManager.CustomerCreatePos.position.z)
+                && otherAgent.isStopped == false
+                && !_collidingAIs.Contains(other.gameObject))
+            {
+                _collidingAIs.Add(other.gameObject);
+                _agent.isStopped = true;
+                _animator.SetBool("IsIdle", true);
+            }
+        }
+    }
+
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("AI"))
+    //    {
+    //        NavMeshAgent otherAgent = other.gameObject.GetComponent<NavMeshAgent>();
+    //        if (otherAgent.isStopped == true)
+    //        {
+    //            RemoveList(other.gameObject);
+    //        }
+    //    }
+    //}
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("AI"))
+        {
+            RemoveList(other.gameObject);
+        }
+    }
+
+    #endregion
+
+    #region 
     private void Init()
     {
-        _tycoonManager = TycoonManager.Instance;
-        _foodCreater = _tycoonManager._FoodCreater;
-
         _animator.SetBool("IsWalk", true);
-        _agent.baseOffset = 0.0f;
-        _waitTime = _tycoonManager.CustomerWaitTime;
+        //_agent.baseOffset = 0.0f;
+        //_waitTime = _tycoonManager.CustomerWaitTime;
         _isOrderFood = false;
 
         transform.rotation = Quaternion.identity;
         _animator.gameObject.transform.localPosition = Vector3.zero;
         _animator.gameObject.transform.localRotation = Quaternion.identity;
 
-        ais.Clear();
+        _collidingAIs.Clear();
     }
 
     private void SelectFood()
@@ -142,6 +195,20 @@ public class CustomerController : MonoBehaviour
         int targetFoodNum = UnityEngine.Random.Range(0, foodPrefabs.Count);
         _targetFood = foodPrefabs[targetFoodNum].GetComponent<CookedFood>();
         OnCreateFood?.Invoke(foodPrefabs[targetFoodNum]);
+    }
+
+    private void RemoveList(GameObject obj)
+    {
+        if (_collidingAIs.Contains(obj))
+        {
+            _collidingAIs.Remove(obj);
+        }
+
+        if (_collidingAIs.Count == 0)
+        {
+            _agent.isStopped = false;
+            _animator.SetBool("IsIdle", false);
+        }
     }
 
     private void GetFood()
@@ -163,58 +230,7 @@ public class CustomerController : MonoBehaviour
         }
     }
 
-    private void RemoveList(Collider other)
-    {
-        if (ais.Contains(other.gameObject))
-        {
-            ais.Remove(other.gameObject);
-        }
-
-        if (ais.Count == 0)
-        {
-            _agent.isStopped = false;
-            _animator.SetBool("IsIdle", false);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("AI"))
-        {
-            NavMeshAgent otherAgent = other.gameObject.GetComponent<NavMeshAgent>();
-
-            if (Mathf.Approximately(_agent.destination.x, _tycoonManager.CustomerCreatePos.position.x)
-                && Mathf.Approximately(_agent.destination.z, _tycoonManager.CustomerCreatePos.position.z)
-                && otherAgent.isStopped == false
-                && !ais.Contains(other.gameObject))
-            {
-                ais.Add(other.gameObject);
-                _agent.isStopped = true;
-                _animator.SetBool("IsIdle", true);
-            }
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("AI"))
-        {
-            NavMeshAgent otherAgent = other.gameObject.GetComponent<NavMeshAgent>();
-            if (otherAgent.isStopped == true)
-            {
-                RemoveList(other);
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("AI"))
-        {
-            RemoveList(other);
-        }
-    }
-
+    #endregion
 
     #region Coroutine
 
@@ -231,24 +247,24 @@ public class CustomerController : MonoBehaviour
     {
         _targetFoodPlace.OnCustomerGetFood -= GetFood;
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(8f);
 
         _agent.SetDestination(_tycoonManager.CustomerCreatePos.position);
         _animator.SetBool("IsWalk", true);
 
         _agent.baseOffset = 0.0f;
-        _isGetFood = true;
+        _isExit = true;
 
+        // another AI
         _collider.enabled = true;
         _agent.isStopped = false;
+
 
         _waitTime = _tycoonManager.CustomerWaitTime;
 
         _foodCreater.UnsubscribeCreateFoodEvent(this);
 
         _co = null;
-
-        StopAllCoroutines();
     }
     #endregion
 }
