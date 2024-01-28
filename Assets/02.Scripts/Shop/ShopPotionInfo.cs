@@ -9,7 +9,6 @@ public class ShopPotionInfo : MonoBehaviour
     [SerializeField] private TMP_Text _itemValue;
     [SerializeField] private TMP_Text _itemInfo;
 
-
     public void ShowItemInfo(PotionSO data)
     {
         _itemName.text = data.Name;

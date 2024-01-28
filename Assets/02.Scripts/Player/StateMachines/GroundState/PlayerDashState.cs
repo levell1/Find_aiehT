@@ -17,13 +17,19 @@ public class PlayerDashState : PlayerGroundState
         _stateMachine.IsDashCoolTime = _stateMachine.Player.DashForceReceiver.IsCoolTime;
 
         //_stateMachine.MaxStamina = _stateMachine.Player.Data.PlayerData.GetPlayerMaxStamina();
-
-        if (_stateMachine.Player.StaminaSystem.CanUseDash(_stateMachine.DashStamina) && !_stateMachine.IsDashCoolTime)
+        if(_stateMachine.Player.GroundCheck.IsGrounded())
         {
-            _stateMachine.Player.DashForceReceiver.Dash(_stateMachine.DashForce);
-            _stateMachine.Player.StaminaSystem.UseDash(_stateMachine.DashStamina);
-            base.Enter();
-            StartAnimation(_stateMachine.Player.AnimationData.DashParameterHash);
+            if (_stateMachine.Player.StaminaSystem.CanUseDash(_stateMachine.DashStamina) && !_stateMachine.IsDashCoolTime)
+            {
+                _stateMachine.Player.DashForceReceiver.Dash(_stateMachine.DashForce);
+                _stateMachine.Player.StaminaSystem.UseDash(_stateMachine.DashStamina);
+                base.Enter();
+                StartAnimation(_stateMachine.Player.AnimationData.DashParameterHash);
+            }
+            else
+            {
+                _stateMachine.ChangeState(_stateMachine.IdleState);
+            }
         }
         else
         {

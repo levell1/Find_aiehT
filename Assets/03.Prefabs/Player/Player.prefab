@@ -7670,6 +7670,7 @@ GameObject:
   - component: {fileID: 6860366556918899620}
   - component: {fileID: 255544903076035608}
   - component: {fileID: 6649868086692326147}
+  - component: {fileID: 3759103832307417138}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -7695,7 +7696,7 @@ Transform:
   - {fileID: 2891377315053712284}
   - {fileID: 3533890531207633210}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7154715293715450758
 MonoBehaviour:
@@ -7798,8 +7799,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _invincibleTime: 3
-  _maxHealth: 0
-  _health: 0
+  MaxHealth: 0
+  Health: 0
   _equipmentDatas: {fileID: 0}
 --- !u!114 &1150510400777202919
 MonoBehaviour:
@@ -7814,6 +7815,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetRegenTime: 0.2
+  MaxStamina: 0
+  Stamina: 0
 --- !u!114 &7561817679007116713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8050,6 +8053,27 @@ MonoBehaviour:
   InventoryUI: {fileID: 0}
   selectedItemName: {fileID: 0}
   selectedItemDescription: {fileID: 0}
+--- !u!114 &3759103832307417138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8980220608949398442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63972871988569d4eb17adfa2ad5ca01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PotionDataList: {fileID: 11400000, guid: b7746d3c30dd8134a9031a475ef12811, type: 2}
+  Potions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  ShopPotionInfoPopup: {fileID: 0}
 --- !u!1 &8993521162791815374
 GameObject:
   m_ObjectHideFlags: 0
@@ -8644,6 +8668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponCollider: {fileID: 744009854332640440}
+  _equipmentDatas: {fileID: 0}
 --- !u!4 &7573222769517597101 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 84845e0ef0ec8d7469f7d463479ed25d,
@@ -8865,6 +8890,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponCollider: {fileID: 3651543221798442260}
+  _equipmentDatas: {fileID: 0}
 --- !u!136 &3651543221798442260
 CapsuleCollider:
   m_ObjectHideFlags: 0
