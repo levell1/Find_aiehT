@@ -12,14 +12,14 @@ public class PlayerWeapon : MonoBehaviour
     private readonly List<Collider> _alreadyCollidedObjects = new List<Collider>();
     [SerializeField] private EquipmentDatas _equipmentDatas;
 
-    private void Awake()
-    {
-        if (_equipmentDatas == null)
-        {
-            _equipmentDatas = transform.root.GetComponent<EquipmentDatas>();
-        }
+    //private void Awake()
+    //{
+    //    if (_equipmentDatas == null)
+    //    {
+    //        _equipmentDatas = transform.root.GetComponent<EquipmentDatas>();
+    //    }
         
-    }
+    //}
     private void OnEnable()
     {
         InitializeCollider();
