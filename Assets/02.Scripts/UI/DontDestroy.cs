@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -6,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class DontDestroy : MonoBehaviour
 {
-    //private DontDestroy _instance;
+    
 
     private void Awake()
     {
@@ -20,4 +21,5 @@ public class DontDestroy : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 }

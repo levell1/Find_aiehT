@@ -226,8 +226,8 @@ public class PlayerBaseState : IState
 
     private Vector3 GetMovementDirection()
     {
-        Vector3 forward = _stateMachine.MainCameraTransform.forward;
-        Vector3 right = _stateMachine.MainCameraTransform.right;
+        Vector3 forward = _stateMachine.Player.MainCameraTransform.forward;
+        Vector3 right = _stateMachine.Player.MainCameraTransform.right;
 
         forward.y = 0;
         right.y = 0;

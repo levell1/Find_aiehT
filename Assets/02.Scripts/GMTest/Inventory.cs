@@ -41,6 +41,7 @@ public class Inventory : MonoBehaviour
         {
             ToggleInventoryUI();
             ClearSeletecItem();
+            Cursor.lockState = CursorLockMode.None;   
         }
 
         if (Input.GetKeyDown(KeyCode.N))
@@ -49,9 +50,16 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void CloseInven() 
+    {
+        InventoryUI.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     private void ToggleInventoryUI()
     {
         InventoryUI.SetActive(!InventoryUI.activeSelf);
+
     }
 
     public void AddItem(ItemSO item)

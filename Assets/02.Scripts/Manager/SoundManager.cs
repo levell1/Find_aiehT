@@ -12,10 +12,6 @@ public class SoundManager : MonoBehaviour
     private AudioMixer _mixer;
     private string _bgFilename;
 
-    [SerializeField] private Slider _masterSlider;
-    [SerializeField] private Slider _bgmSlider;
-    [SerializeField] private Slider _sfxSlider;
-
     private Queue<AudioSource> _bgmqueue = new Queue<AudioSource>();
 
     Coroutine coroutine = null;

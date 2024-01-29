@@ -21,7 +21,7 @@ public class ShopPotionInfoPopup : MonoBehaviour
 
     [SerializeField] private Button _successButton;
 
-    public event Action<int> OnPurchaseSuccessAction;
+    public static event Action<int> OnPurchaseSuccessAction;
 
     private int _itemCurQuantity = 1;
     private int _itemCurGold;

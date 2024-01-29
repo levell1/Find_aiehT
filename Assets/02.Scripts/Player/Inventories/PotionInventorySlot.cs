@@ -21,6 +21,7 @@ public class PotionInventorySlot : MonoBehaviour
 
     void OnEnable()
     {
+
         _potionInvenButton = GetComponent<Button>();
         
         _potionInvenButton.onClick.RemoveAllListeners();

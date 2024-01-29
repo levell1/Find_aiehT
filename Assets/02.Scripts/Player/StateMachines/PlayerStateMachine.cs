@@ -44,7 +44,7 @@ public class PlayerStateMachine : StateMachine
     public bool IsSkillCoolTime { get; set; }
 
     public string SceneName { get; set; } 
-    public Transform MainCameraTransform { get; set; }
+    
 
 
     public PlayerStateMachine(Player player)
@@ -63,8 +63,6 @@ public class PlayerStateMachine : StateMachine
 
         PlayerThrowSkillState = new PlayerThrowSkillState(this);
         PlayerSpreadSkillState = new PlayerSpreadSkillState(this);
-
-        MainCameraTransform = Camera.main.transform;
 
         MovementSpeed = player.Data.GroundData.BaseSpeed;
         RotationDamping = player.Data.GroundData.BaseRotationDamping;

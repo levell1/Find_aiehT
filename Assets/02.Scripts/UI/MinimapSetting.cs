@@ -23,7 +23,6 @@ public class MinimapSetting : MonoBehaviour
     private void Awake()
     {
         _player = GameObject.FindWithTag("Player").transform;
-        ChangeMapName("2");
     }
     private void Start()
     {
@@ -32,12 +31,11 @@ public class MinimapSetting : MonoBehaviour
 
     private void LoadedsceneEvent(Scene scene, LoadSceneMode arg1)
     {
-        _player = GameObject.FindWithTag("Player").transform;
-        if (scene.name == "Village")
+        if (scene.name == "KGM_TestVillage")
         {
             ChangeMapName("마을");
         }
-        else if (scene.name == "Field")
+        else if (scene.name == "KGM")
         {
             ChangeMapName("사냥터");
         }
@@ -46,6 +44,10 @@ public class MinimapSetting : MonoBehaviour
             ChangeMapName("던전");
         }
         else if (scene.name == "BJH")
+        {
+            ChangeMapName("테스트");
+        }
+        else
         {
             ChangeMapName("테스트");
         }

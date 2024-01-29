@@ -39,6 +39,8 @@ public class Player : MonoBehaviour
     [field: Header("Interact")]
     [field: SerializeField] public PlayerInteraction Interaction { get; private set; }
 
+    [field: SerializeField] public Transform MainCameraTransform { get; set; }
+
     private PlayerStateMachine _stateMachine;
     private void Awake()
     {
@@ -66,6 +68,7 @@ public class Player : MonoBehaviour
         SkillInstantiator = GetComponent<SkillInstantiator>();
 
         ServingFood = GetComponent<ServingFood>();
+
 
         _stateMachine = new PlayerStateMachine(this);
 

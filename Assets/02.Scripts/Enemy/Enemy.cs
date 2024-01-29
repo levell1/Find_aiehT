@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour
         HealthSystem = GetComponent<EnemyHealthSystem>();
         EnemyRespawn = GetComponent<EnemyRespawn>();
 
-        _stateMachine = new EnemyStateMachine(this);
+        
 
         SetData();
     }
@@ -66,6 +66,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
+        _stateMachine = new EnemyStateMachine(this);
         _stateMachine.ChangeState(_stateMachine.IdlingState);
         HealthSystem.OnDie += OnDie;
     }
