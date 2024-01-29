@@ -18,8 +18,8 @@ public class Inventory : MonoBehaviour
     public GameObject InventoryUI;
 
     [Header("Selected Item")]
-    private ItemSlot selectedItem;
     private int selectedItemIndex;
+    public ItemSlot selectedItem;
     public TextMeshProUGUI selectedItemName;
     public TextMeshProUGUI selectedItemDescription;
 
@@ -59,7 +59,6 @@ public class Inventory : MonoBehaviour
     private void ToggleInventoryUI()
     {
         InventoryUI.SetActive(!InventoryUI.activeSelf);
-
     }
 
     public void AddItem(ItemSO item)
@@ -95,7 +94,7 @@ public class Inventory : MonoBehaviour
         return null;
     }
 
-    void UpdateUI()
+    private void UpdateUI()
     {
         for (int i = 0; i < Slots.Count; ++i)
         {
@@ -125,7 +124,7 @@ public class Inventory : MonoBehaviour
         selectedItemDescription.text = selectedItem.Item.Description;
     }
 
-    private void ClearSeletecItem()
+    public void ClearSeletecItem()
     {
         selectedItem = null;
         selectedItemName.text = string.Empty;
