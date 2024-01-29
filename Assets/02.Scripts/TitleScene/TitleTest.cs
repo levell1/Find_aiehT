@@ -26,6 +26,11 @@ public class TitleTest : MonoBehaviour
             _playerUI.SetActive(true);
 
         }
+        if (scene.name == "MWJ")
+        {
+            _globalTimeManager.SetActive(false);
+            _playerUI.SetActive(false);
 
+        }
     }
 }

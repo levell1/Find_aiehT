@@ -98,7 +98,7 @@ public class RestaurantUI : BaseUI
 
     private void StartGame() 
     {
-        base.CloseUI();
+        gameObject.SetActive(false);
         //메뉴정보 전달
     }
 

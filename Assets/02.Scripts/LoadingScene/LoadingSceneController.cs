@@ -53,6 +53,7 @@ public class LoadingSceneController : MonoBehaviour
                 _bar.fillAmount = Mathf.Lerp(0.9f, 1f, timer);
                 if (_bar.fillAmount >= 1f)
                 {
+                    //Dont.SetActive(true);
                     op.allowSceneActivation = true;
                     op.completed += c => { Dont.SetActive(true); };
                     yield break;
