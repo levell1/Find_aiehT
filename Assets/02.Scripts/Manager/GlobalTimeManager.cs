@@ -44,7 +44,7 @@ public class GlobalTimeManager : MonoBehaviour
 
     private void LoadedsceneEvent(Scene arg0, LoadSceneMode arg1) //씬이동 패널티
     {
-        DayTime += 1f / 24f;
+        DayTime += 0.5f / 24f;
     }
 
     private void ChangeDay()

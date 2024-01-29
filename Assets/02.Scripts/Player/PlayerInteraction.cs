@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.Rendering;
 using UnityEngine;
+using static MoveSceneController;
 
 public enum Enum
 {
@@ -25,6 +26,10 @@ public class PlayerInteraction : MonoBehaviour
     private List<ItemObject> _interactItemObejctList = new List<ItemObject>();
 
     private Dictionary<int, Enum> LayerDic = new Dictionary<int, Enum>();
+
+    private MoveSceneController _moveSceneController;
+    private string _nextScene = string.Empty;
+    public string NextSceneInfo;
 
     private void Start()
     {
@@ -57,9 +62,23 @@ public class PlayerInteraction : MonoBehaviour
                 _interactionLayerList.Add(itemObject.ItemData.ObjName);
                 UpdateUI();
             }
+            else if (_objectType == Enum.NPC)
+            {
+                if (other.gameObject.CompareTag("RealDoor")) //씬이동 (마을,사냥터,타이쿤,던전)
+                {
+                    _moveSceneController = other.gameObject.GetComponent<MoveSceneController>();
+                    _nextScene = _moveSceneController.NextScene;
+                }
+                else if (other.gameObject.CompareTag("PotionShop"))  //포션상점NPC
+                {
+                     
+                }
+                else if (other.gameObject.CompareTag("Enhancement")) //강화소NPC
+                {
 
+                }
+            }
         }
-
     }
 
     private void OnTriggerExit(Collider other)
@@ -71,6 +90,12 @@ public class PlayerInteraction : MonoBehaviour
             _interactionLayerList.Remove(itemObject.ItemData.ObjName);
             _interactItemObejctList.Remove(itemObject);
             UpdateUI(); 
+        }
+
+        if (_nextScene != null)
+        {
+            _nextScene = string.Empty;
+            NextSceneInfo = string.Empty;
         }
     }
 
@@ -109,4 +134,11 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    public void GoNextScene()
+    {
+        if(_nextScene != string.Empty)
+        {
+            LoadingSceneController.LoadScene(_nextScene);
+        }
+    }
 }
