@@ -74,6 +74,7 @@ public class CustomerController : MonoBehaviour
     {
         _tycoonManager = TycoonManager.Instance;
         _foodCreater = _tycoonManager._FoodCreater;
+        _waitTime = _tycoonManager.CustomerWaitTime;
     }
 
     private void OnEnable()
@@ -123,11 +124,11 @@ public class CustomerController : MonoBehaviour
         {
             //TODO
             _collidingAIs.RemoveAll(ai => !ai.activeInHierarchy);
-            foreach(GameObject ai in _collidingAIs)
+            for (int i = 0; i < _collidingAIs.Count; ++i)
             {
-                if (!ai.GetComponent<NavMeshAgent>().isStopped)
+                if (_collidingAIs[i].GetComponent<NavMeshAgent>().isStopped)
                 {
-                    RemoveList(ai);
+                    RemoveList(_collidingAIs[i]);
                 }
             }
         }
@@ -178,7 +179,7 @@ public class CustomerController : MonoBehaviour
     {
         _animator.SetBool("IsWalk", true);
         //_agent.baseOffset = 0.0f;
-        //_waitTime = _tycoonManager.CustomerWaitTime;
+        
         _isOrderFood = false;
 
         transform.rotation = Quaternion.identity;
