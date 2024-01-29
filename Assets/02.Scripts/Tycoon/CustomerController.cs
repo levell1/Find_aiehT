@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -246,10 +245,11 @@ public class CustomerController : MonoBehaviour
 
     IEnumerator ExitRestaurant()
     {
+        _targetFood = null;
         _targetFoodPlace.OnCustomerGetFood -= GetFood;
 
         yield return new WaitForSeconds(8f);
-
+        
         _agent.SetDestination(_tycoonManager.CustomerCreatePos.position);
         _animator.SetBool("IsWalk", true);
 
