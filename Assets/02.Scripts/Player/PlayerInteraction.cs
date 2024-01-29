@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static MoveSceneController;
 
 public enum Enum
@@ -29,6 +30,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private MoveSceneController _moveSceneController;
     private string _nextScene = string.Empty;
+    private string _showUI = string.Empty;
     public string NextSceneInfo;
 
     private void Start()
@@ -71,11 +73,11 @@ public class PlayerInteraction : MonoBehaviour
                 }
                 else if (other.gameObject.CompareTag("PotionShop"))  //포션상점NPC
                 {
-                     
+                    _showUI = "ShopUI";
                 }
                 else if (other.gameObject.CompareTag("Enhancement")) //강화소NPC
                 {
-
+                    _showUI = "ReforgeUI";
                 }
             }
         }
@@ -97,6 +99,11 @@ public class PlayerInteraction : MonoBehaviour
             _nextScene = string.Empty;
             NextSceneInfo = string.Empty;
         }
+
+        if (_showUI != null)
+        {
+            _showUI = string.Empty;
+        }
     }
 
     private void InitializeCollider()
@@ -104,6 +111,8 @@ public class PlayerInteraction : MonoBehaviour
         _interactionLayerList.Clear();
         UpdateUI();
     }
+
+    
 
     private void UpdateUI()
     {
@@ -136,9 +145,18 @@ public class PlayerInteraction : MonoBehaviour
 
     public void GoNextScene()
     {
-        if(_nextScene != string.Empty)
+        if (_nextScene != string.Empty)
         {
             LoadingSceneController.LoadScene(_nextScene);
+            _nextScene = string.Empty;
+        }
+    }
+
+    public void ShowUI()
+    {
+        if (_showUI != string.Empty)
+        {
+            GameManager.instance.UIManager.ShowCanvas(_showUI);
         }
     }
 }

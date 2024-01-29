@@ -123,11 +123,11 @@ public class CustomerController : MonoBehaviour
         {
             //TODO
             _collidingAIs.RemoveAll(ai => !ai.activeInHierarchy);
-            foreach(GameObject ai in _collidingAIs)
+            for (int i = 0; i < _collidingAIs.Count; ++i)
             {
-                if (!ai.GetComponent<NavMeshAgent>().isStopped)
+                if (_collidingAIs[i].GetComponent<NavMeshAgent>().isStopped)
                 {
-                    RemoveList(ai);
+                    RemoveList(_collidingAIs[i]);
                 }
             }
         }

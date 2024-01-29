@@ -32,7 +32,7 @@ public class test : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            LoadingSceneController.LoadScene("BJH");
+            LoadingSceneController.LoadScene("KGM_TestVillage");
             //SceneManager.LoadScene("BJH");
         }
 
@@ -43,7 +43,7 @@ public class test : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("esc");
+
             GameManager.instance.UIManager.CloseLastCanvas();
         }
 

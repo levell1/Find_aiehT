@@ -49,9 +49,13 @@ public class UIManager
         else 
         { 
             GameObject currentUi = _popupStack.Pop();
-            currentUi.SetActive(false);
-            currentUi = null;
-            _canvasSortOrder--;
+            if (currentUi!=_popupDic["RestaurantUI"])
+            {
+                currentUi.SetActive(false);
+                currentUi = null;
+                _canvasSortOrder--;
+            }
+            
         }
     }
 }
