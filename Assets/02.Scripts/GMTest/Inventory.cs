@@ -35,30 +35,18 @@ public class Inventory : MonoBehaviour
         }
         ClearSeletecItem();
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            ToggleInventoryUI();
-            ClearSeletecItem();
-            Cursor.lockState = CursorLockMode.None;   
-        }
 
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-             RemoveItem(Slots[2].Item, 1);
-        }
-    }
-
-    public void CloseInven() 
-    {
-        InventoryUI.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    private void ToggleInventoryUI()
+    public void ToggleInventoryUI()
     {
         InventoryUI.SetActive(!InventoryUI.activeSelf);
+        if (InventoryUI.activeSelf)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     public void AddItem(ItemSO item)

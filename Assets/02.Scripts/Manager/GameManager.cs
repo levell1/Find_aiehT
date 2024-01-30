@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager>
 {
+    public GameObject Player;
     private UIManager _uiManager = new UIManager();
     private ResourceManager _resourceManager = new ResourceManager();
     private SoundManager _soundManager = new SoundManager();
     private PoolingManager _poolingManager = new PoolingManager();
     private GlobalTimeManager _globalTimeManager = new GlobalTimeManager();
     private DataManager _dataManager = new DataManager();
-    private Inventory _inventory = new Inventory();
+    private Inventory _inventory;
 
     public UIManager UIManager { get { return instance._uiManager; } }
     public SoundManager SoundManager { get { return instance._soundManager; } }
@@ -25,7 +26,7 @@ public class GameManager : MonoSingleton<GameManager>
         _soundManager = FindObjectOfType<SoundManager>();
         _poolingManager = FindObjectOfType<PoolingManager>();
         _dataManager = FindObjectOfType<DataManager>();
-        _inventory = FindObjectOfType<Inventory>();
+        _inventory = Player.GetComponent<Inventory>();
         _globalTimeManager = FindObjectOfType<GlobalTimeManager>();
     }
 

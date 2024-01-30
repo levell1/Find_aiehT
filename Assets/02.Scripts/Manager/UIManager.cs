@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 
 public class UIManager
@@ -7,6 +8,7 @@ public class UIManager
     private int _canvasSortOrder = 5;
     private Stack<GameObject> _popupStack = new Stack<GameObject>();
     public Dictionary<string, GameObject> _popupDic = new Dictionary<string, GameObject>();
+    
     
     public void CreateCanvas() 
     {
@@ -55,7 +57,24 @@ public class UIManager
                 currentUi = null;
                 _canvasSortOrder--;
             }
-            
+            else
+            {
+                _popupStack.Push(currentUi);
+                Cursor.lockState = CursorLockMode.None;
+            }
+
         }
+    }
+
+    public void CloseAllCanvas()
+    {
+        for (int i = 0; i < _popupStack.Count; i++)
+        {
+            GameObject currentUi = _popupStack.Pop();
+            currentUi.SetActive(false);
+            currentUi = null;
+            _canvasSortOrder--;
+        }
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }
