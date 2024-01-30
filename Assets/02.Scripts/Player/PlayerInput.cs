@@ -20,44 +20,23 @@ public class PlayerInput : MonoBehaviour
         InputActions = new PlayerInputActions();
         //PlayerActions = InputActions.Player;
         SceneManager.sceneLoaded += LoadedsceneEvent;
-        //InIt();
+        
     }
 
-    private void LoadedsceneEvent(Scene scece, LoadSceneMode mode)
+
+    private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
     {
-        //inputActionAsset = InputActions.asset;
 
-        //_playerInputActionMap = inputActionAsset.FindActionMap("Player");
-        //_TycoonPlayerInputActionMap = inputActionAsset.FindActionMap("TycoonPlayer");
+        InputActions.Dispose();
 
-        if (scece.name == "LodingScene")
+        if (scene.name == "LodingScene")
         {
             return;
         }
-        else if (scece.name == "TycoonScene")
-        {
-            //InputSystem.DisableAllEnabledActions();
 
-            TycoonPlayerActions = InputActions.TycoonPlayer;
-            
-            //_playerInputActionMap.Disable();
-            //_TycoonPlayerInputActionMap.Enable();
-        }
-        else
-        {
-            //InputSystem.DisableAllEnabledActions();
+        InputActions = new PlayerInputActions();
 
-            PlayerActions = InputActions.Player;
-
-            //_playerInputActionMap.Enable();
-            //_TycoonPlayerInputActionMap.Disable();
-        }
-    }
-
-    private void InIt()
-    {
-       
-        if(SceneManager.GetActiveScene().name == "TycoonScene")
+        if (scene.name == "KGM_TestVillage")
         {
             TycoonPlayerActions = InputActions.TycoonPlayer;
         }
@@ -65,9 +44,7 @@ public class PlayerInput : MonoBehaviour
         {
             PlayerActions = InputActions.Player;
         }
-
     }
-
 
     private void OnEnable()
     {

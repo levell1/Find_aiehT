@@ -76,13 +76,14 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log(_stateMachine.SceneName);
+        _stateMachine.SceneName = SceneName();
+
         Cursor.lockState = CursorLockMode.Locked;
         _stateMachine.ChangeState(_stateMachine.IdleState);
         HealthSystem.OnDie += OnDie;
 
-        _stateMachine.SceneName = SceneName();
 
-        Debug.Log(_stateMachine.SceneName);
     }
 
     public string SceneName()
@@ -98,6 +99,10 @@ public class Player : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "TycoonScene")
         {
             Weapon.gameObject.SetActive(false);
+        }
+        else
+        {
+            Weapon.gameObject.SetActive(true);
         }
     }
 

@@ -181,6 +181,8 @@ public class PlayerBaseState : IState
     protected virtual void OnTycoonInteractionStarted(InputAction.CallbackContext context)
     {
         _stateMachine.Player.ServingFood.TycoonInteraction();
+
+        _stateMachine.Player.Interaction.GoNextScene();
     }
 
     //
@@ -189,10 +191,12 @@ public class PlayerBaseState : IState
         if (_stateMachine.SceneName == "TycoonScene")
         {
             _stateMachine.MovementInput = _stateMachine.Player.Input.TycoonPlayerActions.Move.ReadValue<Vector2>();
+       
         }
         else
         {
             _stateMachine.MovementInput = _stateMachine.Player.Input.PlayerActions.Move.ReadValue<Vector2>();
+            
         }
     }
 
