@@ -4,16 +4,18 @@ using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class EnterScene : MonoBehaviour
 {
+    public Image AreaImage;
     public TextMeshProUGUI AreaText;
     private string AreaInfo;
 
     public float WaitTime = 3f;
     public float DisableTime = 1f;
 
-    private bool _isCo = false;
+    Coroutine _co;
 
     private void Awake()
     {
@@ -23,14 +25,14 @@ public class EnterScene : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += Enter;
-        StartCoroutine(FadeOutText());
+        _co = StartCoroutine(FadeOutImage());
     }
 
     private void OnDisable()
     {
-        if (_isCo)
+        if (_co != null)
         {
-            StopCoroutine(FadeOutText());
+            StopCoroutine(_co);
         }
         SceneManager.sceneLoaded -= Enter;
     }
@@ -46,26 +48,48 @@ public class EnterScene : MonoBehaviour
         {
             AreaInfo = "마을";
         }
-
-        AreaText.text = string.Format("[ {0} ]", AreaInfo);
+        AreaText.text = AreaInfo;
         gameObject.SetActive(true);
     }
 
-    IEnumerator FadeOutText()
+    //IEnumerator FadeOutText()
+    //{
+    //    _isCo = true;
+    //    yield return new WaitForSeconds(WaitTime);
+
+    //    float _elapsedTime = 0f;
+    //    while (_elapsedTime < DisableTime)
+    //    {
+    //        AreaText.alpha = Mathf.Lerp(1f, 0f, _elapsedTime / DisableTime);
+
+    //        _elapsedTime += Time.deltaTime;
+    //        yield return null;
+    //    }
+    //    gameObject.SetActive(false);
+    //    _isCo = false;
+    //}
+
+    private IEnumerator FadeOutImage()
     {
-        _isCo = true;
+        Color color = AreaImage.color;
+        color.a = 1f;
+        AreaText.alpha = 1f;
+
         yield return new WaitForSeconds(WaitTime);
 
         float _elapsedTime = 0f;
+
         while (_elapsedTime < DisableTime)
         {
+            //color.a = Mathf.Lerp(1f, 0f, _elapsedTime / DisableTime);
+            color.a = Mathf.Lerp(1f, 0f, _elapsedTime / DisableTime);
             AreaText.alpha = Mathf.Lerp(1f, 0f, _elapsedTime / DisableTime);
 
             _elapsedTime += Time.deltaTime;
             yield return null;
         }
         gameObject.SetActive(false);
-        _isCo = false;
+        _co = null;
     }
 
 }
