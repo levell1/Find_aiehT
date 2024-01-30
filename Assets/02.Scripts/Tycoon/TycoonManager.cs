@@ -114,7 +114,7 @@ public class TycoonManager : MonoBehaviour
 
             // 손님 생성
             // TODO: 고정된 string값("Customer") 처리
-            GameObject customerObject = GameManager.instance.PoolingManager.GetObject("Customer");
+            GameObject customerObject = GameManager.instance.PoolingManager.GetObject(PoolingObjectName.Customer);
             CustomerController customerController = customerObject.GetComponent<CustomerController>();
 
             // 손님 자리 배치

@@ -32,13 +32,13 @@ public class test : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            LoadingSceneController.LoadScene("KGM_TestVillage");
+            LoadingSceneController.LoadScene(SceneName.VillageScene);
             //SceneManager.LoadScene("BJH");
         }
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            GameManager.instance.UIManager.ShowCanvas("ReforgeUI");
+            GameManager.instance.UIManager.ShowCanvas(UIName.ReforgeUI);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -50,7 +50,7 @@ public class test : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            GameManager.instance.UIManager.ShowCanvas("RestartUI");
+            GameManager.instance.UIManager.ShowCanvas(UIName.PlayerStatusUI);
         }
 
         if (Input.GetKeyDown(KeyCode.I))
@@ -59,15 +59,15 @@ public class test : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
-            GameManager.instance.UIManager.ShowCanvas("RestaurantUI");
+            GameManager.instance.UIManager.ShowCanvas(UIName.RestaurantUI);
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
-            GameManager.instance.UIManager.ShowCanvas("PlayerStatusUI");
+            GameManager.instance.UIManager.ShowCanvas(UIName.PlayerStatusUI);
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            //GameManager.instance.UIManager.ShowCanvas("ShopUI");
+            //GameManager.instance.UIManager.ShowCanvas(UIName.ShopUI);
         }
     }
 }

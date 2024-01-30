@@ -38,7 +38,7 @@ public class SettingUI : BaseUI
     }
     void ShowControlKey()
     {
-        GameManager.instance.UIManager.ShowCanvas("ControlKeyUI");
+        GameManager.instance.UIManager.ShowCanvas(UIName.ControlKeyUI);
     }
     void ExitGame()
     {

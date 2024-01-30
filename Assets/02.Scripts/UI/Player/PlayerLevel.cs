@@ -10,7 +10,7 @@ public class PlayerLevel : MonoBehaviour
         _levelText = GetComponent<TMP_Text>();
         if (_playerExpSystem == null)
         {
-            _playerExpSystem = GameObject.FindWithTag("Player").GetComponent<PlayerExpSystem>();
+            _playerExpSystem = GameObject.FindWithTag(TagName.Player).GetComponent<PlayerExpSystem>();
         }
         _playerExpSystem.OnLevelUp += Levelup;
     }

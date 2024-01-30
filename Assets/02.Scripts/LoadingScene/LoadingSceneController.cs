@@ -17,7 +17,7 @@ public class LoadingSceneController : MonoBehaviour
     public static void LoadScene(string sceneName) 
     {
         nextScene = sceneName;
-        SceneManager.LoadScene("LoadingScene");
+        SceneManager.LoadScene(SceneName.LoadingScene);
     }
     
     private void Start()
@@ -28,7 +28,7 @@ public class LoadingSceneController : MonoBehaviour
 
     void EnterScene(Scene scene, LoadSceneMode mode)
     {
-        if(scene.name != "LoadingScene")
+        if(scene.name != SceneName.LoadingScene)
             Dont.SetActive(true);
     }
 

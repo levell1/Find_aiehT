@@ -21,20 +21,20 @@ public class JsonReader : MonoBehaviour
 
         // LoadJson<PlayerJsonData>("PlayerData");
 
-        PlayerJsonData playerJsonData = LoadJson<PlayerJsonData>("PlayerData");
+        PlayerJsonData playerJsonData = LoadJson<PlayerJsonData>(JsonDataName.PlayerData);
         PlayerSO.SetPlayerData(playerJsonData.PlayerData);
         
-        PlayerSkillData skillData = LoadJson<PlayerSkillData>("PlayerSkillData");
+        PlayerSkillData skillData = LoadJson<PlayerSkillData>(JsonDataName.PlayerSkillData);
         PlayerSO.SetPlayerSkillData(skillData);
 
-        PlayerLevelData playerLevelData = LoadJson<PlayerLevelData>("LevelData");
+        PlayerLevelData playerLevelData = LoadJson<PlayerLevelData>(JsonDataName.PlayerLevelData);
         PlayerSO.SetPlayerLevelData(playerLevelData);
 
     }
 
     public T LoadJson<T>(string FilePath)
     {
-        StringBuilder jsonFilePathBuilder = new StringBuilder("Assets/Resources/JSON/");
+        StringBuilder jsonFilePathBuilder = new StringBuilder(ResourcePath.JsonLoadPath);
         jsonFilePathBuilder.Append(FilePath).Append(".json");
         string jsonFilePath = jsonFilePathBuilder.ToString();
 

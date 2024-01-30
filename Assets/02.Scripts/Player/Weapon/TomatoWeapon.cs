@@ -33,7 +33,7 @@ public class TomatoWeapon : MonoBehaviour
     {
         if (_equipmentDatas == null)
         {
-            _equipmentDatas = GameObject.FindWithTag("Player").GetComponent<EquipmentDatas>();
+            _equipmentDatas = GameObject.FindWithTag(TagName.Player).GetComponent<EquipmentDatas>();
         }
     }
     private void Start()
@@ -41,7 +41,7 @@ public class TomatoWeapon : MonoBehaviour
         _skillCollider = GetComponentInChildren<Collider>();
         _skillRigidbody = GetComponentInChildren<Rigidbody>();
 
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        GameObject playerObject = GameObject.FindGameObjectWithTag(TagName.Player);
         if (playerObject != null)
         {
             _player = playerObject.GetComponent<Player>();

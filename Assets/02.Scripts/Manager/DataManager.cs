@@ -24,4 +24,18 @@ public class DataManager : MonoBehaviour
     {
         Orders.RemoveRange(0, Orders.Count);
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            for ( int i = 0;  i < FoodSoDatas.Length; i++)
+            {
+                for (int j = 0; j < FoodSoDatas[i].Ingredients.Count; j++)
+                {
+                    GameManager.instance.Inventory.AddItem(FoodSoDatas[i].Ingredients[j].IngredientSO);
+                }
+            }
+        }
+    }
 }

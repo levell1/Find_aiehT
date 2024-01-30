@@ -11,12 +11,12 @@ public class TitleSceneButtonEvent : MonoBehaviour
     public void NewGameButton()
     {
         //데이터 초기화 코드
-        LoadingSceneController.LoadScene("KGM_TestVillage");
+        LoadingSceneController.LoadScene(SceneName.VillageScene);
     }
     public void LoadButton()
     {
         // 로드?
-        LoadingSceneController.LoadScene("KGM_TestVillage");
+        LoadingSceneController.LoadScene(SceneName.VillageScene);
     }
     public void ExitButton()
     {
@@ -25,10 +25,10 @@ public class TitleSceneButtonEvent : MonoBehaviour
 
     public void KeyButton() 
     {
-        GameManager.instance.UIManager.ShowCanvas("ControlKeyUI");
+        GameManager.instance.UIManager.ShowCanvas(UIName.ControlKeyUI);
     }
     public void OptionButton()
     {
-        GameManager.instance.UIManager.ShowCanvas("SettingUI");
+        GameManager.instance.UIManager.ShowCanvas(UIName.SettingUI);
     }
 }

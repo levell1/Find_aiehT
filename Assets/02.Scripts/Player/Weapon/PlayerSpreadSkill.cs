@@ -16,7 +16,7 @@ public class PlayerSpreadSkill : MonoBehaviour
     {
         if (_equipmentDatas == null)
         {
-            _equipmentDatas = GameObject.FindWithTag("Player").GetComponent<EquipmentDatas>();
+            _equipmentDatas = GameObject.FindWithTag(TagName.Player).GetComponent<EquipmentDatas>();
         }
     }
 

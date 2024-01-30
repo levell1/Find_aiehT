@@ -7,7 +7,7 @@ public class PlayerGold : CommaText
     {
         if (_playerData == null)
         {
-            _playerData = GameObject.FindWithTag("Player").GetComponent<Player>().Data;
+            _playerData = GameObject.FindWithTag(TagName.Player).GetComponent<Player>().Data;
         }
     }
     private void Update()

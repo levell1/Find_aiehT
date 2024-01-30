@@ -26,11 +26,11 @@ public class ReforgeUI : BaseUI
     {
         if (_equipmentupgrade == null)
         {
-            _equipmentupgrade = GameObject.FindWithTag("Player").GetComponent<EquipmentDatas>();
+            _equipmentupgrade = GameObject.FindWithTag(TagName.Player).GetComponent<EquipmentDatas>();
         }
         if (_playerData == null)
         {
-            _playerData = GameObject.FindWithTag("Player").GetComponent<Player>().Data;
+            _playerData = GameObject.FindWithTag(TagName.Player).GetComponent<Player>().Data;
         }
     }
 
