@@ -1,14 +1,17 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class TycoonManager : MonoBehaviour
 {
+    [SerializeField] public TycoonUI _TycoonUI;
+    [SerializeField] private GameObject _resultUI;
     [SerializeField] public FoodCreater _FoodCreater;
-    [SerializeField] public List<GameObject> CustomerTargetFoodPrefabs;
 
     public List<GameObject> ServingStations = new();    // Add CreateStations In Inspector
     [SerializeField] private List<GameObject> _destinations;
@@ -19,20 +22,24 @@ public class TycoonManager : MonoBehaviour
     [SerializeField] private float _customerSpawnTime;
     [SerializeField] public float CustomerWaitTime;
 
-    [SerializeField] private int _todayMaxCustomerNum = 6;
+    // TODO: 레벨 당 손님수 정하는 함수
+    [SerializeField] private int _todayMaxCustomerNum;
+    public int TodayMaxCustomerNum
+    {
+        get { return _todayMaxCustomerNum; }
+        set { _todayMaxCustomerNum = value; }
+    }
+   
     [SerializeField] private int _currentCustomerNum = 0;
 
-    // TODO: FoodSO -> GameObject?
-    // TODO: OrderFood vs Dictionary
-    private Dictionary<FoodSO, int> _todayFoods = new();
-    
+    public List<OrderFood> TodayFoods = new();
 
     private List<bool> _isCustomerSitting = new();
     private List<(GameObject destination, int index)> availableDestinations = new();
 
     private Coroutine _co = null;
 
-    private int _agentPriority = 0;    // Max Priority Num
+    private int _agentPriority = 0;
     private bool _isStart = false;
 
     private static TycoonManager _instance;
@@ -79,10 +86,9 @@ public class TycoonManager : MonoBehaviour
 
     private void Update()
     {
-        // TODO: Customer가 나갔을 때, coroutine이나 함수 실행으로 변경
-        // TODO: 타이쿤 게임이 시작됐을 때
-        //if (_isStart)
+        if (_isStart)
         {
+            // TODO: Customer가 나갔을 때, coroutine이나 함수 실행으로 변경
             if (_currentCustomerNum < _maxCustomerNum
                 && _todayMaxCustomerNum > 0
                 && _co == null)
@@ -96,11 +102,28 @@ public class TycoonManager : MonoBehaviour
     {
         _isCustomerSitting[seatNum] = false;
         --_currentCustomerNum;
+
+        if (_todayMaxCustomerNum == 0 && _currentCustomerNum == 0)
+        {
+            // 게임종료
+            _TycoonUI.OnReusltUI();
+        }
+    }
+
+    public void DecideTodayFoods()
+    {
+        TodayFoods = GameManager.instance.DataManager.Orders;
+        GameManager.instance.DataManager.DecideBreadNum();
+    }
+
+    public void TycoonGameStart()
+    {
+        _isStart = true;
     }
 
     IEnumerator CreateCustomerCoroutine()
     {
-        while (_currentCustomerNum < _maxCustomerNum && _todayMaxCustomerNum > 0)
+        while (_currentCustomerNum < _maxCustomerNum && TodayMaxCustomerNum > 0)
         {
             // 손님이 없는 자리만 List로
             // TODO: customer 쪽에서 해줘야 하나?
@@ -142,8 +165,8 @@ public class TycoonManager : MonoBehaviour
 
             // 현재 손님 수 ++, 오늘 올 손님 --
             ++_currentCustomerNum;
-            --_todayMaxCustomerNum;
-
+            --TodayMaxCustomerNum;
+            _TycoonUI.UpdateRemainingCustomerNum();
 
             yield return new WaitForSeconds(_customerSpawnTime);
         }

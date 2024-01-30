@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CookedFood : MonoBehaviour
 {
-    [SerializeField] private FoodSO _foodSO;
+    [SerializeField] public FoodSO _FoodSO;     // FoodPlace에서 사용
     [SerializeField] private string _foodName;
     [SerializeField] private List<GameObject> _edibleFoods;
 
