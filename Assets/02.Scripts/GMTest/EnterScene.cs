@@ -84,7 +84,7 @@ public class EnterScene : MonoBehaviour
             //color.a = Mathf.Lerp(1f, 0f, _elapsedTime / DisableTime);
             color.a = Mathf.Lerp(1f, 0f, _elapsedTime / DisableTime);
             AreaText.alpha = Mathf.Lerp(1f, 0f, _elapsedTime / DisableTime);
-
+            AreaImage.color = color;
             _elapsedTime += Time.deltaTime;
             yield return null;
         }
