@@ -22,6 +22,11 @@ public class TycoonManager : MonoBehaviour
     [SerializeField] private int _todayMaxCustomerNum = 6;
     [SerializeField] private int _currentCustomerNum = 0;
 
+    // TODO: FoodSO -> GameObject?
+    // TODO: OrderFood vs Dictionary
+    private Dictionary<FoodSO, int> _todayFoods = new();
+    
+
     private List<bool> _isCustomerSitting = new();
     private List<(GameObject destination, int index)> availableDestinations = new();
 

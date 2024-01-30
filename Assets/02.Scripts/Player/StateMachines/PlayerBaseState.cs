@@ -154,9 +154,11 @@ public class PlayerBaseState : IState
     //TODO NPC 상호작용 추가
     protected virtual void OnInteractStarted(InputAction.CallbackContext context)
     {
+        //조건 추가
         _stateMachine.Player.Interaction.DestroyItem();
 
         _stateMachine.Player.Interaction.GoNextScene();
+        _stateMachine.Player.Interaction.ShowUI();
     }
 
 

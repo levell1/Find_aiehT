@@ -9,6 +9,7 @@ public class ItemSlotUI : MonoBehaviour
     public Button button;
     public Image Sprite;
     public TextMeshProUGUI QuatityText;
+    public ShopSell ShopSell;
     private ItemSlot _curSlot;
 
     public int index;
@@ -32,5 +33,10 @@ public class ItemSlotUI : MonoBehaviour
     public void OnButtonClick() //버튼 클릭시 하단에 아이템 정보 변화
     {
         GameManager.instance.Inventory.SelectItem(index);
+    }
+
+    public void OnItemClick() //상점용
+    {
+        ShopSell.SelectItem(index);
     }
 }
