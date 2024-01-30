@@ -51,6 +51,7 @@ public class TycoonUI : MonoBehaviour
     {
         UpdateResultUI();
         _resultUI.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void UpdateResultUI()
@@ -73,6 +74,7 @@ public class TycoonUI : MonoBehaviour
 
     public void GoVillageScene()
     {
-        LoadingSceneController.LoadScene("KGM_TestVillage");
+        Cursor.lockState = CursorLockMode.Locked;
+        LoadingSceneController.LoadScene(SceneName.VillageScene);
     }
 }

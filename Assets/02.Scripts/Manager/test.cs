@@ -55,7 +55,7 @@ public class test : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.I))
         {
-            GameManager.instance.UIManager.ShowCanvas("InventoryUI");
+            GameManager.instance.UIManager.ShowCanvas(UIName.InventoryUI);
         }
         if (Input.GetKeyDown(KeyCode.O))
         {

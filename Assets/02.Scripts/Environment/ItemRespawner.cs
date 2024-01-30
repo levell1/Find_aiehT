@@ -16,7 +16,7 @@ public class ItemRespawner : MonoBehaviour
 
     private void LoadedsceneEvent(Scene scene, LoadSceneMode mode) 
     {
-        if (scene.name == "KGM") //사냥터
+        if (scene.name == SceneName.Field) //사냥터
         {
             DontReSpwanItem();
             ReSpwanItem();

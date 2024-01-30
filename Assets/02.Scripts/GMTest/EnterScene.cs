@@ -40,11 +40,11 @@ public class EnterScene : MonoBehaviour
     private void Enter(Scene scene, LoadSceneMode mode)
     {
         //TODO 다른방법 생각해보기
-        if (scene.name == "KGM")
+        if (scene.name == SceneName.Field)
         {
             AreaInfo = "사냥터";
         }
-        else if (scene.name == "KGM_TestVillage")
+        else if (scene.name == SceneName.VillageScene)
         {
             AreaInfo = "마을";
         }
@@ -73,6 +73,7 @@ public class EnterScene : MonoBehaviour
     {
         Color color = AreaImage.color;
         color.a = 1f;
+        AreaImage.color = color;
         AreaText.alpha = 1f;
 
         yield return new WaitForSeconds(WaitTime);
@@ -84,6 +85,7 @@ public class EnterScene : MonoBehaviour
             //color.a = Mathf.Lerp(1f, 0f, _elapsedTime / DisableTime);
             color.a = Mathf.Lerp(1f, 0f, _elapsedTime / DisableTime);
             AreaText.alpha = Mathf.Lerp(1f, 0f, _elapsedTime / DisableTime);
+
             AreaImage.color = color;
             _elapsedTime += Time.deltaTime;
             yield return null;

@@ -26,7 +26,7 @@ public class TitleTest : MonoBehaviour
             _playerUI.SetActive(true);
 
         }
-        if (scene.name == "TycoonScene")
+        if (scene.name == SceneName.TycoonScene)
         {
             _globalTimeManager.SetActive(false);
             _playerUI.SetActive(false);

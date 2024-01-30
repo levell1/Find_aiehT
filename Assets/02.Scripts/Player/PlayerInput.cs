@@ -36,7 +36,7 @@ public class PlayerInput : MonoBehaviour
 
         InputActions = new PlayerInputActions();
 
-        if (scene.name == "TycoonScene")
+        if (scene.name == SceneName.TycoonScene)
         {
             TycoonPlayerActions = InputActions.TycoonPlayer;
         }

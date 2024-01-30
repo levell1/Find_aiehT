@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         Debug.Log(_stateMachine.SceneName);
-        _stateMachine.SceneName = SceneName();
+        _stateMachine.SceneName = CurrentSceneName();
 
         Cursor.lockState = CursorLockMode.Locked;
         _stateMachine.ChangeState(_stateMachine.IdleState);
@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
 
     }
 
-    public string SceneName()
+    public string CurrentSceneName()
     {
         return SceneManager.GetActiveScene().name;
     }
@@ -94,9 +94,9 @@ public class Player : MonoBehaviour
     // TODO 타이쿤일 때 무기 없어짐
     private void OnEnable()
     {
-        _stateMachine.SceneName = SceneName();
+        _stateMachine.SceneName = CurrentSceneName();
 
-        if (SceneManager.GetActiveScene().name == "TycoonScene")
+        if (SceneManager.GetActiveScene().name == SceneName.TycoonScene)
         {
             Weapon.gameObject.SetActive(false);
         }
