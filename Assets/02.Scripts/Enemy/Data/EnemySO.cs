@@ -12,4 +12,5 @@ public class EnemySO : ScriptableObject
     [field: SerializeField] public float MaxHealth { get; private set; }
     [field: SerializeField] public int DropEXP { get; private set; }
     [field: SerializeField] public GameObject[] DropItem { get; private set; }
+    [field: SerializeField, Range(0.0f, 1.0f)] public float DropPercent { get; private set; }
 }
