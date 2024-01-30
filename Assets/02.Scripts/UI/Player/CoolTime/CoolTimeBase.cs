@@ -16,7 +16,7 @@ public class CoolTimeBase : MonoBehaviour
         _coolTimeImage = GetComponent<Image>();
         if (_playerData == null)
         {
-            _playerData = GameObject.FindWithTag("Player").GetComponent<Player>().Data;
+            _playerData = GameObject.FindWithTag(TagName.Player).GetComponent<Player>().Data;
         }
         
     }

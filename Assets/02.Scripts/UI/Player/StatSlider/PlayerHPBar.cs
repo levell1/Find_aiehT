@@ -9,7 +9,7 @@ public class PlayerHPBar : PlayerStatSlider
     {
         if (_healthSystem==null)
         {
-            _healthSystem = GameObject.FindWithTag("Player").GetComponent<HealthSystem>();
+            _healthSystem = GameObject.FindWithTag(TagName.Player).GetComponent<HealthSystem>();
         }
         base.Awake();
         _healthSystem.OnChangeHpUI += base.ChangeBar;

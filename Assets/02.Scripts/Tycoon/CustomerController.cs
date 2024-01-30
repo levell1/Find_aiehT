@@ -95,7 +95,7 @@ public class CustomerController : MonoBehaviour
                 _isOrderFood = true;
 
                 //TODO: 한번만 실행되도록 다른곳으로 이동..
-                _animator.SetBool("IsWalk", false);
+                _animator.SetBool(AnimationParameterName.TycoonIsWalk, false);
                 _agent.baseOffset = _agentBaseOffset;
                 transform.rotation = _targetFoodPlace.gameObject.transform.rotation;
 
@@ -146,7 +146,7 @@ public class CustomerController : MonoBehaviour
             {
                 _collidingAIs.Add(other.gameObject);
                 _agent.isStopped = true;
-                _animator.SetBool("IsIdle", true);
+                _animator.SetBool(AnimationParameterName.TycoonIsIdle, true);
             }
         }
     }
@@ -176,7 +176,7 @@ public class CustomerController : MonoBehaviour
     #region 
     private void Init()
     {
-        _animator.SetBool("IsWalk", true);
+        _animator.SetBool(AnimationParameterName.TycoonIsWalk, true);
         //_agent.baseOffset = 0.0f;
         
         _isOrderFood = false;
@@ -207,7 +207,7 @@ public class CustomerController : MonoBehaviour
         if (_collidingAIs.Count == 0)
         {
             _agent.isStopped = false;
-            _animator.SetBool("IsIdle", false);
+            _animator.SetBool(AnimationParameterName.TycoonIsIdle, false);
         }
     }
 
@@ -215,7 +215,7 @@ public class CustomerController : MonoBehaviour
     {
         if (_co == null)
         {
-            _animator.SetTrigger("GetFood");
+            _animator.SetTrigger(AnimationParameterName.TycoonGetFood);
 
             _co = StartCoroutine(EatFood());
         }
@@ -225,7 +225,7 @@ public class CustomerController : MonoBehaviour
     {
         if (_co == null)
         {
-            _animator.SetTrigger("Angry");
+            _animator.SetTrigger(AnimationParameterName.TycoonAngry);
             _co = StartCoroutine(ExitRestaurant());
         }
     }
@@ -236,9 +236,9 @@ public class CustomerController : MonoBehaviour
 
     IEnumerator EatFood()
     {
-        _animator.SetBool("IsEat", true);
+        _animator.SetBool(AnimationParameterName.TycoonIsEat, true);
         yield return new WaitForSeconds(10f);
-        _animator.SetBool("IsEat", false);
+        _animator.SetBool(AnimationParameterName.TycoonIsEat, false);
 
         StartCoroutine(ExitRestaurant());
     }
@@ -251,7 +251,7 @@ public class CustomerController : MonoBehaviour
         yield return new WaitForSeconds(8f);
         
         _agent.SetDestination(_tycoonManager.CustomerCreatePos.position);
-        _animator.SetBool("IsWalk", true);
+        _animator.SetBool(AnimationParameterName.TycoonIsWalk, true);
 
         _agent.baseOffset = 0.0f;
         _isExit = true;

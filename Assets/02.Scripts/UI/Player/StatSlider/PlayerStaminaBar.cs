@@ -8,7 +8,7 @@ public class PlayerStaminaBar : PlayerStatSlider
     {
         if (_staminaSystem == null)
         {
-            _staminaSystem = GameObject.FindWithTag("Player").GetComponent<StaminaSystem>();
+            _staminaSystem = GameObject.FindWithTag(TagName.Player).GetComponent<StaminaSystem>();
         }
         base.Awake();
         _staminaSystem.OnChangeStaminaUI += base.ChangeBar;

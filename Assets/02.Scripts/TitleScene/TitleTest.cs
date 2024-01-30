@@ -18,7 +18,7 @@ public class TitleTest : MonoBehaviour
 
     private void LoadedsceneEvent(Scene scene, LoadSceneMode arg1)
     {
-        if (scene.name!="TitleScene")
+        if (scene.name!=SceneName.TitleScene)
         {
             _globalTimeManager.SetActive(true);
             _mainCam.SetActive(true);

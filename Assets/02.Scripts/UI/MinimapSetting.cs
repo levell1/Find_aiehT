@@ -22,7 +22,7 @@ public class MinimapSetting : MonoBehaviour
 
     private void Awake()
     {
-        _player = GameObject.FindWithTag("Player").transform;
+        _player = GameObject.FindWithTag(TagName.Player).transform;
     }
     private void Start()
     {
@@ -31,11 +31,11 @@ public class MinimapSetting : MonoBehaviour
 
     private void LoadedsceneEvent(Scene scene, LoadSceneMode arg1)
     {
-        if (scene.name == "KGM_TestVillage")
+        if (scene.name == SceneName.VillageScene)
         {
             ChangeMapName("마을");
         }
-        else if (scene.name == "KGM")
+        else if (scene.name == SceneName.Field)
         {
             ChangeMapName("사냥터");
         }

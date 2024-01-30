@@ -44,12 +44,12 @@ public class UIManager
 
         if (_popupStack.Count == 0) 
         {
-            ShowCanvas("SettingUI");
+            ShowCanvas(UIName.SettingUI);
         }
         else 
         { 
             GameObject currentUi = _popupStack.Pop();
-            if (currentUi!=_popupDic["RestaurantUI"])
+            if (currentUi!=_popupDic[UIName.RestaurantUI])
             {
                 currentUi.SetActive(false);
                 currentUi = null;

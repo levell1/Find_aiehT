@@ -40,9 +40,9 @@ public class PlayerInteraction : MonoBehaviour
         _interactCollider = GetComponent<Collider>();
 
         // 아이템
-        LayerDic.Add(LayerMask.NameToLayer("Item"), Enum.ITEM);
+        LayerDic.Add(LayerMask.NameToLayer(LayerName.Item), Enum.ITEM);
         // 택시, 상점등
-        LayerDic.Add(LayerMask.NameToLayer("NpcInteract"), Enum.NPC);
+        LayerDic.Add(LayerMask.NameToLayer(LayerName.NpcInteract), Enum.NPC);
 
     }
     // TODO NPC 상호작용 추가
@@ -66,18 +66,18 @@ public class PlayerInteraction : MonoBehaviour
             }
             else if (_objectType == Enum.NPC)
             {
-                if (other.gameObject.CompareTag("RealDoor")) //씬이동 (마을,사냥터,타이쿤,던전)
+                if (other.gameObject.CompareTag(TagName.RealDoor)) //씬이동 (마을,사냥터,타이쿤,던전)
                 {
                     _moveSceneController = other.gameObject.GetComponent<MoveSceneController>();
                     _nextScene = _moveSceneController.NextScene;
                 }
-                else if (other.gameObject.CompareTag("PotionShop"))  //포션상점NPC
+                else if (other.gameObject.CompareTag(TagName.PotionShop))  //포션상점NPC
                 {
-                    _showUI = "ShopUI";
+                    _showUI = UIName.ShopUI;
                 }
-                else if (other.gameObject.CompareTag("Enhancement")) //강화소NPC
+                else if (other.gameObject.CompareTag(TagName.Enhancement)) //강화소NPC
                 {
-                    _showUI = "ReforgeUI";
+                    _showUI = UIName.ReforgeUI;
                 }
             }
         }
