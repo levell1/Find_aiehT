@@ -48,20 +48,7 @@ public class Enemy : MonoBehaviour
         HealthSystem = GetComponent<EnemyHealthSystem>();
         EnemyRespawn = GetComponent<EnemyRespawn>();
 
-        
-
         SetData();
-    }
-    private void OnEnable()
-    {
-        SetData();
-
-        if (GameManager.instance.GlobalTimeManager.NightCheck())
-        {
-            EnemyDamage *= 2f;
-            EnemyMaxHealth *= 2f;
-            EnemyDropEXP *= 2;
-        }
     }
 
     private void Start()
@@ -93,17 +80,20 @@ public class Enemy : MonoBehaviour
         //드랍아이템
         if(Data.DropItem != null)
         {
-            int drop = UnityEngine.Random.Range(0, Data.DropItem.Length + 1);
-            for (int i = 0; i < drop; ++i)
+            float dropValue = UnityEngine.Random.Range(0f, 1f);
+            for (int i = 0; i < Data.DropItem.Length; ++i)
             {
-                Instantiate(Data.DropItem[i], transform.position + Vector3.up * 2, Quaternion.identity);
+                if (dropValue < Data.DropPercent)
+                {
+                    Instantiate(Data.DropItem[i], transform.position + Vector3.up * 2, Quaternion.identity);
+                }
             }
         }
         //콜라이더 비활성화
         Collider.enabled = false;
     }
 
-    private void SetData()
+    public void SetData()
     {
         EnemyDamage = Data.Damage;
         EnemyMaxHealth = Data.MaxHealth;

@@ -19,6 +19,8 @@ public class GlobalTimeManager : MonoBehaviour
     private float _timeRate;
     public TextMeshProUGUI TimeText;
 
+    public bool IsItemRespawn = false;
+
     private void Start()
     {
         SceneManager.sceneLoaded += LoadedsceneEvent;
@@ -52,6 +54,7 @@ public class GlobalTimeManager : MonoBehaviour
         if (Hour == 0 && !_isChangeDay)
         {
             _isChangeDay = true;
+            IsItemRespawn = false;
             ++Day;
         }
         else if (Hour == 1)
@@ -63,6 +66,30 @@ public class GlobalTimeManager : MonoBehaviour
     public bool NightCheck() //오전 0~6 , 오후 6~12
     {
         if (Hour <= 6f || 18f <= Hour)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool EnterTycoonTime()
+    {
+        if (18f <= Hour && Hour <= 20f)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool ItemReSpawnTime()
+    {
+        if (Hour == 6f && !IsItemRespawn)
         {
             return true;
         }

@@ -57,14 +57,23 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (_objectType == Enum.ITEM)
             {
+                Debug.Log("ITEM");
                 ItemObject itemObject = other.gameObject.GetComponent<ItemObject>();
 
                 _interactItemObejctList.Add(itemObject);
 
                 _interactionLayerList.Add(itemObject.ItemData.ObjName);
                 UpdateUI();
+                Debug.Log("ITEM1");
             }
-            else if (_objectType == Enum.NPC)
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (LayerDic.TryGetValue(other.gameObject.layer, out Enum _objectType))
+        {
+            if (_objectType == Enum.NPC)
             {
                 if (other.gameObject.CompareTag(TagName.RealDoor)) //씬이동 (마을,사냥터,타이쿤,던전)
                 {
