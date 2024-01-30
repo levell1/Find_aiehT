@@ -76,13 +76,14 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log(_stateMachine.SceneName);
+        _stateMachine.SceneName = SceneName();
+
         Cursor.lockState = CursorLockMode.Locked;
         _stateMachine.ChangeState(_stateMachine.IdleState);
         HealthSystem.OnDie += OnDie;
 
-        _stateMachine.SceneName = SceneName();
 
-        Debug.Log(_stateMachine.SceneName);
     }
 
     public string SceneName()
@@ -95,7 +96,7 @@ public class Player : MonoBehaviour
     {
         _stateMachine.SceneName = SceneName();
 
-        if (SceneManager.GetActiveScene().name == "MWJ")
+        if (SceneManager.GetActiveScene().name == "KGM_TestVillage")
         {
             Weapon.gameObject.SetActive(false);
         }

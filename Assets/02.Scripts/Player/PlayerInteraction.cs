@@ -139,6 +139,7 @@ public class PlayerInteraction : MonoBehaviour
         if(_nextScene != string.Empty)
         {
             LoadingSceneController.LoadScene(_nextScene);
+            _nextScene = string.Empty;
         }
     }
 }

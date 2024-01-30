@@ -48,7 +48,7 @@ public class PlayerBaseState : IState
     {
         PlayerInput input = _stateMachine.Player.Input;
 
-        if(_stateMachine.SceneName == "MWJ")
+        if(_stateMachine.SceneName == "KGM_TestVillage")
         {
             input.TycoonPlayerActions.Move.canceled += OnMovementCanceled;
             input.TycoonPlayerActions.Run.started += OnRunStarted;
@@ -82,7 +82,7 @@ public class PlayerBaseState : IState
     {
         PlayerInput input = _stateMachine.Player.Input;
 
-        if (_stateMachine.SceneName == "MWJ")
+        if (_stateMachine.SceneName == "KGM_TestVillage")
         {
             input.TycoonPlayerActions.Move.canceled -= OnMovementCanceled;
             input.TycoonPlayerActions.Run.started -= OnRunStarted;
@@ -179,18 +179,22 @@ public class PlayerBaseState : IState
     protected virtual void OnTycoonInteractionStarted(InputAction.CallbackContext context)
     {
         _stateMachine.Player.ServingFood.TycoonInteraction();
+
+        _stateMachine.Player.Interaction.GoNextScene();
     }
 
     //
     private void ReadMovementInput()
     {
-        if (_stateMachine.SceneName == "MWJ")
+        if (_stateMachine.SceneName == "KGM_TestVillage")
         {
             _stateMachine.MovementInput = _stateMachine.Player.Input.TycoonPlayerActions.Move.ReadValue<Vector2>();
+            Debug.Log("123");
         }
         else
         {
             _stateMachine.MovementInput = _stateMachine.Player.Input.PlayerActions.Move.ReadValue<Vector2>();
+            Debug.Log("456");
         }
     }
 
