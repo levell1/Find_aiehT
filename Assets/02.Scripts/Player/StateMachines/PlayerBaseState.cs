@@ -191,12 +191,12 @@ public class PlayerBaseState : IState
         if (_stateMachine.SceneName == "KGM_TestVillage")
         {
             _stateMachine.MovementInput = _stateMachine.Player.Input.TycoonPlayerActions.Move.ReadValue<Vector2>();
-            Debug.Log("123");
+       
         }
         else
         {
             _stateMachine.MovementInput = _stateMachine.Player.Input.PlayerActions.Move.ReadValue<Vector2>();
-            Debug.Log("456");
+            
         }
     }
 
