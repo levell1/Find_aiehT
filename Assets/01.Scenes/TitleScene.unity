@@ -772,7 +772,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1083033328}
   - {fileID: 617277287}
   - {fileID: 1907473320}
   - {fileID: 1369583365}
@@ -780,6 +779,7 @@ Transform:
   - {fileID: 1999121624}
   - {fileID: 5204858}
   - {fileID: 885611265}
+  - {fileID: 1083033328}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1978,7 +1978,7 @@ PrefabInstance:
     - target: {fileID: 6860366556918899620, guid: 87ee7d1ca24466242b13ad42b8b83912,
         type: 3}
       propertyPath: m_DefaultActionMap
-      value: a552faf7-ce51-4cd7-a77f-3dfd4a721b09
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8294041341789613496, guid: 87ee7d1ca24466242b13ad42b8b83912,
         type: 3}
@@ -2045,7 +2045,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6860366556918899620, guid: 87ee7d1ca24466242b13ad42b8b83912, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

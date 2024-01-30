@@ -100,6 +100,10 @@ public class Player : MonoBehaviour
         {
             Weapon.gameObject.SetActive(false);
         }
+        else
+        {
+            Weapon.gameObject.SetActive(true);
+        }
     }
 
     private void Update()

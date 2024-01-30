@@ -23,11 +23,17 @@ public class PlayerInput : MonoBehaviour
 
     private void LoadedsceneEvent(Scene scece, LoadSceneMode mode)
     {
+
+        InputActions.Dispose();
+
         if (scece.name == "LodingScene")
         {
             return;
         }
-        else if (scece.name == "KGM_TestVillage")
+
+        InputActions = new PlayerInputActions();
+
+        if (scece.name == "KGM_TestVillage")
         {
             TycoonPlayerActions = InputActions.TycoonPlayer;
         }
