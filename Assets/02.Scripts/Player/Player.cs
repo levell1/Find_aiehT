@@ -95,7 +95,7 @@ public class Player : MonoBehaviour
     {
         _stateMachine.SceneName = SceneName();
 
-        if (SceneManager.GetActiveScene().name == "MWJ")
+        if (SceneManager.GetActiveScene().name == "TycoonScene")
         {
             Weapon.gameObject.SetActive(false);
         }

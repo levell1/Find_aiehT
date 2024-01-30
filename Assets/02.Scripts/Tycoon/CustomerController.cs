@@ -9,7 +9,7 @@ public class CustomerController : MonoBehaviour
     #region Field
     private TycoonManager _tycoonManager;
     private FoodCreater _foodCreater;
-    private CookedFood _targetFood;
+    private string _targetFoodName;
 
     private NavMeshAgent _agent;
     private Animator _animator;
@@ -33,10 +33,10 @@ public class CustomerController : MonoBehaviour
         }
     }
 
-    public CookedFood TargetFood
+    public string TargetFoodName
     {
-        get { return _targetFood; }
-        set { _targetFood = value; }
+        get { return _targetFoodName; }
+        set { _targetFoodName = value; }
     }
 
     public Transform AgentDestination
@@ -190,11 +190,15 @@ public class CustomerController : MonoBehaviour
 
     private void SelectFood()
     {
-        List<GameObject> foodPrefabs = _tycoonManager.CustomerTargetFoodPrefabs;
+        List<OrderFood> menu = _tycoonManager.TodayFoods;
 
-        int targetFoodNum = UnityEngine.Random.Range(0, foodPrefabs.Count);
-        _targetFood = foodPrefabs[targetFoodNum].GetComponent<CookedFood>();
-        OnCreateFood?.Invoke(foodPrefabs[targetFoodNum]);
+        int targetFoodNum = UnityEngine.Random.Range(0, menu.Count);
+        _targetFoodName = menu[targetFoodNum].foodSO.CookedFoodObject.name;
+        OnCreateFood?.Invoke(menu[targetFoodNum].foodSO.CookedFoodObject);
+
+        --_tycoonManager.TodayFoods[targetFoodNum].foodCount;
+        if(_tycoonManager.TodayFoods[targetFoodNum].foodCount == 0)
+            _tycoonManager.TodayFoods.Remove(menu[targetFoodNum]);
     }
 
     private void RemoveList(GameObject obj)
@@ -245,7 +249,7 @@ public class CustomerController : MonoBehaviour
 
     IEnumerator ExitRestaurant()
     {
-        _targetFood = null;
+        _targetFoodName = null;
         _targetFoodPlace.OnCustomerGetFood -= GetFood;
 
         yield return new WaitForSeconds(8f);

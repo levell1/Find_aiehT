@@ -64,10 +64,11 @@ public class FoodPlace : MonoBehaviour
 
     private void MatchWithCustomer()
     {
-        if (_currentCustomer.TargetFood.FoodName != _currentFood.FoodName)
+        if (_currentCustomer.TargetFoodName != _currentFood.FoodName)
             return;
 
         // TODO: Get Gold
+        TycoonManager.Instance._TycoonUI.UpdateCurrentGold(_currentFood._FoodSO.Price);
 
         OnCustomerGetFood.Invoke();
 

@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,7 +42,7 @@ public class RestaurantUI : BaseUI
     }
     private void Awake()
     {
-          
+
     }
     private void Start()
     {
@@ -55,10 +54,10 @@ public class RestaurantUI : BaseUI
         {
             _recipeSlots[i].GetComponent<Button>().interactable = true;
             _recipeSlots[i].Index = i;
-            _recipeSlots[i].FoodData = _foodDatas[i+1];
+            _recipeSlots[i].FoodData = _foodDatas[i + 1];
         }
 
-        
+
         for (int i = 0; i < _addMenuButton.Length; i++)
         {
             _addMenuButton[i].onClick.AddListener(ShowRecipe);
@@ -74,9 +73,9 @@ public class RestaurantUI : BaseUI
         _foodInfoPanel.SetActive(false);
     }
 
-    public void AddMenuButton() 
+    public void AddMenuButton()
     {
-        
+
         for (int i = 0; i < _addedMenu.Length; i++)
         {
             if (!_addedMenu[i].activeSelf)
@@ -96,10 +95,12 @@ public class RestaurantUI : BaseUI
         // 추가된 메뉴 , 개수 정보 전달
     }
 
-    private void StartGame() 
+    private void StartGame()
     {
         gameObject.SetActive(false);
-        //메뉴정보 전달
+
+        TycoonManager.Instance.DecideTodayFoods();
+        TycoonManager.Instance.TycoonGameStart();
     }
 
 }

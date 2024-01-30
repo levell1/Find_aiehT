@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class PrepareStation : MonoBehaviour
 {
-    [SerializeField] GameObject _restaurantUI;
-
     private void OnTriggerEnter(Collider other)
     {
-        if(other == _restaurantUI)
+        if(other.gameObject.CompareTag("Player"))
         {
-            _restaurantUI.SetActive(true);
+            GameManager.instance.UIManager.ShowCanvas("RestaurantUI");
+            gameObject.SetActive(false);
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other == _restaurantUI)
-        {
-            _restaurantUI.SetActive(false);
-        }
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Player"))
+    //    {
+    //        GameManager.instance.UIManager.CloseLastCanvas();
+    //    }
+    //}
 }

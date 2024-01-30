@@ -48,7 +48,7 @@ public class PlayerBaseState : IState
     {
         PlayerInput input = _stateMachine.Player.Input;
 
-        if(_stateMachine.SceneName == "MWJ")
+        if(_stateMachine.SceneName == "TycoonScene")
         {
             input.TycoonPlayerActions.Move.canceled += OnMovementCanceled;
             input.TycoonPlayerActions.Run.started += OnRunStarted;
@@ -82,7 +82,7 @@ public class PlayerBaseState : IState
     {
         PlayerInput input = _stateMachine.Player.Input;
 
-        if (_stateMachine.SceneName == "MWJ")
+        if (_stateMachine.SceneName == "TycoonScene")
         {
             input.TycoonPlayerActions.Move.canceled -= OnMovementCanceled;
             input.TycoonPlayerActions.Run.started -= OnRunStarted;
@@ -186,7 +186,7 @@ public class PlayerBaseState : IState
     //
     private void ReadMovementInput()
     {
-        if (_stateMachine.SceneName == "MWJ")
+        if (_stateMachine.SceneName == "TycoonScene")
         {
             _stateMachine.MovementInput = _stateMachine.Player.Input.TycoonPlayerActions.Move.ReadValue<Vector2>();
         }
