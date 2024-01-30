@@ -53,10 +53,6 @@ public class test : MonoBehaviour
             GameManager.instance.UIManager.ShowCanvas(UIName.PlayerStatusUI);
         }
 
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            GameManager.instance.UIManager.ShowCanvas(UIName.InventoryUI);
-        }
         if (Input.GetKeyDown(KeyCode.O))
         {
             GameManager.instance.UIManager.ShowCanvas(UIName.RestaurantUI);

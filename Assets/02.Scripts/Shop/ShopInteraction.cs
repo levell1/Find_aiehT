@@ -9,6 +9,10 @@ public class ShopInteraction : MonoBehaviour
     public PotionDataListSO PotionDataList;
     public ShopPotion[] ShopPotions;
 
+    private void OnEnable()
+    {
+        SetShop();
+    }
     // TODO 상점이랑 상호작용시 상점에서 아이템 리스트 나열
     public void SetShop()
     {

@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class ShopSell : MonoBehaviour
 {
-    public Inventory Inventory;
+    public Inventory Inventory { get; set;}
+    
     public GameObject shop;
     public ItemSlotUI[] UISlots;
     public ShopSellPopup popup;
@@ -19,6 +20,7 @@ public class ShopSell : MonoBehaviour
 
     private void Awake()
     {
+        Inventory = GameManager.instance.Player.GetComponent<Inventory>();
         for (int i = 0; i < UISlots.Length; i++)
         {
             UISlots[i].index = i;

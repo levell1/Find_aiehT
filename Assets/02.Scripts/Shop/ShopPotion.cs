@@ -17,20 +17,16 @@ public class ShopPotion : MonoBehaviour
 
     private Button _slotButton;
 
-    void OnEnable()
-    {
-        _slotButton = GetComponent<Button>();
-    }
 
     public void Init(PotionSO data)
     {
         PotionSO = data;
         PotionImage.sprite = data.sprite;
-
     }
 
     public void SetItemInfo()
     {
+        _slotButton = GetComponent<Button>();
         _slotButton.onClick.RemoveAllListeners();
 
         _slotButton.onClick.AddListener(() => 

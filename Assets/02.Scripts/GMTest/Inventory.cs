@@ -16,6 +16,8 @@ public class Inventory : MonoBehaviour
     public List<ItemSlot> Slots = new List<ItemSlot>(); // 원래 배열이였던 부분
 
     public GameObject InventoryUI;
+    public GameObject Panel;
+    public GameObject InvenMain;
 
     [Header("Selected Item")]
     private int selectedItemIndex;
@@ -36,9 +38,17 @@ public class Inventory : MonoBehaviour
         ClearSeletecItem();
     }
 
+    public void ShopOpen() 
+    {
+        Panel.SetActive(false);
+        InvenMain.SetActive(false);
+    }
+
     public void ToggleInventoryUI()
     {
         InventoryUI.SetActive(!InventoryUI.activeSelf);
+        Panel.SetActive(true);
+        InvenMain.SetActive(true);
         if (InventoryUI.activeSelf)
         {
             Cursor.lockState = CursorLockMode.None;

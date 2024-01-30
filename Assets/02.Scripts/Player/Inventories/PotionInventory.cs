@@ -8,15 +8,13 @@ public class PotionInventory : MonoBehaviour
     public PotionDataListSO PotionDataList;
     public PotionInventorySlot[] Potions;
 
-
-    private void OnEnable()
+    private void Awake()
     {
         for (int i = 0; i < PotionDataList.ShopPotionList.Length; i++)
         {
-            Potions[i].Init(PotionDataList.ShopPotionList[i]);
-
             ShopPotionInfoPopup.OnPurchaseSuccessAction += Potions[i].UpdatePotionQuantity;
+            Potions[i].Init(PotionDataList.ShopPotionList[i]);
         }
+        
     }
-
 }

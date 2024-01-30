@@ -33,6 +33,8 @@ public class PlayerInteraction : MonoBehaviour
     private string _showUI = string.Empty;
     public string NextSceneInfo;
 
+    public GameObject ShopUI;
+
     private void Start()
     {
         InitializeCollider();
@@ -165,7 +167,17 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (_showUI != string.Empty)
         {
-            GameManager.instance.UIManager.ShowCanvas(_showUI);
+            if (_showUI== UIName.ShopUI)
+            {
+                GameManager.instance.Inventory.ToggleInventoryUI();
+                GameManager.instance.Inventory.ShopOpen();
+                ShopUI.SetActive(true);
+            }
+            else
+            {
+                GameManager.instance.UIManager.ShowCanvas(_showUI);
+            }
+            
         }
     }
 }

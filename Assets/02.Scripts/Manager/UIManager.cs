@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIManager
 {
-
+    
     private int _canvasSortOrder = 5;
     private Stack<GameObject> _popupStack = new Stack<GameObject>();
     public Dictionary<string, GameObject> _popupDic = new Dictionary<string, GameObject>();
@@ -44,25 +44,24 @@ public class UIManager
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        if (_popupStack.Count == 0) 
+        if (_popupStack.Count == 0)
         {
             ShowCanvas(UIName.SettingUI);
         }
-        else 
-        { 
+        else
+        {
             GameObject currentUi = _popupStack.Pop();
-            if (currentUi!=_popupDic[UIName.RestaurantUI])
+            if (currentUi == _popupDic[UIName.RestaurantUI])
+            {
+                _popupStack.Push(currentUi);
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
             {
                 currentUi.SetActive(false);
                 currentUi = null;
                 _canvasSortOrder--;
             }
-            else
-            {
-                _popupStack.Push(currentUi);
-                Cursor.lockState = CursorLockMode.None;
-            }
-
         }
     }
 
