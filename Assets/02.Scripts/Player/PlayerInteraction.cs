@@ -163,14 +163,15 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (_nextScene != string.Empty)
         {
-            if (_nextScene == SceneName.TycoonScene && !GameManager.instance.GlobalTimeManager.EnterTycoonTime())
+            //타이쿤 시간 제한 (테스트용으로 주석) 해제하기
+            /*if (_nextScene == SceneName.TycoonScene && !GameManager.instance.GlobalTimeManager.EnterTycoonTime())
             {
                 if(_coroutine == null)
                 {
                     _coroutine = StartCoroutine(ErrorMessage());
                 }
                 return;
-            }
+            }*/
 
              LoadingSceneController.LoadScene(_nextScene);
             _nextScene = string.Empty;
@@ -185,8 +186,6 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (_showUI== UIName.ShopUI)
             {
-                GameManager.instance.Inventory.ToggleInventoryUI();
-                GameManager.instance.Inventory.ShopOpen();
                 ShopUI.SetActive(true);
             }
             else
