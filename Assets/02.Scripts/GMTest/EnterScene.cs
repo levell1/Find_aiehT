@@ -52,23 +52,6 @@ public class EnterScene : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    //IEnumerator FadeOutText()
-    //{
-    //    _isCo = true;
-    //    yield return new WaitForSeconds(WaitTime);
-
-    //    float _elapsedTime = 0f;
-    //    while (_elapsedTime < DisableTime)
-    //    {
-    //        AreaText.alpha = Mathf.Lerp(1f, 0f, _elapsedTime / DisableTime);
-
-    //        _elapsedTime += Time.deltaTime;
-    //        yield return null;
-    //    }
-    //    gameObject.SetActive(false);
-    //    _isCo = false;
-    //}
-
     private IEnumerator FadeOutImage()
     {
         Color color = AreaImage.color;
