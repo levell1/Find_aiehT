@@ -15,7 +15,8 @@ public enum Enum
 
 public class PlayerInteraction : MonoBehaviour
 {
-    public TMP_Text interactionText; // UI Text 요소를 가리키는 변수
+    public TMP_Text InteractionText; // UI Text 요소를 가리키는 변수
+    public TextMeshProUGUI ErrorText;
 
     public LayerMask LayerMask;
 
@@ -31,9 +32,10 @@ public class PlayerInteraction : MonoBehaviour
     private MoveSceneController _moveSceneController;
     private string _nextScene = string.Empty;
     private string _showUI = string.Empty;
-    public string NextSceneInfo;
 
     public GameObject ShopUI;
+
+    Coroutine _coroutine;
 
     private void Start()
     {
@@ -59,14 +61,12 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (_objectType == Enum.ITEM)
             {
-                Debug.Log("ITEM");
                 ItemObject itemObject = other.gameObject.GetComponent<ItemObject>();
 
                 _interactItemObejctList.Add(itemObject);
 
                 _interactionLayerList.Add(itemObject.ItemData.ObjName);
                 UpdateUI();
-                Debug.Log("ITEM1");
             }
         }
     }
@@ -81,13 +81,17 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     _moveSceneController = other.gameObject.GetComponent<MoveSceneController>();
                     _nextScene = _moveSceneController.NextScene;
+
+                    InteractionText.text = _moveSceneController.NextSceneInfo;
                 }
                 else if (other.gameObject.CompareTag(TagName.PotionShop))  //포션상점NPC
                 {
-                    _showUI = UIName.ShopUI;
+                    InteractionText.text = "포션상점 - 대화하기";
+                   _showUI = UIName.ShopUI;
                 }
                 else if (other.gameObject.CompareTag(TagName.Enhancement)) //강화소NPC
                 {
+                    InteractionText.text = "대장간 - 대화하기";
                     _showUI = UIName.ReforgeUI;
                 }
             }
@@ -108,13 +112,14 @@ public class PlayerInteraction : MonoBehaviour
         if (_nextScene != null)
         {
             _nextScene = string.Empty;
-            NextSceneInfo = string.Empty;
         }
 
         if (_showUI != null)
         {
             _showUI = string.Empty;
         }
+
+        InteractionText.text = string.Empty;
     }
 
     private void InitializeCollider()
@@ -127,14 +132,14 @@ public class PlayerInteraction : MonoBehaviour
 
     private void UpdateUI()
     {
-        if (interactionText != null)
+        if (InteractionText != null)
         {
             // UI Text 요소가 존재하면 리스트의 내용을 텍스트로 설정
-            interactionText.text = "";
+            InteractionText.text = "";
 
             foreach (var item in _interactionLayerList)
             {
-                interactionText.text += "- " + item + "\n";
+                InteractionText.text += "- " + item + "\n";
             }
         }
     }
@@ -158,8 +163,19 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (_nextScene != string.Empty)
         {
-            LoadingSceneController.LoadScene(_nextScene);
+            if (_nextScene == SceneName.TycoonScene && !GameManager.instance.GlobalTimeManager.EnterTycoonTime())
+            {
+                if(_coroutine == null)
+                {
+                    _coroutine = StartCoroutine(ErrorMessage());
+                }
+                return;
+            }
+
+             LoadingSceneController.LoadScene(_nextScene);
             _nextScene = string.Empty;
+
+            InteractionText.text = string.Empty;
         }
     }
 
@@ -177,7 +193,23 @@ public class PlayerInteraction : MonoBehaviour
             {
                 GameManager.instance.UIManager.ShowCanvas(_showUI);
             }
-            
+
+            InteractionText.text = string.Empty;
         }
+    }
+
+    private IEnumerator ErrorMessage()
+    {
+        if(_nextScene == SceneName.TycoonScene)
+        {
+            ErrorText.text = "입장가능시간이 아닙니다!";
+        }
+
+        ErrorText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        ErrorText.gameObject.SetActive(false);
+        ErrorText.text = string.Empty;
+
+        _coroutine = null;
     }
 }
