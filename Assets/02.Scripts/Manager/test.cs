@@ -30,10 +30,20 @@ public class test : MonoBehaviour
             GameManager.instance.SoundManager.BgSoundPlay("BG3");
         }
 
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.Alpha7))
         {
+            GameManager.instance.Player.transform.position = new Vector3(-5, 0, 0);
             LoadingSceneController.LoadScene(SceneName.VillageScene);
-            //SceneManager.LoadScene("BJH");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            GameManager.instance.Player.transform.position = new Vector3(5, 0, 8);
+            LoadingSceneController.LoadScene(SceneName.TycoonScene);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            GameManager.instance.Player.transform.position = new Vector3(-2, 0, 25);
+            LoadingSceneController.LoadScene(SceneName.Field);
         }
 
         if (Input.GetKeyDown(KeyCode.K))
