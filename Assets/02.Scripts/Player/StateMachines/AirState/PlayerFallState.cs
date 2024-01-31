@@ -27,8 +27,9 @@ public class PlayerFallState : PlayerAirState
     {
         base.Update();
 
-        if (_stateMachine.Player.GroundCheck)
+        if (_stateMachine.Player.GroundCheck.IsGrounded())
         {
+            Debug.Log("땅");
             _stateMachine.ChangeState(_stateMachine.IdleState);
             return;
         }

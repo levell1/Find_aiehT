@@ -6,7 +6,10 @@ public class GroundCheck : MonoBehaviour
 {
     [SerializeField] private float _forwardOffset = 0.2f;
     [SerializeField] private float _upOffset = 0.01f;
+    [SerializeField] private float _rayDownY = -0.5f; 
     [SerializeField] private LayerMask _groundLayMask;
+
+    private Vector3 _rayDown;
 
     void Update()
     {
@@ -19,12 +22,15 @@ public class GroundCheck : MonoBehaviour
     /// <returns></returns>
     public bool IsGrounded()
     {
+
+        _rayDown = new Vector3(0, _rayDownY, 0);
+
         Ray[] rays = new Ray[4]
         {
-            new Ray(transform.position + (transform.forward * _forwardOffset) - (Vector3.up * -_upOffset) , Vector3.down),
-            new Ray(transform.position + (-transform.forward * _forwardOffset)- (Vector3.up * -_upOffset), Vector3.down),
-            new Ray(transform.position + (transform.right * _forwardOffset) - (Vector3.up * -_upOffset), Vector3.down),
-            new Ray(transform.position + (-transform.right * _forwardOffset) - (Vector3.up * -_upOffset), Vector3.down),
+            new Ray(transform.position + (transform.forward * _forwardOffset) - (Vector3.up * -_upOffset) , _rayDown),
+            new Ray(transform.position + (-transform.forward * _forwardOffset)- (Vector3.up * -_upOffset), _rayDown),
+            new Ray(transform.position + (transform.right * _forwardOffset) - (Vector3.up * -_upOffset), _rayDown),
+            new Ray(transform.position + (-transform.right * _forwardOffset) - (Vector3.up * -_upOffset), _rayDown),
         };
 
         for (int i = 0; i < rays.Length; i++)
@@ -40,11 +46,13 @@ public class GroundCheck : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        _rayDown = new Vector3(0, _rayDownY, 0);
+
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position + (transform.forward * _forwardOffset) - (Vector3.up * -_upOffset), Vector3.down);
-        Gizmos.DrawRay(transform.position + (-transform.forward * _forwardOffset) - (Vector3.up * -_upOffset), Vector3.down);
-        Gizmos.DrawRay(transform.position + (transform.right * _forwardOffset) - (Vector3.up * -_upOffset), Vector3.down);
-        Gizmos.DrawRay(transform.position + (-transform.right * _forwardOffset) - (Vector3.up * -_upOffset), Vector3.down);
+        Gizmos.DrawRay(transform.position + (transform.forward * _forwardOffset) - (Vector3.up * -_upOffset), _rayDown);
+        Gizmos.DrawRay(transform.position + (-transform.forward * _forwardOffset) - (Vector3.up * -_upOffset), _rayDown);
+        Gizmos.DrawRay(transform.position + (transform.right * _forwardOffset) - (Vector3.up * -_upOffset), _rayDown);
+        Gizmos.DrawRay(transform.position + (-transform.right * _forwardOffset) - (Vector3.up * -_upOffset), _rayDown);
     }
 
 }

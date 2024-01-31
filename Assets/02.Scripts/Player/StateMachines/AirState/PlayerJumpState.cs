@@ -11,11 +11,12 @@ public class PlayerJumpState : PlayerAirState
 
     public override void Enter()
     {
+        StartAnimation(_stateMachine.Player.AnimationData.JumpParameterHash);
+
         _stateMachine.JumpForce = _stateMachine.Player.Data.AirData.JumpForce;
         _stateMachine.Player.ForceReceiver.Jump(_stateMachine.JumpForce);
 
         base.Enter();
-        StartAnimation(_stateMachine.Player.AnimationData.JumpParameterHash);
     }
 
     public override void Exit() 
@@ -25,14 +26,14 @@ public class PlayerJumpState : PlayerAirState
         StopAnimation(_stateMachine.Player.AnimationData.JumpParameterHash);
     }
 
-    public override void Update()
+    public override void PhysicsUpdate()
     {
-        base.Update();
+        base.PhysicsUpdate();
 
-        if (_stateMachine.Player.Rigidbody.velocity.y < 0)
+        if (_stateMachine.Player.Rigidbody.velocity.y < -0.5f)
         {
+            Debug.Log("rigidbody" + _stateMachine.Player.Rigidbody.velocity.y);
             _stateMachine.ChangeState(_stateMachine.FallState);
-            //Debug.Log("떨어진다~");
             return;
         }
 
