@@ -75,7 +75,10 @@ public class ShopSell : MonoBehaviour
 
     public void SellButtonClick()
     {
-        popup.SetPopup();
-        popup.gameObject.SetActive(true);
+        if (selectedItem != null)
+        {
+            popup.SetPopup();
+            popup.gameObject.SetActive(true);
+        }
     }
 }
