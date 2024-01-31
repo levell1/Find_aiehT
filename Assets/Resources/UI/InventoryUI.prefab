@@ -8535,8 +8535,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7802114076230818627}
   m_HandleRect: {fileID: 4721735961218300746}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 1
+  m_Value: 1.0000018
+  m_Size: 0.5023185
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -12785,7 +12785,7 @@ RectTransform:
   m_Father: {fileID: 5989840316339833897}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.4977129}
+  m_AnchorMin: {x: 0, y: 0.4976815}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -14560,6 +14560,7 @@ GameObject:
   - component: {fileID: 7430427822773367340}
   - component: {fileID: 8237149501244620149}
   - component: {fileID: 4714926218324291490}
+  - component: {fileID: 2673927213828100740}
   m_Layer: 5
   m_Name: InventoryUI
   m_TagString: Untagged
@@ -14653,6 +14654,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2673927213828100740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8915046455943694010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad67c957429c0a42bf68cfe7c4258fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9081067276879307553
 GameObject:
   m_ObjectHideFlags: 0
@@ -14776,7 +14789,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
-        m_MethodName: CloseInven
+        m_MethodName: ToggleInventoryUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

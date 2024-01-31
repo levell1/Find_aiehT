@@ -19,6 +19,8 @@ public class ShopSellPopup : MonoBehaviour
     [SerializeField] private Button _decreaseButton;
     [SerializeField] private Button _increaseButton;
     [SerializeField] private Button _successButton;
+    [SerializeField] private GameObject _successPopup;
+    [SerializeField] private GameObject _successPopupObject;
 
     private int _itemCurQuantity = 1;
     private int _itemCurGold;
@@ -105,7 +107,6 @@ public class ShopSellPopup : MonoBehaviour
     public void SellItem()
     {
         _itemTotalPrice = _itemCurQuantity * _itemCurGold;
-        Debug.Log(ShopSell.selectedItem.Item);
         ShopSell.Inventory.RemoveItem(ShopSell.selectedItem.Item, _itemCurQuantity);
 
         int _gold = PlayerSO.PlayerData.GetPlayerGold();
@@ -114,6 +115,15 @@ public class ShopSellPopup : MonoBehaviour
 
         ShopSell.UpdateUI();
         ShopSell.ClearSeletecItem();
+        StartCoroutine(SellPopupOff());
+    }
+
+    IEnumerator SellPopupOff()
+    {
+        _successPopup.SetActive(true);
+        _successPopupObject.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        _successPopup.SetActive(false);
         gameObject.SetActive(false);
     }
 }
