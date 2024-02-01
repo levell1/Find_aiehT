@@ -71,7 +71,7 @@ public class CustomerController : MonoBehaviour
 
     private void Start()
     {
-        _tycoonManager = TycoonManager.Instance;
+        _tycoonManager = TycoonManager.instance;
         _foodCreater = _tycoonManager._FoodCreater;
         _waitTime = _tycoonManager.CustomerWaitTime;
     }

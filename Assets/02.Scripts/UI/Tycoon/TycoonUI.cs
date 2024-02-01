@@ -26,7 +26,7 @@ public class TycoonUI : MonoBehaviour
     {
         _currentGoldText.text = "0";
         _remainingCustomerText.text = "0 / 0";
-        _todayMaxCustomerNum = TycoonManager.Instance.TodayMaxCustomerNum;
+        _todayMaxCustomerNum = TycoonManager.instance.TodayMaxCustomerNum;
 
         if (_playerData == null)
         {

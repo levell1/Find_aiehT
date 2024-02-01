@@ -46,7 +46,7 @@ public class DataManager : MonoBehaviour
         {
             currentOrderFoodsNum += Orders[i].foodCount;
         }
-        int breadNum = TycoonManager.Instance.TodayMaxCustomerNum - currentOrderFoodsNum;
+        int breadNum = TycoonManager.instance.TodayMaxCustomerNum - currentOrderFoodsNum;
 
         AddMenu(FoodSoDatas[0], breadNum);
     }
