@@ -405,12 +405,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfed950dbd099ef4aa9e55c9ab2108e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionText: {fileID: 0}
+  InteractionText: {fileID: 0}
+  ErrorText: {fileID: 0}
   LayerMask:
     serializedVersion: 2
     m_Bits: 0
   _playerCollider: {fileID: 7014752554354547227}
-  NextSceneInfo: 
+  ShopUI: {fileID: 0}
 --- !u!1 &347307608674451691
 GameObject:
   m_ObjectHideFlags: 0
@@ -7758,6 +7759,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _forwardOffset: 0.2
   _upOffset: 0.01
+  _rayDownY: -0.5
   _groundLayMask:
     serializedVersion: 2
     m_Bits: 64
@@ -7858,6 +7860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 607c550907fbe414897f83dc0af5b5ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _coolTimeImage: {fileID: 0}
 --- !u!114 &5463793781665298191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7870,6 +7873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 371a48525e85f78408cfdc3c9e05d782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _coolTimeImage: {fileID: 0}
 --- !u!114 &424094738140368032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7882,7 +7886,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36550b99fe4ef02479601030a34f07fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CoolTime: 0
+  _coolTimeImage: {fileID: 0}
+  CoolTime: 3
 --- !u!114 &4963824624968656356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7895,7 +7900,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7148759f867865049a996240fa975b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CoolTime: 0
+  _coolTimeImage: {fileID: 0}
+  CoolTime: 3
 --- !u!114 &3033728208536259882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8056,6 +8062,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   InventoryUI: {fileID: 0}
+  Panel: {fileID: 0}
+  InvenMain: {fileID: 0}
   selectedItemName: {fileID: 0}
   selectedItemDescription: {fileID: 0}
 --- !u!114 &3759103832307417138
@@ -8078,7 +8086,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  ShopPotionInfoPopup: {fileID: 0}
 --- !u!1 &8993521162791815374
 GameObject:
   m_ObjectHideFlags: 0
