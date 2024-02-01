@@ -32,7 +32,7 @@ public class ItemSlotUI : MonoBehaviour
 
     public void OnButtonClick() //버튼 클릭시 하단에 아이템 정보 변화
     {
-        GameManager.Instance.Inventory.SelectItem(index);
+        GameManager.Instance.Inventory.SelectItem(Index);
     }
 
     public void OnItemClick() //상점용
