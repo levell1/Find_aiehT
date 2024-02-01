@@ -23,7 +23,7 @@ public class ShopSell : MonoBehaviour
         Inventory = GameManager.Instance.Player.GetComponent<Inventory>();
         for (int i = 0; i < UISlots.Length; i++)
         {
-            UISlots[i].index = i;
+            UISlots[i].Index = i;
             UISlots[i].Clear();
         }
     }

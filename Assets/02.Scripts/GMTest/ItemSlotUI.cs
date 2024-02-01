@@ -12,7 +12,7 @@ public class ItemSlotUI : MonoBehaviour
     public ShopSell ShopSell;
     private ItemSlot _curSlot;
 
-    public int index;
+    public int Index;
 
     public void Set(ItemSlot slot)
     {
@@ -37,6 +37,6 @@ public class ItemSlotUI : MonoBehaviour
 
     public void OnItemClick() //상점용
     {
-        ShopSell.SelectItem(index);
+        ShopSell.SelectItem(Index);
     }
 }
