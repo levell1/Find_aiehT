@@ -28,8 +28,6 @@ public class RecipeSlot : MonoBehaviour
     [SerializeField] private Button _decreaseButton;
     [SerializeField] private Button _increaseButton;
     [SerializeField] private Button _addfoodButton;
-    [SerializeField] private GameObject _addfoodCheckPanel;
-    [SerializeField] private Button _addfoodCheckButton;
     [SerializeField] private int[] _InvenGroceryCount = new int[6];
     
 
@@ -41,7 +39,7 @@ public class RecipeSlot : MonoBehaviour
     private void Start()
     {
         _restaurantUI= GameManager.instance.UIManager._popupDic[UIName.RestaurantUI].GetComponent<RestaurantUI>();
-        _maxCustomer = TycoonManager.Instance.TodayMaxCustomerNum;
+        _maxCustomer = TycoonManager.instance.TodayMaxCustomerNum;
         _makeFoodCount = 1;
         _grocerykindCount = FoodData.Ingredients.Count;
 
@@ -117,7 +115,6 @@ public class RecipeSlot : MonoBehaviour
         _decreaseButton.onClick.AddListener(DecreaseCount);
         GroceryText();
 
-        _addfoodCheckPanel.SetActive(false);
         _foodNameText.text = FoodData.FoodName;
         _foodDescriptionText.text = FoodData.Description;
         _foodPriceText.text = FoodData.Price.ToString();
@@ -126,7 +123,6 @@ public class RecipeSlot : MonoBehaviour
 
     private void AddMenu()
     {
-        //_addfoodCheckPanel.SetActive(true);
         GameManager.instance.DataManager.AddMenu(FoodData, _makeFoodCount);
         gameObject.GetComponent<Button>().interactable = false;
         for (int i = 0; i < _grocerykindCount; i++)

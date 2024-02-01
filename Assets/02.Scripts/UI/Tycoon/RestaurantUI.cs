@@ -9,7 +9,6 @@ public class RestaurantUI : BaseUI
     [SerializeField] private GameObject _foodInfoPanel;
     [SerializeField] private Button _addfoodButton;
     [SerializeField] private Button _addfoodButtonCheck;
-    [SerializeField] private GameObject _addfoodButtonPanel;
     [SerializeField] private Button _startGameButton;
     [SerializeField] private FoodSO[] _foodDatas = new FoodSO[20];
     [SerializeField] private RecipeSlot[] _recipeSlots;
@@ -46,7 +45,7 @@ public class RestaurantUI : BaseUI
     }
     private void Start()
     {
-        _menuCount.text = AddMenus.ToString() + " / " + TycoonManager.Instance.TodayMaxCustomerNum.ToString();
+        _menuCount.text = AddMenus.ToString() + " / " + TycoonManager.instance.TodayMaxCustomerNum.ToString();
         _foodDatas = GameManager.instance.DataManager.FoodSoDatas;
         _basicFoodName.text = _foodDatas[0].FoodName;
         _basicFoodImage.sprite = _foodDatas[0].FoodSprite;
@@ -64,7 +63,6 @@ public class RestaurantUI : BaseUI
             _addMenuButton[i].onClick.AddListener(ShowRecipe);
         }
 
-        _addfoodButtonCheck.onClick.AddListener(AddMenuButton);
         _startGameButton.onClick.AddListener(StartGame);
     }
 
@@ -91,8 +89,7 @@ public class RestaurantUI : BaseUI
                 break;
             }
         }
-        _menuCount.text = AddMenus.ToString() + " / " + TycoonManager.Instance.TodayMaxCustomerNum.ToString();
-        _addfoodButtonPanel.SetActive(false);
+        _menuCount.text = AddMenus.ToString() + " / " + TycoonManager.instance.TodayMaxCustomerNum.ToString();
         // 추가된 메뉴 , 개수 정보 전달
     }
 
