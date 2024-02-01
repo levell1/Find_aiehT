@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,8 +6,7 @@ public class RestaurantUI : BaseUI
 {
     [SerializeField] private GameObject _recipePanel;
     [SerializeField] private GameObject _foodInfoPanel;
-    [SerializeField] private Button _addfoodButton;
-    [SerializeField] private Button _addfoodButtonCheck;
+    [SerializeField] private Button _addFoodButton;
     [SerializeField] private Button _startGameButton;
     [SerializeField] private FoodSO[] _foodDatas = new FoodSO[20];
     [SerializeField] private RecipeSlot[] _recipeSlots;
@@ -32,7 +30,7 @@ public class RestaurantUI : BaseUI
     private void OnEnable()
     {
         _recipePanel.SetActive(false);
-        GameManager.instance.DataManager.RemoveOrderData();
+        GameManager.Instance.DataManager.RemoveOrderData();
         for (int i = 0; i < _addMenuButton.Length; i++)
         {
             _addMenuButton[i].gameObject.SetActive(true);
@@ -45,8 +43,8 @@ public class RestaurantUI : BaseUI
     }
     private void Start()
     {
-        _menuCount.text = AddMenus.ToString() + " / " + TycoonManager.instance.TodayMaxCustomerNum.ToString();
-        _foodDatas = GameManager.instance.DataManager.FoodSoDatas;
+        _menuCount.text = AddMenus.ToString() + " / " + TycoonManager.Instance.TodayMaxCustomerNum.ToString();
+        _foodDatas = GameManager.Instance.DataManager.FoodSODatas;
         _basicFoodName.text = _foodDatas[0].FoodName;
         _basicFoodImage.sprite = _foodDatas[0].FoodSprite;
         _basicFoodPrice.text = _foodDatas[0].Price.ToString();
@@ -81,22 +79,22 @@ public class RestaurantUI : BaseUI
                 _addMenuButton[i].gameObject.SetActive(false);
                 _addedMenu[i].SetActive(true);
                 _recipePanel.SetActive(false);
-                _addMenuImage[i].sprite = GameManager.instance.DataManager.Orders[i].foodSO.FoodSprite;
-                _addMenuName[i].text = GameManager.instance.DataManager.Orders[i].foodSO.FoodName;
-                _addMenuCount[i].text = GameManager.instance.DataManager.Orders[i].foodCount.ToString();
-                _addMenuPrice[i].text = GameManager.instance.DataManager.Orders[i].foodSO.Price.ToString();
-                AddMenus += GameManager.instance.DataManager.Orders[i].foodCount;
+                _addMenuImage[i].sprite = GameManager.Instance.DataManager.Orders[i].FoodSO.FoodSprite;
+                _addMenuName[i].text = GameManager.Instance.DataManager.Orders[i].FoodSO.FoodName;
+                _addMenuCount[i].text = GameManager.Instance.DataManager.Orders[i].FoodCount.ToString();
+                _addMenuPrice[i].text = GameManager.Instance.DataManager.Orders[i].FoodSO.Price.ToString();
+                AddMenus += GameManager.Instance.DataManager.Orders[i].FoodCount;
                 break;
             }
         }
-        _menuCount.text = AddMenus.ToString() + " / " + TycoonManager.instance.TodayMaxCustomerNum.ToString();
+        _menuCount.text = AddMenus.ToString() + " / " + TycoonManager.Instance.TodayMaxCustomerNum.ToString();
         // 추가된 메뉴 , 개수 정보 전달
     }
 
     private void StartGame()
     {
-        GameManager.instance.UIManager.CloseAllCanvas();
-        TycoonManager.instance.TycoonGameStart();
+        GameManager.Instance.UIManager.CloseAllCanvas();
+        TycoonManager.Instance.TycoonGameStart();
     }
 
 }

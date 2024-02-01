@@ -1,28 +1,18 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MinimapSetting : MonoBehaviour
 {
-    [SerializeField]
-    private Transform _player;
-
+    [SerializeField] private Transform _player;
     [SerializeField] private Camera _minimapCamera;
-
-    [SerializeField]
-    private float _zoomMin = 1;
-    [SerializeField]
-    private float _zoomMax = 30;
-
-    [SerializeField]
-    private TMP_Text _mapName;
+    [SerializeField] private float _zoomMin = 1;
+    [SerializeField] private float _zoomMax = 30;
+    [SerializeField] private TMP_Text _mapName;
 
     private void Awake()
     {
-        _player = GameObject.FindWithTag(TagName.Player).transform;
+        _player = GameManager.Instance.Player.transform;
     }
     private void Start()
     {
@@ -43,10 +33,6 @@ public class MinimapSetting : MonoBehaviour
         {
             ChangeMapName("던전");
         }
-        else if (scene.name == "BJH")
-        {
-            ChangeMapName("테스트");
-        }
         else
         {
             ChangeMapName("테스트");
@@ -66,7 +52,7 @@ public class MinimapSetting : MonoBehaviour
         }
     }
     
-    // 플레이어가 어느 지역 가면 changeMapName
+    // 플레이어가 사냥터 어느 지역 가면 changeMapName, 소리변경
 
     public void ChangeMapName(string mapname) 
     {

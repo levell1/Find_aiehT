@@ -8,17 +8,17 @@ public class StatusUI : BaseUI
     private PlayerSO _playerData;
     [SerializeField] private EquipmentBase[] _equipment= new EquipmentBase[6];
 
-    private float _sumequipDef = 0;
+    private float _sumEquipDef = 0;
     private float _sumequipHealth = 0;
-    private float _weponDmg = 0;
+    private float _weaponDamage = 0;
 
-    [SerializeField] private EquipmentDatas _equipmentupgrade;
+    [SerializeField] private EquipmentDatas _equipmentUpgrade;
     [Header("기본스탯")]
     [SerializeField] private TMP_Text _playerName;
     [SerializeField] private TMP_Text _playerLevel;
     [SerializeField] private TMP_Text _maxHealth;
     [SerializeField] private TMP_Text _maxStamina;
-    [SerializeField] private TMP_Text _Attack;
+    [SerializeField] private TMP_Text _attack;
     [SerializeField] private TMP_Text _defence;
 
     [Header("장비 정보")]
@@ -27,7 +27,7 @@ public class StatusUI : BaseUI
     
     [SerializeField] private TMP_Text _equipmentHealth;
     [SerializeField] private TMP_Text _equipmentDef;
-    [SerializeField] private TMP_Text _weaponDmg;
+    [SerializeField] private TMP_Text _weaponDamageText;
 
 
     [Header("스킬정보")]
@@ -42,10 +42,9 @@ public class StatusUI : BaseUI
 
     private void Awake()
     {
-
-        if (_equipmentupgrade == null)
+        if (_equipmentUpgrade == null)
         {
-            _equipmentupgrade = GameObject.FindWithTag(TagName.Player).GetComponent<EquipmentDatas>();
+            _equipmentUpgrade = GameObject.FindWithTag(TagName.Player).GetComponent<EquipmentDatas>();
         }
         if (_playerData == null)
         {
@@ -55,31 +54,31 @@ public class StatusUI : BaseUI
 
     private void OnEnable()
     {
-        _sumequipDef = 0;
+        _sumEquipDef = 0;
         _sumequipHealth = 0;
-        _weponDmg = 0;
+        _weaponDamage = 0;
 
         _playerName.text = _playerData.PlayerData.GetPlayerName();
         _playerLevel.text = _playerData.PlayerData.GetPlayerLevel().ToString();
         _maxHealth.text = _playerData.PlayerData.GetPlayerMaxHealth().ToString();
         _maxStamina.text = _playerData.PlayerData.GetPlayerMaxStamina().ToString();
-        _Attack.text = _playerData.PlayerData.GetPlayerAtk().ToString();
+        _attack.text = _playerData.PlayerData.GetPlayerAtk().ToString();
         _defence.text = _playerData.PlayerData.GetPlayerDef().ToString();
 
         for (int i = 0; i < _equipment.Length; i++)
         {
-            _equipmentName[i].text = _equipmentupgrade.EquipData[i].Equipment.Name + "(+" + _equipmentupgrade.EquipData[i].Level.ToString() + ")";
-            _equipmentSprite[i].sprite = _equipmentupgrade.EquipData[i].Equipment.sprite;
+            _equipmentName[i].text = _equipmentUpgrade.EquipData[i].Equipment.Name + "(+" + _equipmentUpgrade.EquipData[i].Level.ToString() + ")";
+            _equipmentSprite[i].sprite = _equipmentUpgrade.EquipData[i].Equipment.EquipSprite;
 
-            _sumequipHealth += _equipmentupgrade.EquipData[i].Currenthealth;
-            _sumequipDef += _equipmentupgrade.EquipData[i].CurrentDef;
-            _weponDmg += _equipmentupgrade.EquipData[i].CurrentAttack;
+            _sumequipHealth += _equipmentUpgrade.EquipData[i].Currenthealth;
+            _sumEquipDef += _equipmentUpgrade.EquipData[i].CurrentDef;
+            _weaponDamage += _equipmentUpgrade.EquipData[i].CurrentAttack;
         }
 
 
         _equipmentHealth.text = _sumequipHealth.ToString();
-        _equipmentDef.text = _sumequipDef.ToString();
-        _weaponDmg.text = _weponDmg.ToString();
+        _equipmentDef.text = _sumEquipDef.ToString();
+        _weaponDamageText.text = _weaponDamage.ToString();
 
         _qSkillName.text = _playerData.SkillData.SkillInfoDatas[0].GetSkillName()+"(Q)";
         _qSkillDmg.text = _playerData.SkillData.SkillInfoDatas[0].GetSkillDamage().ToString();

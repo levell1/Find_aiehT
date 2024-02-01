@@ -1,32 +1,29 @@
-using System.Collections;
-
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class RestartUI : BaseUI
 {
-    [SerializeField] private Image _backimage;
+    [SerializeField] private Image _backImage;
     [SerializeField] private GameObject _text;
-    Color color;
+    private Color _color;
 
     //죽으면 보이기
     private void OnEnable()
     {
         _text.SetActive(false);
-        _backimage.color= new Color(0f, 0f, 0f, 0f);
-        color = _backimage.color;
+        _backImage.color= new Color(0f, 0f, 0f, 0f);
+        _color = _backImage.color;
         StartCoroutine(BackBlur());
     }
 
     IEnumerator BackBlur() 
     {
-
-        while (_backimage.color.a < 1f) 
+        while (_backImage.color.a < 1f) 
         {
             yield return new WaitForSeconds(0.1f);
-            color.a = color.a+0.05f ;
-            _backimage.color = color;
+            _color.a = _color.a+0.05f ;
+            _backImage.color = _color;
         }
         _text.SetActive(true);
         yield return new WaitForSeconds(3f);

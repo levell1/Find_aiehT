@@ -28,7 +28,7 @@ public class ItemObject : MonoBehaviour
 
     public void GetItem()
     {
-        GameManager.instance.Inventory.AddItem(ItemData);
+        GameManager.Instance.Inventory.AddItem(ItemData);
 
         if (ItemData.type == ItemType.DROPITEM)
         {

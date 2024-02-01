@@ -7,10 +7,10 @@ public class PlayerGold : CommaText
     {
         if (_playerData == null)
         {
-            _playerData = GameObject.FindWithTag(TagName.Player).GetComponent<Player>().Data;
+            _playerData = GameManager.Instance.Player.GetComponent<Player>().Data;
         }
     }
-    private void Update()
+    protected override void Update()
     {
         _Value = _playerData.PlayerData.GetPlayerGold();
         base.Update();

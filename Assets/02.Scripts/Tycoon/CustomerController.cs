@@ -75,7 +75,7 @@ public class CustomerController : MonoBehaviour
 
     private void Start()
     {
-        _tycoonManager = TycoonManager.instance;
+        _tycoonManager = TycoonManager.Instance;
         _foodCreater = _tycoonManager._FoodCreater;
         _waitTime = _tycoonManager.CustomerWaitTime;
     }
@@ -121,7 +121,7 @@ public class CustomerController : MonoBehaviour
                 StopAllCoroutines();
                 OnCustomerExit?.Invoke();
                 _targetFoodPlace.CurrentCustomer = null;
-                GameManager.instance.PoolingManager.ReturnObject(gameObject);
+                GameManager.Instance.PoolingManager.ReturnObject(gameObject);
             }
         }
         else
@@ -179,15 +179,15 @@ public class CustomerController : MonoBehaviour
         List<OrderFood> menu = _tycoonManager.TodayFoods;
 
         int targetFoodNum = UnityEngine.Random.Range(0, menu.Count);
-        _targetFoodName = menu[targetFoodNum].foodSO.CookedFoodObject.name;
+        _targetFoodName = menu[targetFoodNum].FoodSO.CookedFoodObject.name;
 
-        OrderFoodCanvas.SelectFood.sprite = menu[targetFoodNum].foodSO.FoodSprite; //
+        OrderFoodCanvas.SelectFood.sprite = menu[targetFoodNum].FoodSO.FoodSprite; //
         OrderFoodCanvas.ActiveUI(); //
 
-        OnCreateFood?.Invoke(menu[targetFoodNum].foodSO.CookedFoodObject);
+        OnCreateFood?.Invoke(menu[targetFoodNum].FoodSO.CookedFoodObject);
 
-        --_tycoonManager.TodayFoods[targetFoodNum].foodCount;
-        if(_tycoonManager.TodayFoods[targetFoodNum].foodCount == 0)
+        --_tycoonManager.TodayFoods[targetFoodNum].FoodCount;
+        if(_tycoonManager.TodayFoods[targetFoodNum].FoodCount == 0)
             _tycoonManager.TodayFoods.Remove(menu[targetFoodNum]);
     }
 

@@ -20,7 +20,7 @@ public class SceneEditor : EditorWindow
 
         if (GUILayout.Button("Vilage Scene"))
         {
-            GameManager.instance.Player.transform.position = new Vector3(-5, 0, 0);
+            GameManager.Instance.Player.transform.position = new Vector3(-5, 0, 0);
             LoadingSceneController.LoadScene(SceneName.VillageScene);
         }
 
@@ -28,7 +28,7 @@ public class SceneEditor : EditorWindow
 
         if (GUILayout.Button("Hunting Scene"))
         {
-            GameManager.instance.Player.transform.position = new Vector3(-2, 0, 25);
+            GameManager.Instance.Player.transform.position = new Vector3(-2, 0, 25);
             LoadingSceneController.LoadScene(SceneName.Field);
         }
 
@@ -36,7 +36,7 @@ public class SceneEditor : EditorWindow
 
         if (GUILayout.Button("Tycoon Scene"))
         {
-            GameManager.instance.Player.transform.position = new Vector3(5, 0, 8);
+            GameManager.Instance.Player.transform.position = new Vector3(5, 0, 8);
             LoadingSceneController.LoadScene(SceneName.TycoonScene);
         }
 

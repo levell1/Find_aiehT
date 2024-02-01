@@ -1,10 +1,9 @@
 using UnityEngine;
-
 public class MonoSingleton<T> : MonoBehaviour where T : Component
 {
     private static T _instance;
 
-    public static T instance
+    public static T Instance
     {
         get
         {

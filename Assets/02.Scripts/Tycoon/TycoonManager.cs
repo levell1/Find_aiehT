@@ -46,7 +46,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
             ServingStations.Add(_destinations[i].transform.parent.gameObject);
         }
 
-        _playerInteraction = GameManager.instance.Player.GetComponentInChildren<PlayerInteraction>().gameObject;
+        _playerInteraction = GameManager.Instance.Player.GetComponentInChildren<PlayerInteraction>().gameObject;
         waitForCustomerSpawnTime = new WaitForSeconds(_customerSpawnTime);
     }
 
@@ -60,8 +60,8 @@ public class TycoonManager : MonoSingleton<TycoonManager>
 
     private void DecideTodayFoods()
     {
-        TodayFoods = GameManager.instance.DataManager.Orders;
-        GameManager.instance.DataManager.DecideBreadNum();
+        TodayFoods = GameManager.Instance.DataManager.Orders;
+        GameManager.Instance.DataManager.DecideBreadNum();
     }
 
     public void CustomerExit(int seatNum)
@@ -99,7 +99,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
                     continue;
 
                 // 손님 생성
-                GameObject customerObject = GameManager.instance.PoolingManager.GetObject(PoolingObjectName.Customer);
+                GameObject customerObject = GameManager.Instance.PoolingManager.GetObject(PoolingObjectName.Customer);
                 CustomerController customerController = customerObject.GetComponent<CustomerController>();
 
                 // 손님 자리 배치

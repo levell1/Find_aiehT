@@ -69,7 +69,7 @@ public class SkillInstantiator : MonoBehaviour
             StringBuilder _skillResourcePath = new StringBuilder("Prefabs/Skills/");
             _skillResourcePath.Append(skillName);
 
-            _skillPrefabs = GameManager.instance.ResourceManager.Load<GameObject>(_skillResourcePath.ToString());
+            _skillPrefabs = GameManager.Instance.ResourceManager.Load<GameObject>(_skillResourcePath.ToString());
 
             _skillPrefabList.Add(_skillPrefabs);
         }
