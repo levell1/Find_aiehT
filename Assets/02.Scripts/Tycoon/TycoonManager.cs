@@ -9,15 +9,16 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     [SerializeField] public FoodCreater _FoodCreater;
 
     [SerializeField] private List<GameObject> _destinations;
-    private List<(GameObject destination, int index)> availableDestinations = new();
+    private List<(GameObject destination, int index)> _availableDestinations = new();
     public List<GameObject> ServingStations = new();    // Add CreateStations In Inspector
-
+    
     private List<OrderFood> _todayFoods = new();
     public List<OrderFood> TodayFoods { get { return _todayFoods; } }
     private List<bool> _isCustomerSitting = new();
 
     [SerializeField] public Transform CustomerCreatePos;
     private GameObject _playerInteraction;
+    [SerializeField] private GameObject _tycoonCamera;
 
     [SerializeField] private float _customerSpawnTime;
     [SerializeField] public float CustomerWaitTime;
@@ -47,6 +48,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
         }
 
         _playerInteraction = GameManager.instance.Player.GetComponentInChildren<PlayerInteraction>().gameObject;
+        
         _waitForCustomerSpawnTime = new WaitForSeconds(_customerSpawnTime);
     }
 
@@ -54,7 +56,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     {
         DecideTodayFoods();
         _playerInteraction.SetActive(false);
-
+        ChangeCamera(true);
         StartCoroutine(CreateCustomerCoroutine());
     }
 
@@ -79,6 +81,15 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     {
         _TycoonUI.OnReusltUI();
         _playerInteraction.SetActive(true);
+        ChangeCamera(false);
+    }
+
+    private void ChangeCamera(bool isTycoon)
+    {
+        Camera.main.gameObject.SetActive(!isTycoon);
+        // 45, 180
+        
+        _tycoonCamera.SetActive(isTycoon);
     }
 
     IEnumerator CreateCustomerCoroutine()
@@ -90,12 +101,12 @@ public class TycoonManager : MonoSingleton<TycoonManager>
             if (_currentCustomerNum < _maxCustomerNum)
             {
                 // 손님이 없는 자리만 List로
-                availableDestinations = _destinations
+                _availableDestinations = _destinations
                 .Select((d, i) => (d, i))
                 .Where(tuple => !_isCustomerSitting[tuple.i])
                 .ToList();
 
-                if (availableDestinations.Count <= 0)
+                if (_availableDestinations.Count <= 0)
                     continue;
 
                 // 손님 생성
@@ -103,13 +114,13 @@ public class TycoonManager : MonoSingleton<TycoonManager>
                 CustomerController customerController = customerObject.GetComponent<CustomerController>();
 
                 // 손님 자리 배치
-                int seatNum = UnityEngine.Random.Range(0, availableDestinations.Count);
-                customerController.AgentDestination = availableDestinations[seatNum].destination.transform;
+                int seatNum = UnityEngine.Random.Range(0, _availableDestinations.Count);
+                customerController.AgentDestination = _availableDestinations[seatNum].destination.transform;
 
                 // FoddCreater의 음식 제조 event를 위해 구독
                 _FoodCreater.SubscribeCreateFoodEvent(customerController);
 
-                int currentDestinationIndex = availableDestinations[seatNum].index;
+                int currentDestinationIndex = _availableDestinations[seatNum].index;
 
                 // 손님의 자리(FoodPlace)에 손님 지정, 손님의 스크립트에 자리 지정 (이벤트를 위해)
                 FoodPlace foodPlace = _destinations[currentDestinationIndex].GetComponentInParent<FoodPlace>();
