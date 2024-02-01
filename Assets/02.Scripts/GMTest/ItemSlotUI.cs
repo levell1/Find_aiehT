@@ -12,7 +12,7 @@ public class ItemSlotUI : MonoBehaviour
     public ShopSell ShopSell;
     private ItemSlot _curSlot;
 
-    public int index;
+    public int Index;
 
     public void Set(ItemSlot slot)
     {
@@ -32,11 +32,11 @@ public class ItemSlotUI : MonoBehaviour
 
     public void OnButtonClick() //버튼 클릭시 하단에 아이템 정보 변화
     {
-        GameManager.instance.Inventory.SelectItem(index);
+        GameManager.instance.Inventory.SelectItem(Index);
     }
 
     public void OnItemClick() //상점용
     {
-        ShopSell.SelectItem(index);
+        ShopSell.SelectItem(Index);
     }
 }

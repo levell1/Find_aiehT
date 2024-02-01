@@ -20,7 +20,7 @@ public class Inventory : MonoBehaviour
     public GameObject InvenMain;
 
     [Header("Selected Item")]
-    private int selectedItemIndex;
+    private int _selectedItemIndex;
     public ItemSlot selectedItem;
     public TextMeshProUGUI selectedItemName;
     public TextMeshProUGUI selectedItemDescription;
@@ -32,7 +32,7 @@ public class Inventory : MonoBehaviour
         for (int i = 0; i < UISlots.Length; i++)
         {
            // Slots.Add(new ItemSlot());
-            UISlots[i].index = i;
+            UISlots[i].Index = i;
             UISlots[i].Clear();
         }
         ClearSeletecItem();
@@ -116,7 +116,7 @@ public class Inventory : MonoBehaviour
         if (Slots.Count <= index || Slots[index].Item == null) return;
 
         selectedItem = Slots[index];
-        selectedItemIndex = index;
+        _selectedItemIndex = index;
 
         selectedItemName.text = selectedItem.Item.ObjName;
         selectedItemDescription.text = selectedItem.Item.Description;

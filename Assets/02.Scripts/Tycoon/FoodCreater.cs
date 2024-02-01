@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FoodCreater : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class FoodCreater : MonoBehaviour
 
     [SerializeField] private List<GameObject> _createStations;
 
-    private float _foodCreateDelayTime = 1f;
+    public float _foodCreateDelayTime = 10f; //
     private Coroutine _co;
 
     public void SubscribeCreateFoodEvent(CustomerController customer)

@@ -9,6 +9,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
 {
     [SerializeField] public TycoonUI _TycoonUI;
     [SerializeField] public FoodCreater _FoodCreater;
+    [SerializeField] public CookingUI CookingUI;
 
     [SerializeField] private List<GameObject> _destinations;
     private List<(GameObject destination, int index)> availableDestinations = new();
