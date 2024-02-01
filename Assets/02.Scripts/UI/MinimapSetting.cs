@@ -55,7 +55,7 @@ public class MinimapSetting : MonoBehaviour
 
     private void Update()
     {
-        transform.position = new Vector3(_player.position.x, 10, _player.position.z);
+        transform.position = new Vector3(_player.position.x, _player.position.y + 10, _player.position.z);
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
         {
             ZoomIn();

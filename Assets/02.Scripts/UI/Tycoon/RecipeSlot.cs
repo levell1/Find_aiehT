@@ -9,6 +9,7 @@ public class RecipeSlot : MonoBehaviour
     public FoodSO FoodData;
     [SerializeField] private Image _foodImage;
     private Button _foodButton;
+    private RestaurantUI _restaurantUI;
 
     [Header("음식 설명창")]
     [SerializeField] private GameObject _foodInfoPanel;
@@ -30,15 +31,17 @@ public class RecipeSlot : MonoBehaviour
     [SerializeField] private GameObject _addfoodCheckPanel;
     [SerializeField] private Button _addfoodCheckButton;
     [SerializeField] private int[] _InvenGroceryCount = new int[6];
+    
 
     private List<ItemSlot> _InvenData;
-
+    private int _maxCustomer;
     private int _makeFoodCount;
     private int[] _groceryCount = new int[6];
     private int _grocerykindCount;
     private void Start()
     {
-
+        _restaurantUI= GameManager.instance.UIManager._popupDic[UIName.RestaurantUI].GetComponent<RestaurantUI>();
+        _maxCustomer = TycoonManager.Instance.TodayMaxCustomerNum;
         _makeFoodCount = 1;
         _grocerykindCount = FoodData.Ingredients.Count;
 
@@ -123,7 +126,7 @@ public class RecipeSlot : MonoBehaviour
 
     private void AddMenu()
     {
-        _addfoodCheckPanel.SetActive(true);
+        //_addfoodCheckPanel.SetActive(true);
         GameManager.instance.DataManager.AddMenu(FoodData, _makeFoodCount);
         gameObject.GetComponent<Button>().interactable = false;
         for (int i = 0; i < _grocerykindCount; i++)
@@ -131,17 +134,27 @@ public class RecipeSlot : MonoBehaviour
             GameManager.instance.Inventory.RemoveItem(FoodData.Ingredients[i].IngredientSO, _groceryCount[i] * _makeFoodCount);
             _InvenGroceryCount[i] = 0;
         }
-        
+
+        _restaurantUI.AddMenuButton();
+
+
     }
 
     private void DecreaseCount()
     {
-        _makeFoodCount--;
+        if (_makeFoodCount > 1)
+        {
+            _makeFoodCount--;
+        }
+        
         GroceryText();
     }
     private void IncreaseCount()
     {
-        _makeFoodCount++;
+        if (_maxCustomer - _restaurantUI.AddMenus - _makeFoodCount > 0)
+        {
+            _makeFoodCount++;
+        }
         GroceryText();
     }
 
@@ -162,7 +175,7 @@ public class RecipeSlot : MonoBehaviour
 
         for (int i = 0; i < 6; i++)
         {
-            if (_makeFoodCount * _groceryCount[i] <= _InvenGroceryCount[i])
+            if (_makeFoodCount * _groceryCount[i] <= _InvenGroceryCount[i]&& _restaurantUI.AddMenus != _maxCustomer)
             {
                 _addfoodButton.interactable = true;
             }
@@ -172,8 +185,5 @@ public class RecipeSlot : MonoBehaviour
                 break;
             }
         }
-        
     }
-
-
 }
