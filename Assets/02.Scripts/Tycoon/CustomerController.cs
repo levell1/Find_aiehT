@@ -122,14 +122,7 @@ public class CustomerController : MonoBehaviour
         else
         {
             //TODO
-            _collidingAIs.RemoveAll(ai => !ai.activeInHierarchy);
-            for (int i = 0; i < _collidingAIs.Count; ++i)
-            {
-                if (_collidingAIs[i].GetComponent<NavMeshAgent>().isStopped)
-                {
-                    RemoveList(_collidingAIs[i]);
-                }
-            }
+            _collidingAIs.RemoveAll(ai => !ai.activeSelf || ai.GetComponent<NavMeshAgent>().isStopped);
         }
     }
 
@@ -150,18 +143,6 @@ public class CustomerController : MonoBehaviour
             }
         }
     }
-
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("AI"))
-    //    {
-    //        NavMeshAgent otherAgent = other.gameObject.GetComponent<NavMeshAgent>();
-    //        if (otherAgent.isStopped == true)
-    //        {
-    //            RemoveList(other.gameObject);
-    //        }
-    //    }
-    //}
 
     private void OnTriggerExit(Collider other)
     {

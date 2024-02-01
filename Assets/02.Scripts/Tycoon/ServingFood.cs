@@ -135,11 +135,12 @@ public class ServingFood : MonoBehaviour
 
     IEnumerator CleanFood(GameObject food, int index)
     {
+        _cleaningFoods.RemoveAt(index);
+
         yield return new WaitForSeconds(0f);
 
         food.GetComponent<CookedFood>().CurrentFoodPlace = null;
 
-        _cleaningFoods.RemoveAt(index);
         Destroy(food);
     }
 
