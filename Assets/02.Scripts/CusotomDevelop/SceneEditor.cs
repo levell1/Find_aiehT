@@ -50,7 +50,7 @@ public class SceneEditor : EditorWindow
 
         if (GUILayout.Button("Vilage Front Tycoon"))
         {
-            GameManager.instance.Player.transform.position = new Vector3(5, 0, -200);
+            GameManager.Instance.Player.transform.position = new Vector3(5, 0, -200);
             LoadingSceneController.LoadScene(SceneName.VillageScene);
         }
 
@@ -58,7 +58,7 @@ public class SceneEditor : EditorWindow
 
         if (GUILayout.Button("Vilage Front Smith Shop"))
         {
-            GameManager.instance.Player.transform.position = new Vector3(-6, 0, -50);
+            GameManager.Instance.Player.transform.position = new Vector3(-6, 0, -50);
             LoadingSceneController.LoadScene(SceneName.VillageScene);
         }
 
@@ -66,7 +66,7 @@ public class SceneEditor : EditorWindow
 
         if (GUILayout.Button("Vilage Front Potion Shop"))
         {
-            GameManager.instance.Player.transform.position = new Vector3(9, 0, -17);
+            GameManager.Instance.Player.transform.position = new Vector3(9, 0, -17);
             LoadingSceneController.LoadScene(SceneName.VillageScene);
         }
 
@@ -74,7 +74,7 @@ public class SceneEditor : EditorWindow
 
         if (GUILayout.Button("Vilage Front Hunt Map"))
         {
-            GameManager.instance.Player.transform.position = new Vector3(-4, 0, 27);
+            GameManager.Instance.Player.transform.position = new Vector3(-4, 0, 27);
             LoadingSceneController.LoadScene(SceneName.VillageScene);
         }
 
