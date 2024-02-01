@@ -42,6 +42,44 @@ public class SceneEditor : EditorWindow
 
         GUILayout.EndVertical();
 
+        GUILayout.Space(10);
+
+        GUILayout.Label("마을 내 이동 버튼", EditorStyles.boldLabel);
+
+        GUILayout.BeginVertical();
+
+        if (GUILayout.Button("Vilage Front Tycoon"))
+        {
+            GameManager.instance.Player.transform.position = new Vector3(5, 0, -200);
+            LoadingSceneController.LoadScene(SceneName.VillageScene);
+        }
+
+        GUILayout.Space(10);
+
+        if (GUILayout.Button("Vilage Front Smith Shop"))
+        {
+            GameManager.instance.Player.transform.position = new Vector3(-6, 0, -50);
+            LoadingSceneController.LoadScene(SceneName.VillageScene);
+        }
+
+        GUILayout.Space(10);
+
+        if (GUILayout.Button("Vilage Front Potion Shop"))
+        {
+            GameManager.instance.Player.transform.position = new Vector3(9, 0, -17);
+            LoadingSceneController.LoadScene(SceneName.VillageScene);
+        }
+
+        GUILayout.Space(10);
+
+        if (GUILayout.Button("Vilage Front Hunt Map"))
+        {
+            GameManager.instance.Player.transform.position = new Vector3(-4, 0, 27);
+            LoadingSceneController.LoadScene(SceneName.VillageScene);
+        }
+
+        GUILayout.EndVertical();
+
     }
 
 

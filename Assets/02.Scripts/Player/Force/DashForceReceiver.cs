@@ -22,20 +22,18 @@ public class DashForceReceiver : MonoBehaviour
     //private Vector3 _dashStartPosition;
     //private Vector3 _dashTargetPosition;
 
-    private void Start()
+    private void Awake()
     {
         _player = GetComponent<Player>();
         _staminaSystem = _player.GetComponent<StaminaSystem>();
 
+        Init();
+    }
 
+    public void Init()
+    {
         IsCoolTime = false;
         IsDash = false;
-
-        //_maxStamina = _player.Data.PlayerData.GetPlayerMaxStamina();
-        //_stamina = _maxStamina;
-
-        //Debug.Log(_maxStamina);
-        //Debug.Log(_stamina);
     }
 
     void FixedUpdate()
@@ -43,8 +41,6 @@ public class DashForceReceiver : MonoBehaviour
         if(IsDash)
         {
             _dashTime += Time.fixedDeltaTime;
-
-           
 
             if (_dashTime >= _dashDuration )
             {

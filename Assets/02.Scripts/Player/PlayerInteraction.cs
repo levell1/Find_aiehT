@@ -90,6 +90,10 @@ public class PlayerInteraction : MonoBehaviour
                     InteractionText.text = "대장간 - 대화하기";
                     _showUI = UIName.ReforgeUI;
                 }
+                else if (other.gameObject.CompareTag(TagName.RealDoor)) // 타이쿤
+                {
+                    InteractionText.text = "타이쿤 - 입장하기";
+                }
             }
         }
     }
