@@ -20,7 +20,8 @@ public class ShopPotionInfoPopup : MonoBehaviour
     [SerializeField] private Button _increaseButton;
 
     [SerializeField] private Button _successButton;
-
+    [SerializeField] private GameObject _successPopup;
+    [SerializeField] private GameObject _successPopupObject;
     public static event Action<int> OnPurchaseSuccessAction;
 
     private int _itemCurQuantity = 1;
@@ -138,13 +139,31 @@ public class ShopPotionInfoPopup : MonoBehaviour
             OnPurchaseSuccessAction?.Invoke(_itemCurQuantity);
             _playerData.PlayerData.SetPlayerGold(_playerData.PlayerData.GetPlayerGold() - _itemTotalPrice);
 
-            gameObject.SetActive(false);
+            
+            StartCoroutine(PurchasePopupOff());
+            
         }
         else
         {
-            Debug.Log("골드가 부족합니다");
+            StartCoroutine(PurchaseFaillPopupOff());
         }
     }
 
-   
+    IEnumerator PurchasePopupOff() 
+    {
+        _successPopup.SetActive(true);
+        _successPopupObject.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        _successPopup.SetActive(false);
+        gameObject.SetActive(false);
+    }
+
+    IEnumerator PurchaseFaillPopupOff()
+    {
+        _successPopup.SetActive(true);
+        _successPopupObject.SetActive(false);
+        yield return new WaitForSeconds(1f);
+        _successPopup.SetActive(false);
+    }
+
 }

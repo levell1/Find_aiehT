@@ -15,15 +15,24 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private Button _showSellButton;
     [SerializeField] private Button _buyExitButton;
     [SerializeField] private Button _sellExitButton;
+    [SerializeField] private Scrollbar _sellScrollbar;
     private void OnEnable()
     {
+        Cursor.lockState = CursorLockMode.None;
         _selectButton.SetActive(true);
         _BuyPanel.SetActive(false);
         _SellPanel.SetActive(false);
         _CheckPanel.SetActive(false);
-        Cursor.lockState = CursorLockMode.None;
+        
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && gameObject.activeSelf)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
     private void Start()
     {
         _showBuyButton.onClick.AddListener(ShowBuyPanel);
@@ -32,6 +41,8 @@ public class ShopUI : MonoBehaviour
         _sellExitButton.onClick.AddListener(ExitSell);
         _shopExitButton.onClick.AddListener(ExitShop);
     }
+
+
     private void ShowBuyPanel()
     {
         GameManager.instance.Inventory.ToggleInventoryUI();
@@ -42,14 +53,17 @@ public class ShopUI : MonoBehaviour
 
     private void ShowSellPanel()
     {
+        
         _selectButton.SetActive(false);
         _SellPanel.SetActive(true);
+        _sellScrollbar.value = 1;
     }
 
     private void ExitShop()
     {
         gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
     }
 
     private void ExitSell()
