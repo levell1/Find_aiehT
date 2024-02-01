@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TycoonManager : MonoSingleton<TycoonManager>
@@ -13,7 +11,9 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     [SerializeField] private List<GameObject> _destinations;
     private List<(GameObject destination, int index)> availableDestinations = new();
     public List<GameObject> ServingStations = new();    // Add CreateStations In Inspector
-    [NonSerialized] public List<OrderFood> TodayFoods = new();
+
+    private List<OrderFood> _todayFoods = new();
+    public List<OrderFood> TodayFoods { get { return _todayFoods; } }
     private List<bool> _isCustomerSitting = new();
 
     [SerializeField] public Transform CustomerCreatePos;
@@ -23,7 +23,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     [SerializeField] public float CustomerWaitTime;
 
     [SerializeField] private int _maxCustomerNum = 4;
-    [SerializeField] private int _currentCustomerNum = 0;   //TODO: SerializeField 제거
+    [SerializeField] private int _currentCustomerNum;   //TODO: SerializeField 제거
     [SerializeField] private int _todayMaxCustomerNum;
     public int TodayMaxCustomerNum // TODO: 레벨 당 손님수 정하는 함수
     {
@@ -33,7 +33,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
 
     private int _agentPriority = 0;
 
-    WaitForSeconds waitForCustomerSpawnTime;
+    private WaitForSeconds _waitForCustomerSpawnTime;
 
     private void Start()
     {
@@ -47,7 +47,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
         }
 
         _playerInteraction = GameManager.instance.Player.GetComponentInChildren<PlayerInteraction>().gameObject;
-        waitForCustomerSpawnTime = new WaitForSeconds(_customerSpawnTime);
+        _waitForCustomerSpawnTime = new WaitForSeconds(_customerSpawnTime);
     }
 
     public void TycoonGameStart()
@@ -60,7 +60,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
 
     private void DecideTodayFoods()
     {
-        TodayFoods = GameManager.instance.DataManager.Orders;
+        _todayFoods = GameManager.instance.DataManager.Orders;
         GameManager.instance.DataManager.DecideBreadNum();
     }
 
@@ -85,7 +85,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     {
         while (_todayMaxCustomerNum > 0)
         {
-            yield return waitForCustomerSpawnTime;
+            yield return _waitForCustomerSpawnTime;
 
             if (_currentCustomerNum < _maxCustomerNum)
             {
