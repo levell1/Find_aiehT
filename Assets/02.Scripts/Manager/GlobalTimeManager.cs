@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -87,7 +85,7 @@ public class GlobalTimeManager : MonoBehaviour
         }
     }
 
-    public bool ItemReSpawnTime()
+    public bool ItemRespawnTime()
     {
         if (Hour == 6f && !IsItemRespawn)
         {

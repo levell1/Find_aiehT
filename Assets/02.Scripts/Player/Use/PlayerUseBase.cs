@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerUseBase : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerUseBase : MonoBehaviour
     protected PotionSO _potion;
     protected int _healingAmount;
     protected int _quantity;
+    [SerializeField] protected Image _coolTimeImage;
+
 
     public float CoolTime;
     private bool _isCoolTime = false;
@@ -55,11 +58,12 @@ public class PlayerUseBase : MonoBehaviour
     IEnumerator CoolTimeController()
     {
         _isCoolTime = true;
+        float maxcool = CoolTime;
 
-        while(CoolTime > 0f)
+        while (CoolTime > 0f)
         {
             CoolTime -= Time.deltaTime;
-
+            _coolTimeImage.fillAmount = CoolTime / maxcool;
             yield return null;
         }
 

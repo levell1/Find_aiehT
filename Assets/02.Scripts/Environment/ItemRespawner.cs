@@ -36,14 +36,14 @@ public class ItemRespawner : MonoBehaviour
 
     private void ReSpwanItem()
     {
-        if (GameManager.instance.GlobalTimeManager.ItemReSpawnTime())
+        if (GameManager.Instance.GlobalTimeManager.ItemRespawnTime())
         {
             for (int i = 0; i < ItemWaitSpawnList.Count; i++)
             {
                 ItemWaitSpawnList[i].SetActive(true);
             }
             ItemWaitSpawnList.Clear();
-            GameManager.instance.GlobalTimeManager.IsItemRespawn = true;
+            GameManager.Instance.GlobalTimeManager.IsItemRespawn = true;
         }
     }
 }

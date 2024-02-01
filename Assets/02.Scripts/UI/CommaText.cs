@@ -1,21 +1,20 @@
 using TMPro;
 using UnityEngine;
-
 public class CommaText : MonoBehaviour
 {
-    [SerializeField] protected TMP_Text _glodText;
+    [SerializeField] protected TMP_Text _valueText;
 
     protected int _Value;
 
     private void Awake()
     {
-        _glodText = GetComponent<TMP_Text>();
+        _valueText = GetComponent<TMP_Text>();
     }
-    protected void Update()
+    protected virtual void Update()
     {
-        _glodText.text = GetComma(_Value).ToString();
+        _valueText.text = GetComma(_Value).ToString();
     }
-    public string GetComma(int data)
+    private string GetComma(int data)
     {
         return string.Format("{0:#,###}", data); 
     }

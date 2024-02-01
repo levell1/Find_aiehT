@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class PlayerBaseSlider : MonoBehaviour
 {
     protected Slider _slider;
@@ -19,6 +18,5 @@ public class PlayerBaseSlider : MonoBehaviour
     {
         _Text.text = (_currentValue + "/" + _maxValue);
         _slider.value =_currentValue / _maxValue;
-
     }
 }

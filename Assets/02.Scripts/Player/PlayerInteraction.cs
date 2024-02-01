@@ -190,7 +190,7 @@ public class PlayerInteraction : MonoBehaviour
             }
             else
             {
-                GameManager.instance.UIManager.ShowCanvas(_showUI);
+                GameManager.Instance.UIManager.ShowCanvas(_showUI);
             }
 
             InteractionText.text = string.Empty;

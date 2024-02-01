@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TitleSceneButtonEvent : MonoBehaviour
 {
@@ -23,12 +22,12 @@ public class TitleSceneButtonEvent : MonoBehaviour
         Application.Quit();
     }
 
-    public void KeyButton() 
+    public void ControlKeyButton() 
     {
-        GameManager.instance.UIManager.ShowCanvas(UIName.ControlKeyUI);
+        GameManager.Instance.UIManager.ShowCanvas(UIName.ControlKeyUI);
     }
     public void OptionButton()
     {
-        GameManager.instance.UIManager.ShowCanvas(UIName.SettingUI);
+        GameManager.Instance.UIManager.ShowCanvas(UIName.SettingUI);
     }
 }

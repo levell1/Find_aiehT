@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
@@ -12,9 +10,9 @@ public class SoundManager : MonoBehaviour
     private AudioMixer _mixer;
     private string _bgFilename;
 
-    private Queue<AudioSource> _bgmqueue = new Queue<AudioSource>();
+    private Queue<AudioSource> _bgmQueue = new Queue<AudioSource>();
 
-    Coroutine coroutine = null;
+    private Coroutine _coroutine = null;
 
 
     private void Awake()
@@ -26,21 +24,20 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         SceneManager.sceneLoaded += LoadedsceneEvent;
-
         BgSoundPlay("BG1");
     }
 
-    private void LoadedsceneEvent(Scene scene, LoadSceneMode arg1)
+    private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "StartScene")
+        if (scene.name == SceneName.TitleScene)
         {
-            _bgFilename = "";
+            _bgFilename = "BG1";
         }
-        else if (scene.name == "Village")
+        else if (scene.name == SceneName.VillageScene)
         {
             _bgFilename = "BG3";
         }
-        else if (scene.name == "Store")
+        else if (scene.name == SceneName.TycoonScene)
         {
             _bgFilename = "BG3";
         }
@@ -53,9 +50,9 @@ public class SoundManager : MonoBehaviour
 
     public void SFXPlay(string sfxName, Vector3 audioPosition, float audioVolume)
     {
-        GameObject AudioGo = new GameObject(sfxName + "Sound");
-        AudioGo.transform.position = audioPosition;
-        AudioSource audiosource = AudioGo.AddComponent<AudioSource>();
+        GameObject AudioObject = new GameObject(sfxName + "Sound");
+        AudioObject.transform.position = audioPosition;
+        AudioSource audiosource = AudioObject.AddComponent<AudioSource>();
         audiosource.outputAudioMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
         _audioClip = Resources.Load<AudioClip>("Sound/SFX/" + sfxName);
 
@@ -70,16 +67,15 @@ public class SoundManager : MonoBehaviour
 
     }
 
-
     public void BgSoundPlay(string BgName)
     {
 
-        if (_bgmqueue.Count != 0)
+        if (_bgmQueue.Count != 0)
         {
-            AudioSource firstAudio = _bgmqueue.Dequeue();
-            if (coroutine != null)
+            AudioSource firstAudio = _bgmQueue.Dequeue();
+            if (_coroutine != null)
             {
-                StopCoroutine(coroutine);
+                StopCoroutine(_coroutine);
             }
             StartCoroutine(BgmVolumeDown(firstAudio));
         }
@@ -94,10 +90,10 @@ public class SoundManager : MonoBehaviour
         {
             audiosource.clip = _audioClip;
             audiosource.loop = true;
-            coroutine = StartCoroutine(BgmVolumeUp(audiosource));
+            _coroutine = StartCoroutine(BgmVolumeUp(audiosource));
             audiosource.Play();
         }
-        _bgmqueue.Enqueue(audiosource);
+        _bgmQueue.Enqueue(audiosource);
 
     }
     IEnumerator BgmVolumeDown(AudioSource bgmsource)
@@ -122,7 +118,6 @@ public class SoundManager : MonoBehaviour
             yield return new WaitForSeconds(0.4f);
         }
     }
-
 
     public void SetMasterVolume(float volume)
     {   

@@ -5,16 +5,10 @@ using UnityEngine.UI;
 public class MouseSettingUI : MonoBehaviour
 {
     private Slider _slider;
-    private CinemachinePOV _virtualcamera;
 
     private void Awake()
     {
         _slider = GetComponent<Slider>();
-        if (GameObject.Find("Virtual Camera")!=null)
-        {
-            _virtualcamera = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachinePOV>();
-        }
-        
     }
     private void Start()
     {
@@ -22,7 +16,7 @@ public class MouseSettingUI : MonoBehaviour
     }
     void SetCam(float value)
     {
-        _virtualcamera.m_VerticalAxis.m_MaxSpeed = value;
-        _virtualcamera.m_HorizontalAxis.m_MaxSpeed = value;
+        GameManager.Instance.UIManager._cameraHSpeed = value;
+        GameManager.Instance.UIManager._cameraVSpeed = value;
     }
 }

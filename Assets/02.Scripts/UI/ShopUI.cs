@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,18 +39,16 @@ public class ShopUI : MonoBehaviour
         _shopExitButton.onClick.AddListener(ExitShop);
     }
 
-
     private void ShowBuyPanel()
     {
-        GameManager.instance.Inventory.ToggleInventoryUI();
-        GameManager.instance.Inventory.ShopOpen();
+        GameManager.Instance.Inventory.ToggleInventoryUI();
+        GameManager.Instance.Inventory.ShopOpen();
         _selectButton.SetActive(false);
         _BuyPanel.SetActive(true);
     }
 
     private void ShowSellPanel()
     {
-        
         _selectButton.SetActive(false);
         _SellPanel.SetActive(true);
         _sellScrollbar.value = 1;
@@ -74,7 +69,7 @@ public class ShopUI : MonoBehaviour
 
     private void ExitBuy()
     {
-        GameManager.instance.Inventory.ToggleInventoryUI();
+        GameManager.Instance.Inventory.ToggleInventoryUI();
         Cursor.lockState = CursorLockMode.None;
         _selectButton.SetActive(true);
         _BuyPanel.SetActive(false);

@@ -1,79 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class test : MonoBehaviour
 {
-    private Dictionary<string, GameObject> _popupUi = new Dictionary<string, GameObject>();
-
-    private void Awake()
-    {
-        
-    }
-    void Start()
-    {
-
-        //GameManager.instance.UIManager.
-
-
-    }
-
 
     private void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-
-            //GameManager.instance.SoundManager.SFXPlay("sound", gameObject.transform.position, 0.1f);
-            GameManager.instance.SoundManager.BgSoundPlay("BG3");
-        }
-
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            GameManager.instance.Player.transform.position = new Vector3(-5, 0, 0);
+            GameManager.Instance.Player.transform.position = new Vector3(-5, 0, 0);
             LoadingSceneController.LoadScene(SceneName.VillageScene);
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            GameManager.instance.Player.transform.position = new Vector3(5, 0, 8);
+            GameManager.Instance.Player.transform.position = new Vector3(5, 0, 8);
             LoadingSceneController.LoadScene(SceneName.TycoonScene);
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            GameManager.instance.Player.transform.position = new Vector3(-2, 0, 25);
+            GameManager.Instance.Player.transform.position = new Vector3(-2, 0, 25);
             LoadingSceneController.LoadScene(SceneName.Field);
         }
-
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            GameManager.instance.UIManager.ShowCanvas(UIName.ReforgeUI);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-
-            GameManager.instance.UIManager.CloseLastCanvas();
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            GameManager.instance.UIManager.ShowCanvas(UIName.PlayerStatusUI);
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            GameManager.instance.UIManager.ShowCanvas(UIName.RestaurantUI);
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            GameManager.instance.UIManager.ShowCanvas(UIName.PlayerStatusUI);
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            //GameManager.instance.UIManager.ShowCanvas(UIName.ShopUI);
-        }
+        
     }
 }

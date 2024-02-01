@@ -3,19 +3,17 @@ using UnityEngine.UI;
 
 public class PlayerStatSlider : PlayerBaseSlider
 {
-
     [SerializeField] private Image _leftImage;
     [SerializeField] private Image _rightImage;
 
     protected override void Awake()
     {
-
         base.Awake();
     }
 
-    protected override void ChangeBar(float _currentValue, float _maxValue)
+    protected override void ChangeBar(float currentValue, float maxValue)
     {
-        base.ChangeBar(_currentValue, _maxValue);
+        base.ChangeBar(currentValue, maxValue);
         if (_slider.value == 1)
         {
             _rightImage.color = new Color32(255, 255, 255, 255);

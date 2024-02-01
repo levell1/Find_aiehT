@@ -25,7 +25,7 @@ public abstract class PotionQuickSlotBase : MonoBehaviour
 
     protected void SetDefaultSprite(string spritePath)
     {
-        Sprite defaultSprite = GameManager.instance.ResourceManager.Load<Sprite>(spritePath);
+        Sprite defaultSprite = GameManager.Instance.ResourceManager.Load<Sprite>(spritePath);
 
         if (defaultSprite != null)
         {

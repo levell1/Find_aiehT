@@ -3,34 +3,20 @@ using UnityEngine;
 
 public class OrderFood 
 {
-    public FoodSO foodSO;
-    public int foodCount;
+    public FoodSO FoodSO;
+    public int FoodCount;
 }
 
 public class DataManager : MonoBehaviour
 {
-    public FoodSO[] FoodSoDatas = new FoodSO[20];
+    public FoodSO[] FoodSODatas = new FoodSO[20];
     public List<OrderFood> Orders = new List<OrderFood>();
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            for (int i = 0; i < FoodSoDatas.Length; i++)
-            {
-                for (int j = 0; j < FoodSoDatas[i].Ingredients.Count; j++)
-                {
-                    GameManager.instance.Inventory.AddItem(FoodSoDatas[i].Ingredients[j].IngredientSO);
-                }
-            }
-        }
-    }
 
     public void AddMenu(FoodSO foodData, int count)
     {
         OrderFood orderFood = new OrderFood();
-        orderFood.foodSO = foodData;
-        orderFood.foodCount = count;
+        orderFood.FoodSO = foodData;
+        orderFood.FoodCount = count;
         Orders.Add(orderFood);
     }
 
@@ -44,10 +30,10 @@ public class DataManager : MonoBehaviour
         int currentOrderFoodsNum = 0;
         for(int i = 0; i< Orders.Count; ++i)
         {
-            currentOrderFoodsNum += Orders[i].foodCount;
+            currentOrderFoodsNum += Orders[i].FoodCount;
         }
-        int breadNum = TycoonManager.instance.TodayMaxCustomerNum - currentOrderFoodsNum;
+        int breadNum = TycoonManager.Instance.TodayMaxCustomerNum - currentOrderFoodsNum;
 
-        AddMenu(FoodSoDatas[0], breadNum);
+        AddMenu(FoodSODatas[0], breadNum);
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,10 +9,7 @@ public class SettingUI : BaseUI
     [SerializeField] private GameObject _ExitCheck;
     [SerializeField] private Button _exitButton;
     [SerializeField] private Button _keyControlButton;
-    private void Awake()
-    {
-        
-    }
+
     private void OnEnable()
     {
         _savePanel.SetActive(false);
@@ -30,6 +25,7 @@ public class SettingUI : BaseUI
 
     void SaveGame() 
     {
+        //저장관련 시간
         ShowOneSecUI(_savePanel,2f);
     }
     void ShowExitGame() 
@@ -38,7 +34,7 @@ public class SettingUI : BaseUI
     }
     void ShowControlKey()
     {
-        GameManager.instance.UIManager.ShowCanvas(UIName.ControlKeyUI);
+        GameManager.Instance.UIManager.ShowCanvas(UIName.ControlKeyUI);
     }
     void ExitGame()
     {

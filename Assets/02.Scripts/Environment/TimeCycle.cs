@@ -27,16 +27,16 @@ public class TimeCycle : MonoBehaviour
         UpdateLighting(Sun, SunColor, SunIntensity);
         UpdateLighting(Moon, MoonColor, MoonIntensity);
 
-        RenderSettings.ambientIntensity = LightingIntensityMultiplier.Evaluate(GameManager.instance.GlobalTimeManager.DayTime);
-        RenderSettings.reflectionIntensity = ReflectionIntensityMultiplier.Evaluate(GameManager.instance.GlobalTimeManager.DayTime);
+        RenderSettings.ambientIntensity = LightingIntensityMultiplier.Evaluate(GameManager.Instance.GlobalTimeManager.DayTime);
+        RenderSettings.reflectionIntensity = ReflectionIntensityMultiplier.Evaluate(GameManager.Instance.GlobalTimeManager.DayTime);
     }
 
     private void UpdateLighting(Light lightSource, Gradient colorGradient, AnimationCurve intensityCurve)
     {
-        float intensity = intensityCurve.Evaluate(GameManager.instance.GlobalTimeManager.DayTime);  //AnimationCurve.Evaluate(*)는 *의 값의 커브값을 리턴해준다. (그래프)
+        float intensity = intensityCurve.Evaluate(GameManager.Instance.GlobalTimeManager.DayTime);  //AnimationCurve.Evaluate(*)는 *의 값의 커브값을 리턴해준다. (그래프)
 
-        lightSource.transform.eulerAngles = (GameManager.instance.GlobalTimeManager.DayTime - ((lightSource == Sun) ? 0.25f : 0.75f)) * Noon * 4.0f;
-        lightSource.color = colorGradient.Evaluate(GameManager.instance.GlobalTimeManager.DayTime);
+        lightSource.transform.eulerAngles = (GameManager.Instance.GlobalTimeManager.DayTime - ((lightSource == Sun) ? 0.25f : 0.75f)) * Noon * 4.0f;
+        lightSource.color = colorGradient.Evaluate(GameManager.Instance.GlobalTimeManager.DayTime);
         lightSource.intensity = intensity;
 
         GameObject go = lightSource.gameObject;

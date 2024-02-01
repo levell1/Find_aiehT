@@ -76,7 +76,7 @@ public class ReforgeUI : BaseUI
         }
 
         _goldText.text = _equipmentupgrade.EquipData[_itemnum].CurrentUpgradeGold.ToString()+"골드 필요";
-        _equipicon.sprite = _equipmentupgrade.EquipData[_itemnum].Equipment.sprite;
+        _equipicon.sprite = _equipmentupgrade.EquipData[_itemnum].Equipment.EquipSprite;
         if (_equipmentupgrade.EquipData[_itemnum].CurrentDef != 0)
         {
             _plusStatText.text = "방어력 + " + (NextStatDef() - _equipmentupgrade.EquipData[_itemnum].CurrentDef);
@@ -110,7 +110,7 @@ public class ReforgeUI : BaseUI
     {
         for (int i = 0; i < 6; i++)
         {
-            _equipimagelist[i].sprite = _equipmentupgrade.EquipData[i].Equipment.sprite;
+            _equipimagelist[i].sprite = _equipmentupgrade.EquipData[i].Equipment.EquipSprite;
             _equiptext[i].text = _equipmentupgrade.EquipData[i].Equipment.Name + "( +" + _equipmentupgrade.EquipData[i].Level + ")";
         }
     }

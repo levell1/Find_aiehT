@@ -30,7 +30,7 @@ public class EnemyRespawn : MonoBehaviour
     private void Respawn()
     {
         _enemy.SetData();
-        if (GameManager.instance.GlobalTimeManager.NightCheck())
+        if (GameManager.Instance.GlobalTimeManager.NightCheck())
         {
             _enemy.EnemyDamage *= 2f;
             _enemy.EnemyMaxHealth *= 2f;

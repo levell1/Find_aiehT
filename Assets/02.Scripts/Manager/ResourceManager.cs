@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class ResourceManager
 {
     public T Load<T>(string path) where T : Object 
@@ -15,5 +14,5 @@ public class ResourceManager
         return Object.Instantiate(prefab, parent);
     }
 
-    //딕셔너리로 나중에 데이터 생기면 SPRITE 저장 ?
+    //딕셔너리로 나중에 데이터 생기면 저장 ?
 }

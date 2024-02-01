@@ -4,7 +4,7 @@ public class EquipmentBase : ScriptableObject
 {
     public string Name;
     public int UpgradeGold;
-    public Sprite sprite;
+    public Sprite EquipSprite;
     public int EquipmentDmg;
     public int EquipmentHealth;
     public int EquipmentDef;

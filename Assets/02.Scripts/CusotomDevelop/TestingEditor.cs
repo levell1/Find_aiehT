@@ -51,11 +51,11 @@ public class TestingEditor : EditorWindow
     {
         DataManager dataManager = FindObjectOfType<DataManager>();
        
-        for (int i = 0; i < dataManager.FoodSoDatas.Length; i++)
+        for (int i = 0; i < dataManager.FoodSODatas.Length; i++)
         {
-            for (int j = 0; j < dataManager.FoodSoDatas[i].Ingredients.Count; j++)
+            for (int j = 0; j < dataManager.FoodSODatas[i].Ingredients.Count; j++)
             {
-                GameManager.instance.Inventory.AddItem(dataManager.FoodSoDatas[i].Ingredients[j].IngredientSO);
+                GameManager.Instance.Inventory.AddItem(dataManager.FoodSODatas[i].Ingredients[j].IngredientSO);
             }
         }
     }

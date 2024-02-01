@@ -7,7 +7,7 @@ public class PlayerExpBar : PlayerBaseSlider
     {
         if (_playerExpSystem == null)
         {
-            _playerExpSystem = GameObject.FindWithTag(TagName.Player).GetComponent<PlayerExpSystem>();
+            _playerExpSystem = GameManager.Instance.Player.GetComponent<PlayerExpSystem>();
         }
         base.Awake();
         _playerExpSystem.OnChangeExpUI += base.ChangeBar;

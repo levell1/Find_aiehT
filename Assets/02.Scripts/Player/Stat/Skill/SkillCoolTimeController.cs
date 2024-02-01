@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SkillCoolTimeController : MonoBehaviour
 {
     protected float _coolTime;
+    [SerializeField] protected Image _coolTimeImage;
 
     public bool IsCoolTime { get; private set; }
 
@@ -26,12 +29,12 @@ public class SkillCoolTimeController : MonoBehaviour
     private IEnumerator CoolTimeCoroutine()
     {
         IsCoolTime = true;
-
+        float maxcool = _coolTime;
         while (_coolTime > 0f)
         {
            _coolTime -= Time.deltaTime;
-        
-          yield return null;
+           _coolTimeImage.fillAmount = _coolTime / maxcool;
+           yield return null;
         }
 
         IsCoolTime = false;

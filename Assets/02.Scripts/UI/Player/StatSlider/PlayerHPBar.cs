@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
-
 public class PlayerHPBar : PlayerStatSlider
 {
     [SerializeField] private HealthSystem _healthSystem;
@@ -9,7 +7,7 @@ public class PlayerHPBar : PlayerStatSlider
     {
         if (_healthSystem==null)
         {
-            _healthSystem = GameObject.FindWithTag(TagName.Player).GetComponent<HealthSystem>();
+            _healthSystem = GameManager.Instance.Player.GetComponent<HealthSystem>();
         }
         base.Awake();
         _healthSystem.OnChangeHpUI += base.ChangeBar;

@@ -67,7 +67,7 @@ public class FoodPlace : MonoBehaviour
             return;
 
         // TODO: Get Gold
-        TycoonManager.instance._TycoonUI.UpdateCurrentGold(_currentFood._FoodSO.Price);
+        TycoonManager.Instance._TycoonUI.UpdateCurrentGold(_currentFood._FoodSO.Price);
 
         OnCustomerGetFood.Invoke();
 
@@ -78,7 +78,7 @@ public class FoodPlace : MonoBehaviour
 
     private void CustomerExit()
     {
-        TycoonManager.instance.CustomerExit(SeatNum);
+        TycoonManager.Instance.CustomerExit(SeatNum);
     }
 
     #region Coroutine

@@ -6,7 +6,7 @@ public class PrepareStation : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player"))
         {
-            GameManager.instance.UIManager.ShowCanvas("RestaurantUI");
+            GameManager.Instance.UIManager.ShowCanvas("RestaurantUI");
             gameObject.SetActive(false);
         }
     }

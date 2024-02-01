@@ -88,8 +88,3 @@ public struct AnimationParameterName
     public const string TycoonIsIdle= "IsIdle";
 }
 
-
-public class Define 
-{
-    
-}

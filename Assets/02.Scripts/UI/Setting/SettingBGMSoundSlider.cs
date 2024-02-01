@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,15 +18,15 @@ public class SettingBGMSoundSlider : MonoBehaviour
     {
         if (gameObject.name == "MasterSlider")
         {
-            GameManager.instance.SoundManager.SetMasterVolume(volume);
+            GameManager.Instance.SoundManager.SetMasterVolume(volume);
         }
         else if (gameObject.name == "BGMSlider")
         {
-            GameManager.instance.SoundManager.SetMusicVolume(volume);
+            GameManager.Instance.SoundManager.SetMusicVolume(volume);
         }
         else if (gameObject.name == "SFXSlider") 
         {
-            GameManager.instance.SoundManager.SetSFXVolume(volume);
+            GameManager.Instance.SoundManager.SetSFXVolume(volume);
         }
     }
 
