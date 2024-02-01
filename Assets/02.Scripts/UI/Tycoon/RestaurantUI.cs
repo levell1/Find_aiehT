@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +26,9 @@ public class RestaurantUI : BaseUI
     [SerializeField] private TMP_Text[] _addMenuName = new TMP_Text[4];
     [SerializeField] private TMP_Text[] _addMenuCount = new TMP_Text[4];
     [SerializeField] private TMP_Text[] _addMenuPrice = new TMP_Text[4];
+    [SerializeField] private TMP_Text _menuCount;
+
+    public int AddMenus = 0;
 
     private void OnEnable()
     {
@@ -40,12 +44,9 @@ public class RestaurantUI : BaseUI
             _recipeSlots[i].GetComponent<Button>().interactable = true;
         }
     }
-    private void Awake()
-    {
-
-    }
     private void Start()
     {
+        _menuCount.text = AddMenus.ToString() + " / " + TycoonManager.Instance.TodayMaxCustomerNum.ToString();
         _foodDatas = GameManager.instance.DataManager.FoodSoDatas;
         _basicFoodName.text = _foodDatas[0].FoodName;
         _basicFoodImage.sprite = _foodDatas[0].FoodSprite;
@@ -75,7 +76,6 @@ public class RestaurantUI : BaseUI
 
     public void AddMenuButton()
     {
-
         for (int i = 0; i < _addedMenu.Length; i++)
         {
             if (!_addedMenu[i].activeSelf)
@@ -86,11 +86,12 @@ public class RestaurantUI : BaseUI
                 _addMenuImage[i].sprite = GameManager.instance.DataManager.Orders[i].foodSO.FoodSprite;
                 _addMenuName[i].text = GameManager.instance.DataManager.Orders[i].foodSO.FoodName;
                 _addMenuCount[i].text = GameManager.instance.DataManager.Orders[i].foodCount.ToString();
-                _addMenuPrice[i].text = (GameManager.instance.DataManager.Orders[i].foodCount * GameManager.instance.DataManager.Orders[i].foodSO.Price).ToString();
-
+                _addMenuPrice[i].text = GameManager.instance.DataManager.Orders[i].foodSO.Price.ToString();
+                AddMenus += GameManager.instance.DataManager.Orders[i].foodCount;
                 break;
             }
         }
+        _menuCount.text = AddMenus.ToString() + " / " + TycoonManager.Instance.TodayMaxCustomerNum.ToString();
         _addfoodButtonPanel.SetActive(false);
         // 추가된 메뉴 , 개수 정보 전달
     }
