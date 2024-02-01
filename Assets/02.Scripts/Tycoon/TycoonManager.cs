@@ -42,6 +42,8 @@ public class TycoonManager : MonoBehaviour
     private int _agentPriority = 0;
     private bool _isStart = false;
 
+    private GameObject _playerInteraction;
+
     private static TycoonManager _instance;
 
     public static TycoonManager Instance
@@ -82,6 +84,8 @@ public class TycoonManager : MonoBehaviour
 
             ServingStations.Add(_destinations[i].transform.parent.gameObject);
         }
+
+        _playerInteraction = GameManager.instance.Player.GetComponentInChildren<PlayerInteraction>().gameObject;
     }
 
     private void Update()
@@ -107,6 +111,7 @@ public class TycoonManager : MonoBehaviour
         {
             // 게임종료
             _TycoonUI.OnReusltUI();
+            _playerInteraction.SetActive(true);
         }
     }
 
@@ -119,6 +124,7 @@ public class TycoonManager : MonoBehaviour
     public void TycoonGameStart()
     {
         _isStart = true;
+        _playerInteraction.SetActive(false);
     }
 
     IEnumerator CreateCustomerCoroutine()
@@ -165,7 +171,7 @@ public class TycoonManager : MonoBehaviour
 
             // 현재 손님 수 ++, 오늘 올 손님 --
             ++_currentCustomerNum;
-            --TodayMaxCustomerNum;
+            --_todayMaxCustomerNum;
             _TycoonUI.UpdateRemainingCustomerNum();
 
             yield return new WaitForSeconds(_customerSpawnTime);

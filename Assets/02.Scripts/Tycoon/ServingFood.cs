@@ -57,11 +57,12 @@ public class ServingFood : MonoBehaviour
         _holdingFood.transform.position = _handTransform.position;
         _holdingFood.transform.SetParent(_handTransform);
         _isHold = true;
+        _canHoldFood = null;
     }
 
     private void PutdownFood()
     {
-        float minDistance = Mathf.Infinity;
+        float minDistance = _minDistanceToPutFood;
         FoodPlace foodPlace = null;
 
         // TODO
@@ -72,7 +73,7 @@ public class ServingFood : MonoBehaviour
             if (stationFood.CurrentFood == null)
             {
                 float d = Vector3.Distance(_handTransform.position, station.transform.position);
-                if (d < minDistance && d < _minDistanceToPutFood)
+                if (d < minDistance)
                 {
                     minDistance = d;
                     foodPlace = stationFood;
@@ -87,6 +88,7 @@ public class ServingFood : MonoBehaviour
             _holdingFood.transform.SetParent(foodPlace.transform);
             foodPlace.CurrentFood = _holdingFood.GetComponent<CookedFood>();
             _isHold = false;
+            _holdingFood = null;
         }
     }
 
@@ -94,8 +96,7 @@ public class ServingFood : MonoBehaviour
     {
         // TODO: Player Clean Anim, Player position 고정
         int lastIndex = _cleaningFoods.Count - 1;
-        StartCoroutine(CleanFood(_cleaningFoods[lastIndex]));
-        _cleaningFoods.RemoveAt(lastIndex);
+        StartCoroutine(CleanFood(_cleaningFoods[lastIndex], lastIndex));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -132,8 +133,10 @@ public class ServingFood : MonoBehaviour
 
     #region Coroutine
 
-    IEnumerator CleanFood(GameObject food)
+    IEnumerator CleanFood(GameObject food, int index)
     {
+        _cleaningFoods.RemoveAt(index);
+
         yield return new WaitForSeconds(0f);
 
         food.GetComponent<CookedFood>().CurrentFoodPlace = null;
