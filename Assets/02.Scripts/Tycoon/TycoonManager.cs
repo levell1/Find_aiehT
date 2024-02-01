@@ -86,10 +86,10 @@ public class TycoonManager : MonoSingleton<TycoonManager>
 
     private void ChangeCamera(bool isTycoon)
     {
-        Camera.main.gameObject.SetActive(!isTycoon);
-        // 45, 180
+        //Camera.main.gameObject.SetActive(!isTycoon);
+        //// 45, 180
         
-        _tycoonCamera.SetActive(isTycoon);
+        //_tycoonCamera.SetActive(isTycoon);
     }
 
     IEnumerator CreateCustomerCoroutine()
