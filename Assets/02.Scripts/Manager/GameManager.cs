@@ -22,7 +22,9 @@ public class GameManager : MonoSingleton<GameManager>
 
     protected override void Awake()
     {
-       base.Awake();
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
+
         _soundManager = FindObjectOfType<SoundManager>();
         _poolingManager = FindObjectOfType<PoolingManager>();
         _dataManager = FindObjectOfType<DataManager>();

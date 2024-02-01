@@ -66,7 +66,7 @@ public class ServingFood : MonoBehaviour
         FoodPlace foodPlace = null;
 
         // TODO
-        foreach (GameObject station in TycoonManager.Instance.ServingStations)
+        foreach (GameObject station in TycoonManager.instance.ServingStations)
         {
             FoodPlace stationFood = station.GetComponent<FoodPlace>();
 

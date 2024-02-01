@@ -98,9 +98,7 @@ public class RestaurantUI : BaseUI
     private void StartGame()
     {
         GameManager.instance.UIManager.CloseAllCanvas();
-
-        TycoonManager.Instance.DecideTodayFoods();
-        TycoonManager.Instance.TycoonGameStart();
+        TycoonManager.instance.TycoonGameStart();
     }
 
 }

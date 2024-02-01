@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FoodPlace : MonoBehaviour
@@ -68,7 +67,7 @@ public class FoodPlace : MonoBehaviour
             return;
 
         // TODO: Get Gold
-        TycoonManager.Instance._TycoonUI.UpdateCurrentGold(_currentFood._FoodSO.Price);
+        TycoonManager.instance._TycoonUI.UpdateCurrentGold(_currentFood._FoodSO.Price);
 
         OnCustomerGetFood.Invoke();
 
@@ -79,7 +78,7 @@ public class FoodPlace : MonoBehaviour
 
     private void CustomerExit()
     {
-        TycoonManager.Instance.CustomerExit(SeatNum);
+        TycoonManager.instance.CustomerExit(SeatNum);
     }
 
     #region Coroutine
