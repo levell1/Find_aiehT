@@ -30,9 +30,8 @@ public class PlayerJumpState : PlayerAirState
     {
         base.PhysicsUpdate();
 
-        if (_stateMachine.Player.Rigidbody.velocity.y < -0.5f)
+        if (_stateMachine.Player.Rigidbody.velocity.y <= 0)
         {
-            Debug.Log("rigidbody" + _stateMachine.Player.Rigidbody.velocity.y);
             _stateMachine.ChangeState(_stateMachine.FallState);
             return;
         }
