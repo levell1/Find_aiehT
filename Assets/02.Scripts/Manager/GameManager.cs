@@ -20,7 +20,7 @@ public class GameManager : MonoSingleton<GameManager>
     public PoolingManager PoolingManager { get { return Instance._poolingManager; } }
     public GlobalTimeManager GlobalTimeManager { get { return Instance._globalTimeManager; } }
     public DataManager DataManager { get { return Instance._dataManager; } }
-    public CameraManager CameraManager { get { return _cameraManager; } }
+    public CameraManager CameraManager { get { return Instance._cameraManager; } }
     public Inventory Inventory { get { return Instance._inventory; } }
 
     protected override void Awake()

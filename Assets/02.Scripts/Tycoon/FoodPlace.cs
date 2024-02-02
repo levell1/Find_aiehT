@@ -63,7 +63,7 @@ public class FoodPlace : MonoBehaviour
 
     private void MatchWithCustomer()
     {
-        if (_currentCustomer.TargetFoodName != _currentFood.FoodName)
+        if (_currentCustomer.TargetFoodName != _currentFood._FoodSO.CookedFoodObject.name)
             return;
 
         // TODO: Get Gold

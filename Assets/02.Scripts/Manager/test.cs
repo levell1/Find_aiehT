@@ -21,6 +21,18 @@ public class test : MonoBehaviour
             GameManager.Instance.Player.transform.position = new Vector3(-2, 0, 25);
             LoadingSceneController.LoadScene(SceneName.Field);
         }
-        
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            if (Cursor.lockState == CursorLockMode.Locked)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            
+        }
+
     }
 }
