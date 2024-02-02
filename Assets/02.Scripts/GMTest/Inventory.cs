@@ -46,16 +46,11 @@ public class Inventory : MonoBehaviour
 
     public void ToggleInventoryUI()
     {
-        InventoryUI.SetActive(!InventoryUI.activeSelf);
-        Panel.SetActive(true);
-        InvenMain.SetActive(true);
-        if (InventoryUI.activeSelf)
+        if (!InventoryUI.activeSelf)
         {
-            Cursor.lockState = CursorLockMode.None;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
+            GameManager.Instance.UIManager.ShowCanvas(UIName.InventoryUI);
+            Panel.SetActive(true);
+            InvenMain.SetActive(true);
         }
     }
 

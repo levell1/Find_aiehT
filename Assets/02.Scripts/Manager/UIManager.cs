@@ -5,16 +5,18 @@ using UnityEngine;
 public class UIManager
 {
     private int _canvasSortOrder = 5;
-    private Stack<GameObject> _popupStack = new Stack<GameObject>();
+    public Stack<GameObject> PopupStack = new Stack<GameObject>();
     public Dictionary<string, GameObject> PopupDic = new Dictionary<string, GameObject>();
-    public float _cameraVSpeed;
-    public float _cameraHSpeed;
-    private CinemachinePOV _virtualcamera;
+    public float CameraSpeed;
     
 
     public void CreateCanvas() 
     {
-        _virtualcamera = GameManager.Instance.CameraManager.VirtualCamera.GetCinemachineComponent<CinemachinePOV>();
+        CameraSpeed = 0.5f;
+        GameObject uiobject = GameObject.Find("Dont");
+        PopupDic.Add(UIName.InventoryUI, uiobject.transform.Find(UIName.InventoryUI).gameObject);
+        PopupDic.Add(UIName.ShopUI, uiobject.transform.Find(UIName.ShopUI).gameObject);
+
         GameObject uiObject = GameObject.Find("UIs");
         if (uiObject == null)
         {
@@ -33,59 +35,53 @@ public class UIManager
     {
         if (!PopupDic[uiname].activeSelf) { 
             PopupDic[uiname].GetComponent<Canvas>().sortingOrder = _canvasSortOrder;
-            _popupStack.Push(PopupDic[uiname]);
+            PopupStack.Push(PopupDic[uiname]);
             PopupDic[uiname].SetActive(true);
             _canvasSortOrder++;
-            Cursor.lockState = CursorLockMode.None;
-            _cameraVSpeed = _virtualcamera.m_VerticalAxis.m_MaxSpeed;
-            _cameraHSpeed = _virtualcamera.m_HorizontalAxis.m_MaxSpeed;
-            _virtualcamera.m_VerticalAxis.m_MaxSpeed = 0;
-            _virtualcamera.m_HorizontalAxis.m_MaxSpeed = 0;
+            GameManager.Instance.CameraManager.SaveCamSpeed();
+            GameManager.Instance.CameraManager.DontMoveCam();
         }
     }
 
     public void CloseLastCanvas()
     {
-        if (_popupStack.Count == 1)
-        {
-            
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-
-        if (_popupStack.Count == 0)
+        if (PopupStack.Count == 0)
         {
             ShowCanvas(UIName.SettingUI);
         }
         else
         {
-            GameObject currentUi = _popupStack.Pop();
+            GameObject currentUi = PopupStack.Pop();
             if (currentUi == PopupDic[UIName.RestaurantUI])
             {
-                _popupStack.Push(currentUi);
+                PopupStack.Push(currentUi);
                 Cursor.lockState = CursorLockMode.None;
+                return;
             }
-            else
+            else if (currentUi == PopupDic[UIName.SettingUI])
             {
-                _virtualcamera.m_VerticalAxis.m_MaxSpeed = _cameraVSpeed;
-                _virtualcamera.m_HorizontalAxis.m_MaxSpeed = _cameraHSpeed;
-                currentUi.SetActive(false);
-                currentUi = null;
-                _canvasSortOrder--;
+                GameManager.Instance.CameraManager.CamaraSpeed = CameraSpeed;
             }
+            if (PopupStack.Count == 0)
+            {
+                GameManager.Instance.CameraManager.ReturnCamSpeed();
+            }
+            currentUi.SetActive(false);
+            currentUi = null;
+            _canvasSortOrder--;
         }
     }
 
     public void CloseAllCanvas()
     {
-        for (int i = 0; i < _popupStack.Count; i++)
+        int a = PopupStack.Count;
+        for (int i = 0; i < a; i++)
         {
-            GameObject currentUi = _popupStack.Pop();
+            GameObject currentUi = PopupStack.Pop();
             currentUi.SetActive(false);
             currentUi = null;
             _canvasSortOrder--;
         }
-        _virtualcamera.m_VerticalAxis.m_MaxSpeed = _cameraVSpeed;
-        _virtualcamera.m_HorizontalAxis.m_MaxSpeed = _cameraHSpeed;
-        Cursor.lockState = CursorLockMode.Locked;
+        GameManager.Instance.CameraManager.ReturnCamSpeed();
     }
 }

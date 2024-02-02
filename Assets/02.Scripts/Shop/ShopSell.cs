@@ -30,6 +30,7 @@ public class ShopSell : MonoBehaviour
 
     private void OnEnable()
     {
+        popup.gameObject.SetActive(false);
         ClearSeletecItem();
         UpdateUI();
     }

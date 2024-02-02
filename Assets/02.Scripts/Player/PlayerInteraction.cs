@@ -204,13 +204,12 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (_showUI== UIName.ShopUI)
             {
-                ShopUI.SetActive(true);
+                GameManager.Instance.UIManager.ShowCanvas(_showUI);
             }
             else
             {
                 GameManager.Instance.UIManager.ShowCanvas(_showUI);
             }
-
             InteractionText.text = string.Empty;
         }
     }

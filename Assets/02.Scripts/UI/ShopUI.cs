@@ -15,7 +15,6 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private Scrollbar _sellScrollbar;
     private void OnEnable()
     {
-        Cursor.lockState = CursorLockMode.None;
         _selectButton.SetActive(true);
         _BuyPanel.SetActive(false);
         _SellPanel.SetActive(false);
@@ -23,13 +22,6 @@ public class ShopUI : MonoBehaviour
         
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && gameObject.activeSelf)
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
-    }
     private void Start()
     {
         _showBuyButton.onClick.AddListener(ShowBuyPanel);
@@ -41,7 +33,7 @@ public class ShopUI : MonoBehaviour
 
     private void ShowBuyPanel()
     {
-        GameManager.Instance.Inventory.ToggleInventoryUI();
+        GameManager.Instance.UIManager.ShowCanvas(UIName.InventoryUI);
         GameManager.Instance.Inventory.ShopOpen();
         _selectButton.SetActive(false);
         _BuyPanel.SetActive(true);
@@ -56,8 +48,8 @@ public class ShopUI : MonoBehaviour
 
     private void ExitShop()
     {
+        GameManager.Instance.UIManager.CloseLastCanvas();
         gameObject.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1;
     }
 
@@ -69,8 +61,7 @@ public class ShopUI : MonoBehaviour
 
     private void ExitBuy()
     {
-        GameManager.Instance.Inventory.ToggleInventoryUI();
-        Cursor.lockState = CursorLockMode.None;
+        GameManager.Instance.UIManager.CloseLastCanvas();
         _selectButton.SetActive(true);
         _BuyPanel.SetActive(false);
     }

@@ -34,6 +34,14 @@ public class TitleTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (GameManager.Instance.UIManager.PopupStack .Count!=0)
+            {
+                if (GameManager.Instance.UIManager.PopupStack.Peek().name == UIName.InventoryUI)
+                {
+                    GameManager.Instance.UIManager.CloseAllCanvas();
+                    return;
+                }
+            }
             GameManager.Instance.UIManager.CloseLastCanvas();
         }
         if (Input.GetKeyDown(KeyCode.P))
