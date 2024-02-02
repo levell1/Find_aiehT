@@ -21,6 +21,7 @@ public class PlayerInput : MonoBehaviour
         //PlayerActions = InputActions.Player;
         SceneManager.sceneLoaded += LoadedsceneEvent;
         
+
     }
 
 

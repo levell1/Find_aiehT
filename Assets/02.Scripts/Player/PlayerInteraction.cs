@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum Enum
 {
@@ -27,6 +28,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private MoveSceneController _moveSceneController;
     private string _nextScene = string.Empty;
+    private string _curScene = string.Empty;
     private string _showUI = string.Empty;
 
     public GameObject ShopUI;
@@ -38,7 +40,7 @@ public class PlayerInteraction : MonoBehaviour
         InitializeCollider();
 
         _interactCollider = GetComponent<Collider>();
-
+        _curScene =SceneManager.GetActiveScene().name;
         // 아이템
         LayerDic.Add(LayerMask.NameToLayer(LayerName.Item), Enum.ITEM);
         // 택시, 상점등
@@ -163,17 +165,33 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (_nextScene != string.Empty)
         {
-            //타이쿤 시간 제한 (테스트용으로 주석) 해제하기
-            /*if (_nextScene == SceneName.TycoonScene && !GameManager.instance.GlobalTimeManager.EnterTycoonTime())
+            if (_nextScene == SceneName.TycoonScene && !GameManager.Instance.GlobalTimeManager.EnterTycoonTime())
             {
                 if(_coroutine == null)
                 {
                     _coroutine = StartCoroutine(ErrorMessage());
                 }
                 return;
+            }
+
+            if (_nextScene == SceneName.TycoonScene)
+            {
+                GameManager.Instance.Player.transform.position = new Vector3(5, 0, 8);
+            }
+            else if (_curScene == SceneName.TycoonScene && _nextScene == SceneName.VillageScene)
+            {
+                //집으로~
+            }
+            else if (_curScene == SceneName.Field && _nextScene == SceneName.VillageScene)
+            {
+                GameManager.Instance.Player.transform.position = new Vector3(-2, 0, 25);
+            }
+            /*else if (_curScene == SceneName.Dungeon && _nextScene == SceneName.VillageScene)
+            {
+                GameManager.Instance.Player.transform.position = new Vector3(5, 0, 8);
             }*/
 
-             LoadingSceneController.LoadScene(_nextScene);
+            LoadingSceneController.LoadScene(_nextScene);
             _nextScene = string.Empty;
 
             InteractionText.text = string.Empty;

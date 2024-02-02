@@ -28,7 +28,7 @@ public class UIManager
             }
         }
     }
-
+    
     public void ShowCanvas(string uiname)
     {
         if (!PopupDic[uiname].activeSelf) { 

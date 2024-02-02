@@ -23,7 +23,7 @@ public class TimeEditor : EditorWindow
 
         if (GUILayout.Button("Time"))
         {
-            GameManager.instance.GlobalTimeManager.DayTime += timeIncrement;
+            GameManager.Instance.GlobalTimeManager.DayTime += timeIncrement;
         }
         GUILayout.EndVertical();
 
