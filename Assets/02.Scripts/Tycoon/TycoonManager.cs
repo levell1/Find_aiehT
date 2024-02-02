@@ -27,6 +27,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     [SerializeField] private int _maxCustomerNum = 4;
     [SerializeField] private int _currentCustomerNum;   //TODO: SerializeField 제거
     [SerializeField] private int _todayMaxCustomerNum;
+    public int AngryCustomerNum = 0;
     public int TodayMaxCustomerNum // TODO: 레벨 당 손님수 정하는 함수
     {
         get { return _todayMaxCustomerNum; }
@@ -58,6 +59,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
         _playerInteraction.SetActive(false);
         ChangeCamera(true);
         StartCoroutine(CreateCustomerCoroutine());
+        _TycoonUI.UpdateInitUI();
     }
 
     private void DecideTodayFoods()

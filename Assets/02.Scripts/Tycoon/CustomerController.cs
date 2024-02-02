@@ -225,6 +225,7 @@ public class CustomerController : MonoBehaviour
             OrderFoodCanvas.InactiveUI(); //
             _animator.SetTrigger(AnimationParameterName.TycoonAngry);
             _co = StartCoroutine(ExitRestaurant());
+            ++_tycoonManager.AngryCustomerNum;
         }
     }
 
@@ -246,7 +247,7 @@ public class CustomerController : MonoBehaviour
         _targetFoodName = null;
         _targetFoodPlace.OnCustomerGetFood -= GetFood;
 
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(5f);
         
         _agent.SetDestination(_tycoonManager.CustomerCreatePos.position);
         _animator.SetBool(AnimationParameterName.TycoonIsWalk, true);

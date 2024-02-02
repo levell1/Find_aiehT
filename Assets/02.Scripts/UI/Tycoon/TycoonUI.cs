@@ -39,6 +39,12 @@ public class TycoonUI : MonoBehaviour
         _currentGold += gold;
         _currentGoldText.text = $"{_currentGold}";
     }
+    
+    public void UpdateInitUI()
+    {
+        _remainingCustomerText.text =
+            $"{_todayArrivalCustomerNum} / {_todayMaxCustomerNum}";
+    }
 
     public void UpdateRemainingCustomerNum()
     {
@@ -57,7 +63,7 @@ public class TycoonUI : MonoBehaviour
     public void UpdateResultUI()
     {
         _resultCustomerText.text
-            = $"{_todayArrivalCustomerNum} / {_todayMaxCustomerNum}";
+            = $"{_todayArrivalCustomerNum - TycoonManager.Instance.AngryCustomerNum} / {_todayMaxCustomerNum}";
         _resultGoldText.text = $"{_currentGold}";
 
         _playerGoldText.text = $"{UpdatePlayerGoldData(_currentGold)}";
