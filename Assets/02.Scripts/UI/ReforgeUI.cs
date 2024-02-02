@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -58,13 +59,16 @@ public class ReforgeUI : BaseUI
             
         }
         _selectUI.SetActive(false);
-        Invoke("FailUIFalse", 1f);
+        StartCoroutine(FailUIFalse());
     }
 
-    private void FailUIFalse() 
+    IEnumerator FailUIFalse() 
     {
+        yield return new WaitForSecondsRealtime(1f) ;
         _resultUI.SetActive(false);
     }
+
+
     public void ClickEquip()
     {
         for (int i = 0; i < 6; i++)
