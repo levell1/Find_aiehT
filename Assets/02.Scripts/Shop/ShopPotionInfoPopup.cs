@@ -153,7 +153,7 @@ public class ShopPotionInfoPopup : MonoBehaviour
     {
         _successPopup.SetActive(true);
         _successPopupObject.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         _successPopup.SetActive(false);
         gameObject.SetActive(false);
     }
@@ -162,7 +162,7 @@ public class ShopPotionInfoPopup : MonoBehaviour
     {
         _successPopup.SetActive(true);
         _successPopupObject.SetActive(false);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
         _successPopup.SetActive(false);
     }
 

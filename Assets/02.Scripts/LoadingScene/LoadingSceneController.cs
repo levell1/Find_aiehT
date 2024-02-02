@@ -18,6 +18,7 @@ public class LoadingSceneController : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1f;
         DontObjects = FindObjectOfType<DontDestroy>().gameObject;
     }
 

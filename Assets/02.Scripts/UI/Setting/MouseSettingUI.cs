@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class MouseSettingUI : MonoBehaviour
 {
     private Slider _slider;
-
     private void Awake()
     {
         _slider = GetComponent<Slider>();
@@ -16,7 +15,6 @@ public class MouseSettingUI : MonoBehaviour
     }
     void SetCam(float value)
     {
-        GameManager.Instance.UIManager._cameraHSpeed = value;
-        GameManager.Instance.UIManager._cameraVSpeed = value;
+        GameManager.Instance.UIManager.CameraSpeed = value;
     }
 }
