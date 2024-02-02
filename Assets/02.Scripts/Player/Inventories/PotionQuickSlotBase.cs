@@ -33,6 +33,10 @@ public abstract class PotionQuickSlotBase : MonoBehaviour
         }
 
     }
+    public virtual void DefaultPotionInit(PotionSO data)
+    {
+        PotionSO = data;
+    }
 
     public void ShowPotionToQuickslot(PotionSO data, int quantity)
     {
