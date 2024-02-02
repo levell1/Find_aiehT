@@ -10,6 +10,7 @@ public class SkillParticle : MonoBehaviour
     Transform originalParent;
 
     private float _playtime = 0.6f;
+    private float _initTime = 2f;
 
     private Vector3 _localPosition;
     private Vector3 _localScale;
@@ -39,7 +40,7 @@ public class SkillParticle : MonoBehaviour
 
         _particleSystem.Play();
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(_initTime);
 
         transform.parent = originalParent;
 
