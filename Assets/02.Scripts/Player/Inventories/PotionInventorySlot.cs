@@ -51,6 +51,17 @@ public class PotionInventorySlot : MonoBehaviour
         if (PotionSO == ShopPotionInfoPopup.PotionData)
         {
             _initQuantity += quantity;
+
+            if(ShopPotionInfoPopup.PotionData.ID == HPPotionQuickSlot.PotionSO.ID)
+            {
+                SetQuickSlot();
+            }
+
+            if (ShopPotionInfoPopup.PotionData.ID == SPPotionQuickSlot.PotionSO.ID)
+            {
+                SetQuickSlot();
+            }
+
             UpdateUI();
         }
     }
