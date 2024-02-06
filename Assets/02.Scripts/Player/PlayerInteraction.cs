@@ -55,6 +55,7 @@ public class PlayerInteraction : MonoBehaviour
         if (other == _interactCollider) { return; }
 
         /// DropItem의 경우
+        // TODO 퀘스트 이벤트 구독
         if (LayerDic.TryGetValue(other.gameObject.layer, out Enum _objectType))
         {
             if (_objectType == Enum.ITEM)

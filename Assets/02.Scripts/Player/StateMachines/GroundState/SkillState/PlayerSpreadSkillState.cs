@@ -31,7 +31,6 @@ public class PlayerSpreadSkillState : PlayerSkillState
         {
             if(normalizedTime < 1f)
             {
-                Debug.Log("ON");
                 _stateMachine.MovementSpeedModifier = 0; // 공격할 때 안움직임
                 _stateMachine.Player.SandSkill.EnableCollider();
                 _stateMachine.Player.SkillParticle.PlayParticle();
@@ -41,7 +40,6 @@ public class PlayerSpreadSkillState : PlayerSkillState
 
                 float totalDamage = skillDamage + playerDamage;
 
-                Debug.Log(totalDamage);
                 _stateMachine.Player.SandSkill.SetAttack(totalDamage);
 
                 _stateMachine.Player.StaminaSystem.UseSkill(_skillCost);
