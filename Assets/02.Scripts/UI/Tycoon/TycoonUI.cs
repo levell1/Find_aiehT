@@ -81,6 +81,7 @@ public class TycoonUI : MonoBehaviour
     public void GoVillageScene()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        GameManager.Instance.CameraManager.NonTycoonCamSetting();
         LoadingSceneController.LoadScene(SceneName.VillageScene);
     }
 }
