@@ -6,13 +6,11 @@ public class CameraManager : MonoBehaviour
     public Camera MainCamera;
     public CinemachineVirtualCamera VirtualCamera;
     public CinemachinePOV VirtualcameraPov;
-
     public float CamaraSpeed;
 
     private void Awake()
     {
         VirtualcameraPov= VirtualCamera.GetCinemachineComponent<CinemachinePOV>();
-        
     }
 
     public void SaveCamSpeed()
@@ -41,4 +39,15 @@ public class CameraManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    public void TycoonCamSetting()
+    {
+        TycoonManager.Instance.TycoonVirtualCamera.gameObject.SetActive(true);
+        TycoonManager.Instance.TycoonVirtualCamera.Follow = VirtualCamera.Follow;
+        TycoonManager.Instance.TycoonVirtualCamera.LookAt = VirtualCamera.LookAt;
+    }
+
+    public void NonTycoonCamSetting()
+    {
+        TycoonManager.Instance.TycoonVirtualCamera.gameObject.SetActive(false);
+    }
 }

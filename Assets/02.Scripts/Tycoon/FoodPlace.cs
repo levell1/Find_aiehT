@@ -30,6 +30,7 @@ public class FoodPlace : MonoBehaviour
             if (_currentCustomer != null)
             {
                 _currentCustomer.OnCustomerExit += CustomerExit;
+                MatchCustomerFood();
             }
         }
     }
@@ -44,11 +45,7 @@ public class FoodPlace : MonoBehaviour
             if (_currentFood != null)
             {
                 _currentFood.CurrentFoodPlace = this;
-            }
-
-            if (_currentCustomer != null && _currentFood != null)
-            {
-                MatchWithCustomer();
+                MatchCustomerFood();
             }
         }
     }
@@ -61,9 +58,11 @@ public class FoodPlace : MonoBehaviour
 
     #endregion
 
-    private void MatchWithCustomer()
+    private void MatchCustomerFood()
     {
-        if (_currentCustomer.TargetFoodName != _currentFood._FoodSO.CookedFoodObject.name)
+        if (_currentCustomer == null
+            || _currentFood == null
+            ||_currentCustomer.TargetFoodName != _currentFood._FoodSO.CookedFoodObject.name)
             return;
 
         // TODO: Get Gold

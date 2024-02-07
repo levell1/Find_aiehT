@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     [SerializeField] public TycoonUI _TycoonUI;
     [SerializeField] public FoodCreater _FoodCreater;
     [SerializeField] public CookingUI CookingUI;
+    public CinemachineVirtualCamera TycoonVirtualCamera;
 
     [SerializeField] private List<GameObject> _destinations;
     private List<(GameObject destination, int index)> _availableDestinations = new();
@@ -19,7 +21,6 @@ public class TycoonManager : MonoSingleton<TycoonManager>
 
     [SerializeField] public Transform CustomerCreatePos;
     private GameObject _playerInteraction;
-    [SerializeField] private GameObject _tycoonCamera;
 
     [SerializeField] private float _customerSpawnTime;
     [SerializeField] public float CustomerWaitTime;
@@ -28,6 +29,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     [SerializeField] private int _currentCustomerNum;   //TODO: SerializeField 제거
     [SerializeField] private int _todayMaxCustomerNum;
     public int AngryCustomerNum = 0;
+    
     public int TodayMaxCustomerNum // TODO: 레벨 당 손님수 정하는 함수
     {
         get { return _todayMaxCustomerNum; }
@@ -57,9 +59,15 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     {
         DecideTodayFoods();
         _playerInteraction.SetActive(false);
-        ChangeCamera(true);
+        GameManager.Instance.CameraManager.TycoonCamSetting();
         StartCoroutine(CreateCustomerCoroutine());
         _TycoonUI.UpdateInitUI();
+    }
+
+    private void TycoonGameEnd()
+    {
+        _TycoonUI.OnReusltUI();
+        _playerInteraction.SetActive(true);
     }
 
     private void DecideTodayFoods()
@@ -77,21 +85,6 @@ public class TycoonManager : MonoSingleton<TycoonManager>
         {
             TycoonGameEnd();
         }
-    }
-
-    private void TycoonGameEnd()
-    {
-        _TycoonUI.OnReusltUI();
-        _playerInteraction.SetActive(true);
-        ChangeCamera(false);
-    }
-
-    private void ChangeCamera(bool isTycoon)
-    {
-        //Camera.main.gameObject.SetActive(!isTycoon);
-        //// 45, 180
-        
-        //_tycoonCamera.SetActive(isTycoon);
     }
 
     IEnumerator CreateCustomerCoroutine()
