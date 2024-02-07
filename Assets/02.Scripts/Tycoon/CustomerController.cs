@@ -59,6 +59,7 @@ public class CustomerController : MonoBehaviour
 
     public event Action<GameObject> OnCreateFood;
     public event Action OnCustomerExit;
+    public event Action OnSelectFood;
 
     #endregion
 
@@ -185,6 +186,7 @@ public class CustomerController : MonoBehaviour
         OrderFoodCanvas.ActiveUI(); //
 
         OnCreateFood?.Invoke(menu[targetFoodNum].FoodSO.CookedFoodObject);
+        OnSelectFood?.Invoke();
 
         _tycoonManager.CookingUI.StartCooking(menu[targetFoodNum].FoodSO); //
 
