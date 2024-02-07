@@ -20,6 +20,7 @@ public struct SceneName
     public const string VillageScene = "KGM_TestVillage";
     public const string Field = "KGM";
     public const string TycoonScene = "TycoonScene";
+    public const string TutorialScene = "KGM_Tutorial";
 }
 
 public struct TagName

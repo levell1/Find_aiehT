@@ -1,12 +1,14 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using DG.Tweening;
-using UnityEngine.UI;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
-public class Tutorial1 : MonoBehaviour
+public class Tutorial2 : MonoBehaviour
 {
+    public ItemObject ToturialItem;
+
     [SerializeField] private float _duration;
     [SerializeField] private Ease _easeType;
 
@@ -14,12 +16,10 @@ public class Tutorial1 : MonoBehaviour
     public TextMeshProUGUI TutorialText;
 
     private Coroutine _coroutine;
-    private void OnTriggerEnter(Collider other)
+
+    private void Awake()
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            DoMove();
-        }
+        ToturialItem.OnInteractionNatureItem += DoMove;
     }
 
     private void DoMove()
@@ -39,5 +39,4 @@ public class Tutorial1 : MonoBehaviour
         gameObject.SetActive(false);
         _coroutine = null;
     }
-
 }

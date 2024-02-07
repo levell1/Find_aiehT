@@ -26,6 +26,8 @@ public class TutorialManager : MonoBehaviour
     {
         if (!Tutorials[_index].activeSelf)
         {
+            if (_index + 1 == Tutorials.Length) return;
+
             ++_index;
             StartTutorial();
         }
@@ -33,8 +35,6 @@ public class TutorialManager : MonoBehaviour
 
     private void StartTutorial()
     {
-        if (_index >= Tutorials.Length) return;
-
         Tutorials[_index].SetActive(true);
     }
 

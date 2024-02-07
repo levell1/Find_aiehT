@@ -40,6 +40,14 @@ public class SceneEditor : EditorWindow
             LoadingSceneController.LoadScene(SceneName.TycoonScene);
         }
 
+        GUILayout.Space(10);
+
+        if (GUILayout.Button("Tutorial Scene"))
+        {
+            GameManager.Instance.Player.transform.position = new Vector3(0, 0, 0);
+            LoadingSceneController.LoadScene(SceneName.TutorialScene);
+        }
+
         GUILayout.EndVertical();
 
         GUILayout.Space(10);
@@ -77,6 +85,7 @@ public class SceneEditor : EditorWindow
             GameManager.Instance.Player.transform.position = new Vector3(-4, 0, 27);
             LoadingSceneController.LoadScene(SceneName.VillageScene);
         }
+
 
         GUILayout.EndVertical();
 
