@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
@@ -12,6 +13,8 @@ public class ItemObject : MonoBehaviour
     private Rigidbody _itemRigidbody;
 
     public ItemSO ItemData;
+
+    public event Action OnInteractionNatureItem;
 
     private void Awake()
     {
@@ -37,6 +40,7 @@ public class ItemObject : MonoBehaviour
         else if (ItemData.type == ItemType.NATUREITEM)
         {
             gameObject.SetActive(false);
+            OnInteractionNatureItem?.Invoke();
             _itemRespawner.ItemWaitSpawnList.Add(gameObject);
         }
     }

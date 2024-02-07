@@ -9,6 +9,7 @@ public class Ingredient { public ItemSO IngredientSO; public int FoodNum; };
 [CreateAssetMenu(fileName = "FoodSO", menuName = "Food")]
 public class FoodSO : ScriptableObject
 {
+    [field: SerializeField] public int FoodID { get; private set; }
     [field: SerializeField] public string FoodName { get; private set; }
     [field: SerializeField] public string Description { get; private set; }
     [field: SerializeField] public List<Ingredient> Ingredients { get; private set; }

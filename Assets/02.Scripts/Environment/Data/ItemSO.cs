@@ -13,6 +13,7 @@ public enum ItemType
 
 public class ItemSO : ScriptableObject
 {
+    [field: SerializeField] public int ItemID { get; private set; }
     [field: SerializeField] public string ObjName { get; private set; }
     [field: SerializeField] public string Description { get; private set; }
     [field: SerializeField] public int Price { get; private set; }
