@@ -39,7 +39,7 @@ public class EnterScene : MonoBehaviour
 
     private void Enter(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == SceneName.TutorialScene || scene.name == "TycoonScene_Tutorial")
+        if (scene.name == SceneName.TutorialScene || scene.name == SceneName.TycoonScene)
         {
             gameObject.SetActive(false);
             return;

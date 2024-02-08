@@ -79,6 +79,10 @@ public class GlobalTimeManager : MonoBehaviour
         {
             return true;
         }
+        else if (Day == 0)
+        {
+            return true;
+        }
         else
         {
             return false;
