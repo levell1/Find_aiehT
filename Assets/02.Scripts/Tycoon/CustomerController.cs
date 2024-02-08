@@ -18,7 +18,7 @@ public class CustomerController : MonoBehaviour
     private Collider _collider;
 
     private float _waitTime;
-    private const float _agentBaseOffset = 0.45f;
+    private const float _agentBaseOffset = 0.57f;
     private bool _isExit = false;
     private bool _isOrderFood = false;
 

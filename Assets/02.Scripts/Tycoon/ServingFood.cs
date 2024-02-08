@@ -14,9 +14,15 @@ public class ServingFood : MonoBehaviour
 
     private WaitForSeconds _waitCleaningTime = new WaitForSeconds(0f);
     public bool CanThrowAway { get; set; }
-
+    public bool CanOpenRecipeUI { get; set; }
     public void TycoonInteraction()
     {
+        if (CanOpenRecipeUI)
+        {
+            GameManager.Instance.UIManager.ShowCanvas(UIName.RestaurantUI);
+            CanOpenRecipeUI = false;
+        }
+
         if (_holdingFood != null)
         {
             if (CanThrowAway)

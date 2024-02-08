@@ -64,6 +64,7 @@ public class FoodPlace : MonoBehaviour
     {
         if (_currentCustomer == null
             || _currentFood == null
+            || _currentFood.ShouldClean
             ||(_currentCustomer.TargetFoodName != _currentFood._FoodSO.CookedFoodObject.name))
             return;
 

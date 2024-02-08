@@ -64,6 +64,14 @@ public class RestaurantUI : BaseUI
         _startGameButton.onClick.AddListener(StartGame);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameManager.Instance.UIManager.CloseLastCanvas();
+        }
+    }
+
     private void ShowRecipe()
     {
         _recipePanel.SetActive(true);
