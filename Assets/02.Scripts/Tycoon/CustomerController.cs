@@ -134,7 +134,7 @@ public class CustomerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("AI"))
+        if (other.gameObject.CompareTag(TagName.AI))
         {
             NavMeshAgent otherAgent = other.gameObject.GetComponent<NavMeshAgent>();
 
@@ -152,7 +152,7 @@ public class CustomerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("AI"))
+        if (other.gameObject.CompareTag(TagName.AI))
         {
             RemoveList(other.gameObject);
         }

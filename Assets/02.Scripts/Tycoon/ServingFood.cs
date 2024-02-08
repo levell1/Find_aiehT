@@ -91,7 +91,7 @@ public class ServingFood : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("CookedFood"))
+        if (other.gameObject.CompareTag(TagName.CookedFood))
         {
             if (other.gameObject.GetComponent<CookedFood>().ShouldClean)
             {
@@ -106,7 +106,7 @@ public class ServingFood : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("CookedFood"))
+        if (other.gameObject.CompareTag(TagName.CookedFood))
         {
             if (other.gameObject.GetComponent<CookedFood>().ShouldClean)
             {

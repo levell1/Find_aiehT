@@ -4,9 +4,9 @@ public class PrepareStation : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if(other.gameObject.CompareTag(TagName.Player))
         {
-            GameManager.Instance.UIManager.ShowCanvas("RestaurantUI");
+            GameManager.Instance.UIManager.ShowCanvas(UIName.RestaurantUI);
             gameObject.SetActive(false);
         }
     }
