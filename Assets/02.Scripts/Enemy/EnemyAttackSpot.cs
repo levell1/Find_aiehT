@@ -33,8 +33,6 @@ public class EnemyAttackSpot : MonoBehaviour
 
             //    rb.AddForce(knockbackDirection * knockbackForce, ForceMode.VelocityChange);
             //}
-
-
         }
     }
 }
