@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemySO", menuName = "Characters/Enemy")]
 public class EnemySO : ScriptableObject
 {
+    [field: SerializeField] public string EnemyName { get; private set; }
+    [field: SerializeField] public string EnemyDescription { get; private set; }
     [field: SerializeField] public int EnemyID { get; private set; }
     [field: SerializeField] public float Damage { get; private set; }
     [field: SerializeField] public int AttackDelay { get; private set; }

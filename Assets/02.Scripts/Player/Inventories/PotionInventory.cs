@@ -19,6 +19,8 @@ public class PotionInventory : MonoBehaviour
         {
             ShopPotionInfoPopup.OnPurchaseSuccessAction += Potions[i].UpdatePotionQuantity;
             Potions[i].Init(PotionDataList.ShopPotionList[i]);
+
+            Potions[i].TutorialPotion();
             HPPotionQuick.DefaultPotionInit(PotionDataList.ShopPotionList[_hpDefaultPotionID]);
             SPPotionQuick.DefaultPotionInit(PotionDataList.ShopPotionList[_spDefaultPotionID]);
         }
