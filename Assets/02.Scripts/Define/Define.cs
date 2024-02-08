@@ -21,6 +21,7 @@ public struct SceneName
     public const string Field = "KGM";
     public const string TycoonScene = "TycoonScene";
     public const string TutorialScene = "KGM_Tutorial";
+    public const string DungeonScene = "Dungeon";
 }
 
 public struct TagName
@@ -87,5 +88,7 @@ public struct AnimationParameterName
     public const string TycoonIsWalk = "IsWalk";
     public const string TycoonIsEat = "IsEat";
     public const string TycoonIsIdle= "IsIdle";
+    public const string BossWalk = "Walk";
+    public const string BossAttack = "Attack";
 }
 

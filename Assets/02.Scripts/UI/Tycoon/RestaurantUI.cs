@@ -1,5 +1,7 @@
+using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RestaurantUI : BaseUI
@@ -29,21 +31,27 @@ public class RestaurantUI : BaseUI
 
     private void OnEnable()
     {
-        _recipePanel.SetActive(false);
-        GameManager.Instance.DataManager.RemoveOrderData();
-        for (int i = 0; i < _addMenuButton.Length; i++)
+        // 타이쿤씬에서 instantiate 하는걸로 바꾸기.
+        if (GameManager.Instance.DataManager.Orders.Count==0 && SceneManager.GetActiveScene().name==SceneName.TycoonScene)
         {
-            _addMenuButton[i].gameObject.SetActive(true);
-            _addedMenu[i].SetActive(false);
+            _recipePanel.SetActive(false);
+            AddMenus = 0;
+            _menuCount.text = AddMenus.ToString() + " / " + TycoonManager.Instance.TodayMaxCustomerNum.ToString();
+            for (int i = 0; i < _addMenuButton.Length; i++)
+            {
+                _addMenuButton[i].gameObject.SetActive(true);
+                _addedMenu[i].SetActive(false);
+            }
+            for (int i = 0; i < _recipeSlots.Length; i++)
+            {
+                _recipeSlots[i].GetComponent<Button>().interactable = true;
+            }
         }
-        for (int i = 0; i < _recipeSlots.Length; i++)
-        {
-            _recipeSlots[i].GetComponent<Button>().interactable = true;
-        }
+        
     }
     private void Start()
     {
-        _menuCount.text = AddMenus.ToString() + " / " + TycoonManager.Instance.TodayMaxCustomerNum.ToString();
+        
         _foodDatas = GameManager.Instance.DataManager.FoodSODatas;
         _basicFoodName.text = _foodDatas[0].FoodName;
         _basicFoodImage.sprite = _foodDatas[0].FoodSprite;
@@ -93,6 +101,7 @@ public class RestaurantUI : BaseUI
 
     private void StartGame()
     {
+        GameManager.Instance.DataManager.RemoveOrderData();
         GameManager.Instance.UIManager.CloseAllCanvas();
         TycoonManager.Instance.TycoonGameStart();
     }
