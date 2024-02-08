@@ -60,7 +60,7 @@ public class CookedFood : MonoBehaviour
 
     private void Awake()
     {
-        gameObject.tag = "CookedFood";
+        gameObject.tag = TagName.CookedFood;
         _collider = GetComponent<CapsuleCollider>();
     }
 
