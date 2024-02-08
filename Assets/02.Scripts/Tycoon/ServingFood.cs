@@ -13,12 +13,22 @@ public class ServingFood : MonoBehaviour
     private const float _minDistanceToPutFood = 2f;
 
     private WaitForSeconds _waitCleaningTime = new WaitForSeconds(0f);
-
+    public bool CanThrowAway { get; set; }
+    public bool CanOpenRecipeUI { get; set; }
     public void TycoonInteraction()
     {
+        if (CanOpenRecipeUI)
+        {
+            GameManager.Instance.UIManager.ShowCanvas(UIName.RestaurantUI);
+            CanOpenRecipeUI = false;
+        }
+
         if (_holdingFood != null)
         {
-            PutdownFood();
+            if (CanThrowAway)
+                ThrowAwayFood();
+            else
+                PutdownFood();
         }
         else if (_canCleaningFoods.Count > 0)
         {
@@ -80,9 +90,14 @@ public class ServingFood : MonoBehaviour
         StartCoroutine(CleanFood(_canCleaningFoods[lastIndex], lastIndex));
     }
 
+    private void ThrowAwayFood()
+    {
+        Destroy(_holdingFood.gameObject);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("CookedFood"))
+        if (other.gameObject.CompareTag(TagName.CookedFood))
         {
             if (other.gameObject.GetComponent<CookedFood>().ShouldClean)
             {
@@ -97,7 +112,7 @@ public class ServingFood : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("CookedFood"))
+        if (other.gameObject.CompareTag(TagName.CookedFood))
         {
             if (other.gameObject.GetComponent<CookedFood>().ShouldClean)
             {

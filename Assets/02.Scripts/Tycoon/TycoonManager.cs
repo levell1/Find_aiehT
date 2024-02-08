@@ -20,6 +20,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     private List<bool> _isCustomerSitting = new();
 
     [SerializeField] public Transform CustomerCreatePos;
+    [SerializeField] private GameObject _prepareStation;
     private GameObject _playerInteraction;
 
     [SerializeField] private float _customerSpawnTime;
@@ -62,6 +63,8 @@ public class TycoonManager : MonoSingleton<TycoonManager>
         GameManager.Instance.CameraManager.TycoonCamSetting();
         StartCoroutine(CreateCustomerCoroutine());
         _TycoonUI.UpdateInitUI();
+
+        _prepareStation.GetComponent<PrepareStation>().OffPrepareStation();
     }
 
     private void TycoonGameEnd()

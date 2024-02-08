@@ -52,13 +52,13 @@ public class UIManager
         else
         {
             GameObject currentUi = PopupStack.Pop();
-            if (currentUi == PopupDic[UIName.RestaurantUI])
+            /*if (currentUi == PopupDic[UIName.RestaurantUI])
             {
                 PopupStack.Push(currentUi);
                 Cursor.lockState = CursorLockMode.None;
                 return;
-            }
-            else if (currentUi == PopupDic[UIName.SettingUI])
+            }*/
+            if (currentUi == PopupDic[UIName.SettingUI])
             {
                 GameManager.Instance.CameraManager.CamaraSpeed = CameraSpeed;
             }

@@ -11,27 +11,23 @@ public class test : MonoBehaviour
             GameManager.Instance.Player.transform.position = new Vector3(-5, 0, 0);
             LoadingSceneController.LoadScene(SceneName.VillageScene);
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             GameManager.Instance.Player.transform.position = new Vector3(5, 0, 8);
             LoadingSceneController.LoadScene(SceneName.TycoonScene);
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             GameManager.Instance.Player.transform.position = new Vector3(-2, 0, 25);
             LoadingSceneController.LoadScene(SceneName.Field);
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            if (Cursor.lockState == CursorLockMode.Locked)
-            {
-                Cursor.lockState = CursorLockMode.None;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-            }
-            
+            GameManager.Instance.Player.transform.position = new Vector3(0, 0, 0);
+            LoadingSceneController.LoadScene(SceneName.DungeonScene);
         }
 
     }

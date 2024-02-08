@@ -22,6 +22,7 @@ public class FoodPlace : MonoBehaviour
                 if (_currentCustomer != null)
                 {
                     _currentCustomer.OnCustomerExit -= CustomerExit;
+                    _currentCustomer.OnSelectFood -= MatchCustomerFood;
                 }
             }
 
@@ -30,7 +31,7 @@ public class FoodPlace : MonoBehaviour
             if (_currentCustomer != null)
             {
                 _currentCustomer.OnCustomerExit += CustomerExit;
-                MatchCustomerFood();
+                _currentCustomer.OnSelectFood += MatchCustomerFood;
             }
         }
     }
@@ -45,6 +46,7 @@ public class FoodPlace : MonoBehaviour
             if (_currentFood != null)
             {
                 _currentFood.CurrentFoodPlace = this;
+
                 MatchCustomerFood();
             }
         }
@@ -62,10 +64,10 @@ public class FoodPlace : MonoBehaviour
     {
         if (_currentCustomer == null
             || _currentFood == null
-            ||_currentCustomer.TargetFoodName != _currentFood._FoodSO.CookedFoodObject.name)
+            || _currentFood.ShouldClean
+            ||(_currentCustomer.TargetFoodName != _currentFood._FoodSO.CookedFoodObject.name))
             return;
 
-        // TODO: Get Gold
         TycoonManager.Instance._TycoonUI.UpdateCurrentGold(_currentFood._FoodSO.Price);
 
         OnCustomerGetFood.Invoke();
