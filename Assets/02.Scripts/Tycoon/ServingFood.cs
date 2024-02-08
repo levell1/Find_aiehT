@@ -13,12 +13,16 @@ public class ServingFood : MonoBehaviour
     private const float _minDistanceToPutFood = 2f;
 
     private WaitForSeconds _waitCleaningTime = new WaitForSeconds(0f);
+    public bool CanThrowAway { get; set; }
 
     public void TycoonInteraction()
     {
         if (_holdingFood != null)
         {
-            PutdownFood();
+            if (CanThrowAway)
+                ThrowAwayFood();
+            else
+                PutdownFood();
         }
         else if (_canCleaningFoods.Count > 0)
         {
@@ -78,6 +82,11 @@ public class ServingFood : MonoBehaviour
         // TODO: Player Clean Anim, Player position 고정
         int lastIndex = _canCleaningFoods.Count - 1;
         StartCoroutine(CleanFood(_canCleaningFoods[lastIndex], lastIndex));
+    }
+
+    private void ThrowAwayFood()
+    {
+        Destroy(_holdingFood.gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
