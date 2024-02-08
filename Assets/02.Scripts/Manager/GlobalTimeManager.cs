@@ -19,6 +19,8 @@ public class GlobalTimeManager : MonoBehaviour
 
     public bool IsItemRespawn = false;
 
+    public event Action OnInitQuest;
+
     private void Start()
     {
         SceneManager.sceneLoaded += LoadedsceneEvent;
@@ -54,6 +56,7 @@ public class GlobalTimeManager : MonoBehaviour
             _isChangeDay = true;
             IsItemRespawn = false;
             ++Day;
+            OnInitQuest?.Invoke();
         }
         else if (Hour == 1)
         {

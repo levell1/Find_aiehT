@@ -19,7 +19,6 @@ public class PlayerUseHealthPotion : PlayerUseBase
 
         if (_quantity > 0)
         {
-            Debug.Log(_player.HealthSystem.Health);
             _player.HealthSystem.Healing(_healingAmount);
 
         }

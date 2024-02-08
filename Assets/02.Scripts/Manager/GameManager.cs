@@ -11,6 +11,8 @@ public class GameManager : MonoSingleton<GameManager>
     private GlobalTimeManager _globalTimeManager = new GlobalTimeManager();
     private DataManager _dataManager = new DataManager();
     private CameraManager _cameraManager = new CameraManager();
+    private QuestManager _questManager= new QuestManager();
+
     private Inventory _inventory;
 
     
@@ -21,6 +23,7 @@ public class GameManager : MonoSingleton<GameManager>
     public GlobalTimeManager GlobalTimeManager { get { return Instance._globalTimeManager; } }
     public DataManager DataManager { get { return Instance._dataManager; } }
     public CameraManager CameraManager { get { return Instance._cameraManager; } }
+    public QuestManager QuestManager { get { return Instance._questManager; } }
     public Inventory Inventory { get { return Instance._inventory; } }
 
     protected override void Awake()
@@ -34,6 +37,7 @@ public class GameManager : MonoSingleton<GameManager>
         _cameraManager = FindObjectOfType<CameraManager>();
         _inventory = Player.GetComponent<Inventory>();
         _globalTimeManager = FindObjectOfType<GlobalTimeManager>();
+        _questManager = FindObjectOfType<QuestManager>();
     }
 
     private void Start()

@@ -15,6 +15,7 @@ public class ItemObject : MonoBehaviour
     public ItemSO ItemData;
 
     public event Action OnInteractionNatureItem;
+    public static event Action<int> OnQuestTargetInteraction;
 
     private void Awake()
     {
@@ -41,6 +42,7 @@ public class ItemObject : MonoBehaviour
         {
             gameObject.SetActive(false);
             OnInteractionNatureItem?.Invoke();
+            OnQuestTargetInteraction?.Invoke(ItemData.ItemID);
             _itemRespawner.ItemWaitSpawnList.Add(gameObject);
         }
     }
