@@ -9,7 +9,7 @@ public class Tutorial3 : MonoBehaviour
 {
     [SerializeField] private float _duration;
     [SerializeField] private Ease _easeType;
-    [SerializeField] private Vector3 paramVector;
+    [SerializeField] private Vector3 _paramVector;
 
     public Image TutorialImage;
     public TextMeshProUGUI TutorialText;
@@ -31,7 +31,7 @@ public class Tutorial3 : MonoBehaviour
         {
             TutorialImage.DOFade(0f, _duration).SetEase(_easeType);
             TutorialText.DOFade(0f, _duration).SetEase(_easeType);
-            Fence.transform.DOMoveX(paramVector.x, _duration);
+            Fence.transform.DOMoveX(_paramVector.x, _duration);
             _coroutine = StartCoroutine(EndTutorial());
         }
     }

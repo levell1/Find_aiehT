@@ -22,6 +22,13 @@ public class TutorialManager : MonoBehaviour
         StartTutorial(); //시작시 딜레이를 조금 주고 싶다면 인보크 고민
     }
 
+    private void OnDisable()
+    {
+        GameManager.Instance.Player.transform.position = new Vector3 (-4, 0, 0);
+    }
+
+
+
     private void LateUpdate()
     {
         if (!Tutorials[_index].activeSelf)

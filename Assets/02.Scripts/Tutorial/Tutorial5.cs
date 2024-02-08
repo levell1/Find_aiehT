@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class Tutorial4 : MonoBehaviour
+public class Tutorial5 : MonoBehaviour
 {
-    public EnemyHealthSystem[] TutorialChick;
-
+    private Player _player;
     [SerializeField] private float _duration;
     [SerializeField] private Ease _easeType;
 
@@ -17,26 +17,25 @@ public class Tutorial4 : MonoBehaviour
 
     private Coroutine _coroutine;
 
-    private int EnemyCount;
+    private void Awake()
+    {
+        _player = GameManager.Instance.Player.GetComponent<Player>();
+    }
 
     private void OnEnable()
     {
-        EnemyCount = TutorialChick.Length;
-        for (int i = 0; i < TutorialChick.Length; ++i)
-        {
-            TutorialChick[i].gameObject.SetActive(true);
-            TutorialChick[i].OnDie += KillEnemy;
-        }
+        _player.HealthSystem.TakeDamage(100);
     }
 
-    private void KillEnemy()
+    private void FixedUpdate()
     {
-        --EnemyCount;
-        if(EnemyCount == 0)
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+            _player.HealthSystem.Healing(100);
             DoMove();
         }
     }
+
 
     private void DoMove()
     {
@@ -44,7 +43,6 @@ public class Tutorial4 : MonoBehaviour
         {
             TutorialImage.DOFade(0f, _duration).SetEase(_easeType);
             TutorialText.DOFade(0f, _duration).SetEase(_easeType);
-
             _coroutine = StartCoroutine(EndTutorial());
         }
     }

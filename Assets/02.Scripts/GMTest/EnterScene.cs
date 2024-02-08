@@ -39,8 +39,12 @@ public class EnterScene : MonoBehaviour
 
     private void Enter(Scene scene, LoadSceneMode mode)
     {
-        //TODO 다른방법 생각해보기
-        if (scene.name == SceneName.Field)
+        if (scene.name == SceneName.TutorialScene || scene.name == "TycoonScene_Tutorial")
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        else if (scene.name == SceneName.Field)
         {
             AreaInfo = "사냥터";
         }
