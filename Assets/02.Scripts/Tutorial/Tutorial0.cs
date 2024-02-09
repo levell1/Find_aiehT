@@ -19,6 +19,14 @@ public class Tutorial0 : MonoBehaviour
     private void OnEnable()
     {
         _tutorialManager.TutorialText.text = TutorialTxt;
+        Invoke("NextTutorial", _duration);
+    }
+
+    private void NextTutorial()
+    {
         _tutorialManager.DoMove(_duration, _easeType);
     }
+
+
+
 }

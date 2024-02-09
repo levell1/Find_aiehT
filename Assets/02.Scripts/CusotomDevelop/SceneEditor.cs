@@ -36,7 +36,7 @@ public class SceneEditor : EditorWindow
 
         if (GUILayout.Button("Tycoon Scene"))
         {
-            GameManager.Instance.Player.transform.position = new Vector3(5, 0, 8);
+            GameManager.Instance.Player.transform.position = new Vector3(-4, 0, 8);
             LoadingSceneController.LoadScene(SceneName.TycoonScene);
         }
 
