@@ -20,7 +20,6 @@ public class ServingFood : MonoBehaviour
         if (CanOpenRecipeUI)
         {
             GameManager.Instance.UIManager.ShowCanvas(UIName.RestaurantUI);
-            CanOpenRecipeUI = false;
         }
 
         if (_holdingFood != null)
