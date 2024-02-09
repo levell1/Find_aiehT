@@ -12,7 +12,6 @@ public class TutorialManager : MonoBehaviour
     private int _index;
     public Canvas Canvas;
     private TutorialGuideBook _tutorialGuideBook;
-    private TutorialGuide _tutorialGuide;
     public Image TutorialImage;
     public TextMeshProUGUI TutorialText;
 
@@ -23,7 +22,11 @@ public class TutorialManager : MonoBehaviour
     private void Awake()
     {
         _tutorialGuideBook = GetComponentInChildren<TutorialGuideBook>();
-        _tutorialGuide = GetComponentInChildren<TutorialGuide>();
+        if(GameManager.Instance.GlobalTimeManager.Day != 0)
+        {
+            Destroy(Canvas.gameObject);
+            Destroy(gameObject);
+        }
     }
 
 
@@ -59,7 +62,7 @@ public class TutorialManager : MonoBehaviour
 
     private void StartTutorial()
     {
-        if (!_tutorialGuide.gameObject.activeSelf && !_tutorialGuideBook.gameObject.activeSelf)
+        if (_index >= 1 && !_tutorialGuideBook.gameObject.activeSelf)
         {
             Canvas.gameObject.SetActive(true);
         }

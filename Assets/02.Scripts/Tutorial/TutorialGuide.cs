@@ -17,7 +17,7 @@ public class TutorialGuide : MonoBehaviour
 
     public Image Description;
 
-    private float _waitTime;
+    public float WaitTime;
 
     private int _index;
     private Coroutine _coroutine;
@@ -34,7 +34,7 @@ public class TutorialGuide : MonoBehaviour
             tutorial.gameObject.SetActive(false);
         }
 
-        Invoke("OffDescription", _waitTime);
+        Invoke("OffDescription", WaitTime);
     }
 
     private void LateUpdate()
@@ -47,7 +47,7 @@ public class TutorialGuide : MonoBehaviour
 
         if (!TutorialImage[_index].gameObject.activeSelf)
         {
-            Invoke("StartTutorial", _waitTime);
+            Invoke("StartTutorial", WaitTime);
         }
     }
 
@@ -69,7 +69,7 @@ public class TutorialGuide : MonoBehaviour
             TutorialImage[_index].DOFade(1f, _duration).SetEase(_easeType);
             TutorialImageBack[_index].DOFade(1f, _duration).SetEase(_easeType);
             TutorialText[_index].DOFade(1f, _duration).SetEase(_easeType);
-            Invoke("OffDoMove", _duration + _waitTime);
+            Invoke("OffDoMove", _duration + WaitTime);
         }
     }
 
