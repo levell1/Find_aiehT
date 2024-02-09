@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ public class DataManager : MonoBehaviour
 {
     public FoodSO[] FoodSODatas = new FoodSO[20];
     public List<OrderFood> Orders = new List<OrderFood>();
+
+    public Dictionary<int, bool> ItemWaitSpawnDict = new Dictionary<int, bool>();
 
     public void AddMenu(FoodSO foodData, int count)
     {
@@ -36,4 +39,13 @@ public class DataManager : MonoBehaviour
 
         AddMenu(FoodSODatas[0], breadNum);
     }
+
+    public void AddItems(int index, bool isActive)
+    {
+        if(!ItemWaitSpawnDict.ContainsKey(index))
+        {
+            ItemWaitSpawnDict.Add(index, isActive);
+        }
+    }
+
 }

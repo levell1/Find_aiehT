@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -44,9 +45,13 @@ public class GlobalTimeManager : MonoBehaviour
         ChangeDay();
     }
 
-    private void LoadedsceneEvent(Scene arg0, LoadSceneMode arg1) //씬이동 패널티
+    private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
     {
         DayTime += 0.5f / 24f;
+        if (scene.name != SceneName.LoadingScene)
+        {
+            ItemRespawn();
+        }
     }
 
     private void ChangeDay()
@@ -92,15 +97,23 @@ public class GlobalTimeManager : MonoBehaviour
         }
     }
 
-    public bool ItemRespawnTime()
+    public void ItemRespawn()
     {
         if (Hour == 6f && !IsItemRespawn)
         {
-            return true;
-        }
-        else
-        {
-            return false;
+            List<int> keysToModify = new List<int>();
+
+            foreach (var key in GameManager.Instance.DataManager.ItemWaitSpawnDict.Keys)
+            {
+                keysToModify.Add(key);
+            }
+
+            foreach (var key in keysToModify)
+            {
+                GameManager.Instance.DataManager.ItemWaitSpawnDict[key] = true;
+            }
+
+            IsItemRespawn = true;
         }
     }
 }
