@@ -7,36 +7,28 @@ using UnityEngine.UI;
 
 public class Tutorial2 : MonoBehaviour
 {
-    public ItemObject ToturialItem;
+    private TutorialManager _tutorialManager;
+
+    public ItemObject TutorialItem;
 
     [SerializeField] private float _duration;
     [SerializeField] private Ease _easeType;
 
-    public Image TutorialImage;
-    public TextMeshProUGUI TutorialText;
-
-    private Coroutine _coroutine;
+    public string TutorialTxt;
 
     private void Awake()
     {
-        ToturialItem.OnInteractionNatureItem += DoMove;
+        _tutorialManager = GetComponentInParent<TutorialManager>();
+        TutorialItem.OnInteractionNatureItem += InteractionItem;
     }
 
-    private void DoMove()
+    private void OnEnable()
     {
-        if (_coroutine == null)
-        {
-            TutorialImage.DOFade(0f, _duration).SetEase(_easeType);
-            TutorialText.DOFade(0f, _duration).SetEase(_easeType);
-
-            _coroutine = StartCoroutine(EndTutorial());
-        }
+        _tutorialManager.TutorialText.text = TutorialTxt;
     }
 
-    private IEnumerator EndTutorial()
+    private void InteractionItem()
     {
-        yield return new WaitForSeconds(_duration);
-        gameObject.SetActive(false);
-        _coroutine = null;
+        _tutorialManager.DoMove(_duration, _easeType);
     }
 }

@@ -18,7 +18,7 @@ public class CustomerController : MonoBehaviour
     private Collider _collider;
 
     private float _waitTime;
-    private const float _agentBaseOffset = 0.45f;
+    private const float _agentBaseOffset = 0.57f;
     private bool _isExit = false;
     private bool _isOrderFood = false;
 
@@ -59,6 +59,7 @@ public class CustomerController : MonoBehaviour
 
     public event Action<GameObject> OnCreateFood;
     public event Action OnCustomerExit;
+    public event Action OnSelectFood;
 
     #endregion
 
@@ -133,7 +134,7 @@ public class CustomerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("AI"))
+        if (other.gameObject.CompareTag(TagName.AI))
         {
             NavMeshAgent otherAgent = other.gameObject.GetComponent<NavMeshAgent>();
 
@@ -151,7 +152,7 @@ public class CustomerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("AI"))
+        if (other.gameObject.CompareTag(TagName.AI))
         {
             RemoveList(other.gameObject);
         }
@@ -185,6 +186,7 @@ public class CustomerController : MonoBehaviour
         OrderFoodCanvas.ActiveUI(); //
 
         OnCreateFood?.Invoke(menu[targetFoodNum].FoodSO.CookedFoodObject);
+        OnSelectFood?.Invoke();
 
         _tycoonManager.CookingUI.StartCooking(menu[targetFoodNum].FoodSO); //
 

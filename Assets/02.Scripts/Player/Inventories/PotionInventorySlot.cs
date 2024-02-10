@@ -43,9 +43,19 @@ public class PotionInventorySlot : MonoBehaviour
         PotionAmount.text = _initQuantity.ToString();
     }
 
+    public void TutorialPotion()
+    {
+        if(PotionSO.ID == 2001)
+        {
+            _initQuantity = 1;
+
+            UpdateUI();
+        }
+    }
+
+
     public void UpdatePotionQuantity(int quantity)
     {
-
         // 팝업에서 전달된 수량을 해당 슬롯에 반영
        
         if (PotionSO == ShopPotionInfoPopup.PotionData)

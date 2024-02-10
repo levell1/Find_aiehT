@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +15,7 @@ public class EnemyHealthSystem : MonoBehaviour
     public int HitCool;
 
     public event Action OnDie;
+    public static event Action<int> OnQuestTargetDie;
 
     public bool IsDead;
 
@@ -68,6 +67,7 @@ public class EnemyHealthSystem : MonoBehaviour
         {
             IsDead = true;
             OnDie.Invoke();
+            OnQuestTargetDie?.Invoke(_enemySO.EnemyID);
         }
     }
 

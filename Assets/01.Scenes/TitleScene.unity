@@ -2320,6 +2320,52 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1199478975}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &529793237
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 529793238}
+  - component: {fileID: 529793239}
+  m_Layer: 0
+  m_Name: QuestManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &529793238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529793237}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1936053420}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &529793239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529793237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cac1b725d01b244c848f35597ce4110, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  QuestSO: {fileID: 11400000, guid: 583cd8d7a8c7bdb41921396abe8ecd20, type: 2}
+  _questCount: 2
 --- !u!1001 &533107797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3588,6 +3634,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 812238045358280881, guid: fc9163f651843214cacc1532c5d80c52,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1728547032708823023, guid: fc9163f651843214cacc1532c5d80c52,
         type: 3}
       propertyPath: _playerExpSystem
@@ -4048,7 +4099,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DayTime: 0
   FullDayLength: 6000
-  StartTime: 0.2
+  StartTime: 0.5
   Day: 0
   Hour: 0
   Minutes: 0
@@ -5649,12 +5700,12 @@ PrefabInstance:
     - target: {fileID: 4721735961218300746, guid: 45c689e4e1a616d40ae83ec0b120a91b,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.10614213
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4721735961218300746, guid: 45c689e4e1a616d40ae83ec0b120a91b,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.4976815
       objectReference: {fileID: 0}
     - target: {fileID: 4822899917319020601, guid: 45c689e4e1a616d40ae83ec0b120a91b,
         type: 3}
@@ -5839,7 +5890,7 @@ PrefabInstance:
     - target: {fileID: 6311235290028492106, guid: 45c689e4e1a616d40ae83ec0b120a91b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 302.05203
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6716635224303048948, guid: 45c689e4e1a616d40ae83ec0b120a91b,
         type: 3}
@@ -7976,6 +8027,7 @@ Transform:
   - {fileID: 1106509080}
   - {fileID: 1612496726}
   - {fileID: 1710394758}
+  - {fileID: 529793238}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
