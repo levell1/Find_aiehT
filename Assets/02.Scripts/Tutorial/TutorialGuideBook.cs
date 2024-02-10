@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,9 +16,6 @@ public class TutorialGuideBook : MonoBehaviour
 
     private void Start()
     {
-        //Time.timeScale = 0f;
-        //Cursor.lockState = CursorLockMode.None;
-
         foreach (var images in _tutorialImages)
         {
             images.gameObject.SetActive(false);
@@ -37,9 +32,19 @@ public class TutorialGuideBook : MonoBehaviour
         UpdateUI();
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        Time.timeScale = 0.01f;
+        Invoke("CursorTimeLock", 1f);
+    }
+
+    private void OnDisable()
+    {
+        CancelInvoke("CursorTimeLock");
+    }
+
+    private void CursorTimeLock()
+    {
+        Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
     }
 

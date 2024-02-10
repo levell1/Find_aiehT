@@ -1,7 +1,5 @@
 using DG.Tweening;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,7 +27,6 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-
     private void Start()
     {
         _index = 0;
@@ -42,11 +39,6 @@ public class TutorialManager : MonoBehaviour
         }
 
         StartTutorial(); //시작시 딜레이를 조금 주고 싶다면 인보크 고민
-    }
-
-    private void OnDisable()
-    {
-        GameManager.Instance.GlobalTimeManager.DayTime += 6f / 24f;
     }
 
     private void LateUpdate()

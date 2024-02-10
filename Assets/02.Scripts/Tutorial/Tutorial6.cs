@@ -1,11 +1,6 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Tutorial6 : MonoBehaviour
 {
@@ -16,6 +11,7 @@ public class Tutorial6 : MonoBehaviour
     [SerializeField] private Ease _easeType;
 
     public string TutorialTxt;
+    public string TutorialTxt2;
 
     private void Awake()
     {
@@ -24,7 +20,14 @@ public class Tutorial6 : MonoBehaviour
     }
     private void OnEnable()
     {
-        _tutorialManager.TutorialText.text = TutorialTxt;
+        if (TutorialTxt2 != string.Empty)
+        {
+            _tutorialManager.TutorialText.text = TutorialTxt + "\n" + TutorialTxt2;
+        }
+        else
+        {
+            _tutorialManager.TutorialText.text = TutorialTxt;
+        }
     }
 
     private void FixedUpdate()

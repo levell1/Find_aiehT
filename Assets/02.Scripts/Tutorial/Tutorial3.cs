@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using TMPro;
-using UnityEngine.UI;
 
 public class Tutorial3 : MonoBehaviour
 {
@@ -13,6 +9,7 @@ public class Tutorial3 : MonoBehaviour
     [SerializeField] private Ease _easeType;
     [SerializeField] private Vector3 _paramVector;
     public string TutorialTxt;
+    public string TutorialTxt2;
     public GameObject Fence;
 
     private void Awake()
@@ -21,7 +18,14 @@ public class Tutorial3 : MonoBehaviour
     }
     private void OnEnable()
     {
-        _tutorialManager.TutorialText.text = TutorialTxt;
+        if (TutorialTxt2 != string.Empty)
+        {
+            _tutorialManager.TutorialText.text = TutorialTxt + "\n" + TutorialTxt2;
+        }
+        else
+        {
+            _tutorialManager.TutorialText.text = TutorialTxt;
+        }
     }
 
     private void FixedUpdate()
