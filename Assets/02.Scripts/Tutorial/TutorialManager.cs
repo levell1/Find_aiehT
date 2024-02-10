@@ -10,7 +10,8 @@ public class TutorialManager : MonoBehaviour
 {
     public GameObject[] Tutorials;
     private int _index;
-
+    public Canvas Canvas;
+    private TutorialGuideBook _tutorialGuideBook;
     public Image TutorialImage;
     public TextMeshProUGUI TutorialText;
 
@@ -18,10 +19,21 @@ public class TutorialManager : MonoBehaviour
 
     private Coroutine _coroutine;
 
+    private void Awake()
+    {
+        _tutorialGuideBook = GetComponentInChildren<TutorialGuideBook>();
+        if(GameManager.Instance.GlobalTimeManager.Day != 0)
+        {
+            Destroy(Canvas.gameObject);
+            Destroy(gameObject);
+        }
+    }
+
+
     private void Start()
     {
         _index = 0;
-
+        Canvas.gameObject.SetActive(false);
         if (Tutorials.Length == 0) return;
 
         foreach (var tutorial in Tutorials)
@@ -34,7 +46,6 @@ public class TutorialManager : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.Instance.Player.transform.position = new Vector3 (-4, 0, 0);
         GameManager.Instance.GlobalTimeManager.DayTime += 6f / 24f;
     }
 
@@ -51,6 +62,11 @@ public class TutorialManager : MonoBehaviour
 
     private void StartTutorial()
     {
+        if (_index >= 1 && !_tutorialGuideBook.gameObject.activeSelf)
+        {
+            Canvas.gameObject.SetActive(true);
+        }
+
         UPdateUI();
         Tutorials[_index].SetActive(true);
     }

@@ -2,17 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
+using UnityEditor;
 using UnityEditor.Rendering;
 using UnityEngine;
 using static UnityEditor.Progress;
 
 public class ItemObject : MonoBehaviour
 {
-    private ItemRespawner _itemRespawner;
+    private DataManager _dataManager;
     private Vector3 _itemSpawnPoint;
     private Rigidbody _itemRigidbody;
 
     public ItemSO ItemData;
+
+    public int ItemIndex;
+    public bool IsActive;
 
     public event Action OnInteractionNatureItem;
     public static event Action<int> OnQuestTargetInteraction;
@@ -20,14 +24,28 @@ public class ItemObject : MonoBehaviour
     private void Awake()
     {
         _itemRigidbody = GetComponent<Rigidbody>();
-        _itemRespawner = GetComponentInParent<ItemRespawner>();
+        _dataManager = GameManager.Instance.DataManager;
         _itemSpawnPoint = transform.position;
+
+        if (ItemData.type == ItemType.NATUREITEM && _dataManager.ItemWaitSpawnDict.ContainsKey(ItemIndex))
+        {
+            IsActive = _dataManager.ItemWaitSpawnDict[ItemIndex];
+            if (IsActive)
+            {
+                _dataManager.ItemWaitSpawnDict.Remove(ItemIndex);
+            }
+        }
     }
 
     private void OnEnable()
     {
         _itemRigidbody.velocity = Vector3.zero;
         transform.position = _itemSpawnPoint;
+        
+        if (ItemData.type == ItemType.NATUREITEM && !IsActive)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public void GetItem()
@@ -40,10 +58,11 @@ public class ItemObject : MonoBehaviour
         }
         else if (ItemData.type == ItemType.NATUREITEM)
         {
+            IsActive = false;
+            _dataManager.AddItems(ItemIndex, IsActive);
             gameObject.SetActive(false);
             OnInteractionNatureItem?.Invoke();
             OnQuestTargetInteraction?.Invoke(ItemData.ItemID);
-            _itemRespawner.ItemWaitSpawnList.Add(gameObject);
         }
     }
 }

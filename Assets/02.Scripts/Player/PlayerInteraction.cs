@@ -177,7 +177,7 @@ public class PlayerInteraction : MonoBehaviour
 
             if (_nextScene == SceneName.TycoonScene)
             {
-                GameManager.Instance.Player.transform.position = new Vector3(5, 0, 8);
+                GameManager.Instance.Player.transform.position = new Vector3(-4, 0, 8);
             }
             else if (_curScene == SceneName.TycoonScene && _nextScene == SceneName.VillageScene)
             {
