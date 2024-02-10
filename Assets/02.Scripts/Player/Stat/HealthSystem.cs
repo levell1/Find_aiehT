@@ -84,6 +84,8 @@ public class HealthSystem : MonoBehaviour
             Health = Mathf.Min(Health, MaxHealth);
 
             OnChangeHpUI?.Invoke(Health, MaxHealth);
+
+            GameManager.Instance.EffectManager.PlayHealingEffect();
         }
     }
 

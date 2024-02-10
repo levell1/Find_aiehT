@@ -63,6 +63,9 @@ public class PlayerExpSystem : MonoBehaviour
         _staminaSystem.SetMaxStamina();
         OnLevelUp?.Invoke(_playerLevel);
         OnChangeExpUI?.Invoke(_playerExp, _maxExp);
+
+        GameManager.Instance.EffectManager.PlayLevelUpEffect();
+
         //Debug.Log("레벨업!");
 
         //int a = _playerData.PlayerData.GetPlayerLevel();

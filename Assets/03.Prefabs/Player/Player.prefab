@@ -1149,6 +1149,37 @@ Transform:
   m_Father: {fileID: 2114892479618387542}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1230723053995714932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2267515079205053507}
+  m_Layer: 9
+  m_Name: AttackPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2267515079205053507
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230723053995714932}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.656}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7573222769517597101}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1248065401593162793
 GameObject:
   m_ObjectHideFlags: 0
@@ -7698,7 +7729,7 @@ Transform:
   - {fileID: 2891377315053712284}
   - {fileID: 3533890531207633210}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7154715293715450758
 MonoBehaviour:
@@ -8086,6 +8117,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  HPPotionQuick: {fileID: 0}
+  SPPotionQuick: {fileID: 0}
 --- !u!1 &8993521162791815374
 GameObject:
   m_ObjectHideFlags: 0
@@ -9500,7 +9533,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 400000, guid: 84845e0ef0ec8d7469f7d463479ed25d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2267515079205053507}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 84845e0ef0ec8d7469f7d463479ed25d,
         type: 3}

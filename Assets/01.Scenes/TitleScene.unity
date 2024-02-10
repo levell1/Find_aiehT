@@ -767,6 +767,57 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67518faee782bbe47af84d65fe683ede, type: 3}
+--- !u!1 &98957049
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 98957050}
+  - component: {fileID: 98957051}
+  m_Layer: 0
+  m_Name: EffectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &98957050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98957049}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1936053420}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &98957051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98957049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38d6ee96440901948a109d6e8741f6ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelUpEffect: {fileID: 5914037922799018170, guid: 478bc7087c1d9ae42a3e2b7e02c71d8e,
+    type: 3}
+  _healingEffect: {fileID: 9017484664307500583, guid: 1245b8d2997d5b34fb1637be70a7eb05,
+    type: 3}
+  _playerAttackEffect: {fileID: 1758473627833946668, guid: 9b21333b068a5084ba09535839bee3c8,
+    type: 3}
+  _weaponPos: {fileID: 633336784}
 --- !u!1 &100800763
 GameObject:
   m_ObjectHideFlags: 0
@@ -2580,6 +2631,11 @@ PrefabInstance:
       propertyPath: InteractionText
       value: 
       objectReference: {fileID: 982642707}
+    - target: {fileID: 2894030704073575502, guid: 87ee7d1ca24466242b13ad42b8b83912,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3759103832307417138, guid: 87ee7d1ca24466242b13ad42b8b83912,
         type: 3}
       propertyPath: HPPotionQuick
@@ -2883,13 +2939,19 @@ PrefabInstance:
     - target: {fileID: 8980220608949398442, guid: 87ee7d1ca24466242b13ad42b8b83912,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87ee7d1ca24466242b13ad42b8b83912, type: 3}
+--- !u!1 &633336784 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1230723053995714932, guid: 87ee7d1ca24466242b13ad42b8b83912,
+    type: 3}
+  m_PrefabInstance: {fileID: 633336783}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &649842950 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3533890531207633210, guid: 87ee7d1ca24466242b13ad42b8b83912,
@@ -8028,6 +8090,7 @@ Transform:
   - {fileID: 1612496726}
   - {fileID: 1710394758}
   - {fileID: 529793238}
+  - {fileID: 98957050}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

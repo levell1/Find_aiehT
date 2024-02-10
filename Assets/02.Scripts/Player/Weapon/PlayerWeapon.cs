@@ -40,6 +40,7 @@ public class PlayerWeapon : MonoBehaviour
         if(other.TryGetComponent(out EnemyHealthSystem health))
         {
             health.TakeDamage(_damage);
+            GameManager.Instance.EffectManager.PlayAttackEffect();
         }
 
     }
