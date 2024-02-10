@@ -1,10 +1,6 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
+
 
 public class Tutorial5 : MonoBehaviour
 {
@@ -13,6 +9,7 @@ public class Tutorial5 : MonoBehaviour
     [SerializeField] private float _duration;
     [SerializeField] private Ease _easeType;
     public string TutorialTxt;
+    public string TutorialTxt2;
 
     private void Awake()
     {
@@ -22,7 +19,14 @@ public class Tutorial5 : MonoBehaviour
 
     private void OnEnable()
     {
-        _tutorialManager.TutorialText.text = TutorialTxt;
+        if (TutorialTxt2 != string.Empty)
+        {
+            _tutorialManager.TutorialText.text = TutorialTxt + "\n" + TutorialTxt2;
+        }
+        else
+        {
+            _tutorialManager.TutorialText.text = TutorialTxt;
+        }
         _player.HealthSystem.TakeDamage(10);
     }
 

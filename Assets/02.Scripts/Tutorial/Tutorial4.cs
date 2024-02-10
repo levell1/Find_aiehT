@@ -1,9 +1,5 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Tutorial4 : MonoBehaviour
 {
@@ -15,6 +11,7 @@ public class Tutorial4 : MonoBehaviour
     [SerializeField] private Ease _easeType;
 
     public string TutorialTxt;
+    public string TutorialTxt2;
 
     private int EnemyCount;
 
@@ -25,7 +22,14 @@ public class Tutorial4 : MonoBehaviour
 
     private void OnEnable()
     {
-        _tutorialManager.TutorialText.text = TutorialTxt;
+        if (TutorialTxt2 != string.Empty)
+        {
+            _tutorialManager.TutorialText.text = TutorialTxt + "\n" + TutorialTxt2;
+        }
+        else
+        {
+            _tutorialManager.TutorialText.text = TutorialTxt;
+        }
 
         EnemyCount = TutorialChick.Length;
         for (int i = 0; i < TutorialChick.Length; ++i)

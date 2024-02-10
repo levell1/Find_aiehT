@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.UI;
-using TMPro;
 
 public class Tutorial1 : MonoBehaviour
 {
@@ -12,7 +8,7 @@ public class Tutorial1 : MonoBehaviour
     [SerializeField] private Ease _easeType;
 
     public string TutorialTxt;
-
+    public string TutorialTxt2;
     private void Awake()
     {
         _tutorialManager = GetComponentInParent<TutorialManager>();
@@ -20,7 +16,14 @@ public class Tutorial1 : MonoBehaviour
 
     private void OnEnable()
     {
-        _tutorialManager.TutorialText.text = TutorialTxt;
+        if (TutorialTxt2 != string.Empty)
+        {
+            _tutorialManager.TutorialText.text = TutorialTxt + "\n" + TutorialTxt2;
+        }
+        else
+        {
+            _tutorialManager.TutorialText.text = TutorialTxt;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
