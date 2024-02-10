@@ -41,10 +41,8 @@ public class MinimapSetting : MonoBehaviour
 
     private void Update()
     {
-       
         _camY = GameManager.Instance.CameraManager.MainCamera.transform.rotation.eulerAngles.y;
         transform.position = new Vector3(_player.position.x, _player.position.y + 10, _player.position.z);
-        Debug.Log(_camY);
         transform.rotation = Quaternion.Euler(90f, _camY, 0f);
        
         if (Input.GetKeyDown(KeyCode.KeypadPlus))

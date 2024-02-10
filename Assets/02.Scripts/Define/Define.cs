@@ -88,7 +88,9 @@ public struct AnimationParameterName
     public const string TycoonIsWalk = "IsWalk";
     public const string TycoonIsEat = "IsEat";
     public const string TycoonIsIdle= "IsIdle";
+    public const string BossIdle = "Idle";
     public const string BossWalk = "Walk";
     public const string BossAttack = "Attack";
+    public const string BossSpin = "Spin";
 }
 

@@ -43,8 +43,8 @@ public class HealthSystem : MonoBehaviour
 
     private float CaculateTotalDamage(float damage)
     {
-        float _defPer = _playerDef / (100 + _playerDef); 
-        float _totalDamage = damage * (1 - _defPer); 
+        float _defPer = 0.02f * _playerDef / (1 + 0.02f * _playerDef); // 1/2 
+        float _totalDamage = damage * (1 - _defPer);   //  
 
         return _totalDamage;
     }
@@ -53,14 +53,11 @@ public class HealthSystem : MonoBehaviour
     public void TakeDamage(float damage)
     {
         _playerDef = _playerData.PlayerData.GetPlayerDef()+_equipmentDatas.SumDef;
-        Debug.Log(_playerDef);
         if (_isInvincible) return;
 
         if (Health == 0) return;
 
        float _totalDamage = CaculateTotalDamage(damage);
-
-        Debug.Log("헬스" + Health);
 
         Health = Mathf.Max(Mathf.Floor(Health - _totalDamage), 0);
         OnChangeHpUI?.Invoke(Health, MaxHealth);

@@ -3,50 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 public class SequenceNode : Node
 {
+    private List<Node> _children;
+    private int currentChildIndex = 0;
     public SequenceNode() : base() { }
 
-    public SequenceNode(List<Node> children) : base(children) { }
+    public SequenceNode(List<Node> children) : base(children) { this._children = children; }
 
     public override NodeState Evaluate()
     {
-        bool bNowRunning = false;
-        foreach (Node node in childrenNode)
+/*        if (_children == null || _children.Count == 0)
+            return NodeState.Failure;
+        foreach (var child in _children)
         {
-            switch (node.Evaluate())
+            switch (child.Evaluate())
             {
                 case NodeState.Failure:
                     return state = NodeState.Failure;
                 case NodeState.Success:
                     continue;
                 case NodeState.Running:
-                    bNowRunning = true;
-                    continue;
-                default:
-                    continue;
+                    return state = NodeState.Running;
             }
         }
 
-        return state = bNowRunning ? NodeState.Running : NodeState.Success;
+        return state = NodeState.Success;*/
 
-        /*// 현재 자식 노드 실행
-        var currentChild = children[currentChildIndex];
+        // 현재 자식 노드 실행
+        var currentChild = _children[currentChildIndex];
         var result = currentChild.Evaluate();
 
-        // 현재 자식 노드가 완료되었을 경우
         if (result == NodeState.Success)
         {
-            // 다음 자식 노드로 이동
             currentChildIndex++;
-            // 모든 자식 노드를 실행했을 경우 복합 노드 완료
-            if (currentChildIndex >= children.Length)
+            if (currentChildIndex >= _children.Count)
             {
+                currentChildIndex = 0;
                 return NodeState.Success;
             }
-        }else if (result == NodeState.Failure) 
+        }
+        else if (result == NodeState.Failure)
         {
             return NodeState.Failure;
         }
-        // 실행 중인 경우 실행 중 상태 반환
-        return NodeState.Running;*/
+        return NodeState.Running;
     }
 }
