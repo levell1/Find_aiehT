@@ -28,9 +28,8 @@ public class Tutorial5 : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (_player.HealthSystem.MaxHealth == _player.HealthSystem.Health)
         {
-            _player.HealthSystem.Healing(10);
             _tutorialManager.DoMove(_duration, _easeType);
         }
     }

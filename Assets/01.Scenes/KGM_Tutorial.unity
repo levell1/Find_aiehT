@@ -527,6 +527,53 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &54045987
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 54045989}
+  - component: {fileID: 54045988}
+  m_Layer: 0
+  m_Name: Tutorial0-2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &54045988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54045987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd4ff6ad3988e84bb413a5b6f548199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 2
+  _easeType: 0
+  TutorialTxt: "\uC778\uBCA4\uD1A0\uB9AC\uB97C \uC5F4\uC5B4 \uD3EC\uC158\uC744 \uB4F1\uB85D\uD574\uBCF4\uC138\uC694."
+--- !u!4 &54045989
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54045987}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 78.27, y: 0, z: 68.51}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1088175914}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &57043443
 GameObject:
   m_ObjectHideFlags: 0
@@ -4350,6 +4397,54 @@ Transform:
   - {fileID: 219978907}
   - {fileID: 1999819751}
   m_Father: {fileID: 906627526}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &472226207
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 472226209}
+  - component: {fileID: 472226208}
+  m_Layer: 0
+  m_Name: Tutorial0-1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &472226208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472226207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd4ff6ad3988e84bb413a5b6f548199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 2
+  _easeType: 0
+  TutorialTxt: "\uC804\uD22C\uB97C \uC9C4\uD589\uD558\uB2E4\uBCF4\uBA74 \uCCB4\uB825\uC774
+    \uB2F3\uAC8C \uB418\uB294 \uACBD\uC6B0\uAC00 \uC788\uC2B5\uB2C8\uB2E4."
+--- !u!4 &472226209
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472226207}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 78.27, y: 0, z: 68.51}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1088175914}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &475902823
@@ -8291,7 +8386,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -9850,6 +9945,8 @@ MonoBehaviour:
   - {fileID: 1689272304}
   - {fileID: 1118515081}
   - {fileID: 1215381754}
+  - {fileID: 472226207}
+  - {fileID: 54045987}
   - {fileID: 1764662291}
   - {fileID: 134546558}
   - {fileID: 1027181630}
@@ -9879,6 +9976,8 @@ Transform:
   - {fileID: 1689272305}
   - {fileID: 1118515082}
   - {fileID: 1215381755}
+  - {fileID: 472226209}
+  - {fileID: 54045989}
   - {fileID: 1764662292}
   - {fileID: 134546559}
   - {fileID: 1027181631}
@@ -16093,9 +16192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _duration: 2
   _easeType: 0
-  TutorialTxt: "\uC804\uD22C\uB97C \uC9C4\uD589\uD558\uB2E4\uBCF4\uBA74 \uCCB4\uB825\uC774
-    \uB2F3\uAC8C \uB418\uB294 \uACBD\uC6B0\uAC00 \uC788\uC2B5\uB2C8\uB2E4. \uC9C0\uAE09\uB41C
-    \uD3EC\uC158\uC744 \uC0AC\uC6A9\uD574 \uCCB4\uB825\uC744 \uD68C\uBCF5\uD574 \uBCF4\uC138\uC694."
+  TutorialTxt: "\uD3EC\uC158\uC744 \uC0AC\uC6A9\uD574 \uCCB4\uB825\uC744 \uD68C\uBCF5\uD558\uC138\uC694."
 --- !u!1001 &1801619702
 PrefabInstance:
   m_ObjectHideFlags: 0
