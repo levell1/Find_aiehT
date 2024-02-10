@@ -89,6 +89,8 @@ public class StaminaSystem : MonoBehaviour
             Stamina = Mathf.Min(Stamina, MaxStamina);
 
             OnChangeStaminaUI?.Invoke(Stamina, MaxStamina);
+
+            GameManager.Instance.EffectManager.PlayStanimaEffect();
         }
 
     }
