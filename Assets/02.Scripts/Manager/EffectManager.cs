@@ -51,7 +51,7 @@ public class EffectManager : MonoBehaviour
         StartCoroutine(TurnOffEffect(_healingObject, _healingEffectTime));
     }
 
-    public void PlayStanimaEffect()
+    public void PlayStaminaEffect()
     {
         _staminaHealingObject.SetActive(true);
         StartCoroutine(TurnOffEffect(_staminaHealingObject, _healingEffectTime));

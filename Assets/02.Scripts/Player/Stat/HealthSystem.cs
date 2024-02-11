@@ -43,8 +43,8 @@ public class HealthSystem : MonoBehaviour
 
     private float CaculateTotalDamage(float damage)
     {
-        float _defPer = _playerDef / (100 + _playerDef); 
-        float _totalDamage = damage * (1 - _defPer); 
+        float _defPer = 0.02f * _playerDef / (1 + 0.02f * _playerDef); // 1/2 
+        float _totalDamage = damage * (1 - _defPer);   //  
 
         return _totalDamage;
     }

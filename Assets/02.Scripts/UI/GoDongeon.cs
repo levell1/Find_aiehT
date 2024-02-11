@@ -8,7 +8,8 @@ public class GoDongeon : BaseUI
         // 씬 전환, 로딩
         // 던전 으로 이동
         // 골드 1000감소
+        
     }
 
-
+    
 }
