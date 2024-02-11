@@ -14,6 +14,7 @@ public class EffectManager : MonoBehaviour
     private ParticleSystem _healingObject;
     private ParticleSystem _staminaHealingObject;
     private ParticleSystem _playerAttackObject;
+    private ParticleSystem _questCompleteObject;
     private ParticleSystem _footStepObject;
 
     [Header("Effect Prefabs")]
@@ -21,6 +22,7 @@ public class EffectManager : MonoBehaviour
     [SerializeField] private ParticleSystem _healingEffect;
     [SerializeField] private ParticleSystem _staminaHealingEffect;
     [SerializeField] private ParticleSystem _playerAttackEffect;
+    [SerializeField] private ParticleSystem _questCompleteEffect;
     [SerializeField] private ParticleSystem _footStepEffect;
     [SerializeField] private ParticleSystem _eatFoodEffect;
 
@@ -58,6 +60,13 @@ public class EffectManager : MonoBehaviour
     {
         _playerAttackObject.Play();
         StartCoroutine(StopParticle(_playerAttackObject, _playerAttackEffectTime));
+    }
+
+    //TODO: Quest 구현 완료 후 적용
+    public void QuestCompleteEffect()
+    {
+        _questCompleteObject.Play();
+        StartCoroutine(StopParticle(_questCompleteObject, _healingEffectTime));
     }
 
     public void PlayFootStepEffect()
