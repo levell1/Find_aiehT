@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ public class HealthSystem : MonoBehaviour
     private float _playerDef;
 
     public float Health;
+    private const int _dangerHealth = 30;
 
     [SerializeField] EquipmentDatas _equipmentDatas;
 
@@ -53,12 +55,12 @@ public class HealthSystem : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        _playerDef = _playerData.PlayerData.GetPlayerDef()+_equipmentDatas.SumDef;
+        _playerDef = _playerData.PlayerData.GetPlayerDef() + _equipmentDatas.SumDef;
         if (_isInvincible) return;
 
         if (Health == 0) return;
 
-       float _totalDamage = CaculateTotalDamage(damage);
+        float _totalDamage = CaculateTotalDamage(damage);
 
         Health = Mathf.Max(Mathf.Floor(Health - _totalDamage), 0);
         OnChangeHpUI?.Invoke(Health, MaxHealth);
@@ -68,7 +70,10 @@ public class HealthSystem : MonoBehaviour
 
         StartCoroutine(InvincibleCooldown());
 
-        GameManager.Instance.EffectManager.PlayerTakeDamageEffect();
+        if (Health < _dangerHealth)
+            GameManager.Instance.EffectManager.PlayerLowHpEffect();
+        else
+            GameManager.Instance.EffectManager.PlayerTakeDamageEffect();
     }
 
     private IEnumerator InvincibleCooldown()
@@ -89,6 +94,9 @@ public class HealthSystem : MonoBehaviour
             OnChangeHpUI?.Invoke(Health, MaxHealth);
 
             GameManager.Instance.EffectManager.PlayHealingEffect();
+
+            if(Health >= _dangerHealth)
+                GameManager.Instance.EffectManager.PlayerGettingBetterEffect();
         }
     }
 

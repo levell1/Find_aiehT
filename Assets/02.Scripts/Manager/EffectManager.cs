@@ -91,6 +91,16 @@ public class EffectManager : MonoBehaviour
         StartCoroutine(StopEffectObject(_playerTakeDamageEffect, new WaitForSeconds(0.4f)));
     }
 
+    public void PlayerLowHpEffect()
+    {
+        _playerTakeDamageEffect.SetActive(true);
+    }
+    
+    public void PlayerGettingBetterEffect()
+    {
+        _playerTakeDamageEffect.SetActive(false);
+    }
+
     #region Coroutine
 
     IEnumerator StopParticle(ParticleSystem effectObject, WaitForSeconds effectTime)
