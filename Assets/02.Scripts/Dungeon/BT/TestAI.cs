@@ -28,7 +28,6 @@ public class TestAI : Tree
                 new List<Node>()
                 {
                     new CheckPlayerDistanceNode(_pigTransform,2.0f),
-                    new AttackNode(_playerTransform,_pigTransform,2.0f),  
                 }
             ),
             new SequenceNode

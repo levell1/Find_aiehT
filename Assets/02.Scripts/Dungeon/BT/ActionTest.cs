@@ -8,7 +8,7 @@ public class CheckPlayerDistanceNode : Node
     private int _playerLayerMask = 1 << 9;
     private Transform _pigtransform;
     private Animator _animation;
-    private float _distance = 0;
+    private float _distance;
 
     public CheckPlayerDistanceNode(Transform transform,float distance)
     {
@@ -26,7 +26,7 @@ public class CheckPlayerDistanceNode : Node
     }
 }
 
-public class AttackNode : Node
+/*public class AttackNode : Node
 {
     private Transform _player;
     private Transform _pigtransform;
@@ -60,7 +60,7 @@ public class AttackNode : Node
             return state = NodeState.Success;
         }
     }
-}
+}*/
 
 
 
@@ -81,7 +81,7 @@ public class RunAwayNode : Node
     {
         Vector3 randomDirection = Random.insideUnitSphere * 6f;
         randomDirection += _agent.gameObject.transform.position; // 랜덤 방향 벡터를 현재 위치에 더합니다.
-
+       
         NavMeshHit hit;
         if (NavMesh.SamplePosition(randomDirection, out hit, 6f, NavMesh.AllAreas)) // 랜덤 위치가 NavMesh 위에 있는지 확인합니다.
         {
@@ -97,19 +97,18 @@ public class RunAwayNode : Node
     {
         //멀리가기
         _agent.SetDestination(_randomPoint);
-
         _animation.SetBool(AnimationParameterName.BossWalk, true);
 
         if (_agent.remainingDistance <= _agent.stoppingDistance && !_agent.pathPending)
         {
             _randomPoint = GetRandomPositionOnNavMesh();
+            _animation.SetBool(AnimationParameterName.BossWalk, false);
             return state = NodeState.Success; // 행동 완료 상태 반환
         }
         else
         {
             return state = NodeState.Running; // 행동 진행 중 상태 반환
         }
-       
     }
 }
 
@@ -120,6 +119,7 @@ public class GoToPlayerNode : Node
     private Animator _animation;
     private NavMeshAgent _agent;
     private float _agentAttackSpeed = 10.0f;
+    float time=0;
 
     public GoToPlayerNode(Transform player, Transform transform,NavMeshAgent agent)
     {
@@ -128,22 +128,37 @@ public class GoToPlayerNode : Node
         this._agent = agent;
         _animation = transform.GetComponent<Animator>();
         agent.speed = _agentAttackSpeed;
+        
     }
 
     public override NodeState Evaluate()
     {
-        transform.LookAt(player);
-        _agent.SetDestination(player.transform.position);
-        
-        _animation.SetBool(AnimationParameterName.BossWalk, true);
-        if (_agent.remainingDistance <= _agent.stoppingDistance && !_agent.pathPending)
-        {
-            _animation.SetBool(AnimationParameterName.BossWalk, false);
-            return state = NodeState.Success; // 행동 완료 상태 반환
-        }
-        {
-            return state = NodeState.Running; // 행동 진행 중 상태 반환
-        }
 
+        if (time < 3f) 
+        {
+            Quaternion rotation = Quaternion.LookRotation(player.position - transform.position);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 2);
+            _animation.SetBool(AnimationParameterName.BossFear, true);
+            time += Time.deltaTime;
+            Debug.Log(time);
+        }
+        else
+        {
+             _agent.SetDestination(player.transform.position);
+
+            _animation.SetBool(AnimationParameterName.BossFear, false);
+            _animation.SetBool(AnimationParameterName.BossRun, true);
+
+            if (_agent.remainingDistance <= _agent.stoppingDistance && !_agent.pathPending)
+            {
+                _animation.SetBool(AnimationParameterName.BossRun, false);
+                time = 0;
+                return state = NodeState.Success; // 행동 완료 상태 반환
+            }
+            {
+                return state = NodeState.Running; // 행동 진행 중 상태 반환
+            }
+        }
+        return state = NodeState.Running; // 행동 진행 중 상태 반환
     }
 }
