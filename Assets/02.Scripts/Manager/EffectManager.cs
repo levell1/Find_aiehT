@@ -25,6 +25,7 @@ public class EffectManager : MonoBehaviour
     [SerializeField] private ParticleSystem _questCompleteEffect;
     [SerializeField] private ParticleSystem _footStepEffect;
     [SerializeField] private ParticleSystem _eatFoodEffect;
+    [SerializeField] private ParticleSystem _coinEffect;
 
     [SerializeField] private GameObject _playerTakeDamageEffect;
     [SerializeField] private GameObject _playerDieEffect;
@@ -84,6 +85,12 @@ public class EffectManager : MonoBehaviour
     {
         ParticleSystem eatParticle = Instantiate(_eatFoodEffect, customerEatTransform);
         StartCoroutine(StopParticle(eatParticle, eatTime));
+    }
+
+    public void GetCoinEffect(Transform customerEatTransform)
+    {
+        ParticleSystem coinParticle = Instantiate(_coinEffect, customerEatTransform);
+        coinParticle.Play();
     }
 
     public void PlayerTakeDamageEffect()

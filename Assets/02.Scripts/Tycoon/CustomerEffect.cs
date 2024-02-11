@@ -17,4 +17,9 @@ public class CustomerEffect : MonoBehaviour
             _isEat = true;
         }
     }
+
+    public void PlayGetCoinEffect()
+    {
+        GameManager.Instance.EffectManager.GetCoinEffect(_eatTransform);
+    }
 }
