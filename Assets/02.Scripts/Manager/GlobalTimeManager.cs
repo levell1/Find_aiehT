@@ -48,10 +48,7 @@ public class GlobalTimeManager : MonoBehaviour
     private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
     {
         DayTime += 0.5f / 24f;
-        if (scene.name != SceneName.LoadingScene)
-        {
-            ItemRespawn();
-        }
+        ItemRespawn();
     }
 
     private void ChangeDay()
@@ -99,7 +96,7 @@ public class GlobalTimeManager : MonoBehaviour
 
     public void ItemRespawn()
     {
-        if (Hour == 6f && !IsItemRespawn)
+        if (Hour >= 6f && !IsItemRespawn)
         {
             List<int> keysToModify = new List<int>();
 
