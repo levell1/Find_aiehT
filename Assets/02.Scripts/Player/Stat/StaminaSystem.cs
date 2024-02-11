@@ -90,7 +90,7 @@ public class StaminaSystem : MonoBehaviour
 
             OnChangeStaminaUI?.Invoke(Stamina, MaxStamina);
 
-            GameManager.Instance.EffectManager.PlayStanimaEffect();
+            GameManager.Instance.EffectManager.PlayStaminaEffect();
         }
 
     }
