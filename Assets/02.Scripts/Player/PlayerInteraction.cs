@@ -145,7 +145,7 @@ public class PlayerInteraction : MonoBehaviour
 
     public  void DungeonMoovRoom() 
     {
-        if (_dungeonNextPosition != null)
+        if (door != null && _dungeonNextPosition != null)
         {
             door.GoNextRoom();
             Invoke("InDungeonMovePlayer", 1f);
