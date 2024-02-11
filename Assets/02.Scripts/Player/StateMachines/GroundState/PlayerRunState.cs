@@ -13,6 +13,8 @@ public class PlayerRunState : PlayerGroundState
         _stateMachine.MovementSpeedModifier = _groundData.RunSpeedModifier;
         base.Enter();
         StartAnimation(_stateMachine.Player.AnimationData.RunParameterHash);
+
+        GameManager.Instance.EffectManager.PlayFootStepEffect();
     }
 
     public override void Exit()

@@ -13,6 +13,8 @@ public class PlayerIdleState : PlayerGroundState
         _stateMachine.MovementSpeedModifier = 0f;
         base.Enter();
         StartAnimation(_stateMachine.Player.AnimationData.IdleParameterHash);
+
+        GameManager.Instance.EffectManager.StopFootStepEffect();
     }
 
     public override void Exit()
@@ -25,7 +27,7 @@ public class PlayerIdleState : PlayerGroundState
     {
         base.Update();
 
-        // ÀÌµ¿ÀÌ ÀÏ¾î³µ´Ù¸é
+        // ì´ë™ì´ ì¼ì–´ë‚¬ë‹¤ë©´
         if(_stateMachine.MovementInput != Vector2.zero)
         {
             OnMove();
