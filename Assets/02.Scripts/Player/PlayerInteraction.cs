@@ -1,3 +1,5 @@
+using DG.Tweening;
+using Suntail;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -32,6 +34,9 @@ public class PlayerInteraction : MonoBehaviour
     private string _showUI = string.Empty;
 
     public GameObject ShopUI;
+    private Vector3 _dungeonNextPosition;
+
+    private Door door;
 
     Coroutine _coroutine;
 
@@ -86,17 +91,24 @@ public class PlayerInteraction : MonoBehaviour
                 else if (other.gameObject.CompareTag(TagName.PotionShop))  //포션상점NPC
                 {
                     InteractionText.text = "포션상점 - 대화하기";
-                   _showUI = UIName.ShopUI;
+                    _showUI = UIName.ShopUI;
                 }
                 else if (other.gameObject.CompareTag(TagName.Enhancement)) //강화소NPC
                 {
                     InteractionText.text = "대장간 - 대화하기";
                     _showUI = UIName.ReforgeUI;
                 }
-                else if (other.gameObject.CompareTag(TagName.RealDoor)) // 타이쿤
+                /*else if (other.gameObject.CompareTag(TagName.RealDoor)) // 타이쿤
                 {
                     InteractionText.text = "타이쿤 - 입장하기";
+                }*/
+                else if (other.gameObject.CompareTag(TagName.DungeonDoor)) // 던전
+                {
+                    door = other.GetComponent<Door>();
+                    _dungeonNextPosition = door.NextRoomPosition;
+                    InteractionText.text = "다음 방으로 이동하기";
                 }
+                
             }
         }
     }
@@ -131,7 +143,18 @@ public class PlayerInteraction : MonoBehaviour
         UpdateUI();
     }
 
-    
+    public  void DungeonMoovRoom() 
+    {
+        if (_dungeonNextPosition != null)
+        {
+            door.GoNextRoom();
+            Invoke("InDungeonMovePlayer", 1f);
+        }
+    }
+    private void InDungeonMovePlayer() 
+    {
+        GameManager.Instance.Player.transform.position = _dungeonNextPosition;
+    }
 
     private void UpdateUI()
     {
@@ -203,14 +226,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (_showUI != string.Empty)
         {
-            if (_showUI== UIName.ShopUI)
-            {
-                GameManager.Instance.UIManager.ShowCanvas(_showUI);
-            }
-            else
-            {
-                GameManager.Instance.UIManager.ShowCanvas(_showUI);
-            }
+            GameManager.Instance.UIManager.ShowCanvas(_showUI);
             InteractionText.text = string.Empty;
         }
     }
@@ -223,7 +239,7 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         ErrorText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         ErrorText.gameObject.SetActive(false);
         ErrorText.text = string.Empty;
 
