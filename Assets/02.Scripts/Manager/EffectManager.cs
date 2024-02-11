@@ -8,9 +8,11 @@ public class EffectManager : MonoBehaviour
     [SerializeField] private GameObject _weaponPos;
 
     private WaitForSeconds _healingEffectTime = new WaitForSeconds(2f);
+    private WaitForSeconds _levelupEffectTime = new WaitForSeconds(3f);
     private WaitForSeconds _playerAttackEffectTime = new WaitForSeconds(0.3f);
 
     private GameObject _player;
+    private ParticleSystem _levelupObject;
     private ParticleSystem _healingObject;
     private ParticleSystem _staminaHealingObject;
     private ParticleSystem _playerAttackObject;
@@ -34,6 +36,7 @@ public class EffectManager : MonoBehaviour
     {
         _player = GameManager.Instance.Player;
 
+        _levelupObject = Instantiate(_levelUpEffect, _player.transform);
         _healingObject = Instantiate(_healingEffect, _player.transform);
         _staminaHealingObject = Instantiate(_staminaHealingEffect, _player.transform);
         _playerAttackObject = Instantiate(_playerAttackEffect, _weaponPos.transform);
@@ -42,8 +45,8 @@ public class EffectManager : MonoBehaviour
 
     public void PlayLevelUpEffect()
     {
-        ParticleSystem levelupEffectObject = Instantiate(_levelUpEffect, _player.transform);
-        Destroy(levelupEffectObject, 5f);
+        _levelupObject.Play();
+        StartCoroutine(StopParticle(_levelupObject, _levelupEffectTime));
     }
     
     public void PlayHealingEffect()
