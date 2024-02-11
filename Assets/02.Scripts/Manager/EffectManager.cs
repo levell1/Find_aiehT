@@ -21,6 +21,7 @@ public class EffectManager : MonoBehaviour
     [SerializeField] private ParticleSystem _staminaHealingEffect;
     [SerializeField] private ParticleSystem _playerAttackEffect;
     [SerializeField] private ParticleSystem _footStepEffect;
+    [SerializeField] private ParticleSystem _eatFoodEffect;
 
     private void Start()
     {
@@ -66,9 +67,10 @@ public class EffectManager : MonoBehaviour
         _footStepObject.Stop();
     }
 
-    public void CustomerEatFoodEffect()
+    public void CustomerEatFoodEffect(Transform customerEatTransform, WaitForSeconds eatTime)
     {
-
+        ParticleSystem eatParticle = Instantiate(_eatFoodEffect, customerEatTransform);
+        StartCoroutine(TurnOffEffect(eatParticle, eatTime));
     }
 
     #region Coroutine
