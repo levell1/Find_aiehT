@@ -147,8 +147,8 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (door != null && _dungeonNextPosition != null)
         {
-            door.GoNextRoom();
-            Invoke("InDungeonMovePlayer", 1f);
+            door.FadeImage();
+            Invoke("InDungeonMovePlayer", 2f);
         }
     }
     private void InDungeonMovePlayer() 

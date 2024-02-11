@@ -11,7 +11,7 @@ public class Door : MonoBehaviour
 
     private void Awake()
     {
-        _fadeImage = GetComponentInChildren<Image>();
+        _fadeImage = FindObjectOfType<Image>();
     }
     void Start()
     {
@@ -19,13 +19,20 @@ public class Door : MonoBehaviour
         NextRoomPosition = transform.position + dir;
     }
 
-    public IEnumerator GoNextRoom()
+    public void FadeImage() 
+    {
+        StartCoroutine(GoNextRoomFade());
+    }
+    private IEnumerator GoNextRoomFade()
     {
         _fadeImage.gameObject.SetActive(true);
-        _fadeImage.DOFade(1f, 1f);
-        yield return new WaitForSeconds(1f);
+        Tween tween = _fadeImage.DOFade(1.0f, 2f);
 
-        _fadeImage.DOFade(0f, 1f);
+        yield return tween.WaitForCompletion();
+
+        tween = _fadeImage.DOFade(0.0f, 2f);
+        yield return tween.WaitForCompletion();
+
         _fadeImage.gameObject.SetActive(false);
     }
 }

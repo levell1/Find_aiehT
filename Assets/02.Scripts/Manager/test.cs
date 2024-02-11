@@ -28,6 +28,12 @@ public class test : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             GameManager.Instance.Player.transform.position = new Vector3(0, 0, 0);
+            LoadingSceneController.LoadScene(SceneName.Field);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            GameManager.Instance.Player.transform.position = new Vector3(0, 0, 0);
             LoadingSceneController.LoadScene("KJW");
         }
 
