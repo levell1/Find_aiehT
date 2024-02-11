@@ -36,6 +36,7 @@ public struct TagName
     public const string PotionShop = "PotionShop";
     public const string Enhancement = "Enhancement";
     public const string RealDoor = "RealDoor";
+    public const string DungeonDoor = "DungeonDoor";
 }
 
 public struct LayerName
