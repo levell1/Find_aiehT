@@ -18,23 +18,27 @@ public class TestAI : Tree
         _pigTransform = gameObject.transform;
     }
 
-
-
     protected override Node SetupBehaviorTree()
     {
+        _navMeshAgent.speed = 3.5f;
         Node root = new SelectorNode(new List<Node>
         {
-            new SequenceNode(new List<Node>
-            {
-                new CheckPlayerDistanceNode(_pigTransform,1.0f),
-                new AttackNode(_pigTransform),
-            }),
-            new SequenceNode(new List<Node>
-            {
-                new CheckPlayerDistanceNode(_pigTransform,5.0f),
-                new RunAwayNode(_pigTransform,_navMeshAgent),
-            }),
-            new GoToPlayerNode(_playerTransform, _pigTransform, _navMeshAgent),
+            new SequenceNode
+            (
+                new List<Node>()
+                {
+                    new CheckPlayerDistanceNode(_pigTransform,2.0f),
+                }
+            ),
+            new SequenceNode
+            (
+                new List<Node>()
+                {
+                    new CheckPlayerDistanceNode(_pigTransform,5.0f),
+                    new RunAwayNode(_pigTransform,_navMeshAgent),
+                }
+            ),
+            new GoToPlayerNode(_playerTransform, _pigTransform, _navMeshAgent), 
         });
         return root;
     }

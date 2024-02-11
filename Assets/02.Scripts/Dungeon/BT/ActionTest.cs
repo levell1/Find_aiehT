@@ -8,7 +8,7 @@ public class CheckPlayerDistanceNode : Node
     private int _playerLayerMask = 1 << 9;
     private Transform _pigtransform;
     private Animator _animation;
-    private float _distance = 0;
+    private float _distance;
 
     public CheckPlayerDistanceNode(Transform transform,float distance)
     {
@@ -21,35 +21,46 @@ public class CheckPlayerDistanceNode : Node
     {
         var collider = Physics.OverlapSphere(_pigtransform.position, _distance, _playerLayerMask);//주변 콜라이더 추출
         if (collider.Length <= 0) return state = NodeState.Failure;
-
-       
-        
+        _animation.SetBool(AnimationParameterName.BossWalk, false);
         return state = NodeState.Success;
     }
 }
 
-public class AttackNode : Node
+/*public class AttackNode : Node
 {
     private Transform _player;
     private Transform _pigtransform;
     private Animator _animation;
-    private float _distance = 0;
+    private int count = 0;
 
-    public AttackNode(Transform transform)
+    public AttackNode(Transform _playerTransform, Transform transform, float distance)
     {
+        _player = _playerTransform;
         this._pigtransform = transform;
         _animation = transform.GetComponent<Animator>();
     }
 
+
     public override NodeState Evaluate()
     {
+        //_agent.SetDestination(player.transform.position);
         _pigtransform.LookAt(_player);
-        _animation.SetBool(AnimationParameterName.BossAttack, true);
-        _animation.SetBool(AnimationParameterName.BossWalk, false);
-
-        return state = NodeState.Running;
+        if (count < 3)
+        {
+            Debug.Log("카운트" + count);
+            _animation.SetBool(AnimationParameterName.BossSpin, true);
+            _player.gameObject.GetComponent<HealthSystem>().TakeDamage(3);
+            count++;
+            return state = NodeState.Running;
+        }
+        else
+        {
+            count = 0;
+            _animation.SetBool(AnimationParameterName.BossSpin, false);
+            return state = NodeState.Success;
+        }
     }
-}
+}*/
 
 
 
@@ -62,6 +73,7 @@ public class RunAwayNode : Node
     {
         _animation = transform.GetComponent<Animator>();
         _agent = agent;
+        agent.speed = 3.5f;
         _randomPoint = GetRandomPositionOnNavMesh();
     }
 
@@ -69,7 +81,7 @@ public class RunAwayNode : Node
     {
         Vector3 randomDirection = Random.insideUnitSphere * 6f;
         randomDirection += _agent.gameObject.transform.position; // 랜덤 방향 벡터를 현재 위치에 더합니다.
-
+       
         NavMeshHit hit;
         if (NavMesh.SamplePosition(randomDirection, out hit, 6f, NavMesh.AllAreas)) // 랜덤 위치가 NavMesh 위에 있는지 확인합니다.
         {
@@ -85,20 +97,18 @@ public class RunAwayNode : Node
     {
         //멀리가기
         _agent.SetDestination(_randomPoint);
-
-        _animation.SetBool(AnimationParameterName.BossAttack, false);
         _animation.SetBool(AnimationParameterName.BossWalk, true);
 
         if (_agent.remainingDistance <= _agent.stoppingDistance && !_agent.pathPending)
         {
             _randomPoint = GetRandomPositionOnNavMesh();
+            _animation.SetBool(AnimationParameterName.BossWalk, false);
             return state = NodeState.Success; // 행동 완료 상태 반환
         }
         else
         {
             return state = NodeState.Running; // 행동 진행 중 상태 반환
         }
-       
     }
 }
 
@@ -108,6 +118,8 @@ public class GoToPlayerNode : Node
     private Transform transform;
     private Animator _animation;
     private NavMeshAgent _agent;
+    private float _agentAttackSpeed = 10.0f;
+    float time=0;
 
     public GoToPlayerNode(Transform player, Transform transform,NavMeshAgent agent)
     {
@@ -115,22 +127,38 @@ public class GoToPlayerNode : Node
         this.transform = transform;
         this._agent = agent;
         _animation = transform.GetComponent<Animator>();
+        agent.speed = _agentAttackSpeed;
+        
     }
 
     public override NodeState Evaluate()
     {
-        transform.LookAt(player);
-        _agent.SetDestination(player.transform.position);
-        
-        _animation.SetBool(AnimationParameterName.BossWalk, true);
-        if (_agent.remainingDistance <= _agent.stoppingDistance && !_agent.pathPending)
+
+        if (time < 3f) 
         {
-            return state = NodeState.Success; // 행동 완료 상태 반환
+            Quaternion rotation = Quaternion.LookRotation(player.position - transform.position);
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 2);
+            _animation.SetBool(AnimationParameterName.BossFear, true);
+            time += Time.deltaTime;
+            Debug.Log(time);
         }
         else
         {
-            return state = NodeState.Running; // 행동 진행 중 상태 반환
-        }
+             _agent.SetDestination(player.transform.position);
 
+            _animation.SetBool(AnimationParameterName.BossFear, false);
+            _animation.SetBool(AnimationParameterName.BossRun, true);
+
+            if (_agent.remainingDistance <= _agent.stoppingDistance && !_agent.pathPending)
+            {
+                _animation.SetBool(AnimationParameterName.BossRun, false);
+                time = 0;
+                return state = NodeState.Success; // 행동 완료 상태 반환
+            }
+            {
+                return state = NodeState.Running; // 행동 진행 중 상태 반환
+            }
+        }
+        return state = NodeState.Running; // 행동 진행 중 상태 반환
     }
 }
