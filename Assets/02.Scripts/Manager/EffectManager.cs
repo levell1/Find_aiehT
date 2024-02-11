@@ -27,6 +27,7 @@ public class EffectManager : MonoBehaviour
     [SerializeField] private ParticleSystem _eatFoodEffect;
 
     [SerializeField] private GameObject _playerTakeDamageEffect;
+    [SerializeField] private GameObject _playerDieEffect;
 
     private void Start()
     {
@@ -91,14 +92,14 @@ public class EffectManager : MonoBehaviour
         StartCoroutine(StopEffectObject(_playerTakeDamageEffect, new WaitForSeconds(0.4f)));
     }
 
-    public void PlayerLowHpEffect()
+    public void PlayerLowHpEffect(bool isLow)
     {
-        _playerTakeDamageEffect.SetActive(true);
+        _playerTakeDamageEffect.SetActive(isLow);
     }
     
-    public void PlayerGettingBetterEffect()
+    public void PlayerDieEffect()
     {
-        _playerTakeDamageEffect.SetActive(false);
+        _playerDieEffect.SetActive(true);
     }
 
     #region Coroutine

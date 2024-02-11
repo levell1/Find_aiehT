@@ -64,16 +64,20 @@ public class HealthSystem : MonoBehaviour
 
         Health = Mathf.Max(Mathf.Floor(Health - _totalDamage), 0);
         OnChangeHpUI?.Invoke(Health, MaxHealth);
-
-        if (Health == 0)
-            OnDie.Invoke();
-
-        StartCoroutine(InvincibleCooldown());
-
+        
         if (Health < _dangerHealth)
-            GameManager.Instance.EffectManager.PlayerLowHpEffect();
+            GameManager.Instance.EffectManager.PlayerLowHpEffect(true);
         else
             GameManager.Instance.EffectManager.PlayerTakeDamageEffect();
+
+        if (Health == 0)
+        {
+            OnDie.Invoke();
+            GameManager.Instance.EffectManager.PlayerLowHpEffect(false);
+            GameManager.Instance.EffectManager.PlayerDieEffect();
+        }
+
+        StartCoroutine(InvincibleCooldown());
     }
 
     private IEnumerator InvincibleCooldown()
@@ -96,7 +100,7 @@ public class HealthSystem : MonoBehaviour
             GameManager.Instance.EffectManager.PlayHealingEffect();
 
             if(Health >= _dangerHealth)
-                GameManager.Instance.EffectManager.PlayerGettingBetterEffect();
+                GameManager.Instance.EffectManager.PlayerLowHpEffect(false);
         }
     }
 
