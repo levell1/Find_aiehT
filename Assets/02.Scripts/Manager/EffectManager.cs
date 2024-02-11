@@ -11,7 +11,7 @@ public class EffectManager : MonoBehaviour
     private GameObject _staminaHealingObject;
 
     private WaitForSeconds _healingEffectTime = new WaitForSeconds(2f);
-    private WaitForSeconds _playerAttackEffectTime = new WaitForSeconds(0.5f);
+    private WaitForSeconds _playerAttackEffectTime = new WaitForSeconds(0.3f);
 
     [Header("Effect Prefabs")]
     [SerializeField] private GameObject _levelUpEffect;

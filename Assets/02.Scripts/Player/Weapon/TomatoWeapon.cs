@@ -76,7 +76,6 @@ public class TomatoWeapon : MonoBehaviour
         if (other.TryGetComponent(out EnemyHealthSystem health))
         {
             health.TakeDamage(_damage);
-            GameManager.Instance.EffectManager.PlayAttackEffect();
 
             Debug.Log(_damage);
             Destroy(_skillCollider.gameObject);

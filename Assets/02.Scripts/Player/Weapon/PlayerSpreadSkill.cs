@@ -48,8 +48,6 @@ public class PlayerSpreadSkill : MonoBehaviour
         {
             Debug.Log(_damage);
             health.TakeDamage(_damage);
-
-            GameManager.Instance.EffectManager.PlayAttackEffect();
         }
 
     }
