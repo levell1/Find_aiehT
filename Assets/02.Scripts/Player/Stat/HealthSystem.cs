@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
@@ -66,6 +67,8 @@ public class HealthSystem : MonoBehaviour
             OnDie.Invoke();
 
         StartCoroutine(InvincibleCooldown());
+
+        GameManager.Instance.EffectManager.PlayerTakeDamageEffect();
     }
 
     private IEnumerator InvincibleCooldown()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,8 @@ public class EffectManager : MonoBehaviour
     [SerializeField] private ParticleSystem _footStepEffect;
     [SerializeField] private ParticleSystem _eatFoodEffect;
 
+    [SerializeField] private GameObject _playerTakeDamageEffect;
+
     private void Start()
     {
         _player = GameManager.Instance.Player;
@@ -42,19 +45,19 @@ public class EffectManager : MonoBehaviour
     public void PlayHealingEffect()
     {
         _healingObject.Play();
-        StartCoroutine(TurnOffEffect(_healingObject, _healingEffectTime));
+        StartCoroutine(StopParticle(_healingObject, _healingEffectTime));
     }
 
     public void PlayStaminaEffect()
     {
         _staminaHealingObject.Play();
-        StartCoroutine(TurnOffEffect(_staminaHealingObject, _healingEffectTime));
+        StartCoroutine(StopParticle(_staminaHealingObject, _healingEffectTime));
     }
 
     public void PlayAttackEffect()
     {
         _playerAttackObject.Play();
-        StartCoroutine(TurnOffEffect(_playerAttackObject, _playerAttackEffectTime));
+        StartCoroutine(StopParticle(_playerAttackObject, _playerAttackEffectTime));
     }
 
     public void PlayFootStepEffect()
@@ -70,15 +73,27 @@ public class EffectManager : MonoBehaviour
     public void CustomerEatFoodEffect(Transform customerEatTransform, WaitForSeconds eatTime)
     {
         ParticleSystem eatParticle = Instantiate(_eatFoodEffect, customerEatTransform);
-        StartCoroutine(TurnOffEffect(eatParticle, eatTime));
+        StartCoroutine(StopParticle(eatParticle, eatTime));
+    }
+
+    public void PlayerTakeDamageEffect()
+    {
+        _playerTakeDamageEffect.SetActive(true);
+        StartCoroutine(StopEffectObject(_playerTakeDamageEffect, new WaitForSeconds(0.4f)));
     }
 
     #region Coroutine
 
-    IEnumerator TurnOffEffect(ParticleSystem effectObject, WaitForSeconds effectTime)
+    IEnumerator StopParticle(ParticleSystem effectObject, WaitForSeconds effectTime)
     {
         yield return effectTime;
         effectObject.Stop();
+    }
+
+    IEnumerator StopEffectObject(GameObject effectObject, WaitForSeconds effectTime)
+    {
+        yield return effectTime;
+        effectObject.SetActive(false);
     }
 
     #endregion
