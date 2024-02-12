@@ -48,5 +48,7 @@ public class TitleTest : MonoBehaviour
         {
             GameManager.Instance.UIManager.ShowCanvas(UIName.PlayerStatusUI);
         }
+
+
     }
 }

@@ -14,7 +14,6 @@ public class PlayerAttackState : PlayerBaseState
         base.Enter();
 
         StartAnimation(_stateMachine.Player.AnimationData.AttackParameterHash);
-        GameManager.Instance.EffectManager.StopFootStepEffect();
     }
 
     public override void Exit()

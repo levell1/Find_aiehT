@@ -153,12 +153,12 @@ public class GoToPlayerNode : Node
             {
                 _animation.SetBool(AnimationParameterName.BossRun, false);
                 time = 0;
-                return state = NodeState.Success; // 행동 완료 상태 반환
-            }
+                return state = NodeState.Success; 
+            }else
             {
-                return state = NodeState.Running; // 행동 진행 중 상태 반환
+                return state = NodeState.Running; 
             }
         }
-        return state = NodeState.Running; // 행동 진행 중 상태 반환
+        return state = NodeState.Running; 
     }
 }

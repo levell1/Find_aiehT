@@ -216,6 +216,8 @@ public class CustomerController : MonoBehaviour
             OrderFoodCanvas.InactiveUI(); // 
             _animator.SetTrigger(AnimationParameterName.TycoonGetFood);
 
+            GetComponentInChildren<CustomerEffect>().PlayGetCoinEffect();
+
             _co = StartCoroutine(EatFood());
         }
     }

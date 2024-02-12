@@ -21,5 +21,7 @@ public class PlayerRunState : PlayerGroundState
     {
         base.Exit();
         StopAnimation(_stateMachine.Player.AnimationData.RunParameterHash);
+
+        GameManager.Instance.EffectManager.StopFootStepEffect();
     }
 }
