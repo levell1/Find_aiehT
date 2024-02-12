@@ -11,6 +11,7 @@ public struct UIName
     public const string SettingUI = "SettingUI";
     public const string ShopUI = "ShopUI";
     public const string InventoryUI = "InventoryUI";
+    public const string QuestUI = "QuestUI";
 }
 
 public struct SceneName
@@ -36,6 +37,7 @@ public struct TagName
     public const string PotionShop = "PotionShop";
     public const string Enhancement = "Enhancement";
     public const string RealDoor = "RealDoor";
+    public const string QuestNPC = "QuestNPC";
 }
 
 public struct LayerName

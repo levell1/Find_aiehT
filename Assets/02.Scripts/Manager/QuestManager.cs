@@ -11,9 +11,11 @@ public enum QuestTarget
 public class QuestManager : MonoBehaviour
 {
     public QuestSO QuestSO; // 퀘스트 데이터를 저장하고 있는 ScriptableObject
-    [SerializeField] private int _questCount = 2;
 
-    private List<Quest> activeQuests = new List<Quest>(); // 진행 중인 퀘스트 목록
+    [SerializeField] private int _questCount = 4;
+
+    public List<Quest> ActiveQuests = new List<Quest>(); // 퀘스트 목록
+    public List<Quest> AcceptQuestList = new List<Quest>(); // 수락한 퀘스트 목록
 
     /// <summary>
     /// Key: 퀘스트 번호, Value: 수량
@@ -23,43 +25,84 @@ public class QuestManager : MonoBehaviour
     private void Start()
     {
         GameManager.Instance.GlobalTimeManager.OnInitQuest += InitializeQuest;
-        EnemyHealthSystem.OnQuestTargetDie += UpdateEnemyQuestProgress;
-        ItemObject.OnQuestTargetInteraction += UpdateNatureQuestProgress;
+        //EnemyHealthSystem.OnQuestTargetDie += UpdateEnemyQuestProgress;
+        //ItemObject.OnQuestTargetInteraction += UpdateNatureQuestProgress;
     }
 
     // 퀘스트를 초기화하고 추가하는 메서드
     public void InitializeQuest()
     {
-        activeQuests.Clear();
+        ActiveQuests.Clear();
         _enemyQuantityDict.Clear();
         _natureQuantityDict.Clear();
 
+        int enemyCount = 10001;
+        int natureCount = 20001;
+
         for (int i = 0; i < _questCount; i++) 
         { 
-            Quest newEnemyQuest = new EnemyDailyQuest(QuestSO.EnemyQuestData, i);
-            Quest newNatureQuest = new NatureDailyQuest(QuestSO.NatureQuestData, i);
-            activeQuests.Add(newEnemyQuest);
-            activeQuests.Add(newNatureQuest);
+            if(i < _questCount / 2)
+            {
+                EnemyDailyQuest newEnemyQuest = new EnemyDailyQuest(QuestSO.EnemyQuestData, enemyCount);
+                ActiveQuests.Add(newEnemyQuest);
+                _enemyQuantityDict.Add(enemyCount, newEnemyQuest.TargetQuantity);
+                Debug.Log("퀘스트 " + enemyCount + " 내용: " + newEnemyQuest.GetQuestDescription());
+                enemyCount++;
+            }
+            else // 나머지 절반은 Nature 퀘스트에 할당
+            {
+                NatureDailyQuest newNatureQuest = new NatureDailyQuest(QuestSO.NatureQuestData, natureCount);
+                ActiveQuests.Add(newNatureQuest);
+                _natureQuantityDict.Add(natureCount, newNatureQuest.TargetQuantity);
+                Debug.Log("퀘스트 " + natureCount + " 내용: " + newNatureQuest.GetQuestDescription());
+                natureCount++;
+            }
 
-            _enemyQuantityDict.Add(i, newEnemyQuest.TargetQuantity);
-            _natureQuantityDict.Add(i, newNatureQuest.TargetQuantity);
+            //Quest newEnemyQuest = new EnemyDailyQuest(QuestSO.EnemyQuestData, i);
+            //Quest newNatureQuest = new NatureDailyQuest(QuestSO.NatureQuestData, i);
+            //ActiveQuests.Add(newEnemyQuest);
+            //ActiveQuests.Add(newNatureQuest);
 
-            Debug.Log(_enemyQuantityDict[i]);
+            //_enemyQuantityDict.Add(i, newEnemyQuest.TargetQuantity);
+            //_natureQuantityDict.Add(i, newNatureQuest.TargetQuantity);
 
-            Debug.Log("퀘스트 " + (i + 1) + " 내용: " + newEnemyQuest.GetQuestDescription());
-            Debug.Log("퀘스트 " + (i + 1) + " 내용: " + newNatureQuest.GetQuestDescription());
+            //Debug.Log(_enemyQuantityDict[i]);
+
+            //Debug.Log("퀘스트 " + (i + 1) + " 내용: " + newEnemyQuest.GetQuestDescription());
+            //Debug.Log("퀘스트 " + (i + 1) + " 내용: " + newNatureQuest.GetQuestDescription());
         }
         //Quest newQuest = new Quest(QuestSO);
         //activeQuests.Add(newQuest);
         //activeQuests.Add(newQuest2);
-        Debug.Log("퀘스트 초기화");
     }
 
-    // TODO 퀘스트 진행 관리
+    // TODO 퀘스트를 수락하고 처리하는 메서드
+    public void AcceptQuest(Quest quest)
+    {
+        if (!AcceptQuestList.Contains(quest))
+        {
+            AcceptQuestList.Add(quest);
+
+            if (quest is EnemyDailyQuest)
+            {
+                EnemyHealthSystem.OnQuestTargetDie -= UpdateEnemyQuestProgress;
+                EnemyHealthSystem.OnQuestTargetDie += UpdateEnemyQuestProgress;
+            }
+            else if (quest is NatureDailyQuest)
+            {
+                ItemObject.OnQuestTargetInteraction -= UpdateNatureQuestProgress;
+                ItemObject.OnQuestTargetInteraction += UpdateNatureQuestProgress;
+                Debug.Log("채집물 퀘스트 수락 및 이벤트 등록: ");
+            }
+        }
+    }
+
+
+    // TODO 퀘스트 진행 관리(수락했을 때)
     public void UpdateEnemyQuestProgress(int targetID)
     {
 
-        foreach(Quest quest in activeQuests)
+        foreach(Quest quest in AcceptQuestList)
         {
             if (quest is EnemyDailyQuest)
             {
@@ -68,6 +111,7 @@ public class QuestManager : MonoBehaviour
                 {
                     // 퀘스트 번호 
                     int questNumber = enemyQuest.QuestNumber;
+                    Debug.Log(questNumber);
                     if (_enemyQuantityDict.ContainsKey(questNumber))
                     {
                         _enemyQuantityDict[questNumber]--;
@@ -86,14 +130,39 @@ public class QuestManager : MonoBehaviour
 
     public void UpdateNatureQuestProgress(int targetID) 
     {
-        foreach (Quest quest in activeQuests)
+        foreach (Quest quest in AcceptQuestList)
         {
+            Debug.Log(quest.QuestNumber);
+
             if (quest is NatureDailyQuest)
             {
-                NatureDailyQuest natureQuest = (NatureDailyQuest)quest;
-                Debug.Log("아이디: " + natureQuest.TargetID);
-                Debug.Log("채집물: " + targetID);
+                NatureDailyQuest natureItemQuest = (NatureDailyQuest)quest;
+                if (natureItemQuest.TargetID == targetID)
+                {
+                    // 퀘스트 번호 
+                    int questNumber = natureItemQuest.QuestNumber;
+                    Debug.Log(questNumber);
+                   
+                    if (_natureQuantityDict.ContainsKey(questNumber))
+                    {
+                        _natureQuantityDict[questNumber]--;
+                        Debug.Log("수량 줄어줘:  " + _natureQuantityDict[questNumber]);
+                        if (_natureQuantityDict[questNumber] <= 0)
+                        {
+                            // 퀘스트 삭제
+                            CompleteQuest(quest);
+                        }
+                    }
+                    break;
+                }
             }
+
+            //if (quest is NatureDailyQuest)
+            //{
+            //    NatureDailyQuest natureQuest = (NatureDailyQuest)quest;
+            //    Debug.Log("아이디: " + natureQuest.TargetID);
+            //    Debug.Log("채집물: " + targetID);
+            //}
         }
     }
 
@@ -101,10 +170,20 @@ public class QuestManager : MonoBehaviour
     public void CompleteQuest(Quest quest)
     {
         // 퀘스트 완료시 보상 등등
-        activeQuests.Remove(quest);
+        AcceptQuestList.Remove(quest);
         Debug.Log("퀘스트 완");
 
-        foreach (Quest newquest in activeQuests)
+        if (quest is EnemyDailyQuest)
+        {
+            EnemyHealthSystem.OnQuestTargetDie -= UpdateEnemyQuestProgress;
+        }
+        else if (quest is NatureDailyQuest)
+        {
+            ItemObject.OnQuestTargetInteraction -= UpdateNatureQuestProgress;
+        }
+
+
+        foreach (Quest newquest in AcceptQuestList)
         {
             Debug.Log(newquest.QuestNumber);
         }

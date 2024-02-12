@@ -97,6 +97,11 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     InteractionText.text = "타이쿤 - 입장하기";
                 }
+                else if (other.gameObject.CompareTag(TagName.QuestNPC)) // 타이쿤
+                {
+                    InteractionText.text = "퀘스트 보기";
+                    _showUI = UIName.QuestUI;
+                }
             }
         }
     }

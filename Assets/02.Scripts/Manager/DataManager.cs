@@ -12,6 +12,10 @@ public class DataManager : MonoBehaviour
     public FoodSO[] FoodSODatas = new FoodSO[20];
     public List<OrderFood> Orders = new List<OrderFood>();
 
+    public ItemDataListSO ItemDataList;
+    public EnemyDataListSO EnemyDataList;
+
+    // Tycoon Data
     public void AddMenu(FoodSO foodData, int count)
     {
         OrderFood orderFood = new OrderFood();
@@ -35,5 +39,15 @@ public class DataManager : MonoBehaviour
         int breadNum = TycoonManager.Instance.TodayMaxCustomerNum - currentOrderFoodsNum;
 
         AddMenu(FoodSODatas[0], breadNum);
+    }
+
+    // Quest Data
+    public void GetEnemyDataList()
+    {
+       for(int i = 0; i < EnemyDataList.EnemyList.Length; i++)
+        {
+
+        }
+
     }
 }
