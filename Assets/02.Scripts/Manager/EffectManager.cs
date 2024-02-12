@@ -61,17 +61,16 @@ public class EffectManager : MonoBehaviour
         StartCoroutine(StopParticle(_staminaHealingObject, _healingEffectTime));
     }
 
-    public void PlayAttackEffect()
-    {
-        _playerAttackObject.Play();
-        StartCoroutine(StopParticle(_playerAttackObject, _playerAttackEffectTime));
-    }
-
     //TODO: Quest 구현 완료 후 적용
     public void QuestCompleteEffect()
     {
         _questCompleteObject.Play();
         StartCoroutine(StopParticle(_questCompleteObject, _healingEffectTime));
+    }
+
+    public void PlayAttackEffect()
+    {
+        _playerAttackObject.Play();
     }
 
     public void PlayFootStepEffect()
@@ -107,6 +106,7 @@ public class EffectManager : MonoBehaviour
         _playerTakeDamageEffect.SetActive(isLow);
     }
     
+    // TODO: 재시작 구현 후 다시 구현
     public void PlayerDieEffect()
     {
         _playerDieEffect.SetActive(true);
