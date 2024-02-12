@@ -1,13 +1,11 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class GreenPigAI : Tree
 {
-    [SerializeField]
     private Transform _playerTransform;
-    [SerializeField]
     private Transform _pigTransform;
     private NavMeshAgent _navMeshAgent;
     private LevitateObject _levitateObject;
@@ -21,6 +19,7 @@ public class GreenPigAI : Tree
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _pigTransform = gameObject.transform;
         _levitateObject = GetComponentInChildren<LevitateObject>();
+
         _levitateObject.gameObject.SetActive(false);
         MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
 
@@ -35,7 +34,6 @@ public class GreenPigAI : Tree
 
     protected override Node SetupBehaviorTree()
     {
-        _navMeshAgent.speed = 3.5f;
         Node root = new SelectorNode(new List<Node>
         {
             new SequenceNode
@@ -43,7 +41,7 @@ public class GreenPigAI : Tree
                 new List<Node>()
                 {
                     new CheckPlayerDistanceNode(_pigTransform,5.0f),
-                    new LevitateNode(_playerTransform,_pigTransform,_levitateObject),
+                    new LevitateNode(_pigTransform,_levitateObject),
                 }
             ),
             new SequenceNode

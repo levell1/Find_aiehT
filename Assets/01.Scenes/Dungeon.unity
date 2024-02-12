@@ -228,10 +228,10 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.26
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 200
-  m_StoppingDistance: 2
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -272,7 +272,7 @@ Animator:
   m_GameObject: {fileID: 152549305}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 9c097285657e7bc46893add319710350, type: 3}
-  m_Controller: {fileID: 9100000, guid: 3ba1ec32c60dea4459045dafef3c9519, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3d53de31138eb694589b019474ad8c7c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -347,8 +347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46524b749749c074d9621edd7fb48c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerTransform: {fileID: 0}
-  _pigTransform: {fileID: 152549311}
 --- !u!1 &163927561
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,7 +897,6 @@ GameObject:
   - component: {fileID: 855483423}
   - component: {fileID: 855483422}
   - component: {fileID: 855483421}
-  - component: {fileID: 855483420}
   - component: {fileID: 855483419}
   - component: {fileID: 855483425}
   m_Layer: 10
@@ -908,7 +905,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!195 &855483419
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -919,11 +916,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.26
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 15
+  m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 200
-  m_StoppingDistance: 2
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -931,20 +928,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &855483420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 855483418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e655d59904bee984b9b58d87f255337b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerTransform: {fileID: 0}
-  _pigTransform: {fileID: 855483424}
 --- !u!136 &855483421
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -978,7 +961,7 @@ Animator:
   m_GameObject: {fileID: 855483418}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 9c097285657e7bc46893add319710350, type: 3}
-  m_Controller: {fileID: 9100000, guid: 3ba1ec32c60dea4459045dafef3c9519, type: 2}
+  m_Controller: {fileID: 9100000, guid: d0c1e276fbeaa4c4e8ebb47a274b0c58, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1052,8 +1035,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a46f7cc9498e54288a9d49c3682fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerTransform: {fileID: 0}
-  _pigTransform: {fileID: 0}
 --- !u!1 &932957360
 GameObject:
   m_ObjectHideFlags: 0
@@ -1569,9 +1550,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1.5
-  m_Height: 6.24
+  m_Height: 5
   m_Direction: 1
-  m_Center: {x: 0, y: 1.62, z: 0}
+  m_Center: {x: 0, y: 1.06, z: 0}
 --- !u!1 &1739326091
 GameObject:
   m_ObjectHideFlags: 0
@@ -2922,7 +2903,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &6793720678926113508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2935,8 +2916,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e655d59904bee984b9b58d87f255337b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerTransform: {fileID: 0}
-  _pigTransform: {fileID: 6793720678926113500}
 --- !u!195 &6793720678926113509
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2949,9 +2928,9 @@ NavMeshAgent:
   m_Radius: 0.26
   m_Speed: 3.5
   m_Acceleration: 20
-  avoidancePriority: 50
+  avoidancePriority: 51
   m_AngularSpeed: 300
-  m_StoppingDistance: 3
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
