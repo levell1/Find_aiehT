@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class CustomerController : MonoBehaviour
 {
     #region Field
-    private OrderFoodUI OrderFoodCanvas; //
+    private OrderFoodUI _orderFoodCanvas;
 
     private TycoonManager _tycoonManager;
     private FoodCreater _foodCreater;
@@ -67,7 +67,7 @@ public class CustomerController : MonoBehaviour
 
     private void Awake()
     {
-        OrderFoodCanvas = GetComponentInChildren<OrderFoodUI>(); //
+        _orderFoodCanvas = GetComponentInChildren<OrderFoodUI>();
 
         _agent = GetComponent<NavMeshAgent>();
         _collider = GetComponent<Collider>();
@@ -88,12 +88,9 @@ public class CustomerController : MonoBehaviour
 
     private void Update()
     {
-        if (_agent.remainingDistance <= _agent.stoppingDistance)
+        //if (_agent.remainingDistance <= _agent.stoppingDistance)
+        if (!_agent.hasPath)
         {
-            if(_agent.destination != _tycoonManager.CustomerCreatePos.position)
-            {
-            }
-
             if (!_isOrderFood)
             {
                 SelectFood();
@@ -107,9 +104,9 @@ public class CustomerController : MonoBehaviour
                 _collider.enabled = false;
                 _agent.isStopped = true;
             }
-
+            
             _waitTime -= Time.deltaTime;
-            OrderFoodCanvas.BalloonBack.fillAmount = _waitTime / _tycoonManager.CustomerWaitTime; //
+            _orderFoodCanvas.BalloonBack.fillAmount = _waitTime / _tycoonManager.CustomerWaitTime;
             if (_waitTime <= 0)
             {
                 NoReceivedFood();
@@ -164,7 +161,6 @@ public class CustomerController : MonoBehaviour
     private void Init()
     {
         _animator.SetBool(AnimationParameterName.TycoonIsWalk, true);
-        //_agent.baseOffset = 0.0f;
         
         _isOrderFood = false;
 
@@ -182,13 +178,13 @@ public class CustomerController : MonoBehaviour
         int targetFoodNum = UnityEngine.Random.Range(0, menu.Count);
         _targetFoodName = menu[targetFoodNum].FoodSO.CookedFoodObject.name;
 
-        OrderFoodCanvas.SelectFood.sprite = menu[targetFoodNum].FoodSO.FoodSprite; //
-        OrderFoodCanvas.ActiveUI(); //
+        _orderFoodCanvas.SelectFood.sprite = menu[targetFoodNum].FoodSO.FoodSprite;
+        _orderFoodCanvas.ActiveUI();
 
         OnCreateFood?.Invoke(menu[targetFoodNum].FoodSO.CookedFoodObject);
         OnSelectFood?.Invoke();
 
-        _tycoonManager.CookingUI.StartCooking(menu[targetFoodNum].FoodSO); //
+        _tycoonManager.CookingUI.StartCooking(menu[targetFoodNum].FoodSO);
 
         --_tycoonManager.TodayFoods[targetFoodNum].FoodCount;
         if(_tycoonManager.TodayFoods[targetFoodNum].FoodCount == 0)
@@ -213,7 +209,7 @@ public class CustomerController : MonoBehaviour
     {
         if (_co == null)
         {
-            OrderFoodCanvas.InactiveUI(); // 
+            _orderFoodCanvas.InactiveUI();
             _animator.SetTrigger(AnimationParameterName.TycoonGetFood);
 
             GetComponentInChildren<CustomerEffect>().PlayGetCoinEffect();
@@ -226,7 +222,7 @@ public class CustomerController : MonoBehaviour
     {
         if (_co == null)
         {
-            OrderFoodCanvas.InactiveUI(); //
+            _orderFoodCanvas.InactiveUI();
             _animator.SetTrigger(AnimationParameterName.TycoonAngry);
             _co = StartCoroutine(ExitRestaurant());
             ++_tycoonManager.AngryCustomerNum;

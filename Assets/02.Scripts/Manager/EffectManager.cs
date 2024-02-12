@@ -19,6 +19,9 @@ public class EffectManager : MonoBehaviour
     private ParticleSystem _questCompleteObject;
     private ParticleSystem _footStepObject;
 
+    ParticleSystem eatParticle;
+    ParticleSystem coinParticle;
+
     [Header("Effect Prefabs")]
     [SerializeField] private ParticleSystem _levelUpEffect;
     [SerializeField] private ParticleSystem _healingEffect;
@@ -83,16 +86,19 @@ public class EffectManager : MonoBehaviour
         _footStepObject.Stop();
     }
 
-    public void CustomerEatFoodEffect(Transform customerEatTransform, WaitForSeconds eatTime)
+    public ParticleSystem CreateCustomerEatParticle(Transform customerEatTransform)
     {
-        ParticleSystem eatParticle = Instantiate(_eatFoodEffect, customerEatTransform);
-        StartCoroutine(StopParticle(eatParticle, eatTime));
+        return Instantiate(_eatFoodEffect, customerEatTransform);
     }
 
-    public void GetCoinEffect(Transform customerEatTransform)
+    public ParticleSystem CreateCustomerCoinParticle(Transform customerEatTransform)
     {
-        ParticleSystem coinParticle = Instantiate(_coinEffect, customerEatTransform);
-        coinParticle.Play();
+        return Instantiate(_coinEffect, customerEatTransform);
+    }
+
+    public void StopEatParticle(ParticleSystem particle)
+    {
+        StartCoroutine(StopParticle(particle, new WaitForSeconds(6f)));
     }
 
     public void PlayerTakeDamageEffect()
