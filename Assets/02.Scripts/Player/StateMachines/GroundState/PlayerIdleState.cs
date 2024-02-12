@@ -13,8 +13,6 @@ public class PlayerIdleState : PlayerGroundState
         _stateMachine.MovementSpeedModifier = 0f;
         base.Enter();
         StartAnimation(_stateMachine.Player.AnimationData.IdleParameterHash);
-
-        GameManager.Instance.EffectManager.StopFootStepEffect();
     }
 
     public override void Exit()
