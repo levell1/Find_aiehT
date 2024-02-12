@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3987301663081640308}
   - component: {fileID: 3541417706197840749}
-  - component: {fileID: 5889251799282851374}
   - component: {fileID: 7354057067482266824}
   m_Layer: 7
   m_Name: Watermelon
@@ -33,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 8372964364821440796}
   m_Father: {fileID: 0}
-  m_RootOrder: 33
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3541417706197840749
 MonoBehaviour:
@@ -48,33 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData: {fileID: 11400000, guid: 1d72e16d8d198c648ad1d828abf7f06c, type: 2}
---- !u!54 &5889251799282851374
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1790614892992613814}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  ItemIndex: 11
+  IsActive: 1
 --- !u!136 &7354057067482266824
 CapsuleCollider:
   m_ObjectHideFlags: 0

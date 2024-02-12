@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7040592657671375922}
   - component: {fileID: 2027215396707761614}
-  - component: {fileID: 9061642433536173861}
   - component: {fileID: 3881809817882118186}
   m_Layer: 7
   m_Name: Mushroom
@@ -33,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 1357960065599376890}
   m_Father: {fileID: 0}
-  m_RootOrder: 27
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2027215396707761614
 MonoBehaviour:
@@ -48,33 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData: {fileID: 11400000, guid: 4a3253a56f013dc40a5ddf1b7f364d2f, type: 2}
---- !u!54 &9061642433536173861
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9088044704497199963}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  ItemIndex: 5
+  IsActive: 1
 --- !u!65 &3881809817882118186
 BoxCollider:
   m_ObjectHideFlags: 0

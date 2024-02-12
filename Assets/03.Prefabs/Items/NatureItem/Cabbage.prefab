@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 187104274245075139}
   - component: {fileID: 1179137936506799496}
-  - component: {fileID: 3568147501637754886}
   - component: {fileID: 7179967553997634}
   m_Layer: 7
   m_Name: Cabbage
@@ -33,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 3334466020095905689}
   m_Father: {fileID: 0}
-  m_RootOrder: 31
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1179137936506799496
 MonoBehaviour:
@@ -48,33 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData: {fileID: 11400000, guid: 11f71a8a5588aa14cb34777a59b978c3, type: 2}
---- !u!54 &3568147501637754886
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4699914691611930405}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  ItemIndex: 9
+  IsActive: 1
 --- !u!136 &7179967553997634
 CapsuleCollider:
   m_ObjectHideFlags: 0

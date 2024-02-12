@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6156833626101270768}
   - component: {fileID: 2801320058917210994}
-  - component: {fileID: 7291733796332992689}
   - component: {fileID: 9062839882379534542}
   m_Layer: 7
   m_Name: Lemon
@@ -33,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 6408011644700653467}
   m_Father: {fileID: 0}
-  m_RootOrder: 26
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2801320058917210994
 BoxCollider:
@@ -56,33 +55,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.285803, y: 0.15962207, z: 0.16123137}
   m_Center: {x: 0.040007755, y: 0.061440438, z: -0.0011088103}
---- !u!54 &7291733796332992689
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5223004234717733557}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &9062839882379534542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,6 +68,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData: {fileID: 11400000, guid: c3782056f5688e54cb458972e31b22de, type: 2}
+  ItemIndex: 4
+  IsActive: 1
 --- !u!1001 &1447453070429140624
 PrefabInstance:
   m_ObjectHideFlags: 0
