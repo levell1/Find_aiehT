@@ -11,24 +11,6 @@ public class SequenceNode : Node
 
     public override NodeState Evaluate()
     {
-/*        if (_children == null || _children.Count == 0)
-            return NodeState.Failure;
-        foreach (var child in _children)
-        {
-            switch (child.Evaluate())
-            {
-                case NodeState.Failure:
-                    return state = NodeState.Failure;
-                case NodeState.Success:
-                    continue;
-                case NodeState.Running:
-                    return state = NodeState.Running;
-            }
-        }
-
-        return state = NodeState.Success;*/
-
-        // 현재 자식 노드 실행
         var currentChild = _children[currentChildIndex];
         var result = currentChild.Evaluate();
 

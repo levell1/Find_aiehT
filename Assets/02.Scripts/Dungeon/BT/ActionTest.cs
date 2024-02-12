@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,6 +10,7 @@ public class CheckPlayerDistanceNode : Node
     private Transform _pigtransform;
     private Animator _animation;
     private float _distance;
+    
 
     public CheckPlayerDistanceNode(Transform transform,float distance)
     {
@@ -26,14 +28,60 @@ public class CheckPlayerDistanceNode : Node
     }
 }
 
-/*public class AttackNode : Node
+public class LevitateNode : Node
+{
+    private Transform _player;
+    private Transform _pigtransform;
+    private Animator _animation;
+    private LevitateObject _levitateObject;
+    private float _time;
+    private int count = 0;
+
+    public LevitateNode(Transform playerTransform, Transform pigtransform, LevitateObject levitateObject)
+    {
+        _player = playerTransform;
+        this._pigtransform = pigtransform;
+        _levitateObject = levitateObject;
+        _animation = pigtransform.GetComponent<Animator>();
+    }
+
+
+    public override NodeState Evaluate()
+    {
+        _time += Time.deltaTime;
+        Debug.Log(_time);
+        if (_time > 3)
+        {
+            _levitateObject.gameObject.SetActive(true);
+            if (_levitateObject.EndSkill == true)
+            {
+                _levitateObject.gameObject.SetActive(false);
+                _time = 0;
+                _animation.SetBool(AnimationParameterName.BossSpin, false);
+                return state = NodeState.Success;
+            }
+            else
+            {
+                _animation.SetBool(AnimationParameterName.BossSpin, true);
+                _player.gameObject.GetComponent<HealthSystem>().TakeDamage(20);
+                return state = NodeState.Running;
+            }
+        }
+        return state = NodeState.Failure;
+
+    }
+
+    
+}
+
+public class RangeAttackNode : Node
 {
     private Transform _player;
     private Transform _pigtransform;
     private Animator _animation;
     private int count = 0;
 
-    public AttackNode(Transform _playerTransform, Transform transform, float distance)
+    public RangeAttackNode(Transform _playerTransform, Transform transform)
     {
         _player = _playerTransform;
         this._pigtransform = transform;
@@ -60,8 +108,7 @@ public class CheckPlayerDistanceNode : Node
             return state = NodeState.Success;
         }
     }
-}*/
-
+}
 
 
 public class RunAwayNode : Node
@@ -80,16 +127,16 @@ public class RunAwayNode : Node
     private Vector3 GetRandomPositionOnNavMesh()
     {
         Vector3 randomDirection = Random.insideUnitSphere * 6f;
-        randomDirection += _agent.gameObject.transform.position; // 랜덤 방향 벡터를 현재 위치에 더합니다.
+        randomDirection += _agent.gameObject.transform.position; 
        
         NavMeshHit hit;
-        if (NavMesh.SamplePosition(randomDirection, out hit, 6f, NavMesh.AllAreas)) // 랜덤 위치가 NavMesh 위에 있는지 확인합니다.
+        if (NavMesh.SamplePosition(randomDirection, out hit, 6f, NavMesh.AllAreas)) // 랜덤 위치가 NavMesh 위에 있는지 확인
         {
-            return hit.position; // NavMesh 위의 랜덤 위치를 반환합니다.
+            return hit.position; 
         }
         else
         {
-            return _agent.gameObject.transform.position; // NavMesh 위의 랜덤 위치를 찾지 못한 경우 현재 위치를 반환합니다.
+            return _agent.gameObject.transform.position; 
         }
     }
 
@@ -103,11 +150,11 @@ public class RunAwayNode : Node
         {
             _randomPoint = GetRandomPositionOnNavMesh();
             _animation.SetBool(AnimationParameterName.BossWalk, false);
-            return state = NodeState.Success; // 행동 완료 상태 반환
+            return state = NodeState.Success; 
         }
         else
         {
-            return state = NodeState.Running; // 행동 진행 중 상태 반환
+            return state = NodeState.Running; 
         }
     }
 }

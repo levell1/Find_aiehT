@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class TestAI : Tree
+public class BluePigAI : Tree
 {
     [SerializeField]
     private Transform _playerTransform;
@@ -16,14 +16,14 @@ public class TestAI : Tree
     {
         meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         _playerTransform = GameManager.Instance.Player.transform;
-        _navMeshAgent =GetComponent<NavMeshAgent>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
         _pigTransform = gameObject.transform;
         MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
-  
+
         for (int x = 0; x < meshRenderers.Length; x++)
         {
             meshRenderers[x].GetPropertyBlock(propBlock);
-            propBlock.SetColor("_Color", new Color(1.0f, 0.6f, 0.6f));
+            propBlock.SetColor("_Color", new Color(0.7f, 0.7f, 1f));
             meshRenderers[x].SetPropertyBlock(propBlock);
         }
 
@@ -38,18 +38,18 @@ public class TestAI : Tree
             (
                 new List<Node>()
                 {
-                    new CheckPlayerDistanceNode(_pigTransform,2.0f),
+                    new CheckPlayerDistanceNode(_pigTransform,5.0f),
+                    new RunAwayNode(_pigTransform,_navMeshAgent),
                 }
             ),
             new SequenceNode
             (
                 new List<Node>()
                 {
-                    new CheckPlayerDistanceNode(_pigTransform,5.0f),
-                    new RunAwayNode(_pigTransform,_navMeshAgent),
+                   
                 }
             ),
-            new GoToPlayerNode(_playerTransform, _pigTransform, _navMeshAgent), 
+            new GoToPlayerNode(_playerTransform, _pigTransform, _navMeshAgent),
         });
         return root;
     }
@@ -61,5 +61,5 @@ public class TestAI : Tree
             health.TakeDamage(10);
         }
     }
-    
+
 }
