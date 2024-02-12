@@ -8,9 +8,11 @@ public class EffectManager : MonoBehaviour
     [SerializeField] private GameObject _weaponPos;
 
     private WaitForSeconds _healingEffectTime = new WaitForSeconds(2f);
+    private WaitForSeconds _levelupEffectTime = new WaitForSeconds(3f);
     private WaitForSeconds _playerAttackEffectTime = new WaitForSeconds(0.3f);
 
     private GameObject _player;
+    private ParticleSystem _levelupObject;
     private ParticleSystem _healingObject;
     private ParticleSystem _staminaHealingObject;
     private ParticleSystem _playerAttackObject;
@@ -34,6 +36,7 @@ public class EffectManager : MonoBehaviour
     {
         _player = GameManager.Instance.Player;
 
+        _levelupObject = Instantiate(_levelUpEffect, _player.transform);
         _healingObject = Instantiate(_healingEffect, _player.transform);
         _staminaHealingObject = Instantiate(_staminaHealingEffect, _player.transform);
         _playerAttackObject = Instantiate(_playerAttackEffect, _weaponPos.transform);
@@ -42,8 +45,8 @@ public class EffectManager : MonoBehaviour
 
     public void PlayLevelUpEffect()
     {
-        ParticleSystem levelupEffectObject = Instantiate(_levelUpEffect, _player.transform);
-        Destroy(levelupEffectObject, 5f);
+        _levelupObject.Play();
+        StartCoroutine(StopParticle(_levelupObject, _levelupEffectTime));
     }
     
     public void PlayHealingEffect()
@@ -58,17 +61,16 @@ public class EffectManager : MonoBehaviour
         StartCoroutine(StopParticle(_staminaHealingObject, _healingEffectTime));
     }
 
-    public void PlayAttackEffect()
-    {
-        _playerAttackObject.Play();
-        StartCoroutine(StopParticle(_playerAttackObject, _playerAttackEffectTime));
-    }
-
     //TODO: Quest 구현 완료 후 적용
     public void QuestCompleteEffect()
     {
         _questCompleteObject.Play();
         StartCoroutine(StopParticle(_questCompleteObject, _healingEffectTime));
+    }
+
+    public void PlayAttackEffect()
+    {
+        _playerAttackObject.Play();
     }
 
     public void PlayFootStepEffect()
@@ -104,6 +106,7 @@ public class EffectManager : MonoBehaviour
         _playerTakeDamageEffect.SetActive(isLow);
     }
     
+    // TODO: 재시작 구현 후 다시 구현
     public void PlayerDieEffect()
     {
         _playerDieEffect.SetActive(true);

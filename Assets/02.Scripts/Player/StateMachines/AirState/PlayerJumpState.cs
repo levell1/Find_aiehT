@@ -15,7 +15,6 @@ public class PlayerJumpState : PlayerAirState
 
         _stateMachine.JumpForce = _stateMachine.Player.Data.AirData.JumpForce;
         _stateMachine.Player.ForceReceiver.Jump(_stateMachine.JumpForce);
-        GameManager.Instance.EffectManager.StopFootStepEffect();
 
         base.Enter();
     }
