@@ -39,6 +39,7 @@ public struct TagName
     public const string RealDoor = "RealDoor";
     public const string QuestNPC = "QuestNPC";
     public const string DungeonDoor = "DungeonDoor";
+    public const string Wall = "Wall";
 }
 
 public struct LayerName
@@ -98,5 +99,7 @@ public struct AnimationParameterName
     public const string BossFear = "Fear";
     public const string BossRun = "Run";
     public const string BossIdleC = "IdleC";
+    public const string BossRoll = "Roll";
+    public const string BossHit = "Hit";
 }
 

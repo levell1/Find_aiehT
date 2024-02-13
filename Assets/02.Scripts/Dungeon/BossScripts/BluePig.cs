@@ -41,7 +41,7 @@ public class BluePigAI : Tree
         if (collision.gameObject.TryGetComponent(out HealthSystem health))
         {
             health.TakeDamage(20);
-             collision.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 5, ForceMode.Impulse);
+             collision.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 5 + Vector3.back*5, ForceMode.Impulse);
 
         }
     }

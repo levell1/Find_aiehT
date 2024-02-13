@@ -8,9 +8,12 @@ public class LevitateObject : MonoBehaviour
     public bool EndSkill =true;
     private float _time = 0;
     private ParticleSystem _particle;
-
+    readonly private float _staminaDamage =5f;
+    readonly private float _delayTime = 0.1f;
     private void Awake()
     {
+        _particle = GameManager.Instance.EffectManager.CreateGreenPigLevitate(transform);
+        _particle.gameObject.transform.localScale = Vector3.one * 1.5f;
         var particles = GameManager.Instance.EffectManager.GreenPigEffect.GetComponentsInChildren<ParticleSystem>();
         for (int i = 0; i < particles.Length; i++)
         {
@@ -24,7 +27,7 @@ public class LevitateObject : MonoBehaviour
         EndSkill = false;
         _time = 0;
         
-        GameManager.Instance.EffectManager.GreenPigLevitate(gameObject.transform);
+        GameManager.Instance.EffectManager.GreenPigLevitate();
     }
     private void Update()
     {
@@ -42,9 +45,9 @@ public class LevitateObject : MonoBehaviour
             other.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 20);
         }
 
-        if (other.gameObject.TryGetComponent(out HealthSystem health))
+        if (other.gameObject.TryGetComponent(out StaminaSystem stamina))
         {
-            health.TakeDamage(5);
+            stamina.ReduceStamina(_staminaDamage, _delayTime);
         }
     }
 

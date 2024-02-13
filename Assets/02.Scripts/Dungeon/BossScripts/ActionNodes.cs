@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
@@ -72,36 +74,43 @@ public class LevitateNode : Node
 public class RangeAttackNode : Node
 {
     private Transform _player;
-    private Transform _pigtransform;
+    private Transform _pigTransform;
     private Animator _animation;
-    private int _count = 0;
-
+    float time = 0;
     public RangeAttackNode(Transform _playerTransform, Transform transform)
     {
         _player = _playerTransform;
-        this._pigtransform = transform;
+        this._pigTransform = transform;
         _animation = transform.GetComponent<Animator>();
     }
 
 
     public override NodeState Evaluate()
     {
-        //_agent.SetDestination(player.transform.position);
-        _pigtransform.LookAt(_player);
-        if (_count < 3)
+
+        if (time <= 1f)
         {
-            Debug.Log("카운트" + _count);
-            _animation.SetBool(AnimationParameterName.BossSpin, true);
-            _player.gameObject.GetComponent<HealthSystem>().TakeDamage(3);
-            _count++;
-            return state = NodeState.Running;
+            Quaternion rotation = Quaternion.LookRotation(_player.position - _pigTransform.position);
+            _pigTransform.rotation = Quaternion.Lerp(_pigTransform.rotation, rotation, Time.deltaTime * 4);
+            _animation.SetBool(AnimationParameterName.BossAttack, false);
+            time += Time.deltaTime;
         }
         else
         {
-            _count = 0;
-            _animation.SetBool(AnimationParameterName.BossSpin, false);
+            _animation.SetBool(AnimationParameterName.BossAttack, true);
+            GameObject Bullet = GameManager.Instance.PoolingManager.GetObject("Bullet");
+            Bullet.transform.position = _pigTransform.position + _pigTransform.forward * 2 + Vector3.up * 2;
+
+            Rigidbody rigid = Bullet.GetComponent<Rigidbody>();
+            Vector3 dirVec = _player.transform.position - _pigTransform.position;
+            Vector3 ranVec = new Vector3(Random.Range(-5f, 5f), Random.Range(-1f,1f), Random.Range(-5f, 5f));
+            dirVec += ranVec;
+            rigid.AddForce(dirVec.normalized * 10, ForceMode.Impulse);
+            time = 0;
+            
             return state = NodeState.Success;
         }
+        return state = NodeState.Failure;
     }
 }
 
@@ -156,17 +165,17 @@ public class RunAwayNode : Node
 
 public class GoToPlayerNode : Node
 {
-    private Transform player;
-    private Transform transform;
+    private Transform _player;
+    private Transform _pigTransform;
     private Animator _animation;
     private NavMeshAgent _agent;
     private float _agentAttackSpeed = 10.0f;
-    float time=0;
+    private float _time=0;
 
     public GoToPlayerNode(Transform player, Transform transform,NavMeshAgent agent)
     {
-        this.player = player;
-        this.transform = transform;
+        this._player = player;
+        this._pigTransform = transform;
         this._agent = agent;
         _animation = transform.GetComponent<Animator>();
         
@@ -176,16 +185,16 @@ public class GoToPlayerNode : Node
     public override NodeState Evaluate()
     {
 
-        if (time < 3f) 
+        if (_time < 3f) 
         {
-            Quaternion rotation = Quaternion.LookRotation(player.position - transform.position);
-            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * 2);
+            Quaternion rotation = Quaternion.LookRotation(_player.position - _pigTransform.position);
+            _pigTransform.rotation = Quaternion.Lerp(_pigTransform.rotation, rotation, Time.deltaTime * 2);
             _animation.SetBool(AnimationParameterName.BossFear, true);
-            time += Time.deltaTime;
+            _time += Time.deltaTime;
         }
         else
         {
-             _agent.SetDestination(player.transform.position);
+             _agent.SetDestination(_player.transform.position);
             _agent.speed = _agentAttackSpeed;
             _animation.SetBool(AnimationParameterName.BossFear, false);
             _animation.SetBool(AnimationParameterName.BossRun, true);
@@ -193,7 +202,7 @@ public class GoToPlayerNode : Node
             if (_agent.remainingDistance <= _agent.stoppingDistance && !_agent.pathPending)
             {
                 _animation.SetBool(AnimationParameterName.BossRun, false);
-                time = 0;
+                _time = 0;
                 return state = NodeState.Success; 
             }else
             {
@@ -211,10 +220,9 @@ public class DashToPlayer : Node
     private Transform _pigTransform;
     private Animator _animation;
     private NavMeshAgent _agent;
-    private float _agentAttackSpeed = 10.0f;
-    float time = 0;
-    private int count = 0;
-    private bool hasDashed = false;
+    private float _time = 0;
+    private int _count = 0;
+    private bool _hasDashed = false;
     private Vector3 _dashPosition = Vector3.zero;
 
     public DashToPlayer(Transform player, Transform transform, NavMeshAgent agent)
@@ -228,32 +236,38 @@ public class DashToPlayer : Node
     public override NodeState Evaluate()
     {
         
-        if (time < 3f)
+        if (_time < 3f)
         {
             Quaternion rotation = Quaternion.LookRotation(_playerTransform.position - _pigTransform.position);
             _pigTransform.rotation = Quaternion.Lerp(_pigTransform.rotation, rotation, Time.deltaTime * 2);
-            _animation.SetBool(AnimationParameterName.BossIdleC, true);
-            time += Time.deltaTime;
+            _animation.SetBool(AnimationParameterName.BossFear, true);
+            _time += Time.deltaTime;
+        }
+        else if (3f <= _time && _time <= 4f)
+        {
+            _animation.SetBool(AnimationParameterName.BossFear, false);
+            _animation.SetBool(AnimationParameterName.BossRoll, true);
+            //사거리 표시 1번만
+            _time += Time.deltaTime;
         }
         else
         {
-            if (!hasDashed)
+            if (!_hasDashed)
             {
                 DashTowardsPlayer();
             }
 
-            _animation.SetBool(AnimationParameterName.BossIdleC, false);
+            _animation.SetBool(AnimationParameterName.BossRoll, false);
             _animation.SetBool(AnimationParameterName.BossRun, true);
 
             if (_agent.remainingDistance <= _agent.stoppingDistance && !_agent.pathPending)
             {
-                hasDashed = false;
-                count++;
-                Debug.Log(count);
-                if (count > Random.Range(2, 5))
+                _hasDashed = false;
+                _count++;
+                if (_count > Random.Range(2, 5))
                 {
-                    count = 0;
-                    time = 0;
+                    _count = 0;
+                    _time = 0;
                     _animation.SetBool(AnimationParameterName.BossRun, false);
                     return state = NodeState.Success;
                 }
@@ -268,16 +282,17 @@ public class DashToPlayer : Node
 
     private void DashTowardsPlayer()
     {
-        for (int i = 5; i > 0; i--)
+        for (int i = 5; i >= 0; i--)
         {
+            
             _dashPosition = _playerTransform.position + ((_playerTransform.position - _pigTransform.position).normalized * i * 10);
-            Debug.Log((_playerTransform.position - _pigTransform.position).normalized);
             NavMeshHit hit;
             if (NavMesh.SamplePosition(_dashPosition, out hit, 1f, NavMesh.AllAreas))
             {
                 _agent.SetDestination(_dashPosition);
+                break;
             }
         }
-        hasDashed = true;
+        _hasDashed = true;
     }
 }

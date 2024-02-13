@@ -79,6 +79,20 @@ public class StaminaSystem : MonoBehaviour
             //Debug.Log("재생!");
         }
     }
+    public void ReduceStamina(float reduceStamina, float delayTime)
+    {
+        if (Stamina < 5) return;
+
+        _regenTime += Time.deltaTime;
+
+
+        if (_regenTime >= delayTime)
+        {
+            Stamina -= reduceStamina;
+            OnChangeStaminaUI?.Invoke(Stamina, MaxStamina);
+            _regenTime = 0;
+        }
+    }
 
     public void Healing(int healingAmount)
     {

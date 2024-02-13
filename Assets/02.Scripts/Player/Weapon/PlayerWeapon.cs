@@ -41,6 +41,10 @@ public class PlayerWeapon : MonoBehaviour
         {
             health.TakeDamage(_damage);
         }
+        if (other.TryGetComponent(out BossHealthSystem bosshealth))
+        {
+            bosshealth.TakeDamage(_damage);
+        }
 
     }
 

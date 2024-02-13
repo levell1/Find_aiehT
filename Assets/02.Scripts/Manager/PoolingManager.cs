@@ -16,7 +16,7 @@ public class PoolingManager : MonoBehaviour
     }
 
     public List<Pool> Pools;
-    Queue<GameObject> _poolObject = new Queue<GameObject>();
+    Queue<GameObject> _poolObject;
     public Dictionary<string, Queue<GameObject>> poolDictionary;
 
     private void Awake()
@@ -29,6 +29,7 @@ public class PoolingManager : MonoBehaviour
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
         foreach (var pool in Pools)
         {
+            _poolObject = new Queue<GameObject>();
             for (int i = 0; i < pool.Size; i++)
             {
                 // TODO: 모든 오브젝트에 필요하지 않은 코드인데 써도 되나?
