@@ -28,6 +28,7 @@ public class EffectManager : MonoBehaviour
     [SerializeField] private ParticleSystem _footStepEffect;
     [SerializeField] private ParticleSystem _eatFoodEffect;
     [SerializeField] private ParticleSystem _coinEffect;
+    [SerializeField] public ParticleSystem GreenPigEffect;
 
     [SerializeField] private GameObject _playerTakeDamageEffect;
     [SerializeField] private GameObject _playerDieEffect;
@@ -66,6 +67,13 @@ public class EffectManager : MonoBehaviour
     {
         _questCompleteObject.Play();
         StartCoroutine(StopParticle(_questCompleteObject, _healingEffectTime));
+    }
+    public void GreenPigLevitate(Transform greenpig)
+    {
+        ParticleSystem PigSkill = Instantiate(GreenPigEffect, greenpig);
+        PigSkill.gameObject.transform.localScale = Vector3.one * 1.5f;
+        Destroy(PigSkill.gameObject,4.5f);
+        //StartCoroutine(StopParticle(PigSkill, new WaitForSeconds(4.5f)));
     }
 
     public void PlayAttackEffect()

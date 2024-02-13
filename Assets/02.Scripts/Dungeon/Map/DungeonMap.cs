@@ -6,8 +6,8 @@ using UnityEngine;
 public class DungeonMap : MonoBehaviour
 {
     public GameObject roomPrefab; 
-    private int mapWidth =7; 
-    private int mapHeight =7; 
+    private int mapWidth =8; 
+    private int mapHeight =8; 
     private int roomSize = 41;
 
     void Start()
@@ -27,7 +27,6 @@ public class DungeonMap : MonoBehaviour
     {
         Vector3 roomPosition = new Vector3(position.x * roomSize, 0, position.y * roomSize);
         GameObject newRoom = Instantiate(roomPrefab, roomPosition, Quaternion.identity);
-
     }
 
 }

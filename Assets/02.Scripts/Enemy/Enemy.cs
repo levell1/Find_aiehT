@@ -76,7 +76,7 @@ public class Enemy : MonoBehaviour
     private void OnDie()
     {
         // 경험치
-        _stateMachine.Target.PlayerExpSystem.EnemyExpPlus(EnemyDropEXP);
+        _stateMachine.Target.PlayerExpSystem.GetExpPlus(EnemyDropEXP);
         //드랍아이템
         if(Data.DropItem != null)
         {

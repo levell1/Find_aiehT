@@ -123,6 +123,79 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: e00f7ded81f305348be88b4c98529b9a, type: 2}
+--- !u!1001 &101434642
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3709501788966097488, guid: a882df1c1e8900448bfef2f564780240,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709501788966097488, guid: a882df1c1e8900448bfef2f564780240,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709501788966097488, guid: a882df1c1e8900448bfef2f564780240,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709501788966097488, guid: a882df1c1e8900448bfef2f564780240,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709501788966097488, guid: a882df1c1e8900448bfef2f564780240,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709501788966097488, guid: a882df1c1e8900448bfef2f564780240,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709501788966097488, guid: a882df1c1e8900448bfef2f564780240,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709501788966097488, guid: a882df1c1e8900448bfef2f564780240,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709501788966097488, guid: a882df1c1e8900448bfef2f564780240,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709501788966097488, guid: a882df1c1e8900448bfef2f564780240,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3709501788966097488, guid: a882df1c1e8900448bfef2f564780240,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277136610707786919, guid: a882df1c1e8900448bfef2f564780240,
+        type: 3}
+      propertyPath: m_Name
+      value: Room
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a882df1c1e8900448bfef2f564780240, type: 3}
 --- !u!1 &152549305
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,15 +208,15 @@ GameObject:
   - component: {fileID: 152549310}
   - component: {fileID: 152549309}
   - component: {fileID: 152549308}
-  - component: {fileID: 152549307}
   - component: {fileID: 152549306}
+  - component: {fileID: 152549312}
   m_Layer: 10
-  m_Name: BossPig (1)
+  m_Name: GreenPig
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!195 &152549306
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -155,10 +228,10 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.26
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 200
-  m_StoppingDistance: 2
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -166,20 +239,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &152549307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 152549305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e655d59904bee984b9b58d87f255337b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerTransform: {fileID: 0}
-  _pigTransform: {fileID: 152549311}
 --- !u!136 &152549308
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -213,7 +272,7 @@ Animator:
   m_GameObject: {fileID: 152549305}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 9c097285657e7bc46893add319710350, type: 3}
-  m_Controller: {fileID: 9100000, guid: 3ba1ec32c60dea4459045dafef3c9519, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3d53de31138eb694589b019474ad8c7c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -272,9 +331,22 @@ Transform:
   - {fileID: 932957362}
   - {fileID: 2123697383}
   - {fileID: 369665375}
+  - {fileID: 1735372667}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &152549312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152549305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46524b749749c074d9621edd7fb48c5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &163927561
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,15 +897,15 @@ GameObject:
   - component: {fileID: 855483423}
   - component: {fileID: 855483422}
   - component: {fileID: 855483421}
-  - component: {fileID: 855483420}
   - component: {fileID: 855483419}
+  - component: {fileID: 855483425}
   m_Layer: 10
-  m_Name: BossPig (2)
+  m_Name: BluePig
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!195 &855483419
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -844,11 +916,11 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.26
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 15
+  m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 200
-  m_StoppingDistance: 2
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -856,20 +928,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &855483420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 855483418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e655d59904bee984b9b58d87f255337b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerTransform: {fileID: 0}
-  _pigTransform: {fileID: 855483424}
 --- !u!136 &855483421
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -903,7 +961,7 @@ Animator:
   m_GameObject: {fileID: 855483418}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 9c097285657e7bc46893add319710350, type: 3}
-  m_Controller: {fileID: 9100000, guid: 3ba1ec32c60dea4459045dafef3c9519, type: 2}
+  m_Controller: {fileID: 9100000, guid: d0c1e276fbeaa4c4e8ebb47a274b0c58, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -965,6 +1023,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &855483425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855483418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0a46f7cc9498e54288a9d49c3682fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &932957360
 GameObject:
   m_ObjectHideFlags: 0
@@ -1264,7 +1334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1403545963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1414,6 +1484,75 @@ Transform:
   m_Father: {fileID: 403187850}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -5.845629e-11, y: 0.31938833, z: 180}
+--- !u!1 &1735372666
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1735372667}
+  - component: {fileID: 1735372669}
+  - component: {fileID: 1735372668}
+  m_Layer: 10
+  m_Name: Levitate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1735372667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735372666}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 152549311}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1735372668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735372666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09a764c018fded4fb365d153117bf5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EndSkill: 1
+--- !u!136 &1735372669
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735372666}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Height: 5
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.06, z: 0}
 --- !u!1 &1739326091
 GameObject:
   m_ObjectHideFlags: 0
@@ -2759,7 +2898,7 @@ GameObject:
   - component: {fileID: 6793720678926113508}
   - component: {fileID: 6793720678926113509}
   m_Layer: 10
-  m_Name: BossPig
+  m_Name: RedPig
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2777,8 +2916,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e655d59904bee984b9b58d87f255337b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerTransform: {fileID: 0}
-  _pigTransform: {fileID: 6793720678926113500}
 --- !u!195 &6793720678926113509
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2791,9 +2928,9 @@ NavMeshAgent:
   m_Radius: 0.26
   m_Speed: 3.5
   m_Acceleration: 20
-  avoidancePriority: 50
+  avoidancePriority: 51
   m_AngularSpeed: 300
-  m_StoppingDistance: 3
+  m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

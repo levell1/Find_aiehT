@@ -9,7 +9,7 @@ public class PlayerExpSystem : MonoBehaviour
     private PlayerSO _playerData;
 
     private int _playerLevel; // 현재 플레이어 레벨
-    private int _maxExp; // 전체 경험치
+    public int MaxExp; // 전체 경험치
     private int _playerExp; // 플레이어 경험치
 
     private HealthSystem _healthSystem;
@@ -24,9 +24,9 @@ public class PlayerExpSystem : MonoBehaviour
         _staminaSystem = gameObject.GetComponent<StaminaSystem>();
         _playerData = GetComponent<Player>().Data;
         _playerLevel = _playerData.PlayerData.GetPlayerLevel();
-        _maxExp = _playerData.PlayerLevelData.GetLevelData(_playerLevel - 1).GetExp();
+        MaxExp = _playerData.PlayerLevelData.GetLevelData(_playerLevel - 1).GetExp();
         OnLevelUp?.Invoke(_playerLevel);
-        OnChangeExpUI?.Invoke(_playerExp, _maxExp);
+        OnChangeExpUI?.Invoke(_playerExp, MaxExp);
         _playerExp = _playerData.PlayerData.GetPlayerExp();
 
         //Debug.Log("현재 경험치: " + _playerExp);
@@ -34,13 +34,12 @@ public class PlayerExpSystem : MonoBehaviour
 
     }
 
-    public void EnemyExpPlus(int enemyExp)
+    public void GetExpPlus(int getExp)
     {
-        _playerExp += enemyExp;
-        OnChangeExpUI?.Invoke(_playerExp, _maxExp);
-        Debug.Log(_playerExp);
+        _playerExp += getExp;
+        OnChangeExpUI?.Invoke(_playerExp, MaxExp);
 
-        if( _playerExp >= _maxExp )
+        if( _playerExp >= MaxExp )
         {
             LevelUp();
         }
@@ -49,7 +48,7 @@ public class PlayerExpSystem : MonoBehaviour
 
     private void LevelUp()
     {
-        _playerExp -= _maxExp;
+        _playerExp -= MaxExp;
 
         _playerLevel++;
 
@@ -57,12 +56,12 @@ public class PlayerExpSystem : MonoBehaviour
         _playerData.PlayerData.SetPlayerExp(_playerExp);
 
         _playerData.PlayerLevelData.ApplyNextLevelData(_playerData.PlayerData, _playerLevel);
-        _maxExp = _playerData.PlayerLevelData.GetLevelData(_playerLevel - 1).GetExp();
+        MaxExp = _playerData.PlayerLevelData.GetLevelData(_playerLevel - 1).GetExp();
 
         _healthSystem.SetMaxHealth();
         _staminaSystem.SetMaxStamina();
         OnLevelUp?.Invoke(_playerLevel);
-        OnChangeExpUI?.Invoke(_playerExp, _maxExp);
+        OnChangeExpUI?.Invoke(_playerExp, MaxExp);
 
         GameManager.Instance.EffectManager.PlayLevelUpEffect();
 

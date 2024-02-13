@@ -108,7 +108,11 @@ public class PlayerInteraction : MonoBehaviour
                     _dungeonNextPosition = door.NextRoomPosition;
                     InteractionText.text = "다음 방으로 이동하기";
                 }
-                
+                else if (other.gameObject.CompareTag(TagName.QuestNPC)) // 타이쿤
+                {
+                    InteractionText.text = "퀘스트 보기";
+                    _showUI = UIName.QuestUI;
+                }
             }
         }
     }
