@@ -9,7 +9,7 @@ public class EffectManager : MonoBehaviour
 
     private WaitForSeconds _healingEffectTime = new WaitForSeconds(2f);
     private WaitForSeconds _levelupEffectTime = new WaitForSeconds(3f);
-    private WaitForSeconds _playerAttackEffectTime = new WaitForSeconds(0.3f);
+    private WaitForSeconds _eatEffectTime = new WaitForSeconds(6f);
 
     private GameObject _player;
     private ParticleSystem _levelupObject;
@@ -18,9 +18,6 @@ public class EffectManager : MonoBehaviour
     private ParticleSystem _playerAttackObject;
     private ParticleSystem _questCompleteObject;
     private ParticleSystem _footStepObject;
-
-    ParticleSystem eatParticle;
-    ParticleSystem coinParticle;
 
     [Header("Effect Prefabs")]
     [SerializeField] private ParticleSystem _levelUpEffect;
@@ -98,7 +95,7 @@ public class EffectManager : MonoBehaviour
 
     public void StopEatParticle(ParticleSystem particle)
     {
-        StartCoroutine(StopParticle(particle, new WaitForSeconds(6f)));
+        StartCoroutine(StopParticle(particle, _eatEffectTime));
     }
 
     public void PlayerTakeDamageEffect()

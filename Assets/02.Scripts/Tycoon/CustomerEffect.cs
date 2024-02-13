@@ -6,7 +6,6 @@ public class CustomerEffect : MonoBehaviour
 {
     [SerializeField] Transform _eatTransform;
 
-    private WaitForSeconds _eatTime = new WaitForSeconds(6f);
     private bool _isEat = false;
 
     private ParticleSystem _eatParticle;
