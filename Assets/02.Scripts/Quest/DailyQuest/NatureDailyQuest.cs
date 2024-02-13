@@ -17,14 +17,23 @@ public class NatureDailyQuest : Quest
         _maxTargetQuantity = QuestData.maxTargetQuantity;
     }
 
-    public override string GetQuestTitle(int index)
+    public override string GetQuestTitle()
     {
-        return string.Format($"{index}. 채집 퀘스트");
+        return string.Format("채집 퀘스트");
     }
 
     public override string GetQuestDescription()
     {
         return string.Format($"{_natureItemName} 채집물을 {TargetQuantity}개 채집해라");
+    }
+
+    public override int GetTargetID()
+    {
+        return base.GetTargetID();
+    }
+    public override string GetQuestRewardToString()
+    {
+        return string.Format($"{base.GetQuestRewardToString()} GOLD");
     }
 
 }

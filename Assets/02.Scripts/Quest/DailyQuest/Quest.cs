@@ -14,6 +14,8 @@ public class Quest
     protected int _minTargetQuantity = 1;
     protected int _maxTargetQuantity;
 
+    protected int _questReward;
+
     public int QuestNumber;
     public int TargetID;
     public int TargetQuantity;
@@ -21,11 +23,21 @@ public class Quest
     public ItemDataListSO ItemDatas = GameManager.Instance.DataManager.ItemDataList;
     public EnemyDataListSO EnemyDatas = GameManager.Instance.DataManager.EnemyDataList;
 
+    private List<int> _randomIDList =  new List<int>(); 
+
     public Quest(DailyQuestData data, int questNumber)
     {
+
         QuestData = data;
         QuestNumber = questNumber;
+        _questReward = data.reward;
         InitQuest();
+
+        for(int i = _minTargetID; i < _maxTargetID; i++)
+        {
+            _randomIDList.Add(i);
+        }
+
         RandomQuest();
     }
 
@@ -33,8 +45,13 @@ public class Quest
 
     private void RandomQuest()
     {
-        TargetID = Random.Range(_minTargetID, _maxTargetID);
+        //TargetID = Random.Range(_minTargetID, _maxTargetID);
         TargetQuantity = Random.Range(_minTargetQuantity, _maxTargetQuantity);
+
+        int index = Random.Range(0, _randomIDList.Count);
+
+        TargetID = _randomIDList[index];
+        _randomIDList.RemoveAt(index);
 
         foreach (var enemyData in EnemyDatas.EnemyList)
         {
@@ -60,7 +77,7 @@ public class Quest
 
     }
 
-    public virtual string GetQuestTitle(int index)
+    public virtual string GetQuestTitle()
     {
         return string.Format("사냥 퀘스트");
     }
@@ -70,4 +87,15 @@ public class Quest
     {
         return string.Format($"몬스터 ID {_enemyName}을/를 가진 몬스터를 {TargetQuantity}마리 잡아라");
     }
+
+    public virtual int GetTargetID()
+    {
+        return TargetID;
+    }
+
+    public virtual string GetQuestRewardToString()
+    {
+        return _questReward.ToString();
+    }
+
 }
