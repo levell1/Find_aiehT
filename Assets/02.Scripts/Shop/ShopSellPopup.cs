@@ -31,7 +31,7 @@ public class ShopSellPopup : MonoBehaviour
         InitializePopup();
     }
 
-    void InitializePopup()
+    private void InitializePopup()
     {
         _itemCurQuantity = 1;
 
@@ -118,7 +118,7 @@ public class ShopSellPopup : MonoBehaviour
         StartCoroutine(SellPopupOff());
     }
 
-    IEnumerator SellPopupOff()
+    private IEnumerator SellPopupOff()
     {
         _successPopup.SetActive(true);
         _successPopupObject.SetActive(true);
