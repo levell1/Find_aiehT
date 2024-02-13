@@ -47,7 +47,7 @@ public class GreenPigAI : Tree
             (
                 new List<Node>()
                 {
-                    new CheckPlayerDistanceNode(_pigTransform,2.0f),
+                    new CheckPlayerDistanceNode(_pigTransform,1.0f),
                     new RunAwayNode(_pigTransform,_navMeshAgent),
                 }
             ),

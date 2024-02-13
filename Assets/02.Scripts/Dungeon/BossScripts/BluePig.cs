@@ -9,6 +9,7 @@ public class BluePigAI : Tree
     private Transform _pigTransform;
     private NavMeshAgent _navMeshAgent;
     private SkinnedMeshRenderer[] meshRenderers;
+    readonly private float _waitTime = 5;
 
     private void Awake()
     {
@@ -31,7 +32,7 @@ public class BluePigAI : Tree
     {
         Node root = new SelectorNode(new List<Node>
         {
-            new DashToPlayer(_playerTransform, _pigTransform, _navMeshAgent),
+            new DashToPlayer(_playerTransform, _pigTransform, _navMeshAgent,_waitTime),
         });
         return root;
     }
