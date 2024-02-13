@@ -18,16 +18,23 @@ public class test : MonoBehaviour
             LoadingSceneController.LoadScene(SceneName.TycoonScene);
         }
 
+
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            GameManager.Instance.Player.transform.position = new Vector3(0, 0, 0);
+            LoadingSceneController.LoadScene(SceneName.DungeonScene);
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             GameManager.Instance.Player.transform.position = new Vector3(-2, 0, 25);
             LoadingSceneController.LoadScene(SceneName.Field);
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             GameManager.Instance.Player.transform.position = new Vector3(0, 0, 0);
-            LoadingSceneController.LoadScene(SceneName.DungeonScene);
+            LoadingSceneController.LoadScene("KJW");
         }
 
     }

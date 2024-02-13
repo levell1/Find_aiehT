@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8563633944623278668}
   - component: {fileID: 8507966243610520049}
-  - component: {fileID: 4027988887507820123}
   - component: {fileID: 3556705347139517007}
   m_Layer: 7
   m_Name: Orange
@@ -33,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 5268155696773220247}
   m_Father: {fileID: 0}
-  m_RootOrder: 28
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &8507966243610520049
 CapsuleCollider:
@@ -58,33 +57,6 @@ CapsuleCollider:
   m_Height: 0.17848812
   m_Direction: 1
   m_Center: {x: -0.003180094, y: 0.08765765, z: -0.000000040978193}
---- !u!54 &4027988887507820123
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5509550772420428962}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &3556705347139517007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +70,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData: {fileID: 11400000, guid: 22cfa0a3c0e3efd40a4adf65cecb6595, type: 2}
+  ItemIndex: 6
+  IsActive: 1
 --- !u!1001 &7584847279994250242
 PrefabInstance:
   m_ObjectHideFlags: 0

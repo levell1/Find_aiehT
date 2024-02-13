@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8926714716667253161}
   - component: {fileID: 5059888733576712487}
-  - component: {fileID: 3775621996756209842}
   - component: {fileID: 7738489070273204762}
   m_Layer: 7
   m_Name: Potato
@@ -33,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 8006883027774514105}
   m_Father: {fileID: 0}
-  m_RootOrder: 30
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &5059888733576712487
 CapsuleCollider:
@@ -58,33 +57,6 @@ CapsuleCollider:
   m_Height: 0.116507135
   m_Direction: 1
   m_Center: {x: 0.0005924385, y: 0.055917952, z: 0}
---- !u!54 &3775621996756209842
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 914512799345592647}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &7738489070273204762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +70,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData: {fileID: 11400000, guid: 1f9d671189156b34da1c5186bdf5446a, type: 2}
+  ItemIndex: 8
+  IsActive: 1
 --- !u!1001 &7126524950174301783
 PrefabInstance:
   m_ObjectHideFlags: 0

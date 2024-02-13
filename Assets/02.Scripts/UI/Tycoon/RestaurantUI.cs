@@ -109,9 +109,7 @@ public class RestaurantUI : BaseUI
 
     private void StartGame()
     {
-        GameManager.Instance.DataManager.RemoveOrderData();
         GameManager.Instance.UIManager.CloseAllCanvas();
         TycoonManager.Instance.TycoonGameStart();
     }
-
 }

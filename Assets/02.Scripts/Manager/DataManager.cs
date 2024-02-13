@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +16,8 @@ public class DataManager : MonoBehaviour
     public ItemDataListSO ItemDataList;
     public EnemyDataListSO EnemyDataList;
 
-    // Tycoon Data
+    public Dictionary<int, bool> ItemWaitSpawnDict = new Dictionary<int, bool>();
+
     public void AddMenu(FoodSO foodData, int count)
     {
         OrderFood orderFood = new OrderFood();
@@ -41,13 +43,12 @@ public class DataManager : MonoBehaviour
         AddMenu(FoodSODatas[0], breadNum);
     }
 
-    // Quest Data
-    public void GetEnemyDataList()
+    public void AddItems(int index, bool isActive)
     {
-       for(int i = 0; i < EnemyDataList.EnemyList.Length; i++)
+        if(!ItemWaitSpawnDict.ContainsKey(index))
         {
-
+            ItemWaitSpawnDict.Add(index, isActive);
         }
-
     }
+
 }

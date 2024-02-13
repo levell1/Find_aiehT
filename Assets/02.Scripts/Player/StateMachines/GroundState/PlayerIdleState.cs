@@ -25,7 +25,7 @@ public class PlayerIdleState : PlayerGroundState
     {
         base.Update();
 
-        // ÀÌµ¿ÀÌ ÀÏ¾î³µ´Ù¸é
+        // ì´ë™ì´ ì¼ì–´ë‚¬ë‹¤ë©´
         if(_stateMachine.MovementInput != Vector2.zero)
         {
             OnMove();

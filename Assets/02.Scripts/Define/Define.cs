@@ -38,6 +38,7 @@ public struct TagName
     public const string Enhancement = "Enhancement";
     public const string RealDoor = "RealDoor";
     public const string QuestNPC = "QuestNPC";
+    public const string DungeonDoor = "DungeonDoor";
 }
 
 public struct LayerName
@@ -90,7 +91,11 @@ public struct AnimationParameterName
     public const string TycoonIsWalk = "IsWalk";
     public const string TycoonIsEat = "IsEat";
     public const string TycoonIsIdle= "IsIdle";
+    public const string BossIdle = "Idle";
     public const string BossWalk = "Walk";
     public const string BossAttack = "Attack";
+    public const string BossSpin = "Spin";
+    public const string BossFear = "Fear";
+    public const string BossRun = "Run";
 }
 

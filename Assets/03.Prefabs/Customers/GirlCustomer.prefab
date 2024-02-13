@@ -1543,6 +1543,37 @@ Transform:
   m_Father: {fileID: 5655689430880349682}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4159365604637316806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6843066446442959351}
+  m_Layer: 0
+  m_Name: EatPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6843066446442959351
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4159365604637316806}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.91, z: 1.394}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2305891891905435380}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4260430180293721371
 GameObject:
   m_ObjectHideFlags: 0
@@ -1682,6 +1713,7 @@ GameObject:
   - component: {fileID: 5259625019122582194}
   - component: {fileID: 498509820619563274}
   - component: {fileID: 1042404694938586892}
+  - component: {fileID: 8503364329684995752}
   m_Layer: 0
   m_Name: puppet_villager_girl
   m_TagString: Untagged
@@ -1759,6 +1791,19 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 1.39, z: 0}
+--- !u!114 &8503364329684995752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4879124329289177096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb86f0cdef72c8042baa5c9959cdd17b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _eatTransform: {fileID: 6843066446442959351}
 --- !u!1 &4929620892492433756
 GameObject:
   m_ObjectHideFlags: 0
@@ -2372,6 +2417,7 @@ Transform:
   - {fileID: 6786829692567287715}
   - {fileID: 2257216546922186916}
   - {fileID: 8415505146918172098}
+  - {fileID: 6843066446442959351}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

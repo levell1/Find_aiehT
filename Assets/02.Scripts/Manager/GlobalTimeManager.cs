@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,7 +9,7 @@ public class GlobalTimeManager : MonoBehaviour
     [Range(0.0f, 1.0f)] //인스펙터 창에서 0~1 스크롤로 조절 가능
     public float DayTime;
     public float FullDayLength;  //하루
-    public float StartTime = 0.2f; //게임시작시 한번만 사용되는 변수
+    public float StartTime; //게임시작시 한번만 사용되는 변수
     private float _totalHours;
     public float Day;
     public float Hour;
@@ -44,9 +45,10 @@ public class GlobalTimeManager : MonoBehaviour
         ChangeDay();
     }
 
-    private void LoadedsceneEvent(Scene arg0, LoadSceneMode arg1) //씬이동 패널티
+    private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
     {
         DayTime += 0.5f / 24f;
+        ItemRespawn();
     }
 
     private void ChangeDay()
@@ -82,21 +84,33 @@ public class GlobalTimeManager : MonoBehaviour
         {
             return true;
         }
-        else
-        {
-            return false;
-        }
-    }
-
-    public bool ItemRespawnTime()
-    {
-        if (Hour == 6f && !IsItemRespawn)
+        else if (Day == 0)
         {
             return true;
         }
         else
         {
             return false;
+        }
+    }
+
+    public void ItemRespawn()
+    {
+        if (Hour >= 6f && !IsItemRespawn)
+        {
+            List<int> keysToModify = new List<int>();
+
+            foreach (var key in GameManager.Instance.DataManager.ItemWaitSpawnDict.Keys)
+            {
+                keysToModify.Add(key);
+            }
+
+            foreach (var key in keysToModify)
+            {
+                GameManager.Instance.DataManager.ItemWaitSpawnDict[key] = true;
+            }
+
+            IsItemRespawn = true;
         }
     }
 }

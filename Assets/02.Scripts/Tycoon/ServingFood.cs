@@ -20,7 +20,6 @@ public class ServingFood : MonoBehaviour
         if (CanOpenRecipeUI)
         {
             GameManager.Instance.UIManager.ShowCanvas(UIName.RestaurantUI);
-            CanOpenRecipeUI = false;
         }
 
         if (_holdingFood != null)
@@ -116,7 +115,7 @@ public class ServingFood : MonoBehaviour
         {
             if (other.gameObject.GetComponent<CookedFood>().ShouldClean)
             {
-                if (_canCleaningFoods.Find(obj => other.gameObject) == other.gameObject)
+                //if (_canCleaningFoods.Find(obj => other.gameObject) == other.gameObject)
                 {
                     _canCleaningFoods.Remove(other.gameObject);
                 }

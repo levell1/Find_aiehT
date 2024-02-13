@@ -6,13 +6,14 @@ public class MinimapSetting : MonoBehaviour
 {
     [SerializeField] private Transform _player;
     [SerializeField] private Camera _minimapCamera;
-    [SerializeField] private float _zoomMin = 1;
-    [SerializeField] private float _zoomMax = 30;
+    [SerializeField] private float _zoomMin;
+    [SerializeField] private float _zoomMax;
     [SerializeField] private TMP_Text _mapName;
-
+    private float _camY = 0;
     private void Awake()
     {
         _player = GameManager.Instance.Player.transform;
+        _minimapCamera.orthographicSize = 25;
     }
     private void Start()
     {
@@ -41,7 +42,10 @@ public class MinimapSetting : MonoBehaviour
 
     private void Update()
     {
-        transform.position = new Vector3(_player.position.x, _player.position.y + 10, _player.position.z);
+        _camY = GameManager.Instance.CameraManager.MainCamera.transform.rotation.eulerAngles.y;
+        transform.position = new Vector3(_player.position.x, _player.position.y + 50, _player.position.z);
+        transform.rotation = Quaternion.Euler(90f, _camY, 0f);
+       
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
         {
             ZoomIn();

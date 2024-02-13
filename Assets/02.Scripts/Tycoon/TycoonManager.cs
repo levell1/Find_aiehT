@@ -70,6 +70,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     private void TycoonGameEnd()
     {
         _TycoonUI.OnReusltUI();
+        GameManager.Instance.DataManager.RemoveOrderData();
         _playerInteraction.SetActive(true);
     }
 

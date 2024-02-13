@@ -1,45 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using TMPro;
-using UnityEngine.UI;
 
 public class Tutorial3 : MonoBehaviour
 {
+    private TutorialManager _tutorialManager;
+
     [SerializeField] private float _duration;
     [SerializeField] private Ease _easeType;
-    [SerializeField] private Vector3 paramVector;
-
-    public Image TutorialImage;
-    public TextMeshProUGUI TutorialText;
+    [SerializeField] private Vector3 _paramVector;
+    public string TutorialTxt;
+    public string TutorialTxt2;
     public GameObject Fence;
 
-    private Coroutine _coroutine;
-
-    private void Update()
+    private void Awake()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        _tutorialManager = GetComponentInParent<TutorialManager>();
+    }
+    private void OnEnable()
+    {
+        if (TutorialTxt2 != string.Empty)
         {
-            DoMove();
+            _tutorialManager.TutorialText.text = TutorialTxt + "\n" + TutorialTxt2;
+        }
+        else
+        {
+            _tutorialManager.TutorialText.text = TutorialTxt;
         }
     }
 
-    private void DoMove()
+    private void FixedUpdate()
     {
-        if (_coroutine == null)
+        if (GameManager.Instance.UIManager.PopupDic[UIName.InventoryUI].activeSelf)
         {
-            TutorialImage.DOFade(0f, _duration).SetEase(_easeType);
-            TutorialText.DOFade(0f, _duration).SetEase(_easeType);
-            Fence.transform.DOMoveX(paramVector.x, _duration);
-            _coroutine = StartCoroutine(EndTutorial());
+            _tutorialManager.DoMove(_duration, _easeType);
+            Fence.transform.DOMoveX(_paramVector.x, _duration);
         }
-    }
-
-    private IEnumerator EndTutorial()
-    {
-        yield return new WaitForSeconds(_duration);
-        gameObject.SetActive(false);
-        _coroutine = null;
     }
 }

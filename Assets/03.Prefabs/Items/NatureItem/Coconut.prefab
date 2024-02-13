@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7352940609961462138}
   - component: {fileID: 8504048150017089745}
-  - component: {fileID: 993579671637348592}
   - component: {fileID: 8418981046643137331}
   m_Layer: 7
   m_Name: Coconut
@@ -33,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 6714341448058333298}
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &8504048150017089745
 CapsuleCollider:
@@ -58,33 +57,6 @@ CapsuleCollider:
   m_Height: 0.20641561
   m_Direction: 1
   m_Center: {x: -0.0034655258, y: 0.09824031, z: -0.000488434}
---- !u!54 &993579671637348592
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 699348173540749935}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &8418981046643137331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +70,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemData: {fileID: 11400000, guid: ff3e9d2730a5a384e96a16f78765ae4c, type: 2}
+  ItemIndex: 2
+  IsActive: 1
 --- !u!1001 &7768054705420283853
 PrefabInstance:
   m_ObjectHideFlags: 0

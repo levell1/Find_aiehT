@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class EnemyHealthSystem : MonoBehaviour
     public float Health;
     public Canvas HpCanvas;
     public Image HpBar;
+    public TextMeshProUGUI EnemyName;
     public bool Hit;
     public int HitCool;
 
@@ -30,6 +32,7 @@ public class EnemyHealthSystem : MonoBehaviour
 
         MaxHealth = _enemy.EnemyMaxHealth;
         Health = MaxHealth;
+        EnemyName.text = string.Format("[" + _enemySO.EnemyName + "]");
         HpCanvas.gameObject.SetActive(false);
         _camera = Camera.main;
     }
@@ -40,7 +43,7 @@ public class EnemyHealthSystem : MonoBehaviour
         {
             HpCanvas.gameObject.SetActive(true);
             //카메라 방향으로 캔버스 돌리기
-            HpCanvas.transform.LookAt(HpCanvas.transform.position + _camera.transform.rotation * Vector3.back, _camera.transform.rotation * Vector3.down);
+            HpCanvas.transform.LookAt(HpCanvas.transform.position + _camera.transform.rotation * Vector3.forward, _camera.transform.rotation * Vector3.up);
             if (_coroutine == null)
             {
                 _coroutine = StartCoroutine(HitCancel());
