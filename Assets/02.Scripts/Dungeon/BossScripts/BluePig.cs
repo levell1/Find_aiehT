@@ -21,7 +21,7 @@ public class BluePigAI : Tree
         for (int x = 0; x < meshRenderers.Length; x++)
         {
             meshRenderers[x].GetPropertyBlock(propBlock);
-            propBlock.SetColor("_Color", new Color(0.7f, 0.7f, 1f));
+            propBlock.SetColor("_Color", new Color(0.2f, 0.9f, 0.9f));
             meshRenderers[x].SetPropertyBlock(propBlock);
         }
 

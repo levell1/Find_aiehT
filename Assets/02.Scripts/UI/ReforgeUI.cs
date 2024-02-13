@@ -44,7 +44,7 @@ public class ReforgeUI : BaseUI
 
     public void ClickUpgradeButton() 
     {
-        if (_playerData.PlayerData.GetPlayerGold() > _equipmentupgrade.EquipData[_itemnum].CurrentUpgradeGold) {
+        if (_playerData.PlayerData.GetPlayerGold() >= _equipmentupgrade.EquipData[_itemnum].CurrentUpgradeGold) {
             _playerData.PlayerData.SetPlayerGold(_playerData.PlayerData.GetPlayerGold() - (int)_equipmentupgrade.EquipData[_itemnum].CurrentUpgradeGold);
             _equipmentupgrade.EquipLevelUp(_itemnum);
             _resultUI.SetActive(true);
