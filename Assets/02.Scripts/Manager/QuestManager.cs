@@ -231,6 +231,7 @@ public class QuestManager : MonoBehaviour
             Debug.Log(newquest.QuestNumber);
         }
 
+        GameManager.Instance.EffectManager.QuestCompleteEffect();
     }
 
     // 골드 보상 또는 경험치보상

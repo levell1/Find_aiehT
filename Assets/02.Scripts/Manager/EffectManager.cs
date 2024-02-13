@@ -64,12 +64,12 @@ public class EffectManager : MonoBehaviour
         StartCoroutine(StopParticle(_staminaHealingObject, _healingEffectTime));
     }
 
-    //TODO: Quest 구현 완료 후 적용
     public void QuestCompleteEffect()
     {
         _questCompleteObject.Play();
         StartCoroutine(StopParticle(_questCompleteObject, _healingEffectTime));
     }
+
     public void GreenPigLevitate(Transform greenpig)
     {
         ParticleSystem PigSkill = Instantiate(GreenPigEffect, greenpig);
