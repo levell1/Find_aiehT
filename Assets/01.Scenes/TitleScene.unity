@@ -816,6 +816,7 @@ MonoBehaviour:
     type: 3}
   _coinEffect: {fileID: 2281919646996627169, guid: f0674fe14e1426f42aee8b1886af2c81,
     type: 3}
+  GreenPigEffect: {fileID: 0}
   _playerTakeDamageEffect: {fileID: 1253678237}
   _playerDieEffect: {fileID: 635470004}
 --- !u!1 &100800763
@@ -2616,6 +2617,31 @@ PrefabInstance:
       propertyPath: _coolTimeImage
       value: 
       objectReference: {fileID: 48120963}
+    - target: {fileID: 1895996443364562359, guid: 87ee7d1ca24466242b13ad42b8b83912,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e546d2d7171981b468cf29388d902e99, type: 2}
+    - target: {fileID: 1912780457936520475, guid: 87ee7d1ca24466242b13ad42b8b83912,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912780457936520475, guid: 87ee7d1ca24466242b13ad42b8b83912,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912780457936520475, guid: 87ee7d1ca24466242b13ad42b8b83912,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912780457936520475, guid: 87ee7d1ca24466242b13ad42b8b83912,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2492391161645144739, guid: 87ee7d1ca24466242b13ad42b8b83912,
         type: 3}
       propertyPath: ShopUI
@@ -2925,6 +2951,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8980220608949398442, guid: 87ee7d1ca24466242b13ad42b8b83912,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
