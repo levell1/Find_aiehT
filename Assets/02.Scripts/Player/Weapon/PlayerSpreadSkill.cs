@@ -49,6 +49,10 @@ public class PlayerSpreadSkill : MonoBehaviour
             Debug.Log(_damage);
             health.TakeDamage(_damage);
         }
+        if (other.TryGetComponent(out BossHealthSystem bosshealth))
+        {
+            bosshealth.TakeDamage(_damage);
+        }
 
     }
 

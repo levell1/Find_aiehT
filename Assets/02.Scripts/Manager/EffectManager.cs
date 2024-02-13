@@ -9,7 +9,7 @@ public class EffectManager : MonoBehaviour
 
     private WaitForSeconds _healingEffectTime = new WaitForSeconds(2f);
     private WaitForSeconds _levelupEffectTime = new WaitForSeconds(3f);
-
+    private WaitForSeconds _greenPigEffect = new WaitForSeconds(4.5f);
     private GameObject _player;
     private ParticleSystem _levelupObject;
     private ParticleSystem _healingObject;
@@ -70,12 +70,10 @@ public class EffectManager : MonoBehaviour
         _questCompleteObject.Play();
         StartCoroutine(StopParticle(_questCompleteObject, _healingEffectTime));
     }
-    public void GreenPigLevitate(Transform greenpig)
+    public void GreenPigLevitate()
     {
-        ParticleSystem PigSkill = Instantiate(GreenPigEffect, greenpig);
-        PigSkill.gameObject.transform.localScale = Vector3.one * 1.5f;
-        Destroy(PigSkill.gameObject,4.5f);
-        //StartCoroutine(StopParticle(PigSkill, new WaitForSeconds(4.5f)));
+        GreenPigEffect.Play();
+        StartCoroutine(StopParticle(GreenPigEffect, _greenPigEffect));
     }
 
     public void PlayAttackEffect()
@@ -101,6 +99,11 @@ public class EffectManager : MonoBehaviour
     public ParticleSystem CreateCustomerCoinParticle(Transform customerEatTransform)
     {
         return Instantiate(_coinEffect, customerEatTransform);
+    }
+
+    public ParticleSystem CreateGreenPigLevitate(Transform greenpig)
+    {
+        return Instantiate(GreenPigEffect, greenpig);
     }
 
     public void StopEatParticle(ParticleSystem particle)
