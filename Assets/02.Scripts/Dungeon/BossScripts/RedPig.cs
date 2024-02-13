@@ -1,26 +1,36 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class TestAI : Tree
+public class RedPig : Tree
 {
-    [SerializeField]
     private Transform _playerTransform;
-    [SerializeField]
     private Transform _pigTransform;
     private NavMeshAgent _navMeshAgent;
-
-
+    private SkinnedMeshRenderer[] _meshRenderers;
+    private float _runDamage; 
     private void Awake()
     {
+        _runDamage = 10;
+        _meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         _playerTransform = GameManager.Instance.Player.transform;
         _navMeshAgent =GetComponent<NavMeshAgent>();
         _pigTransform = gameObject.transform;
+        MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+  
+        for (int x = 0; x < _meshRenderers.Length; x++)
+        {
+            _meshRenderers[x].GetPropertyBlock(propBlock);
+            propBlock.SetColor("_Color", new Color(1.0f, 0.6f, 0.6f));
+            _meshRenderers[x].SetPropertyBlock(propBlock);
+        }
+
     }
 
     protected override Node SetupBehaviorTree()
     {
-        _navMeshAgent.speed = 3.5f;
         Node root = new SelectorNode(new List<Node>
         {
             new SequenceNode
@@ -47,7 +57,7 @@ public class TestAI : Tree
     {
         if (collision.gameObject.TryGetComponent(out HealthSystem health))
         {
-            health.TakeDamage(10);
+            health.TakeDamage(_runDamage);
         }
     }
     

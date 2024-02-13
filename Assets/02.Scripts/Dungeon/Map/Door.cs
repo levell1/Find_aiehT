@@ -15,7 +15,7 @@ public class Door : MonoBehaviour
     }
     void Start()
     {
-        var dir = transform.forward * 5f;
+        var dir = transform.forward * 10f;
         NextRoomPosition = transform.position + dir;
     }
 

@@ -37,5 +37,12 @@ public class test : MonoBehaviour
             LoadingSceneController.LoadScene("KJW");
         }
 
+
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            GameManager.Instance.Player.GetComponent<Rigidbody>().AddForce(Vector3.up * 5+Vector3.forward*5, ForceMode.Impulse);
+        }
+
     }
 }

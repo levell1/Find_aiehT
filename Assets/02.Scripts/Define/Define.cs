@@ -97,5 +97,6 @@ public struct AnimationParameterName
     public const string BossSpin = "Spin";
     public const string BossFear = "Fear";
     public const string BossRun = "Run";
+    public const string BossIdleC = "IdleC";
 }
 
