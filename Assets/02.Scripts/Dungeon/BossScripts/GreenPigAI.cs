@@ -10,7 +10,6 @@ public class GreenPigAI : Tree
     private NavMeshAgent _navMeshAgent;
     private LevitateObject _levitateObject;
     private SkinnedMeshRenderer[] meshRenderers;
-    
 
     private void Awake()
     {
@@ -52,19 +51,10 @@ public class GreenPigAI : Tree
                     new RunAwayNode(_pigTransform,_navMeshAgent),
                 }
             ),
-            
-            //원거리 공격
-            //new GoToPlayerNode(_playerTransform, _pigTransform, _navMeshAgent),
+           
+            new RangeAttackNode(_playerTransform, _pigTransform),
         });
         return root;
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.TryGetComponent(out HealthSystem health))
-        {
-            health.TakeDamage(10);
-        }
     }
 
 }

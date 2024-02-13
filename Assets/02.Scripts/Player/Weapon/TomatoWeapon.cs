@@ -80,6 +80,10 @@ public class TomatoWeapon : MonoBehaviour
             Debug.Log(_damage);
             Destroy(_skillCollider.gameObject);
         }
+        if (other.TryGetComponent(out BossHealthSystem bosshealth))
+        {
+            bosshealth.TakeDamage(_damage);
+        }
 
     }
 

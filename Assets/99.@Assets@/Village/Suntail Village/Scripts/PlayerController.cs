@@ -104,6 +104,7 @@ namespace Suntail
             Movement();
             MouseLook();
             GroundChecker();
+            Debug.Log(_velocity.y);
         }
 
         //Character controller movement
