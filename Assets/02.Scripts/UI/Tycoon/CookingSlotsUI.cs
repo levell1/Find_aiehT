@@ -22,7 +22,7 @@ public class CookingSlotsUI : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_cookingUI.CookingSlotsUIs[0] == this)
+        if (_cookingUI.CookingSlotsUIs[0] == this && TycoonManager.Instance._FoodCreater.CanMakeFood)
         {
             _time += Time.deltaTime;
             CookingTimeUI.fillAmount = _time / TycoonManager.Instance._FoodCreater.FoodCreateDelayTime;

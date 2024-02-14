@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,6 +40,12 @@ public class ServingFood : MonoBehaviour
         }
     }
 
+    #region Event
+
+    public event Action OnCheckCreateStation;
+
+    #endregion
+
     private void PickupFood()
     {
         _canHoldFood.GetComponentInParent<FoodPlace>().CurrentFood = null;
@@ -49,6 +56,8 @@ public class ServingFood : MonoBehaviour
         _holdingFood.transform.position = _handTransform.position;
         _holdingFood.transform.SetParent(_handTransform);
         _holdingFood.GetComponent<Collider>().enabled = false;
+
+        OnCheckCreateStation?.Invoke();
     }
 
     private void PutdownFood()
