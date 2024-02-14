@@ -20,7 +20,7 @@ public class CookingSlotsUI : MonoBehaviour
         CookingTimeUI.fillAmount = 0f;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (_cookingUI.CookingSlotsUIs[0] == this && TycoonManager.Instance._FoodCreater.CanMakeFood)
         {
