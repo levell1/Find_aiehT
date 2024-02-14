@@ -44,7 +44,7 @@ public class TutorialGuideBook : MonoBehaviour
 
     private void CursorTimeLock()
     {
-        Time.timeScale = 0f;
+        Time.timeScale = 0.01f;
         Cursor.lockState = CursorLockMode.None;
     }
 

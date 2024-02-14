@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class BluePigAI : Tree
 {
@@ -10,6 +12,9 @@ public class BluePigAI : Tree
     private NavMeshAgent _navMeshAgent;
     private SkinnedMeshRenderer[] meshRenderers;
     readonly private float _waitTime = 5;
+    readonly private float _knockBack = 7f;
+    readonly private float _knockBackCount = 5;
+    Vector3 Power;
 
     private void Awake()
     {
@@ -42,8 +47,23 @@ public class BluePigAI : Tree
         if (collision.gameObject.TryGetComponent(out HealthSystem health))
         {
             health.TakeDamage(20);
-             collision.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 5 + Vector3.back*5, ForceMode.Impulse);
+            collision.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 1 , ForceMode.Impulse);
+            StartCoroutine(KnockBack(5f));
+        }
+    }
 
+    IEnumerator KnockBack(float knockBack)
+    {
+        Vector3 Direction = _playerTransform.position - _pigTransform.position;
+        Power = Vector3.zero;
+        int count = 0;
+        while (count < _knockBackCount)
+        {
+
+            Power += Direction.normalized * _knockBack;
+            _playerTransform.gameObject.GetComponent<Rigidbody>().AddForce(Power, ForceMode.VelocityChange);
+            yield return new WaitForSeconds(0.01f);
+            count++;
         }
     }
 
