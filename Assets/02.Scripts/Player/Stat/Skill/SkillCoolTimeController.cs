@@ -8,12 +8,14 @@ public class SkillCoolTimeController : MonoBehaviour
 {
     protected float _coolTime;
     [SerializeField] protected Image _coolTimeImage;
+    protected CoolTimeManager _coolTimeManager; 
 
     public bool IsCoolTime { get; private set; }
 
     public virtual void Start()
     {
         IsCoolTime = false;
+        _coolTimeManager = GameManager.Instance.CoolTimeManger;
     }
 
     public virtual void StartCoolTime(float coolTime)
@@ -21,22 +23,11 @@ public class SkillCoolTimeController : MonoBehaviour
         if(!IsCoolTime)
         {
             _coolTime = coolTime;
-            StartCoroutine(CoolTimeCoroutine());
+            IsCoolTime = true;
         }
     }
-
-
-    private IEnumerator CoolTimeCoroutine()
+    protected virtual void HandleCoolTimeFinish()
     {
-        IsCoolTime = true;
-        float maxcool = _coolTime;
-        while (_coolTime > 0f)
-        {
-           _coolTime -= Time.deltaTime;
-           _coolTimeImage.fillAmount = _coolTime / maxcool;
-           yield return null;
-        }
-
         IsCoolTime = false;
     }
 

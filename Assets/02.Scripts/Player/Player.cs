@@ -86,7 +86,11 @@ public class Player : MonoBehaviour
         _stateMachine.ChangeState(_stateMachine.IdleState);
         HealthSystem.OnDie += OnDie;
 
-
+    }
+    
+    private void Init()
+    {
+        _stateMachine.ChangeState(_stateMachine.IdleState);
     }
 
     public string CurrentSceneName()
@@ -107,6 +111,9 @@ public class Player : MonoBehaviour
         {
             Weapon.gameObject.SetActive(true);
         }
+
+        if (SceneManager.GetActiveScene().name != SceneName.LoadingScene)
+            Init();
     }
 
     private void Update()

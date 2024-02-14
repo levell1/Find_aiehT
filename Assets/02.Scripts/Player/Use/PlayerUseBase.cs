@@ -11,16 +11,17 @@ public class PlayerUseBase : MonoBehaviour
     protected int _healingAmount;
     protected int _quantity;
     [SerializeField] protected Image _coolTimeImage;
+    protected CoolTimeManager _coolTimeManager;
 
-
-    public float CoolTime;
-    private bool _isCoolTime = false;
+    public float CoolTime = 3f;
+    protected bool _isCoolTime = false;
 
     public event Action<int> OnPotionUsed;
 
-    private void Start()
+    protected virtual void Start()
     {
         _player = GetComponent<Player>();
+        _coolTimeManager = GameManager.Instance.CoolTimeManger;
     }
 
     public virtual void Potion(PotionSO data, int quantity)
@@ -48,25 +49,22 @@ public class PlayerUseBase : MonoBehaviour
 
             OnPotionUsed?.Invoke(_quantity);
 
-            StartCoroutine(CoolTimeController());
+            StartCoolTime();
+        }
+    }
+
+    protected virtual void StartCoolTime()
+    {
+        if (!_isCoolTime)
+        {
+            _isCoolTime = true;
         }
     }
 
     protected virtual void Healing() {}
 
-    // 쿨타임
-    IEnumerator CoolTimeController()
+    protected virtual void HandleCoolTimeFinish()
     {
-        _isCoolTime = true;
-        float maxcool = CoolTime;
-
-        while (CoolTime > 0f)
-        {
-            CoolTime -= Time.deltaTime;
-            _coolTimeImage.fillAmount = CoolTime / maxcool;
-            yield return null;
-        }
-
         _isCoolTime = false;
     }
 

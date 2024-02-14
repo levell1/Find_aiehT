@@ -13,6 +13,7 @@ public class GameManager : MonoSingleton<GameManager>
     private CameraManager _cameraManager = new CameraManager();
     private QuestManager _questManager= new QuestManager();
     private EffectManager _effectManager = new EffectManager();
+    private CoolTimeManager _coolTimeManager = new CoolTimeManager();
 
     private Inventory _inventory;
 
@@ -26,7 +27,8 @@ public class GameManager : MonoSingleton<GameManager>
     public CameraManager CameraManager { get { return Instance._cameraManager; } }
     public QuestManager QuestManager { get { return Instance._questManager; } }
     public EffectManager EffectManager { get { return Instance._effectManager; } }
-    
+    public CoolTimeManager CoolTimeManger { get { return Instance._coolTimeManager; } }
+
     public Inventory Inventory { get { return Instance._inventory; } }
 
     protected override void Awake()
@@ -42,6 +44,7 @@ public class GameManager : MonoSingleton<GameManager>
         _globalTimeManager = FindObjectOfType<GlobalTimeManager>();
         _questManager = FindObjectOfType<QuestManager>();
         _effectManager = FindObjectOfType<EffectManager>();
+        _coolTimeManager = FindObjectOfType<CoolTimeManager>();
     }
 
     private void Start()
