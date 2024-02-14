@@ -1,22 +1,40 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Door : MonoBehaviour
 {
     public Vector3 NextRoomPosition;
-    private Image _fadeImage;
+    [SerializeField] private Image _fadeImage;
+    [SerializeField] private EnemyHealthSystem[] enemyHealthSystems; 
 
+    private BoxCollider _boxCollider;
     private void Awake()
     {
-        _fadeImage = FindObjectOfType<Image>();
+        _boxCollider =GetComponent<BoxCollider>();
     }
     void Start()
     {
         var dir = transform.forward * 10f;
         NextRoomPosition = transform.position + dir;
+        _boxCollider.enabled = false;
+    }
+    private void Update()
+    {
+        if (_boxCollider.enabled == false)
+        {
+            foreach (var enemy in enemyHealthSystems)
+            {
+                if (enemy.IsDead == false)
+                {
+                    break ;
+                }
+                _boxCollider.enabled = true;
+            }
+        }        
     }
 
     public void FadeImage() 
