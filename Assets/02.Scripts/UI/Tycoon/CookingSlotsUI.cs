@@ -17,9 +17,9 @@ public class CookingSlotsUI : MonoBehaviour
     private void FixedUpdate()
     {
         _time += Time.deltaTime;
-        CookingTimeUI.fillAmount = _time / TycoonManager.Instance._FoodCreater._foodCreateDelayTime;
+        CookingTimeUI.fillAmount = _time / TycoonManager.Instance._FoodCreater.FoodCreateDelayTime;
 
-        if (_time >= TycoonManager.Instance._FoodCreater._foodCreateDelayTime)
+        if (_time >= TycoonManager.Instance._FoodCreater.FoodCreateDelayTime)
         {
             Destroy(gameObject);
         }

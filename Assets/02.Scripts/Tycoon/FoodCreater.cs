@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class FoodCreater : MonoBehaviour
 {
-    private Queue<GameObject> _foodQueue = new();
+    private Queue<FoodSO> _foodQueue = new();
 
     [SerializeField] private List<GameObject> _createStations;
 
-    public float _foodCreateDelayTime = 10f; //
-    private Coroutine _co;
+    [SerializeField] private float _foodCreateDelayTime;
+    public float FoodCreateDelayTime
+    {
+        get { return _foodCreateDelayTime; }
+        set { _foodCreateDelayTime = value; }
+    }
+
+    private Coroutine _co = null;
 
     public void SubscribeCreateFoodEvent(CustomerController customer)
     {
@@ -22,34 +27,35 @@ public class FoodCreater : MonoBehaviour
         customer.OnCreateFood -= StartCreateFood;
     }
 
-    private void StartCreateFood(GameObject obj)
+    private void StartCreateFood(FoodSO obj)
     {
         _foodQueue.Enqueue(obj);
-
         if (_co == null)
-        {
             _co = StartCoroutine(MakeFood());
-        }
     }
 
     IEnumerator MakeFood()
-    { 
-        while(_foodQueue.Count > 0)
+    {
+        while (_foodQueue.Count > 0)
         {
-            yield return new WaitForSeconds(_foodCreateDelayTime);
-
+            // yield return new WaitForSeconds(_foodCreateDelayTime);
             for (int i = 0; i < _createStations.Count; ++i)
             {
-                FoodPlace foodPlace = _createStations[i].GetComponent<FoodPlace>();
-                if (foodPlace.CurrentFood == null)
+                CookedFood currentFood = _createStations[i].GetComponent<FoodPlace>().CurrentFood;
+                if (currentFood == null)
                 {
-                    GameObject food = Instantiate(_foodQueue.Dequeue(), _createStations[i].transform);
-                    foodPlace.CurrentFood = food.GetComponent<CookedFood>();
+                    FoodSO currentFoodSO = _foodQueue.Dequeue();
+                    TycoonManager.Instance.CookingUI.StartCooking(currentFoodSO);
+
+                    yield return new WaitForSeconds(_foodCreateDelayTime);
+
+                    GameObject food = Instantiate(currentFoodSO.CookedFoodObject, _createStations[i].transform);
+                    currentFood = food.GetComponent<CookedFood>();
+
                     break;
                 }
             }
         }
-        
         _co = null;
         yield break;
     }

@@ -70,7 +70,7 @@ public class FoodPlace : MonoBehaviour
 
         TycoonManager.Instance._TycoonUI.UpdateCurrentGold(_currentFood._FoodSO.Price);
 
-        OnCustomerGetFood.Invoke();
+        OnCustomerGetFood?.Invoke();
 
         // TODO: Object Pool
         _currentFood.CanHold = false;
