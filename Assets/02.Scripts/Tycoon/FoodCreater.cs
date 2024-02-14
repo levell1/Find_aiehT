@@ -45,7 +45,7 @@ public class FoodCreater : MonoBehaviour
                 if (currentFood == null)
                 {
                     FoodSO currentFoodSO = _foodQueue.Dequeue();
-                    TycoonManager.Instance.CookingUI.StartCooking(currentFoodSO);
+                    //TycoonManager.Instance.CookingUI.StartCooking(currentFoodSO);
 
                     yield return new WaitForSeconds(_foodCreateDelayTime);
 

@@ -181,7 +181,7 @@ public class CustomerController : MonoBehaviour
         OnCreateFood?.Invoke(menu[targetFoodNum].FoodSO);
         OnSelectFood?.Invoke();
 
-        //_tycoonManager.CookingUI.StartCooking(menu[targetFoodNum].FoodSO);
+        _tycoonManager.CookingUI.StartCooking(menu[targetFoodNum].FoodSO);
 
         --_tycoonManager.TodayFoods[targetFoodNum].FoodCount;
         if (_tycoonManager.TodayFoods[targetFoodNum].FoodCount == 0)
