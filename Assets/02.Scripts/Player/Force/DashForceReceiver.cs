@@ -16,6 +16,8 @@ public class DashForceReceiver : MonoBehaviour
     public bool IsDash;
     public bool IsCoolTime { get; private set; } // true => 쿨타임 중
 
+    private CoolTimeManager _coolTimeManager;
+
     //private int _maxStamina;
     //private int _stamina;
 
@@ -26,6 +28,7 @@ public class DashForceReceiver : MonoBehaviour
     {
         _player = GetComponent<Player>();
         _staminaSystem = _player.GetComponent<StaminaSystem>();
+        _coolTimeManager = GameManager.Instance.CoolTimeManger;
 
         Init();
     }
@@ -34,6 +37,7 @@ public class DashForceReceiver : MonoBehaviour
     {
         IsCoolTime = false;
         IsDash = false;
+        _coolTimeManager.AddCoolTimeEvent(CoolTimeObjName.Dash, HandleCoolTimeFinish);
     }
 
     void FixedUpdate()
@@ -47,38 +51,11 @@ public class DashForceReceiver : MonoBehaviour
                 IsDash = false;
 
                 if (!IsCoolTime)
-                    StartCoroutine(CoolDown());
+                    IsCoolTime = true;
+                _coolTimeManager.StartCoolTimeCoroutine(CoolTimeObjName.Dash, _dashCoolTime, null);
             }
-            // 쿨타임을 위한 계산
-            else if (IsCoolTime)
-            {
-                _coolTime += Time.fixedDeltaTime;
-
-                if(_coolTime >= _dashCoolTime)
-                {
-                    IsCoolTime = false;
-                    _coolTime = 0f;
-                }
-
-            }
-
-
         }    
     }
-
-    //public bool CanUseDash(int dashStamina)
-    //{
-    //    return _stamina >= dashStamina;
-    //}
-
-    ///// 대쉬시 - 10;
-    //public void UseDash(int dashStamina)
-    //{
-    //    if (_stamina == 0) return;
-    //    _stamina = Mathf.Max(_stamina - dashStamina, 0);
-
-    //    //Debug.Log("스태미너" + _stamina);
-    //}
 
     public void Dash(float dashForce)
     {
@@ -103,22 +80,15 @@ public class DashForceReceiver : MonoBehaviour
             
             dashPower += dashDirection * dashForce;
 
-            //* -Mathf.Log(1 / Player.Rigidbody.drag)
-
-            //_player.Rigidbody.velocity += dashPower;
-
             _player.Rigidbody.AddForce(dashPower, ForceMode.VelocityChange);
             yield return new WaitForSeconds(0.01f);
         }
         
         yield return null;
     }
-
-    IEnumerator CoolDown()
+    
+    private void HandleCoolTimeFinish()
     {
-        IsCoolTime = true;
-        yield return new WaitForSeconds(_dashCoolTime);
         IsCoolTime = false;
     }
-
 }

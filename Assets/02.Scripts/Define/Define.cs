@@ -103,3 +103,13 @@ public struct AnimationParameterName
     public const string BossHit = "Hit";
 }
 
+public struct CoolTimeObjName
+{
+    public const string Dash = "Dash";
+    public const string ThrowSkill = "ThrowSkill";
+    public const string SpreadSkill = "SpreadSkill";
+    public const string HealthPotion = "HealthPotion";
+    public const string StaminaPotion = "StaminaPotion";
+
+}
+

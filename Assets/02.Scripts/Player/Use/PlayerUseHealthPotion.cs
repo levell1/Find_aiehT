@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PlayerUseHealthPotion : PlayerUseBase
 {
+    protected override void Start()
+    {
+        base.Start();
+        _coolTimeManager.AddCoolTimeEvent(CoolTimeObjName.HealthPotion, HandleCoolTimeFinish);
+    }
+
     public override void UsePotion()
     {
         if (_player.HealthSystem.Health >= _player.HealthSystem.MaxHealth)
@@ -12,6 +18,11 @@ public class PlayerUseHealthPotion : PlayerUseBase
         }
 
         base.UsePotion();
+    }
+    protected override void StartCoolTime()
+    {
+        base.StartCoolTime();
+        _coolTimeManager.StartCoolTimeCoroutine(CoolTimeObjName.HealthPotion, CoolTime, _coolTimeImage);
     }
     protected override void Healing()
     {
@@ -28,4 +39,10 @@ public class PlayerUseHealthPotion : PlayerUseBase
         }
 
     }
+    protected override void HandleCoolTimeFinish()
+    {
+        _isCoolTime = false;
+    }
+
+
 }
