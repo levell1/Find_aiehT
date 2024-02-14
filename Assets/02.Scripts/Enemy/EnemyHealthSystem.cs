@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class EnemyHealthSystem : MonoBehaviour
 {
+    public GameObject TakeDamageText;
+    public GameObject TakeDamageText2;
+
     private Enemy _enemy;
     private EnemySO _enemySO;
     public float MaxHealth;
@@ -15,7 +18,7 @@ public class EnemyHealthSystem : MonoBehaviour
     public TextMeshProUGUI EnemyName;
     public bool Hit;
     public int HitCool;
-
+    public float DamageAmount;
     public event Action OnDie;
     public static event Action<int> OnQuestTargetDie;
 
@@ -62,6 +65,20 @@ public class EnemyHealthSystem : MonoBehaviour
     {
         Hit = true;
         if (Health == 0) return;
+
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+            _coroutine = null;
+        }
+
+        DamageAmount = damage;
+        if (TakeDamageText.activeSelf)
+        {
+            TakeDamageText2.SetActive(true);
+        }
+        TakeDamageText.SetActive(true);
+
         Health = Mathf.Max(Health - damage, 0);
 
         _enemy._stateMachine.ChangeState(_enemy._stateMachine.ChasingState);
@@ -80,4 +97,5 @@ public class EnemyHealthSystem : MonoBehaviour
         Hit = false;
         _coroutine = null;
     }
+
 }

@@ -51,13 +51,11 @@ public class CustomerController : MonoBehaviour
         set { _agent.avoidancePriority = value; }
     }
 
-    private Coroutine _co;
-
     #endregion
 
     #region Event
 
-    public event Action<GameObject> OnCreateFood;
+    public event Action<FoodSO> OnCreateFood;
     public event Action OnCustomerExit;
     public event Action OnSelectFood;
 
@@ -88,7 +86,6 @@ public class CustomerController : MonoBehaviour
 
     private void Update()
     {
-        //if (_agent.remainingDistance <= _agent.stoppingDistance)
         if (!_agent.hasPath)
         {
             if (!_isOrderFood)
@@ -104,7 +101,7 @@ public class CustomerController : MonoBehaviour
                 _collider.enabled = false;
                 _agent.isStopped = true;
             }
-            
+
             _waitTime -= Time.deltaTime;
             _orderFoodCanvas.BalloonBack.fillAmount = _waitTime / _tycoonManager.CustomerWaitTime;
             if (_waitTime <= 0)
@@ -161,7 +158,7 @@ public class CustomerController : MonoBehaviour
     private void Init()
     {
         _animator.SetBool(AnimationParameterName.TycoonIsWalk, true);
-        
+
         _isOrderFood = false;
 
         transform.rotation = Quaternion.identity;
@@ -181,13 +178,13 @@ public class CustomerController : MonoBehaviour
         _orderFoodCanvas.SelectFood.sprite = menu[targetFoodNum].FoodSO.FoodSprite;
         _orderFoodCanvas.ActiveUI();
 
-        OnCreateFood?.Invoke(menu[targetFoodNum].FoodSO.CookedFoodObject);
+        OnCreateFood?.Invoke(menu[targetFoodNum].FoodSO);
         OnSelectFood?.Invoke();
 
         _tycoonManager.CookingUI.StartCooking(menu[targetFoodNum].FoodSO);
 
         --_tycoonManager.TodayFoods[targetFoodNum].FoodCount;
-        if(_tycoonManager.TodayFoods[targetFoodNum].FoodCount == 0)
+        if (_tycoonManager.TodayFoods[targetFoodNum].FoodCount == 0)
             _tycoonManager.TodayFoods.Remove(menu[targetFoodNum]);
     }
 
@@ -207,26 +204,22 @@ public class CustomerController : MonoBehaviour
 
     private void GetFood()
     {
-        if (_co == null)
-        {
-            _orderFoodCanvas.InactiveUI();
-            _animator.SetTrigger(AnimationParameterName.TycoonGetFood);
+        _orderFoodCanvas.InactiveUI();
+        _animator.SetTrigger(AnimationParameterName.TycoonGetFood);
 
-            GetComponentInChildren<CustomerEffect>().PlayGetCoinEffect();
+        GetComponentInChildren<CustomerEffect>().PlayGetCoinEffect();
 
-            _co = StartCoroutine(EatFood());
-        }
+        StartCoroutine(EatFood());
     }
 
     private void NoReceivedFood()
     {
-        if (_co == null)
-        {
-            _orderFoodCanvas.InactiveUI();
-            _animator.SetTrigger(AnimationParameterName.TycoonAngry);
-            _co = StartCoroutine(ExitRestaurant());
-            ++_tycoonManager.AngryCustomerNum;
-        }
+        _orderFoodCanvas.InactiveUI();
+        _animator.SetTrigger(AnimationParameterName.TycoonAngry);
+
+        ++_tycoonManager.AngryCustomerNum;
+
+        StartCoroutine(ExitRestaurant());
     }
 
     #endregion
@@ -248,7 +241,7 @@ public class CustomerController : MonoBehaviour
         _targetFoodPlace.OnCustomerGetFood -= GetFood;
 
         yield return new WaitForSeconds(5f);
-        
+
         _agent.SetDestination(_tycoonManager.CustomerCreatePos.position);
         _animator.SetBool(AnimationParameterName.TycoonIsWalk, true);
 
@@ -263,8 +256,6 @@ public class CustomerController : MonoBehaviour
         _waitTime = _tycoonManager.CustomerWaitTime;
 
         _foodCreater.UnsubscribeCreateFoodEvent(this);
-
-        _co = null;
     }
     #endregion
 }
