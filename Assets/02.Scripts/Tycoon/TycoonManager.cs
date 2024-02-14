@@ -26,7 +26,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     [SerializeField] private float _customerSpawnTime;
     [SerializeField] public float CustomerWaitTime;
 
-    [SerializeField] private int _maxCustomerNum = 4;
+    [SerializeField] private int _maxCustomerNum;
     [SerializeField] private int _currentCustomerNum;   //TODO: SerializeField 제거
     [SerializeField] private int _todayMaxCustomerNum;
     public int AngryCustomerNum = 0;

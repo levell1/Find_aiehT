@@ -48,6 +48,7 @@ public class ServingFood : MonoBehaviour
 
         _holdingFood.transform.position = _handTransform.position;
         _holdingFood.transform.SetParent(_handTransform);
+        _holdingFood.GetComponent<Collider>().enabled = false;
     }
 
     private void PutdownFood()
@@ -56,8 +57,24 @@ public class ServingFood : MonoBehaviour
         FoodPlace foodPlace = null;
 
         // TODO
-        foreach (GameObject station in TycoonManager.Instance.ServingStations)
+        //foreach (GameObject station in TycoonManager.Instance.ServingStations)
+        //{
+        //    FoodPlace stationFood = station.GetComponent<FoodPlace>();
+
+        //    if (stationFood.CurrentFood == null)
+        //    {
+        //        float d = Vector3.Distance(_handTransform.position, station.transform.position);
+        //        if (d < minDistance)
+        //        {
+        //            minDistance = d;
+        //            foodPlace = stationFood;
+        //        }
+        //    }
+        //}
+
+        for (int i = 0; i < TycoonManager.Instance.ServingStations.Count; ++i)
         {
+            GameObject station = TycoonManager.Instance.ServingStations[i];
             FoodPlace stationFood = station.GetComponent<FoodPlace>();
 
             if (stationFood.CurrentFood == null)
@@ -74,6 +91,7 @@ public class ServingFood : MonoBehaviour
         if (foodPlace != null)
         {
             // TODO: Rotation 고정?
+            _holdingFood.GetComponent<Collider>().enabled = true;
             _holdingFood.transform.SetParent(foodPlace.transform);
             _holdingFood.transform.localPosition = Vector3.zero;
             
@@ -86,7 +104,7 @@ public class ServingFood : MonoBehaviour
     {
         // TODO: Player Clean Anim, Player position 고정
         int lastIndex = _canCleaningFoods.Count - 1;
-        StartCoroutine(CleanFood(_canCleaningFoods[lastIndex], lastIndex));
+        StartCoroutine(CleanFood(_canCleaningFoods[lastIndex]));
     }
 
     private void ThrowAwayFood()
@@ -98,13 +116,20 @@ public class ServingFood : MonoBehaviour
     {
         if (other.gameObject.CompareTag(TagName.CookedFood))
         {
-            if (other.gameObject.GetComponent<CookedFood>().ShouldClean)
+            CookedFood cookedFood = other.gameObject.GetComponent<CookedFood>();
+            if (cookedFood != null)
             {
-                _canCleaningFoods.Add(other.gameObject);
-            }
-            else if(other.gameObject.GetComponent<CookedFood>().CanHold)
-            {
-                _canHoldFood = other.gameObject;
+                if (cookedFood.ShouldClean)
+                {
+                    if (!_canCleaningFoods.Contains(other.gameObject))
+                    {
+                        _canCleaningFoods.Add(other.gameObject);
+                    }
+                }
+                else if (cookedFood.CanHold && _holdingFood == null)
+                {
+                    _canHoldFood = other.gameObject;
+                }
             }
         }
     }
@@ -113,31 +138,35 @@ public class ServingFood : MonoBehaviour
     {
         if (other.gameObject.CompareTag(TagName.CookedFood))
         {
-            if (other.gameObject.GetComponent<CookedFood>().ShouldClean)
+            CookedFood cookedFood = other.gameObject.GetComponent<CookedFood>();
+            if (cookedFood != null)
             {
-                //if (_canCleaningFoods.Find(obj => other.gameObject) == other.gameObject)
+                if (cookedFood.ShouldClean)
                 {
-                    _canCleaningFoods.Remove(other.gameObject);
+                    if (_canCleaningFoods.Contains(other.gameObject))
+                    {
+                        _canCleaningFoods.Remove(other.gameObject);
+                    }
                 }
-            }
-            else if (_canHoldFood == other.gameObject)
-            {
-                _canHoldFood = null;
+                else if (_canHoldFood == other.gameObject)
+                {
+                    _canHoldFood = null;
+                }
             }
         }
     }
 
     #region Coroutine
 
-    IEnumerator CleanFood(GameObject food, int index)
+    IEnumerator CleanFood(GameObject food)
     {
-        _canCleaningFoods.RemoveAt(index);
-
-        yield return _waitCleaningTime;
-
+        _canCleaningFoods.Remove(food);
         food.GetComponent<CookedFood>().CurrentFoodPlace = null;
 
         Destroy(food);
+
+        yield break;
+        //yield return _waitCleaningTime;
     }
 
     #endregion
