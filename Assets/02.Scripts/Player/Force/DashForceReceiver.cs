@@ -108,10 +108,9 @@ public class DashForceReceiver : MonoBehaviour
             //_player.Rigidbody.velocity += dashPower;
 
             _player.Rigidbody.AddForce(dashPower, ForceMode.VelocityChange);
-
             yield return new WaitForSeconds(0.01f);
         }
-
+        
         yield return null;
     }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyRespawn : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class EnemyRespawn : MonoBehaviour
     {
         _enemy = GetComponent<Enemy>();
         _enemySpawnPoint = transform.position;
+        if (SceneManager.GetActiveScene().name=="KJW")
+        {
+            RespawnDelay = 100;
+        }
     }
 
     private void Update()

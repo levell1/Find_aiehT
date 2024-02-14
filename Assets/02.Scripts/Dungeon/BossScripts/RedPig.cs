@@ -10,10 +10,10 @@ public class RedPig : Tree
     private Transform _pigTransform;
     private NavMeshAgent _navMeshAgent;
     private SkinnedMeshRenderer[] _meshRenderers;
-    private float _runDamage; 
+    readonly private float _runDamage= 10f;
+    readonly private float _waitTime = 5f;
     private void Awake()
     {
-        _runDamage = 10;
         _meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         _playerTransform = GameManager.Instance.Player.transform;
         _navMeshAgent =GetComponent<NavMeshAgent>();
@@ -48,7 +48,7 @@ public class RedPig : Tree
                     new RunAwayNode(_pigTransform,_navMeshAgent),
                 }
             ),
-            new GoToPlayerNode(_playerTransform, _pigTransform, _navMeshAgent), 
+            new GoToPlayerNode(_playerTransform, _pigTransform, _navMeshAgent,_waitTime), 
         });
         return root;
     }
