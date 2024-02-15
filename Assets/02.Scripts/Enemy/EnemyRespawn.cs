@@ -14,9 +14,9 @@ public class EnemyRespawn : MonoBehaviour
     {
         _enemy = GetComponent<Enemy>();
         _enemySpawnPoint = transform.position;
-        if (SceneManager.GetActiveScene().name=="KJW")
+        if (SceneManager.GetActiveScene().name==SceneName.DungeonScene)
         {
-            RespawnDelay = 100;
+            RespawnDelay = 1000;
         }
     }
 

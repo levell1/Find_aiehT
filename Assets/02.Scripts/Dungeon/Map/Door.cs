@@ -8,49 +8,37 @@ using UnityEngine.UI;
 public class Door : MonoBehaviour
 {
     public Vector3 NextRoomPosition;
-    [SerializeField] private Image _fadeImage;
-    [SerializeField] private EnemyHealthSystem[] enemyHealthSystems; 
-
-    private BoxCollider _boxCollider;
+    [SerializeField] private GameObject _nextRoom;
+    [SerializeField] private DungeonManager _dunheonManager ;
+    private BoxCollider BoxCollider;
+    private MeshRenderer Renderer;
     private void Awake()
     {
-        _boxCollider =GetComponent<BoxCollider>();
+        _dunheonManager= FindAnyObjectByType<DungeonManager>();
+        Renderer = GetComponent<MeshRenderer>();
+        BoxCollider =GetComponent<BoxCollider>();
+        BoxCollider.enabled = false;
     }
     void Start()
     {
-        var dir = transform.forward * 10f;
-        NextRoomPosition = transform.position + dir;
-        _boxCollider.enabled = false;
+        var dir = transform.forward * 15f;
+        NextRoomPosition = transform.position + dir + Vector3.up;
+        
     }
     private void Update()
     {
-        if (_boxCollider.enabled == false)
-        {
-            foreach (var enemy in enemyHealthSystems)
-            {
-                if (enemy.IsDead == false)
-                {
-                    break ;
-                }
-                _boxCollider.enabled = true;
-            }
-        }        
+
     }
 
-    public void FadeImage() 
+    private void OnTriggerEnter(Collider other)
     {
-        StartCoroutine(GoNextRoomFade());
+        _dunheonManager.GoNextRoom(NextRoomPosition);
     }
-    private IEnumerator GoNextRoomFade()
+
+    public void DoorColliderActive() 
     {
-        _fadeImage.gameObject.SetActive(true);
-        Tween tween = _fadeImage.DOFade(1.0f, 2f);
-
-        yield return tween.WaitForCompletion();
-
-        tween = _fadeImage.DOFade(0.0f, 2f);
-        yield return tween.WaitForCompletion();
-
-        _fadeImage.gameObject.SetActive(false);
+        BoxCollider.enabled=true;
+        Renderer.enabled=false;
     }
+
 }

@@ -16,7 +16,7 @@ public class CommaText : MonoBehaviour
     }
     private string GetComma(int data)
     {
-        return string.Format("{0:#,###}", data); 
+        return string.Format("{0:#,##0}", data); 
     }
     
 }

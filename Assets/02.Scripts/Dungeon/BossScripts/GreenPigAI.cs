@@ -9,24 +9,25 @@ public class GreenPigAI : Tree
     private Transform _pigTransform;
     private NavMeshAgent _navMeshAgent;
     private LevitateObject _levitateObject;
-    private SkinnedMeshRenderer[] meshRenderers;
+    private SkinnedMeshRenderer[] _meshRenderers;
 
     private void Awake()
     {
-        meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+        
         _playerTransform = GameManager.Instance.Player.transform;
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _pigTransform = gameObject.transform;
         _levitateObject = GetComponentInChildren<LevitateObject>();
-
         _levitateObject.gameObject.SetActive(false);
+
+        _meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
 
-        for (int x = 0; x < meshRenderers.Length; x++)
+        for (int x = 0; x < _meshRenderers.Length; x++)
         {
-            meshRenderers[x].GetPropertyBlock(propBlock);
+            _meshRenderers[x].GetPropertyBlock(propBlock);
             propBlock.SetColor("_Color", new Color(0.6f, 1f, 0.6f));
-            meshRenderers[x].SetPropertyBlock(propBlock);
+            _meshRenderers[x].SetPropertyBlock(propBlock);
         }
 
     }

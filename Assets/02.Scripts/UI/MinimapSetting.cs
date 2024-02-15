@@ -30,7 +30,7 @@ public class MinimapSetting : MonoBehaviour
         {
             ChangeMapName("사냥터");
         }
-        else if (scene.name == "Doungeon")
+        else if (scene.name == SceneName.DungeonScene)
         {
             ChangeMapName("던전");
         }
