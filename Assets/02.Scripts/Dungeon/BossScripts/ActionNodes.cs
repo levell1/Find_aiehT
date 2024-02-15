@@ -301,6 +301,7 @@ public class DashToPlayer : Node
         {
             
             _dashPosition = _playerTransform.position + ((_playerTransform.position - _pigTransform.position).normalized * i * 10);
+            _dashPosition.y = 0;
             NavMeshHit hit;
             if (NavMesh.SamplePosition(_dashPosition, out hit, 1f, NavMesh.AllAreas))
             {

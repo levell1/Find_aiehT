@@ -69,11 +69,9 @@ public class BossHealthSystem : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         for (int i = 0; i < meshRenderers.Length; i++)
         {
-             meshRenderers[i].GetPropertyBlock(propBlock);
+            meshRenderers[i].GetPropertyBlock(propBlock);
             propBlock.SetColor("_Color", new Color(0.6f, 1f, 0.6f));
             meshRenderers[i].SetPropertyBlock(propBlock);
         }
-
     }
-
 }

@@ -12,6 +12,7 @@ public class PlayerGold : CommaText
     }
     protected override void Update()
     {
+        //update X 골드 변경시
         _Value = _playerData.PlayerData.GetPlayerGold();
         base.Update();
     }

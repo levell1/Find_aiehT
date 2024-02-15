@@ -4,15 +4,55 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private DungeonManager _dungeonManager;
+    private List<GameObject> _monsters = new List<GameObject>();
+    private int _monsterCount = 0;
+    [SerializeField] private Door[] _doors;
+
+    private void Awake()
     {
-        
+        _dungeonManager = FindAnyObjectByType<DungeonManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        if (gameObject.name == "EndRoom")
+        {
+            _monsterCount = 0;
+            _doors[0].DoorColliderActive();
+
+        }
+        else
+        {
+            _monsterCount = Random.Range(2, 5);
+        }
+
+        for (int i = 0; i < _monsterCount; i++)
+        {
+            int ran = Random.Range(0, 360);
+            float x = Mathf.Cos(ran * Mathf.Deg2Rad) * 5f;
+            float z = Mathf.Sin(ran * Mathf.Deg2Rad) * 5f;
+            Vector3 pos = transform.position + new Vector3(x, 0, z);
+            _monsters.Add(_dungeonManager.MonsterRandomSpawn(pos, transform));
+            _monsters[i].GetComponent<EnemyHealthSystem>().OnDie += MonsterCheck;
+        }
+    }
+    private void MonsterCheck() 
+    {
+        _monsterCount --;
+        if (_monsterCount<=0)
+        {
+            for (int i = 0; i < _doors.Length; i++)
+            {
+                _doors[i].DoorColliderActive();
+            }
+        }
+    }
+    private void OnDisable()
+    {
+        for (int i = 0; i < _monsterCount; i++)
+        {
+            _monsters[i].GetComponent<EnemyHealthSystem>().OnDie -= MonsterCheck;
+        }
     }
 }

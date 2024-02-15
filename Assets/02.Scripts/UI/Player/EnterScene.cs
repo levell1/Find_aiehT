@@ -52,6 +52,10 @@ public class EnterScene : MonoBehaviour
         {
             AreaInfo = "마을";
         }
+        else if (scene.name == SceneName.DungeonScene)
+        {
+            AreaInfo = "던전";
+        }
         AreaText.text = AreaInfo;
         gameObject.SetActive(true);
     }
