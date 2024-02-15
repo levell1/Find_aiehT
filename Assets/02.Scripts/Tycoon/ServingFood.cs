@@ -65,22 +65,6 @@ public class ServingFood : MonoBehaviour
         float minDistance = _minDistanceToPutFood;
         FoodPlace foodPlace = null;
 
-        // TODO
-        //foreach (GameObject station in TycoonManager.Instance.ServingStations)
-        //{
-        //    FoodPlace stationFood = station.GetComponent<FoodPlace>();
-
-        //    if (stationFood.CurrentFood == null)
-        //    {
-        //        float d = Vector3.Distance(_handTransform.position, station.transform.position);
-        //        if (d < minDistance)
-        //        {
-        //            minDistance = d;
-        //            foodPlace = stationFood;
-        //        }
-        //    }
-        //}
-
         for (int i = 0; i < TycoonManager.Instance.ServingStations.Count; ++i)
         {
             GameObject station = TycoonManager.Instance.ServingStations[i];
