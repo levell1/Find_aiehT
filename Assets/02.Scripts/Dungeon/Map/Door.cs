@@ -25,10 +25,6 @@ public class Door : MonoBehaviour
         NextRoomPosition = transform.position + dir + Vector3.up;
         
     }
-    private void Update()
-    {
-
-    }
 
     private void OnTriggerEnter(Collider other)
     {
