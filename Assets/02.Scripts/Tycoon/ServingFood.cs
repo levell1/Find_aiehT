@@ -97,7 +97,13 @@ public class ServingFood : MonoBehaviour
     {
         // TODO: Player Clean Anim, Player position 고정
         int lastIndex = _canCleaningFoods.Count - 1;
-        StartCoroutine(CleanFood(_canCleaningFoods[lastIndex]));
+
+        //StartCoroutine(CleanFood(_canCleaningFoods[lastIndex]));
+
+        GameObject food = _canCleaningFoods[lastIndex];
+        food.GetComponent<CookedFood>().CurrentFoodPlace = null;
+        _canCleaningFoods.Remove(food);
+        Destroy(food);
     }
 
     private void ThrowAwayFood()
@@ -153,8 +159,8 @@ public class ServingFood : MonoBehaviour
 
     IEnumerator CleanFood(GameObject food)
     {
-        _canCleaningFoods.Remove(food);
         food.GetComponent<CookedFood>().CurrentFoodPlace = null;
+        _canCleaningFoods.Remove(food);
 
         Destroy(food);
 

@@ -10,11 +10,6 @@ public class CookedFood : MonoBehaviour
 
     private CapsuleCollider _collider;
 
-    public string FoodName
-    {
-        get { return _foodName; }
-    }
-
     private bool _canHold;
     public bool CanHold {
         get { return _canHold; }
