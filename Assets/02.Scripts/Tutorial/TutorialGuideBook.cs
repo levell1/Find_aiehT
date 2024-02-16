@@ -40,19 +40,21 @@ public class TutorialGuideBook : MonoBehaviour
         GameManager.Instance.CameraManager.DontMoveCam();
     }
 
-    //private void OnDisable()
-    //{
-    //    CancelInvoke("CursorTimeLock");
-    //}
-
-    private void CursorTimeLock()
+    private void OnDisable()
     {
-        //Time.timeScale = 0.01f;
-        //Cursor.lockState = CursorLockMode.None;
+        //CancelInvoke("CursorTimeLock");
 
-        GameManager.Instance.CameraManager.SaveCamSpeed();
-        GameManager.Instance.CameraManager.DontMoveCam();
+        GameManager.Instance.CameraManager.ReturnCamSpeed();
     }
+
+    //private void CursorTimeLock()
+    //{
+    //    //Time.timeScale = 0.01f;
+    //    //Cursor.lockState = CursorLockMode.None;
+
+    //    GameManager.Instance.CameraManager.SaveCamSpeed();
+    //    GameManager.Instance.CameraManager.DontMoveCam();
+    //}
 
     private void PreviewImage()
     {
@@ -87,8 +89,6 @@ public class TutorialGuideBook : MonoBehaviour
     {
         //Time.timeScale = 1f;
         //Cursor.lockState = CursorLockMode.Locked;
-
-        GameManager.Instance.CameraManager.ReturnCamSpeed();
 
         gameObject.SetActive(false);
     }

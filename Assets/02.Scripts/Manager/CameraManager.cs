@@ -29,7 +29,9 @@ public class CameraManager : MonoBehaviour
         //Time.timeScale = 0.01f;
 
         Invoke("CursorTimeLock", 0.2f); //
-        CinemachineCollider.enabled = false; //
+
+        VirtualCamera.enabled = false; //
+        //CinemachineCollider.enabled = false; //
     }
 
     public void ReturnCamSpeed()
@@ -45,8 +47,8 @@ public class CameraManager : MonoBehaviour
         VirtualcameraPov.m_HorizontalAxis.m_MaxSpeed = CamaraSpeed;
         Cursor.lockState = CursorLockMode.Locked;
 
-        CinemachineCollider.enabled = true; //
-
+        VirtualCamera.enabled = true; //
+        //CinemachineCollider.enabled = true; //
     }
 
     public void TycoonCamSetting()
