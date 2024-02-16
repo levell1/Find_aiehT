@@ -27,21 +27,40 @@ public class HealthSystem : MonoBehaviour
 
     public bool IsDead => Health == 0;
 
+    private GameStateManager _gameStateManager;
     private void Awake()
     {
         _equipmentDatas = GetComponent<EquipmentDatas>();
         _playerData = GetComponent<Player>().Data;
+        _gameStateManager = GameManager.Instance.GameStateManager;
     }
     private void Start()
     {
         SetMaxHealth();
+        SetCurHealth();
     }
+
 
     public void SetMaxHealth() 
     {
-        MaxHealth = _playerData.PlayerData.GetPlayerMaxHealth()+ _equipmentDatas.SumHealth;
-        Health = MaxHealth;
-        OnChangeHpUI?.Invoke(Health, MaxHealth);
+        MaxHealth = _playerData.PlayerData.GetPlayerMaxHealth() + _equipmentDatas.SumHealth;
+    }
+
+    // 로드게임 => Health = 저장된 체력
+    // 새 게임 => Health = MaxHealth
+    // 새게임인지 이어하기인지 알수있는 방법
+    public void SetCurHealth()
+    {
+        if(_gameStateManager.CurrentGameState == GameState.NEWGAME)
+        {
+            Health = MaxHealth;
+            OnChangeHpUI?.Invoke(Health, MaxHealth);
+        }
+        else if (_gameStateManager.CurrentGameState == GameState.LOADGAME)
+        {
+            Health = GameManager.Instance.SaveDataManger.SaveHealth;
+            OnChangeHpUI?.Invoke(Health, MaxHealth);
+        }
     }
 
     private float CaculateTotalDamage(float damage)

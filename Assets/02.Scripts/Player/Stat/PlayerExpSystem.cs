@@ -8,7 +8,7 @@ public class PlayerExpSystem : MonoBehaviour
 {
     private PlayerSO _playerData;
 
-    private int _playerLevel; // 현재 플레이어 레벨
+    public int PlayerLevel; // 현재 플레이어 레벨
     public int MaxExp; // 전체 경험치
     private int _playerExp; // 플레이어 경험치
 
@@ -23,9 +23,9 @@ public class PlayerExpSystem : MonoBehaviour
         _healthSystem = gameObject.GetComponent<HealthSystem>();
         _staminaSystem = gameObject.GetComponent<StaminaSystem>();
         _playerData = GetComponent<Player>().Data;
-        _playerLevel = _playerData.PlayerData.GetPlayerLevel();
-        MaxExp = _playerData.PlayerLevelData.GetLevelData(_playerLevel - 1).GetExp();
-        OnLevelUp?.Invoke(_playerLevel);
+        PlayerLevel = _playerData.PlayerData.GetPlayerLevel();
+        MaxExp = _playerData.PlayerLevelData.GetLevelData(PlayerLevel - 1).GetExp();
+        OnLevelUp?.Invoke(PlayerLevel);
         OnChangeExpUI?.Invoke(_playerExp, MaxExp);
         _playerExp = _playerData.PlayerData.GetPlayerExp();
 
@@ -50,17 +50,17 @@ public class PlayerExpSystem : MonoBehaviour
     {
         _playerExp -= MaxExp;
 
-        _playerLevel++;
+        PlayerLevel++;
 
-        _playerData.PlayerData.SetPlayerLevel(_playerLevel);
+        _playerData.PlayerData.SetPlayerLevel(PlayerLevel);
         _playerData.PlayerData.SetPlayerExp(_playerExp);
 
-        _playerData.PlayerLevelData.ApplyNextLevelData(_playerData.PlayerData, _playerLevel);
-        MaxExp = _playerData.PlayerLevelData.GetLevelData(_playerLevel - 1).GetExp();
+        _playerData.PlayerLevelData.ApplyNextLevelData(_playerData.PlayerData, PlayerLevel);
+        MaxExp = _playerData.PlayerLevelData.GetLevelData(PlayerLevel - 1).GetExp();
 
         _healthSystem.SetMaxHealth();
         _staminaSystem.SetMaxStamina();
-        OnLevelUp?.Invoke(_playerLevel);
+        OnLevelUp?.Invoke(PlayerLevel);
         OnChangeExpUI?.Invoke(_playerExp, MaxExp);
 
         GameManager.Instance.EffectManager.PlayLevelUpEffect();

@@ -14,6 +14,10 @@ public class GameManager : MonoSingleton<GameManager>
     private QuestManager _questManager= new QuestManager();
     private EffectManager _effectManager = new EffectManager();
     private CoolTimeManager _coolTimeManager = new CoolTimeManager();
+    private JsonReader _jsonReaderManager = new JsonReader();
+    private SaveDataManager _saveDataManager = new SaveDataManager();
+    private LoadDataManager _loadDataManager = new LoadDataManager();
+    private GameStateManager _gameStateManager = new GameStateManager();
 
     private Inventory _inventory;
 
@@ -28,6 +32,10 @@ public class GameManager : MonoSingleton<GameManager>
     public QuestManager QuestManager { get { return Instance._questManager; } }
     public EffectManager EffectManager { get { return Instance._effectManager; } }
     public CoolTimeManager CoolTimeManger { get { return Instance._coolTimeManager; } }
+    public JsonReader JsonReaderManager { get { return Instance._jsonReaderManager; } }
+    public SaveDataManager SaveDataManger { get { return Instance._saveDataManager; } }
+    public LoadDataManager LoadDataManager { get { return Instance._loadDataManager; } }
+    public GameStateManager GameStateManager { get { return Instance._gameStateManager; } } 
 
     public Inventory Inventory { get { return Instance._inventory; } }
 
@@ -45,6 +53,10 @@ public class GameManager : MonoSingleton<GameManager>
         _questManager = FindObjectOfType<QuestManager>();
         _effectManager = FindObjectOfType<EffectManager>();
         _coolTimeManager = FindObjectOfType<CoolTimeManager>();
+        _jsonReaderManager = FindObjectOfType<JsonReader>();
+        _saveDataManager = FindObjectOfType<SaveDataManager>();
+        _loadDataManager = FindObjectOfType<LoadDataManager>();
+        _gameStateManager = FindObjectOfType<GameStateManager>();
     }
 
     private void Start()

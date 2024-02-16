@@ -12,8 +12,10 @@ public class EquipmentDatas : MonoBehaviour
     private void Awake()
     {
         _healthSystem = GetComponent<HealthSystem>();
+        Init();
     }
-    private void Start()
+
+    private void Init()
     {
         for (int i = 0; i < 6; i++)
         {
@@ -22,8 +24,8 @@ public class EquipmentDatas : MonoBehaviour
             SetEquipCurrent(i);
         }
         SumEquipStat();
-        _healthSystem.SetMaxHealth();
     }
+
     public void EquipLevelUp(int i) 
     {
         EquipData[i].Level++;

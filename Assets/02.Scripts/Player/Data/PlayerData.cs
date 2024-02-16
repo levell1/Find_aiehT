@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 [Serializable]
 public class PlayerData
@@ -31,7 +32,7 @@ public class PlayerData
     public void SetPlayerGold(int value) { PlayerGold = value; }
 
 }
-
+  
 [Serializable]
 public class PlayerJsonData
 {
