@@ -10,9 +10,9 @@ public class ReforgeUI : BaseUI
     [SerializeField] GameObject _selectUI;
     [SerializeField] GameObject _resultUI;
 
-    [SerializeField] Button[] _selectButton= new Button[6];
+    [SerializeField] Button[] _selectButton = new Button[6];
     [SerializeField] Image[] _equipimagelist = new Image[6];
-    [SerializeField] TMP_Text[] _equiptext= new TMP_Text[6];
+    [SerializeField] TMP_Text[] _equiptext = new TMP_Text[6];
 
     [SerializeField] private EquipmentDatas _equipmentupgrade;
     [SerializeField] private PlayerSO _playerData;
@@ -25,16 +25,9 @@ public class ReforgeUI : BaseUI
 
     private void Awake()
     {
-        if (_equipmentupgrade == null)
-        {
-            _equipmentupgrade = GameObject.FindWithTag(TagName.Player).GetComponent<EquipmentDatas>();
-        }
-        if (_playerData == null)
-        {
-            _playerData = GameObject.FindWithTag(TagName.Player).GetComponent<Player>().Data;
-        }
+        _equipmentupgrade = GameManager.Instance.Player.GetComponent<EquipmentDatas>();
+        _playerData = GameManager.Instance.Player.GetComponent<Player>().Data;
     }
-
     private void OnEnable()
     {
         SetImageName();
