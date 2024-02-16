@@ -1,4 +1,10 @@
 
+using System.Drawing;
+
+public struct EnemyColor 
+{
+    //public const Color 
+}
 public struct UIName
 {
     public const string ControlKeyUI = "ControlKeyUI";
@@ -12,6 +18,7 @@ public struct UIName
     public const string ShopUI = "ShopUI";
     public const string InventoryUI = "InventoryUI";
     public const string QuestUI = "QuestUI";
+    public const string DungeontUI = "GoDungeonUI";
 }
 
 public struct SceneName
@@ -39,6 +46,7 @@ public struct TagName
     public const string RealDoor = "RealDoor";
     public const string QuestNPC = "QuestNPC";
     public const string DungeonDoor = "DungeonDoor";
+    public const string DungeonNPC = "DungeonNPC";
     public const string Wall = "Wall";
 }
 

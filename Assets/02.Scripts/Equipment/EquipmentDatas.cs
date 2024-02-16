@@ -12,9 +12,6 @@ public class EquipmentDatas : MonoBehaviour
     private void Awake()
     {
         _healthSystem = GetComponent<HealthSystem>();
-    }
-    private void Start()
-    {
         for (int i = 0; i < 6; i++)
         {
             //데이터 불러와서 level에 저장
@@ -22,8 +19,8 @@ public class EquipmentDatas : MonoBehaviour
             SetEquipCurrent(i);
         }
         SumEquipStat();
-        _healthSystem.SetMaxHealth();
     }
+
     public void EquipLevelUp(int i) 
     {
         EquipData[i].Level++;
