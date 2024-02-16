@@ -20,6 +20,7 @@ public class CustomerController : MonoBehaviour
     private const float _agentBaseOffset = 0.57f;
     private bool _isExit = false;
     private bool _isSit = false;
+    private bool _isGetFood = false;
 
     private List<GameObject> _collidingAIs = new();
 
@@ -101,7 +102,7 @@ public class CustomerController : MonoBehaviour
                 _collider.enabled = false;
                 _agent.isStopped = true;    // ?
             }
-            else
+            else if(!_isGetFood)
             {
                 _waitTime -= Time.deltaTime;
                 if (_waitTime <= 0)
@@ -165,6 +166,7 @@ public class CustomerController : MonoBehaviour
         _animator.SetBool(AnimationParameterName.TycoonIsWalk, true);
 
         _isSit = false;
+        _isGetFood = false;
 
         transform.rotation = Quaternion.identity;
         _animator.gameObject.transform.localPosition = Vector3.zero;
@@ -209,6 +211,8 @@ public class CustomerController : MonoBehaviour
 
     private void GetFood()
     {
+        _isGetFood = true;
+
         _orderFoodCanvas.InactiveUI();
         _animator.SetTrigger(AnimationParameterName.TycoonGetFood);
 
@@ -233,6 +237,7 @@ public class CustomerController : MonoBehaviour
 
     IEnumerator EatFood()
     {
+
         _animator.SetBool(AnimationParameterName.TycoonIsEat, true);
         yield return new WaitForSeconds(10f);
         _animator.SetBool(AnimationParameterName.TycoonIsEat, false);
