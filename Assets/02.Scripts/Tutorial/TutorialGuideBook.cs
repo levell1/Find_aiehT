@@ -34,18 +34,24 @@ public class TutorialGuideBook : MonoBehaviour
 
     private void OnEnable()
     {
-        Invoke("CursorTimeLock", 1f);
+        //Invoke("CursorTimeLock", 1f);
+
+        GameManager.Instance.CameraManager.SaveCamSpeed();
+        GameManager.Instance.CameraManager.DontMoveCam();
     }
 
-    private void OnDisable()
-    {
-        CancelInvoke("CursorTimeLock");
-    }
+    //private void OnDisable()
+    //{
+    //    CancelInvoke("CursorTimeLock");
+    //}
 
     private void CursorTimeLock()
     {
-        Time.timeScale = 0.01f;
-        Cursor.lockState = CursorLockMode.None;
+        //Time.timeScale = 0.01f;
+        //Cursor.lockState = CursorLockMode.None;
+
+        GameManager.Instance.CameraManager.SaveCamSpeed();
+        GameManager.Instance.CameraManager.DontMoveCam();
     }
 
     private void PreviewImage()
@@ -79,8 +85,11 @@ public class TutorialGuideBook : MonoBehaviour
 
     private void ExitButton()
     {
-        Time.timeScale = 1f;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Time.timeScale = 1f;
+        //Cursor.lockState = CursorLockMode.Locked;
+
+        GameManager.Instance.CameraManager.ReturnCamSpeed();
+
         gameObject.SetActive(false);
     }
 
