@@ -11,7 +11,6 @@ public class CustomerController : MonoBehaviour
 
     private TycoonManager _tycoonManager;
     private FoodCreater _foodCreater;
-    private string _targetFoodName;
 
     private NavMeshAgent _agent;
     private Animator _animator;
@@ -20,7 +19,7 @@ public class CustomerController : MonoBehaviour
     private float _waitTime;
     private const float _agentBaseOffset = 0.57f;
     private bool _isExit = false;
-    private bool _isOrderFood = false;
+    private bool _isSit = false;
 
     private List<GameObject> _collidingAIs = new();
 
@@ -35,6 +34,7 @@ public class CustomerController : MonoBehaviour
         }
     }
 
+    private string _targetFoodName;
     public string TargetFoodName
     {
         get { return _targetFoodName; }
@@ -88,34 +88,39 @@ public class CustomerController : MonoBehaviour
     {
         if (!_agent.hasPath)
         {
-            if (!_isOrderFood)
+            // 자리에 앉았을 때 (첫 번째 목적지)
+            if (!_isSit)
             {
                 SelectFood();
-                _isOrderFood = true;
+                _isSit = true;
 
-                //TODO: 한번만 실행되도록 다른곳으로 이동..
                 _animator.SetBool(AnimationParameterName.TycoonIsWalk, false);
                 _agent.baseOffset = _agentBaseOffset;
                 transform.rotation = _targetFoodPlace.gameObject.transform.rotation;
 
                 _collider.enabled = false;
-                _agent.isStopped = true;
+                _agent.isStopped = true;    // ?
             }
-
-            _waitTime -= Time.deltaTime;
-            _orderFoodCanvas.BalloonBack.fillAmount = _waitTime / _tycoonManager.CustomerWaitTime;
-            if (_waitTime <= 0)
+            else
             {
-                NoReceivedFood();
+                _waitTime -= Time.deltaTime;
+                if (_waitTime <= 0)
+                    NoReceivedFood();
+
+                _orderFoodCanvas.BalloonBack.fillAmount = _waitTime / _tycoonManager.CustomerWaitTime;
             }
 
             if (_isExit)
             {
                 _isExit = false;
 
-                StopAllCoroutines();
+                //StopAllCoroutines();  // Object Pool 
                 OnCustomerExit?.Invoke();
+
+                _targetFoodPlace.OnCustomerGetFood -= GetFood;
                 _targetFoodPlace.CurrentCustomer = null;
+                _targetFoodPlace = null;
+
                 GameManager.Instance.PoolingManager.ReturnObject(gameObject);
             }
         }
@@ -154,12 +159,12 @@ public class CustomerController : MonoBehaviour
 
     #endregion
 
-    #region 
+    #region
     private void Init()
     {
         _animator.SetBool(AnimationParameterName.TycoonIsWalk, true);
 
-        _isOrderFood = false;
+        _isSit = false;
 
         transform.rotation = Quaternion.identity;
         _animator.gameObject.transform.localPosition = Vector3.zero;
@@ -183,9 +188,9 @@ public class CustomerController : MonoBehaviour
 
         _tycoonManager.CookingUI.StartCooking(menu[targetFoodNum].FoodSO);
 
-        --_tycoonManager.TodayFoods[targetFoodNum].FoodCount;
-        if (_tycoonManager.TodayFoods[targetFoodNum].FoodCount == 0)
-            _tycoonManager.TodayFoods.Remove(menu[targetFoodNum]);
+        --menu[targetFoodNum].FoodCount;
+        if (menu[targetFoodNum].FoodCount == 0)
+            menu.Remove(menu[targetFoodNum]);
     }
 
     private void RemoveList(GameObject obj)
@@ -238,24 +243,24 @@ public class CustomerController : MonoBehaviour
     IEnumerator ExitRestaurant()
     {
         _targetFoodName = null;
-        _targetFoodPlace.OnCustomerGetFood -= GetFood;
-
+        
         yield return new WaitForSeconds(5f);
 
         _agent.SetDestination(_tycoonManager.CustomerCreatePos.position);
         _animator.SetBool(AnimationParameterName.TycoonIsWalk, true);
 
         _agent.baseOffset = 0.0f;
-        _isExit = true;
+        //_isSitting = false;
 
         // another AI
         _collider.enabled = true;
         _agent.isStopped = false;
 
-
         _waitTime = _tycoonManager.CustomerWaitTime;
-
         _foodCreater.UnsubscribeCreateFoodEvent(this);
+
+        _isExit = true;
     }
+
     #endregion
 }

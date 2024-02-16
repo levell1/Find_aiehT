@@ -26,12 +26,15 @@ public class EnemyHealthSystem : MonoBehaviour
 
     private Camera _camera;
 
+    private SkinnedMeshRenderer[] meshRenderers;
+
     Coroutine _coroutine;
 
     private void Start()
     {
         _enemy = GetComponent<Enemy>();
         _enemySO = GetComponent<Enemy>().Data;
+        meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
 
         MaxHealth = _enemy.EnemyMaxHealth;
         Health = MaxHealth;
@@ -80,6 +83,7 @@ public class EnemyHealthSystem : MonoBehaviour
         TakeDamageText.SetActive(true);
 
         Health = Mathf.Max(Health - damage, 0);
+        StartCoroutine(DamageFlash());
 
         _enemy._stateMachine.ChangeState(_enemy._stateMachine.ChasingState);
 
@@ -98,4 +102,27 @@ public class EnemyHealthSystem : MonoBehaviour
         _coroutine = null;
     }
 
+    
+
+    public IEnumerator DamageFlash()
+    {
+        MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+        Color a = meshRenderers[0].material.color;
+        for (int i = 0; i < meshRenderers.Length; i++)
+        {
+            
+            meshRenderers[i].GetPropertyBlock(propBlock);
+            propBlock.SetColor("_Color", new Color(1.0f, 0.4f, 0.4f));
+            meshRenderers[i].SetPropertyBlock(propBlock);
+        }
+
+        yield return new WaitForSeconds(0.3f);
+        for (int i = 0; i < meshRenderers.Length; i++)
+        {
+            meshRenderers[i].GetPropertyBlock(propBlock);
+            propBlock.SetColor("_Color", a);
+            meshRenderers[i].SetPropertyBlock(propBlock);
+        }
+
+    }
 }

@@ -5,6 +5,7 @@ using static UnityEngine.Rendering.DebugUI;
 [Serializable]
 public class PlayerData
 {
+    public Action<int> OnGoldUI;
     [SerializeField] private string PlayerName;
     [SerializeField] private int PlayerLevel;
     [SerializeField] private float PlayerMaxHealth;
@@ -29,7 +30,7 @@ public class PlayerData
     public void SetPlayerAttack(float value) { PlayerAttack = value; }
     public void SetPlayerDef(float value) { PlayerDef = value; }
     public void SetPlayerExp(int value) { PlayerExp = value; }
-    public void SetPlayerGold(int value) { PlayerGold = value; }
+    public void SetPlayerGold(int value) { PlayerGold = value; OnGoldUI?.Invoke(value); }
 
 }
   

@@ -36,8 +36,6 @@ public class PlayerInteraction : MonoBehaviour
     public GameObject ShopUI;
     private Vector3 _dungeonNextPosition;
 
-    private Door _door;
-
     Coroutine _coroutine;
 
     private void Start()
@@ -102,13 +100,12 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     InteractionText.text = "타이쿤 - 입장하기";
                 }*/
-                else if (other.gameObject.CompareTag(TagName.DungeonDoor)) // 던전
-                {
-                    _door = other.GetComponent<Door>();
-                    _dungeonNextPosition = _door.NextRoomPosition;
-                    InteractionText.text = "다음 방으로 이동하기";
-                }
                 else if (other.gameObject.CompareTag(TagName.QuestNPC)) // 타이쿤
+                {
+                    InteractionText.text = "퀘스트 보기";
+                    _showUI = UIName.QuestUI;
+                }
+                else if (other.gameObject.CompareTag(TagName.DungeonNPC)) // 타이쿤
                 {
                     InteractionText.text = "퀘스트 보기";
                     _showUI = UIName.QuestUI;
@@ -138,11 +135,6 @@ public class PlayerInteraction : MonoBehaviour
             _showUI = string.Empty;
         }
 
-        if (_door != null)
-        {
-            _door = null;
-        }
-
         InteractionText.text = string.Empty;
     }
 
@@ -152,21 +144,7 @@ public class PlayerInteraction : MonoBehaviour
         UpdateUI();
     }
 
-    public  void DungeonMoovRoom() 
-    {
-        if (_door != null)
-        {
-            _door.FadeImage();
-            Invoke("InDungeonMovePlayer", 2f);
-        }
-        InteractionText.text = string.Empty;
-        _door = null;
-    }
-    private void InDungeonMovePlayer() 
-    {
-        GameManager.Instance.Player.transform.position = _dungeonNextPosition;
 
-    }
 
     private void UpdateUI()
     {

@@ -161,7 +161,6 @@ public class PlayerBaseState : IState
 
         _stateMachine.Player.Interaction.GoNextScene();
         _stateMachine.Player.Interaction.ShowUI();
-        _stateMachine.Player.Interaction.DungeonMoovRoom();
     }
 
 
