@@ -105,6 +105,11 @@ public class PlayerInteraction : MonoBehaviour
                     InteractionText.text = "퀘스트 보기";
                     _showUI = UIName.QuestUI;
                 }
+                else if (other.gameObject.CompareTag(TagName.DungeonNPC)) // 타이쿤
+                {
+                    InteractionText.text = "퀘스트 보기";
+                    _showUI = UIName.QuestUI;
+                }
             }
         }
     }

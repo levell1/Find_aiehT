@@ -13,9 +13,10 @@ public class BossHealthSystem : MonoBehaviour
     public event Action OnDie;
     public Action<float, float> OnChangeHpUI;
 
-    public bool IsDead => Health == 0;
+    public bool IsDead =false;
     private SkinnedMeshRenderer[] meshRenderers;
     private Animator _animation;
+    
 
     private void Awake()
     {
@@ -29,7 +30,7 @@ public class BossHealthSystem : MonoBehaviour
 
     public void SetMaxHealth()
     {
-        MaxHealth = 1000;
+        MaxHealth = 210;
         Health = MaxHealth;
         OnChangeHpUI?.Invoke(Health, MaxHealth);
     }
@@ -43,7 +44,7 @@ public class BossHealthSystem : MonoBehaviour
         OnChangeHpUI?.Invoke(Health, MaxHealth);
         StartCoroutine(DamageFlash());
         Invoke("Animation", 0.1f);
-        if (Health == 0)
+        if (Health/MaxHealth == 0.1f)
         {
             OnDie?.Invoke();
         }

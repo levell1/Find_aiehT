@@ -14,6 +14,7 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] private GameObject[] _monsterPrefabs;
     [SerializeField] private GameObject[] _nextStagePortal;
     [SerializeField] private GameObject _bossHpbar;
+
     private int _stagenum = 1;
 
     private void Awake()
@@ -42,6 +43,7 @@ public class DungeonManager : MonoBehaviour
 
     public void NextStagePortalCheck() 
     {
+        //변수, 조건 확인
         if (_stagenum!=3) 
         { 
             GameObject portal = _nextStagePortal[Random.Range(_stagenum * 3 - 3, _stagenum * 3)];
@@ -55,10 +57,6 @@ public class DungeonManager : MonoBehaviour
                     mains.startColor = new Color(0.6f, 1f, 0.6f);
                 }
             }
-        }
-        else
-        {
-            _bossHpbar.SetActive(true);
         }
     }
 
@@ -87,9 +85,13 @@ public class DungeonManager : MonoBehaviour
         yield return tween.WaitForCompletion();
         Stages[_stagenum - 1].SetActive(false);
         _stagenum++;
+        if (_stagenum==3)
+        {
+            _bossHpbar.SetActive(true);
+        }
         Stages[_stagenum-1].SetActive(true);
-        
 
+        
         GameManager.Instance.Player.transform.position = Vector3.up;
 
         tween = _fadeImage.DOFade(0.0f, 2f);
@@ -97,7 +99,6 @@ public class DungeonManager : MonoBehaviour
         
         _fadeImage.gameObject.SetActive(true);
 
-        
         NextStagePortalCheck();
     }
 }

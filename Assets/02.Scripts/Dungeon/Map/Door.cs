@@ -9,12 +9,12 @@ public class Door : MonoBehaviour
 {
     public Vector3 NextRoomPosition;
     [SerializeField] private GameObject _nextRoom;
-    [SerializeField] private DungeonManager _dunheonManager ;
+    [SerializeField] private DungeonManager _dungeonManager ;
     private BoxCollider BoxCollider;
     private MeshRenderer Renderer;
     private void Awake()
     {
-        _dunheonManager= FindAnyObjectByType<DungeonManager>();
+        _dungeonManager= FindAnyObjectByType<DungeonManager>();
         Renderer = GetComponent<MeshRenderer>();
         BoxCollider =GetComponent<BoxCollider>();
         BoxCollider.enabled = false;
@@ -28,7 +28,10 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        _dunheonManager.GoNextRoom(NextRoomPosition);
+        if (other.gameObject.tag ==TagName.Player)
+        {
+            _dungeonManager.GoNextRoom(NextRoomPosition);
+        }
     }
 
     public void DoorColliderActive() 

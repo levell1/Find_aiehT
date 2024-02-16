@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerGold : CommaText
 {
@@ -9,11 +10,10 @@ public class PlayerGold : CommaText
         {
             _playerData = GameManager.Instance.Player.GetComponent<Player>().Data;
         }
+        _playerData.PlayerData.OnGoldUI += base.ChangeGold;
     }
-    protected override void Update()
+    private void Start()
     {
-        //update X 골드 변경시
-        _Value = _playerData.PlayerData.GetPlayerGold();
-        base.Update();
+        base.ChangeGold(_playerData.PlayerData.GetPlayerGold());
     }
 }
