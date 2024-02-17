@@ -34,6 +34,10 @@ public class TitleTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (SceneManager.GetActiveScene().name == SceneName.TitleScene || GameManager.Instance.GlobalTimeManager.Day == 0)
+            {
+                return;
+            }
             if (GameManager.Instance.UIManager.PopupStack .Count!=0)
             {
                 if (GameManager.Instance.UIManager.PopupStack.Peek().name == UIName.InventoryUI)
@@ -44,11 +48,5 @@ public class TitleTest : MonoBehaviour
             }
             GameManager.Instance.UIManager.CloseLastCanvas();
         }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            GameManager.Instance.UIManager.ShowCanvas(UIName.PlayerStatusUI);
-        }
-
-
     }
 }
