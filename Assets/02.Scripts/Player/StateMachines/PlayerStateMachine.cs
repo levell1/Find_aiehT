@@ -46,7 +46,6 @@ public class PlayerStateMachine : StateMachine
     public string SceneName { get; set; } 
     
 
-
     public PlayerStateMachine(Player player)
     {
         this.Player = player;
