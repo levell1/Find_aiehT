@@ -49,7 +49,14 @@ public class PlayerInteraction : MonoBehaviour
         // 택시, 상점등
         LayerDic.Add(LayerMask.NameToLayer(LayerName.NpcInteract), Enum.NPC);
 
+        SceneManager.sceneLoaded += NoneInteractionText;
     }
+
+    private void NoneInteractionText(Scene arg0, LoadSceneMode arg1)
+    {
+        InteractionText.text = string.Empty;
+    }
+
     // TODO NPC 상호작용 추가
     private void OnTriggerEnter(Collider other)
     {
@@ -100,15 +107,15 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     InteractionText.text = "타이쿤 - 입장하기";
                 }*/
-                else if (other.gameObject.CompareTag(TagName.QuestNPC)) // 타이쿤
+                else if (other.gameObject.CompareTag(TagName.QuestNPC)) // 퀘스트
                 {
                     InteractionText.text = "퀘스트 보기";
                     _showUI = UIName.QuestUI;
                 }
-                else if (other.gameObject.CompareTag(TagName.DungeonNPC)) // 타이쿤
+                else if (other.gameObject.CompareTag(TagName.DungeonNPC)) // 던전택시
                 {
-                    InteractionText.text = "퀘스트 보기";
-                    _showUI = UIName.QuestUI;
+                    InteractionText.text = "던전 가기";
+                    _showUI = UIName.DungeontUI;
                 }
             }
         }

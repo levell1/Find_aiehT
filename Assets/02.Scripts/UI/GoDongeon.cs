@@ -1,14 +1,43 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class GoDongeon : BaseUI
 {
+    [SerializeField] private PlayerSO _playerData;
+    [SerializeField] private TMP_Text _goldText;
+    [SerializeField] private GameObject _popup;
+    private CommaText _commaText;
+    readonly private int _gold= 10000;
 
-    public void ClickButton() 
+    private void Awake()
     {
-        GameManager.Instance.Player.transform.position = new Vector3(0, 0, 0);
-        LoadingSceneController.LoadScene(SceneName.DungeonScene);        // 골드 1000감소
+        _playerData = GameManager.Instance.Player.GetComponent<Player>().Data;
+        _commaText = _goldText.gameObject.GetComponent<CommaText>();
+        _commaText.ChangeGold(_gold);
+        _popup.SetActive(false);
 
     }
+    public void ClickButton() 
+    {
+        if (_playerData.PlayerData.GetPlayerGold()< _gold)
+        {
+            _popup.SetActive(true);
+            StartCoroutine(UIHide());
+        }
+        else
+        {
+            _playerData = GameManager.Instance.Player.GetComponent<Player>().Data;
+            _playerData.PlayerData.SetPlayerGold(_playerData.PlayerData.GetPlayerGold() - _gold);
+            GameManager.Instance.Player.transform.position = new Vector3(0, 0, 0);
+            LoadingSceneController.LoadScene(SceneName.DungeonScene);
+            base.CloseUI();
+        }
+    }
 
-    
+    private IEnumerator UIHide()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        _popup.SetActive(false);
+    }
 }
