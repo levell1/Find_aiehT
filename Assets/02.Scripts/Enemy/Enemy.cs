@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour
 {
@@ -98,6 +99,12 @@ public class Enemy : MonoBehaviour
         EnemyDamage = Data.Damage;
         EnemyMaxHealth = Data.MaxHealth;
         EnemyDropEXP = Data.DropEXP;
+        if (SceneManager.GetActiveScene().name == SceneName.DungeonScene)
+        {
+            EnemyDamage *= 3;
+            EnemyMaxHealth *= 3;
+            EnemyDropEXP *= 2;
+        }
     }
     
 }

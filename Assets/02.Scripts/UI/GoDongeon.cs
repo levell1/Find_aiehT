@@ -22,8 +22,7 @@ public class GoDongeon : BaseUI
     {
         if (_playerData.PlayerData.GetPlayerGold()< _gold)
         {
-            _popup.SetActive(true);
-            StartCoroutine(UIHide());
+            StartCoroutine(ShowPopupForSeconds(_popup, 1f));
         }
         else
         {
@@ -33,11 +32,5 @@ public class GoDongeon : BaseUI
             LoadingSceneController.LoadScene(SceneName.DungeonScene);
             base.CloseUI();
         }
-    }
-
-    private IEnumerator UIHide()
-    {
-        yield return new WaitForSecondsRealtime(1f);
-        _popup.SetActive(false);
     }
 }

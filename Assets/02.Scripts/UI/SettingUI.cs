@@ -26,7 +26,8 @@ public class SettingUI : BaseUI
     private void SaveGame() 
     {
         //저장관련 시간
-        ShowOneSecUI(_savePanel,2f);
+        // 저장이 완료되면 사라지게. 임시
+        StartCoroutine(ShowPopupForSeconds(_savePanel, 2f));
     }
     private void ShowExitGame() 
     {

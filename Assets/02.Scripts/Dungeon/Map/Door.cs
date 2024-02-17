@@ -21,8 +21,8 @@ public class Door : MonoBehaviour
     }
     void Start()
     {
-        var dir = transform.forward * 15f;
-        NextRoomPosition = transform.position + dir + Vector3.up;
+        var dir = transform.forward * 17f;
+        NextRoomPosition = transform.position + dir;
         
     }
 

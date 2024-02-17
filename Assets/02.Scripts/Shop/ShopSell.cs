@@ -63,7 +63,7 @@ public class ShopSell : MonoBehaviour
 
         selectedItemName.text = selectedItem.Item.ObjName;
         selectedItemDescription.text = selectedItem.Item.Description;
-        selectedItemPrice.text = selectedItem.Item.Price.ToString();
+        selectedItemPrice.text = "가격 : " + selectedItem.Item.Price.ToString();
     }
 
     public void ClearSeletecItem()

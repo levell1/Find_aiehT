@@ -19,7 +19,6 @@ public class ShopUI : MonoBehaviour
         _BuyPanel.SetActive(false);
         _SellPanel.SetActive(false);
         _CheckPanel.SetActive(false);
-        
     }
 
     private void Start()
@@ -65,8 +64,4 @@ public class ShopUI : MonoBehaviour
         _selectButton.SetActive(true);
         _BuyPanel.SetActive(false);
     }
-
-
-
-
 }

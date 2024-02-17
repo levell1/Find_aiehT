@@ -37,30 +37,22 @@ public class ReforgeUI : BaseUI
 
     public void ClickUpgradeButton() 
     {
-        if (_playerData.PlayerData.GetPlayerGold() >= _equipmentupgrade.EquipData[_itemnum].CurrentUpgradeGold) {
+        StartCoroutine(ShowPopupForSeconds(_resultUI,1f));
+        if (_playerData.PlayerData.GetPlayerGold() >= _equipmentupgrade.EquipData[_itemnum].CurrentUpgradeGold)
+        {
             _playerData.PlayerData.SetPlayerGold(_playerData.PlayerData.GetPlayerGold() - (int)_equipmentupgrade.EquipData[_itemnum].CurrentUpgradeGold);
             _equipmentupgrade.EquipLevelUp(_itemnum);
-            _resultUI.SetActive(true);
             _resultText.text = "강화 성공";
             
             SetImageName();
         }
         else
         {
-            _resultUI.SetActive(true);
             _resultText.text = "골드가 부족합니다.";
-            
         }
         _selectUI.SetActive(false);
-        StartCoroutine(FailUIFalse());
-    }
 
-    IEnumerator FailUIFalse() 
-    {
-        yield return new WaitForSecondsRealtime(1f) ;
-        _resultUI.SetActive(false);
     }
-
 
     public void ClickEquip()
     {
