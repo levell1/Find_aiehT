@@ -297,9 +297,8 @@ public class DashToPlayer : Node
 
     private void DashTowardsPlayer()
     {
-        for (int i = 5; i >= 0; i--)
+        for (int i = 4; i >= 0; i--)
         {
-            
             _dashPosition = _playerTransform.position + ((_playerTransform.position - _pigTransform.position).normalized * i * 10);
             _dashPosition.y = 0;
             NavMeshHit hit;
