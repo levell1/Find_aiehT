@@ -23,20 +23,20 @@ public class SettingUI : BaseUI
         _keyControlButton.onClick.AddListener(ShowControlKey);
     }
 
-    void SaveGame() 
+    private void SaveGame() 
     {
         //저장관련 시간
         ShowOneSecUI(_savePanel,2f);
     }
-    void ShowExitGame() 
+    private void ShowExitGame() 
     {
         _ExitCheck.SetActive(true);
     }
-    void ShowControlKey()
+    private void ShowControlKey()
     {
         GameManager.Instance.UIManager.ShowCanvas(UIName.ControlKeyUI);
     }
-    void ExitGame()
+    private void ExitGame()
     {
         Application.Quit();
     }
