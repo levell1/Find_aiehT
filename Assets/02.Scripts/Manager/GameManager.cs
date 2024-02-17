@@ -45,15 +45,13 @@ public class GameManager : MonoSingleton<GameManager>
         _questManager = FindObjectOfType<QuestManager>();
         _effectManager = FindObjectOfType<EffectManager>();
         _coolTimeManager = FindObjectOfType<CoolTimeManager>();
-    }
 
-    private void Start()
-    {
         _uiManager.CreateCanvas();
     }
 
-    void Update()
-    {
-        
-    }
+    //private void Start()
+    //{
+    //    _uiManager.CreateCanvas();
+    //}
+
 }
