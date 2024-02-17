@@ -8,7 +8,6 @@ using static UnityEngine.ParticleSystem;
 public class DungeonManager : MonoBehaviour
 {
     [SerializeField] private Image _fadeImage;
-
     [SerializeField] private GameObject[] Stages;
 
     [SerializeField] private GameObject[] _monsterPrefabs;
@@ -19,8 +18,15 @@ public class DungeonManager : MonoBehaviour
 
     private void Awake()
     {
+        _bossHpbar.SetActive(false);
         _stagenum = 1;
     }
+
+    private void RealBoss()
+    {
+        throw new System.NotImplementedException();
+    }
+
     private void Start()
     {
         Stages[0].SetActive(true);
@@ -85,19 +91,18 @@ public class DungeonManager : MonoBehaviour
         yield return tween.WaitForCompletion();
         Stages[_stagenum - 1].SetActive(false);
         _stagenum++;
-        if (_stagenum==3)
+        if (_stagenum == 3)
         {
             _bossHpbar.SetActive(true);
         }
-        Stages[_stagenum-1].SetActive(true);
-
+        Stages[_stagenum - 1].SetActive(true);
         
         GameManager.Instance.Player.transform.position = Vector3.up;
 
         tween = _fadeImage.DOFade(0.0f, 2f);
         yield return tween.WaitForCompletion();
         
-        _fadeImage.gameObject.SetActive(true);
+        _fadeImage.gameObject.SetActive(false);
 
         NextStagePortalCheck();
     }
