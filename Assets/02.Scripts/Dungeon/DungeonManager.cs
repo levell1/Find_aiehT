@@ -15,16 +15,12 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] private GameObject _bossHpbar;
 
     private int _stagenum = 1;
-
+    private int _enemyKindNum;
     private void Awake()
     {
         _bossHpbar.SetActive(false);
         _stagenum = 1;
-    }
-
-    private void RealBoss()
-    {
-        throw new System.NotImplementedException();
+        _enemyKindNum = _monsterPrefabs.Length / 2;
     }
 
     private void Start()
@@ -68,7 +64,7 @@ public class DungeonManager : MonoBehaviour
 
     public GameObject MonsterRandomSpawn(Vector3 pos,Transform transform)
     {
-        int random = Random.Range(_stagenum*6-6, _monsterPrefabs.Length/2 * _stagenum);
+        int random = Random.Range(_stagenum* _enemyKindNum - _enemyKindNum, _enemyKindNum * _stagenum);
         return Instantiate(_monsterPrefabs[random], pos,Quaternion.identity, transform);
     }
     public IEnumerator GoNextRoomFade(Vector3 nextRoomPos)
