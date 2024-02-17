@@ -145,6 +145,7 @@ public class CustomerController : MonoBehaviour
             {
                 _collidingAIs.Add(other.gameObject);
                 _agent.isStopped = true;
+                //_agent.velocity = Vector3.zero;
                 _animator.SetBool(AnimationParameterName.TycoonIsIdle, true);
             }
         }
@@ -227,6 +228,7 @@ public class CustomerController : MonoBehaviour
         _animator.SetTrigger(AnimationParameterName.TycoonAngry);
 
         ++_tycoonManager.AngryCustomerNum;
+       
 
         StartCoroutine(ExitRestaurant());
     }
@@ -248,7 +250,8 @@ public class CustomerController : MonoBehaviour
     IEnumerator ExitRestaurant()
     {
         _targetFoodName = null;
-        
+        _waitTime = _tycoonManager.CustomerWaitTime;
+
         yield return new WaitForSeconds(5f);
 
         _agent.SetDestination(_tycoonManager.CustomerCreatePos.position);
@@ -261,7 +264,7 @@ public class CustomerController : MonoBehaviour
         _collider.enabled = true;
         _agent.isStopped = false;
 
-        _waitTime = _tycoonManager.CustomerWaitTime;
+       
         _foodCreater.UnsubscribeCreateFoodEvent(this);
 
         _isExit = true;
