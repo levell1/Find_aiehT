@@ -89,7 +89,6 @@ public class CustomerController : MonoBehaviour
     {
         if (!_agent.hasPath)
         {
-            // 자리에 앉았을 때 (첫 번째 목적지)
             if (!_isSit)
             {
                 SelectFood();
@@ -100,13 +99,13 @@ public class CustomerController : MonoBehaviour
                 transform.rotation = _targetFoodPlace.gameObject.transform.rotation;
 
                 _collider.enabled = false;
-                _agent.isStopped = true;    // ?
+                _agent.isStopped = true;
             }
             else if(!_isGetFood)
             {
                 _waitTime -= Time.deltaTime;
                 if (_waitTime <= 0)
-                    NoReceivedFood();
+                    StartCoroutine(NoReceivedFood());
 
                 _orderFoodCanvas.BalloonBack.fillAmount = _waitTime / _tycoonManager.CustomerWaitTime;
             }
@@ -115,7 +114,6 @@ public class CustomerController : MonoBehaviour
             {
                 _isExit = false;
 
-                //StopAllCoroutines();  // Object Pool 
                 OnCustomerExit?.Invoke();
 
                 _targetFoodPlace.OnCustomerGetFood -= GetFood;
@@ -145,7 +143,6 @@ public class CustomerController : MonoBehaviour
             {
                 _collidingAIs.Add(other.gameObject);
                 _agent.isStopped = true;
-                //_agent.velocity = Vector3.zero;
                 _animator.SetBool(AnimationParameterName.TycoonIsIdle, true);
             }
         }
@@ -222,23 +219,13 @@ public class CustomerController : MonoBehaviour
         StartCoroutine(EatFood());
     }
 
-    private void NoReceivedFood()
-    {
-        _orderFoodCanvas.InactiveUI();
-        _animator.SetTrigger(AnimationParameterName.TycoonAngry);
-
-        ++_tycoonManager.AngryCustomerNum;
-       
-
-        StartCoroutine(ExitRestaurant());
-    }
-
     #endregion
 
     #region Coroutine
 
     IEnumerator EatFood()
     {
+        _waitTime = _tycoonManager.CustomerWaitTime;
 
         _animator.SetBool(AnimationParameterName.TycoonIsEat, true);
         yield return new WaitForSeconds(10f);
@@ -246,25 +233,35 @@ public class CustomerController : MonoBehaviour
 
         StartCoroutine(ExitRestaurant());
     }
+    
+    IEnumerator NoReceivedFood()
+    {
+        _waitTime = _tycoonManager.CustomerWaitTime;
+
+        _orderFoodCanvas.InactiveUI();
+
+        ++_tycoonManager.AngryCustomerNum;
+
+        _animator.SetTrigger(AnimationParameterName.TycoonAngry);
+        yield return new WaitForSeconds(2f);
+
+        StartCoroutine(ExitRestaurant());
+    }
 
     IEnumerator ExitRestaurant()
     {
         _targetFoodName = null;
-        _waitTime = _tycoonManager.CustomerWaitTime;
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f);
 
         _agent.SetDestination(_tycoonManager.CustomerCreatePos.position);
         _animator.SetBool(AnimationParameterName.TycoonIsWalk, true);
-
         _agent.baseOffset = 0.0f;
-        //_isSitting = false;
 
         // another AI
         _collider.enabled = true;
         _agent.isStopped = false;
 
-       
         _foodCreater.UnsubscribeCreateFoodEvent(this);
 
         _isExit = true;
