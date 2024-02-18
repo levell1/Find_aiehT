@@ -10,7 +10,7 @@ public class PlayerExpSystem : MonoBehaviour
 
     public int PlayerLevel; // 현재 플레이어 레벨
     public int MaxExp; // 전체 경험치
-    private int _playerExp; // 플레이어 경험치
+    public int PlayerExp; // 플레이어 경험치
 
     private HealthSystem _healthSystem;
     private StaminaSystem _staminaSystem;
@@ -26,8 +26,8 @@ public class PlayerExpSystem : MonoBehaviour
         PlayerLevel = _playerData.PlayerData.GetPlayerLevel();
         MaxExp = _playerData.PlayerLevelData.GetLevelData(PlayerLevel - 1).GetExp();
         OnLevelUp?.Invoke(PlayerLevel);
-        OnChangeExpUI?.Invoke(_playerExp, MaxExp);
-        _playerExp = _playerData.PlayerData.GetPlayerExp();
+        OnChangeExpUI?.Invoke(PlayerExp, MaxExp);
+        PlayerExp = _playerData.PlayerData.GetPlayerExp();
 
         //Debug.Log("현재 경험치: " + _playerExp);
         //Debug.Log("전체 경험치: " + _maxExp);
@@ -36,10 +36,10 @@ public class PlayerExpSystem : MonoBehaviour
 
     public void GetExpPlus(int getExp)
     {
-        _playerExp += getExp;
-        OnChangeExpUI?.Invoke(_playerExp, MaxExp);
+        PlayerExp += getExp;
+        OnChangeExpUI?.Invoke(PlayerExp, MaxExp);
 
-        if( _playerExp >= MaxExp )
+        if( PlayerExp >= MaxExp )
         {
             LevelUp();
         }
@@ -48,20 +48,22 @@ public class PlayerExpSystem : MonoBehaviour
 
     private void LevelUp()
     {
-        _playerExp -= MaxExp;
+        PlayerExp -= MaxExp;
 
         PlayerLevel++;
 
         _playerData.PlayerData.SetPlayerLevel(PlayerLevel);
-        _playerData.PlayerData.SetPlayerExp(_playerExp);
+        _playerData.PlayerData.SetPlayerExp(PlayerExp);
 
         _playerData.PlayerLevelData.ApplyNextLevelData(_playerData.PlayerData, PlayerLevel);
         MaxExp = _playerData.PlayerLevelData.GetLevelData(PlayerLevel - 1).GetExp();
 
         _healthSystem.SetMaxHealth();
+        _healthSystem.Health = _healthSystem.MaxHealth;
+
         _staminaSystem.SetMaxStamina();
         OnLevelUp?.Invoke(PlayerLevel);
-        OnChangeExpUI?.Invoke(_playerExp, MaxExp);
+        OnChangeExpUI?.Invoke(PlayerExp, MaxExp);
 
         GameManager.Instance.EffectManager.PlayLevelUpEffect();
 

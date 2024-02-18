@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using UnityEngine;
 public class JsonReader : MonoBehaviour
 {
     public PlayerSO PlayerSO;
+    private SaveDataManager _saveDataManager;
 
     /// 불러오기 (LoadJSON)
     // 1. new 게임인지 save게임인지 판별 (타이틀에서 새로하기 / 이어하기 버튼으로 판별하기)
@@ -16,6 +18,7 @@ public class JsonReader : MonoBehaviour
 
     private void Awake()
     {
+        _saveDataManager = GameManager.Instance.SaveDataManger;
         //InitPlayerData();
 
         //PlayerJsonData playerJsonData = LoadJson<PlayerJsonData>(JsonDataName.PlayerData);
@@ -52,6 +55,14 @@ public class JsonReader : MonoBehaviour
 
         return JsonUtility.FromJson<T>(jsonText);
 
+    }
+
+    public void SaveJson(object data, string filePath)
+    {
+        string jsonFilePath = Path.Combine(Application.persistentDataPath, filePath);
+        Debug.Log(jsonFilePath);
+        string jsonData = JsonConvert.SerializeObject(data, Formatting.Indented);
+        File.WriteAllText(jsonFilePath, jsonData);
     }
 
 }

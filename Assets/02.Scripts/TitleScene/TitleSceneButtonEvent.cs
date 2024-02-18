@@ -31,7 +31,7 @@ public class TitleSceneButtonEvent : MonoBehaviour
         GameManager.Instance.JsonReaderManager.LoadPlayerData();
 
         GameManager.Instance.GameStateManager.CurrentGameState = GameState.LOADGAME;
-        GameManager.Instance.SaveDataManger.SavePlayerCurrentStateData();
+        GameManager.Instance.SaveDataManger.SaveplayerData.SavePlayerCurrentStateData();
 
         //HealthSystem healthSystem = GameManager.Instance.Player.GetComponent<HealthSystem>();
         //healthSystem.SetCurHealth(); // LoadGame

@@ -141,10 +141,16 @@ public class QuestList : MonoBehaviour
     public TMP_Text QuestReward;
 
     public Button AcceptButton;
+    public TMP_Text AcceptButtonText;
 
     private QuestManager _questManager;
     private Quest[] _questList; // 매니저에서 가져온 퀘스트 리스트 저장
     private int _selectedQuestIndex = -1; // 선택된 퀘스트의 인덱스 저장
+
+    private void Awake()
+    {
+        AcceptButtonText = AcceptButton.GetComponentInChildren<TMP_Text>();
+    }
 
     private void Start()
     {
@@ -154,6 +160,9 @@ public class QuestList : MonoBehaviour
 
     private void Init()
     {
+        AcceptButton.interactable = true; // 버튼 활성화
+        AcceptButtonText.text = "수락";
+
         AcceptButton.onClick.RemoveAllListeners();
 
         _questManager = GameManager.Instance.QuestManager;
@@ -183,6 +192,20 @@ public class QuestList : MonoBehaviour
             QuestReward.text = _questList[questIndex].GetQuestRewardToString();
 
             Debug.Log("퀘스트 선택됨: " + _questList[questIndex].GetQuestTitle());
+
+            if (!_questManager.AcceptQuestList.Contains(_questList[questIndex]))
+            {
+                AcceptButton.interactable = true; // 버튼 비활성화
+                AcceptButtonText.text = "수락";
+            }
+            else
+            {
+                Debug.Log(_questList[questIndex].QuestNumber);
+                AcceptButton.interactable = false; // 버튼 비활성화
+                AcceptButtonText.text = "수락 완료";
+            }
+
+
         }
     }
 
@@ -193,6 +216,9 @@ public class QuestList : MonoBehaviour
         {
             Quest selectedQuest = _questList[_selectedQuestIndex];
             _questManager.AcceptQuest(selectedQuest); // 선택된 퀘스트를 QuestManager에 전달하여 처리
+            
+            AcceptButton.interactable = false; // 버튼 비활성화
+            AcceptButtonText.text = "수락 완료";
         }
     }
 
