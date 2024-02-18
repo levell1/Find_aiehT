@@ -6,40 +6,49 @@ using UnityEngine;
 
 public class TycoonManager : MonoSingleton<TycoonManager>
 {
-    [SerializeField] public TycoonUI _TycoonUI;
-    [SerializeField] public FoodCreater _FoodCreater;
-    [SerializeField] public CookingUI CookingUI;
+    #region Field
+
+    public TycoonUI _TycoonUI;
+    public FoodCreater _FoodCreater;
+    public CookingUI CookingUI;
     public CinemachineVirtualCamera TycoonVirtualCamera;
+    public Transform CustomerCreatePos;
+    private GameObject _playerInteraction;
 
     [SerializeField] private List<GameObject> _destinations;
     private List<(GameObject destination, int index)> _availableDestinations = new();
-    public List<GameObject> ServingStations = new();    // Add CreateStations In Inspector
-    
+
+    [SerializeField] private GameObject _prepareStation;
+    public List<GameObject> ServingStations;
     private List<OrderFood> _todayFoods = new();
-    public List<OrderFood> TodayFoods { get { return _todayFoods; } }
     private List<bool> _isCustomerSitting = new();
 
-    [SerializeField] public Transform CustomerCreatePos;
-    [SerializeField] private GameObject _prepareStation;
-    private GameObject _playerInteraction;
-
+    [SerializeField] private float _customerEatTime;
     [SerializeField] private float _customerSpawnTime;
-    [SerializeField] public float CustomerWaitTime;
+    public float CustomerWaitTime;
 
     [SerializeField] private int _maxCustomerNum;
     [SerializeField] private int _currentCustomerNum;   //TODO: SerializeField 제거
     [SerializeField] private int _todayMaxCustomerNum;
     public int AngryCustomerNum = 0;
-    
+    private int _agentPriority = 0;
+
+    private WaitForSeconds _waitForCustomerSpawnTime;
+    public WaitForSeconds _waitForCustomerEatTime;
+
+    #endregion
+
+    #region Property
+
+    public List<OrderFood> TodayFoods { get { return _todayFoods; } }
+
     public int TodayMaxCustomerNum // TODO: 레벨 당 손님수 정하는 함수
     {
         get { return _todayMaxCustomerNum; }
         set { _todayMaxCustomerNum = value; }
     }
 
-    private int _agentPriority = 0;
-
-    private WaitForSeconds _waitForCustomerSpawnTime;
+    #endregion
 
     private void Start()
     {
@@ -54,6 +63,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
 
         _playerInteraction = GameManager.Instance.Player.GetComponentInChildren<PlayerInteraction>().gameObject;
         _waitForCustomerSpawnTime = new WaitForSeconds(_customerSpawnTime);
+        _waitForCustomerEatTime = new WaitForSeconds(_customerEatTime);
     }
 
     public void TycoonGameStart()

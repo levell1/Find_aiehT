@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CookedFood : MonoBehaviour
 {
+    #region Field
     [SerializeField] public FoodSO _FoodSO;     // FoodPlace에서 사용
     [SerializeField] private string _foodName;
     [SerializeField] private List<GameObject> _edibleFoods;
@@ -11,12 +12,16 @@ public class CookedFood : MonoBehaviour
     private CapsuleCollider _collider;
 
     private bool _canHold;
+    private bool _shouldClean = false;
+    private FoodPlace _currentFoodPlace;
+    #endregion
+
+    #region Property
     public bool CanHold {
         get { return _canHold; }
         set { _canHold = value; } 
     }
 
-    private bool _shouldClean = false;
     public bool ShouldClean
     {
         get { return _shouldClean; }
@@ -33,7 +38,6 @@ public class CookedFood : MonoBehaviour
         }
     }
 
-    private FoodPlace _currentFoodPlace;
     public FoodPlace CurrentFoodPlace
     {
         get { return _currentFoodPlace; }
@@ -52,6 +56,8 @@ public class CookedFood : MonoBehaviour
             _currentFoodPlace = value;
         }
     }
+
+    #endregion
 
     private void Awake()
     {
@@ -76,7 +82,7 @@ public class CookedFood : MonoBehaviour
     IEnumerator ColliderControl()
     {
         _collider.enabled = false;
-        yield return new WaitForSeconds(10f);
+        yield return TycoonManager.Instance._waitForCustomerEatTime;
         _collider.enabled = true;
     }
 }

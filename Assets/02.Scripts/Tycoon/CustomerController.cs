@@ -25,6 +25,14 @@ public class CustomerController : MonoBehaviour
     private List<GameObject> _collidingAIs = new();
 
     private FoodPlace _targetFoodPlace;
+    private string _targetFoodName;
+
+    private WaitForSeconds _angryAnimationTime = new WaitForSeconds(2f);
+    private WaitForSeconds _standAnimationTime = new WaitForSeconds(4f);
+
+    #endregion
+
+    #region Property
     public FoodPlace TargetFoodPlace
     {
         get { return _targetFoodPlace; }
@@ -35,7 +43,6 @@ public class CustomerController : MonoBehaviour
         }
     }
 
-    private string _targetFoodName;
     public string TargetFoodName
     {
         get { return _targetFoodName; }
@@ -228,7 +235,7 @@ public class CustomerController : MonoBehaviour
         _waitTime = _tycoonManager.CustomerWaitTime;
 
         _animator.SetBool(AnimationParameterName.TycoonIsEat, true);
-        yield return new WaitForSeconds(10f);
+        yield return TycoonManager.Instance._waitForCustomerEatTime;
         _animator.SetBool(AnimationParameterName.TycoonIsEat, false);
 
         StartCoroutine(ExitRestaurant());
@@ -243,7 +250,7 @@ public class CustomerController : MonoBehaviour
         ++_tycoonManager.AngryCustomerNum;
 
         _animator.SetTrigger(AnimationParameterName.TycoonAngry);
-        yield return new WaitForSeconds(2f);
+        yield return _angryAnimationTime;
 
         StartCoroutine(ExitRestaurant());
     }
@@ -252,7 +259,7 @@ public class CustomerController : MonoBehaviour
     {
         _targetFoodName = null;
 
-        yield return new WaitForSeconds(4f);
+        yield return _standAnimationTime;
 
         _agent.SetDestination(_tycoonManager.CustomerCreatePos.position);
         _animator.SetBool(AnimationParameterName.TycoonIsWalk, true);
