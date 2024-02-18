@@ -81,16 +81,12 @@ public struct PoolingObjectName
     public const string Customer = "Customer";
 }
 
-public struct ResourcePath
-{
-    public const string JsonLoadPath = "Assets/Resources/JSON/";
-}
-
 public struct JsonDataName
 {
-    public const string PlayerData = "PlayerData";
-    public const string PlayerSkillData = "PlayerSkillData";
-    public const string PlayerLevelData = "LevelData";
+    public const string PlayerData = "Assets/Resources/JSON/PlayerData";
+    public const string PlayerSkillData = "Assets/Resources/JSON/PlayerSkillData";
+    public const string PlayerLevelData = "Assets/Resources/JSON/LevelData";
+    public const string SaveFile = "SaveFile";
 }
 
 public struct AnimationParameterName
