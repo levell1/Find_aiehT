@@ -19,6 +19,10 @@ public struct SerializableVector3
         y = vector.y;
         z = vector.z;
     }
+    public Vector3 ToVector3()
+    {
+        return new Vector3(x, y, z);
+    }
 
 }
 
@@ -255,7 +259,7 @@ public class SaveDataManager : MonoBehaviour
     {
         SaveDatas();
 
-        GameManager.Instance.JsonReaderManager.SaveJson(SaveplayerData, "saveFile.json");
+        GameManager.Instance.JsonReaderManager.SaveJson(SaveplayerData, JsonDataName.SaveFile);
     }
 
     private void SaveDatas()

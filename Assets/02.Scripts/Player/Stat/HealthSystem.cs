@@ -58,7 +58,8 @@ public class HealthSystem : MonoBehaviour
         }
         else if (_gameStateManager.CurrentGameState == GameState.LOADGAME)
         {
-            Health = GameManager.Instance.SaveDataManger.SaveplayerData.SaveHealth;
+            float loadHealth = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveHealth;
+            Health = loadHealth;
             OnChangeHpUI?.Invoke(Health, MaxHealth);
         }
     }
