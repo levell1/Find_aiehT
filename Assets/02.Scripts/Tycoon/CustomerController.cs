@@ -244,6 +244,7 @@ public class CustomerController : MonoBehaviour
     
     IEnumerator NoReceivedFood()
     {
+        _isGetFood = true;
         _targetFoodName = null;
         _waitTime = _tycoonManager.CustomerWaitTime;
 
