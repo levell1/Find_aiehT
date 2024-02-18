@@ -34,6 +34,10 @@ public class TitleTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            if (SceneManager.GetActiveScene().name == SceneName.TitleScene || GameManager.Instance.GlobalTimeManager.Day == 0)
+            {
+                return;
+            }
             if (GameManager.Instance.UIManager.PopupStack .Count!=0)
             {
                 if (GameManager.Instance.UIManager.PopupStack.Peek().name == UIName.InventoryUI)
@@ -44,11 +48,26 @@ public class TitleTest : MonoBehaviour
             }
             GameManager.Instance.UIManager.CloseLastCanvas();
         }
-        if (Input.GetKeyDown(KeyCode.P))
+
+        if (Input.GetKeyDown(KeyCode.B))
         {
-            GameManager.Instance.UIManager.ShowCanvas(UIName.PlayerStatusUI);
+            GameManager.Instance.Player.transform.position = new Vector3(-45f, 1f, -80f);
         }
-
-
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            GameManager.Instance.Player.transform.position = new Vector3(5f, 1f, 120f);
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            GameManager.Instance.Player.transform.position = new Vector3(80f, 1f, -40f);
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            GameManager.Instance.Player.transform.position = new Vector3(-90f, 1f, 50f);
+        }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            GameManager.Instance.Player.transform.position = new Vector3(120f, 1f, 0f);
+        }
     }
 }

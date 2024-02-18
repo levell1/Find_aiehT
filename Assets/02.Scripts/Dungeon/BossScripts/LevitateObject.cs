@@ -10,6 +10,8 @@ public class LevitateObject : MonoBehaviour
     private ParticleSystem _particle;
     readonly private float _staminaDamage =5f;
     readonly private float _delayTime = 0.1f;
+    [SerializeField] bool _isBoss=false;
+
     private void Awake()
     {
         _particle = GameManager.Instance.EffectManager.CreateGreenPigLevitate(transform);
@@ -48,6 +50,11 @@ public class LevitateObject : MonoBehaviour
         if (other.gameObject.TryGetComponent(out StaminaSystem stamina))
         {
             stamina.ReduceStamina(_staminaDamage, _delayTime);
+        }
+
+        if (other.gameObject.TryGetComponent(out HealthSystem healthSystem) && _isBoss == true)
+        {
+            healthSystem.TakeDamage(10f);
         }
     }
 

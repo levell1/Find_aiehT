@@ -5,6 +5,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
+using UnityEngine.Windows;
 
 public class PlayerBaseState : IState
 {
@@ -74,9 +75,12 @@ public class PlayerBaseState : IState
             input.PlayerActions.ShortcutKey2.started += OnUseStaminaPotion;
 
             input.PlayerActions.Inventory.started += OnInventoryOpen;
+            input.PlayerActions.StatusMenu.started += OnStatusMenuOpen;
         }
       
     }
+
+
 
     protected virtual void RemoveInputActionsCallbacks()
     {
@@ -109,6 +113,7 @@ public class PlayerBaseState : IState
             input.PlayerActions.ShortcutKey2.started -= OnUseStaminaPotion;
 
             input.PlayerActions.Inventory.started -= OnInventoryOpen;
+            input.PlayerActions.StatusMenu.started -= OnStatusMenuOpen;
         }
 
     }
@@ -177,6 +182,11 @@ public class PlayerBaseState : IState
     protected virtual void  OnInventoryOpen(InputAction.CallbackContext context)
     {
         _stateMachine.Player.Inventory.ToggleInventoryUI();
+    }
+
+    protected virtual void OnStatusMenuOpen(InputAction.CallbackContext context)
+    {
+        GameManager.Instance.UIManager.ShowCanvas(UIName.PlayerStatusUI);
     }
 
     // Tycoon 상호작용

@@ -105,6 +105,8 @@ public struct AnimationParameterName
     public const string BossIdleC = "IdleC";
     public const string BossRoll = "Roll";
     public const string BossHit = "Hit";
+    public const string BossFly = "Fly";
+    public const string BossSit = "Sit";
 }
 
 public struct CoolTimeObjName

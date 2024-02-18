@@ -14,6 +14,7 @@ public class BluePigAI : Tree
     readonly private float _waitTime = 5;
     readonly private float _knockBack = 7f;
     readonly private float _knockBackCount = 5;
+    readonly private float _runMoveSpeed = 5f;
     Vector3 Power;
 
     private void Awake()
@@ -38,16 +39,16 @@ public class BluePigAI : Tree
         Node root = new SelectorNode(new List<Node>
         {
             new DashToPlayer(_playerTransform, _pigTransform, _navMeshAgent,_waitTime),
+            new RunAwayNode(_pigTransform,_navMeshAgent,_navMeshAgent.speed),
         });
         return root;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.TryGetComponent(out HealthSystem health))
+        if (other.gameObject.TryGetComponent(out HealthSystem health))
         {
             health.TakeDamage(20);
-            collision.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 1 , ForceMode.Impulse);
             StartCoroutine(KnockBack(5f));
         }
     }
