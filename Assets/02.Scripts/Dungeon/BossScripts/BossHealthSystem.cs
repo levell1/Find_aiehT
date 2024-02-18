@@ -6,7 +6,6 @@ using UnityEngine.AI;
 
 public class BossHealthSystem : MonoBehaviour
 {
-
     public float MaxHealth;
     public float Health;
 
@@ -31,6 +30,10 @@ public class BossHealthSystem : MonoBehaviour
     public void SetMaxHealth()
     {
         MaxHealth = 210;
+        if (gameObject.name=="Aieht")
+        {
+            MaxHealth = 2000;
+        }
         Health = MaxHealth;
         OnChangeHpUI?.Invoke(Health, MaxHealth);
     }
@@ -42,9 +45,11 @@ public class BossHealthSystem : MonoBehaviour
         _animation.SetBool(AnimationParameterName.BossHit, true);
         Health = Mathf.Max(Mathf.Floor(Health - damage), 0);
         OnChangeHpUI?.Invoke(Health, MaxHealth);
+
         StartCoroutine(DamageFlash());
         Invoke("Animation", 0.1f);
-        if (Health/MaxHealth == 0.1f)
+
+        if (Health/MaxHealth <= 0.99f)
         {
             OnDie?.Invoke();
         }
@@ -60,8 +65,10 @@ public class BossHealthSystem : MonoBehaviour
     {
         MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
 
+        Color a = meshRenderers[0].material.color;
         for (int i = 0; i < meshRenderers.Length; i++)
         {
+
             meshRenderers[i].GetPropertyBlock(propBlock);
             propBlock.SetColor("_Color", new Color(1.0f, 0.4f, 0.4f));
             meshRenderers[i].SetPropertyBlock(propBlock);
@@ -71,8 +78,10 @@ public class BossHealthSystem : MonoBehaviour
         for (int i = 0; i < meshRenderers.Length; i++)
         {
             meshRenderers[i].GetPropertyBlock(propBlock);
-            propBlock.SetColor("_Color", new Color(0.6f, 1f, 0.6f));
+            propBlock.SetColor("_Color", a);
             meshRenderers[i].SetPropertyBlock(propBlock);
         }
     }
+
+
 }

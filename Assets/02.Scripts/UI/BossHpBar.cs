@@ -13,7 +13,6 @@ public class BossHpBar : PlayerBaseSlider
     {
         base.Awake();
         _healthSystem.OnChangeHpUI += ChangeBar;
-
     }
 
     protected override void ChangeBar(float currentValue, float maxValue)

@@ -12,6 +12,7 @@ public class RedPig : Tree
     private SkinnedMeshRenderer[] _meshRenderers;
     readonly private float _runDamage= 10f;
     readonly private float _waitTime = 5f;
+    readonly private float _runMoveSpeed = 3.5f;
     private void Awake()
     {
         _meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -45,7 +46,7 @@ public class RedPig : Tree
                 new List<Node>()
                 {
                     new CheckPlayerDistanceNode(_pigTransform,5.0f),
-                    new RunAwayNode(_pigTransform,_navMeshAgent),
+                    new RunAwayNode(_pigTransform,_navMeshAgent,_navMeshAgent.speed),
                 }
             ),
             new GoToPlayerNode(_playerTransform, _pigTransform, _navMeshAgent,_waitTime), 
