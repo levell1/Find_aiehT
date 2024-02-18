@@ -15,6 +15,7 @@ public class GlobalTimeManager : MonoBehaviour
     public float Hour;
     public float Minutes;
     private bool _isChangeDay;
+    private float _currentHour;
     private float _timeRate;
     public TextMeshProUGUI TimeText;
 
@@ -24,6 +25,7 @@ public class GlobalTimeManager : MonoBehaviour
 
     private void Start()
     {
+        _isChangeDay = true;
         SceneManager.sceneLoaded += LoadedsceneEvent;
         _timeRate = 1.0f / FullDayLength; //얼마큼씩 변하는지 계산 1/하루
         DayTime = StartTime;
@@ -31,18 +33,30 @@ public class GlobalTimeManager : MonoBehaviour
 
     private void Update()
     {
-        DayTime = (DayTime + _timeRate * Time.deltaTime) % 1.0f;
-        // 하루를 24시간으로 다시 나눠버리기~
-        _totalHours = DayTime * 24f;
-        Hour = Mathf.Floor(_totalHours);
-        Minutes = Mathf.Floor((_totalHours - Hour) * 60f);
-        string timeString = string.Format("{0}일차 {1:00}:{2:00}", Day, Hour, Minutes);
-        if (TimeText!=null)
+        if (Hour < _currentHour)
         {
-            TimeText.text = timeString;
+            _isChangeDay = false;
         }
-        
-        ChangeDay();
+         _currentHour = Hour;
+
+        if (SceneManager.GetActiveScene().name != SceneName.TycoonScene && SceneManager.GetActiveScene().name != SceneName.TitleScene)
+        {
+            DayTime = (DayTime + _timeRate * Time.deltaTime) % 1.0f;
+            // 하루를 24시간으로 다시 나눠버리기~
+            _totalHours = DayTime * 24f;
+            Hour = Mathf.Floor(_totalHours);
+            Minutes = Mathf.Floor((_totalHours - Hour) * 60f);
+            string timeString = string.Format("{0}일차 {1:00}:{2:00}", Day, Hour, Minutes);
+            if (TimeText != null)
+            {
+                TimeText.text = timeString;
+            }
+        }
+
+        if(!_isChangeDay)
+        {
+            ChangeDay();
+        }
     }
 
     private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
@@ -51,19 +65,12 @@ public class GlobalTimeManager : MonoBehaviour
         ItemRespawn();
     }
 
-    private void ChangeDay()
+    private void ChangeDay() 
     {
-        if (Hour == 0 && !_isChangeDay)
-        {
-            _isChangeDay = true;
-            IsItemRespawn = false;
-            ++Day;
-            OnInitQuest?.Invoke();
-        }
-        else if (Hour == 1)
-        {
-            _isChangeDay = false;
-        }
+        _isChangeDay = true;
+        IsItemRespawn = false;
+        ++Day;
+        OnInitQuest?.Invoke();
     }
 
     public bool NightCheck() //오전 0~6 , 오후 6~12
@@ -92,6 +99,11 @@ public class GlobalTimeManager : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void TycoonToVillage()
+    {
+        DayTime = 0.25f;  // 6시 씬 이동하면 패널티 받아서 7시에 도착
     }
 
     public void ItemRespawn()

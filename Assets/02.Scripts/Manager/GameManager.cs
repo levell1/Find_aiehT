@@ -57,15 +57,13 @@ public class GameManager : MonoSingleton<GameManager>
         _saveDataManager = FindObjectOfType<SaveDataManager>();
         _loadDataManager = FindObjectOfType<LoadDataManager>();
         _gameStateManager = FindObjectOfType<GameStateManager>();
-    }
 
-    private void Start()
-    {
         _uiManager.CreateCanvas();
     }
 
-    void Update()
-    {
-        
-    }
+    //private void Start()
+    //{
+    //    _uiManager.CreateCanvas();
+    //}
+
 }
