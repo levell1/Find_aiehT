@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class TycoonUI : MonoBehaviour
 {
@@ -84,6 +81,9 @@ public class TycoonUI : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         GameManager.Instance.CameraManager.NonTycoonCamSetting();
+
+        GameManager.Instance.GlobalTimeManager.TycoonToVillage();
+
         LoadingSceneController.LoadScene(SceneName.VillageScene);
     }
 }

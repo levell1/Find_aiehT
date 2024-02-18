@@ -1,33 +1,35 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using DG.Tweening;
 using System.Collections;
 
 public class RestartUI : BaseUI
 {
     [SerializeField] private Image _backImage;
-    [SerializeField] private GameObject _text;
-    private Color _color;
+    public TextMeshProUGUI Description;
+    private float _duration = 2f;
 
-    //죽으면 보이기
     private void OnEnable()
     {
-        _text.SetActive(false);
-        _backImage.color= new Color(0f, 0f, 0f, 0f);
-        _color = _backImage.color;
-        StartCoroutine(BackBlur());
+        _backImage.color = new Color(0, 0, 0, 0);
+        Description.color = new Color(1, 1, 1, 0);
+
+        ActiveUI();
     }
 
-    IEnumerator BackBlur() 
+    private void ActiveUI()
     {
-        while (_backImage.color.a < 1f) 
-        {
-            yield return new WaitForSeconds(0.1f);
-            _color.a = _color.a+0.05f ;
-            _backImage.color = _color;
-        }
-        _text.SetActive(true);
-        yield return new WaitForSeconds(3f);
-        base.CloseUI();
-        //씬이동,초기화는 다른 스크립트에서.
+        _backImage.DOFade(1f, _duration);
+        Description.DOFade(1f, _duration);
+        StartCoroutine(GoVillage());
+    }
+
+    private IEnumerator GoVillage()
+    {
+        yield return new WaitForSeconds(_duration);
+        GameManager.Instance.Player.transform.position = new Vector3(-5, 0, 0);
+        LoadingSceneController.LoadScene(SceneName.VillageScene);
+        gameObject.SetActive(false);
     }
 }

@@ -2376,11 +2376,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 112b6d2100b68494b93cd64c4f6290e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SaveHealth: 0
-  SaveStamina: 0
-  SavePlayerPosition: {x: 0, y: 0, z: 0}
-  SavePlayerLevel: 0
-  SavePlayerGold: 0
+  SaveplayerData:
+    CurrentSceneName: 
+    SaveHealth: 0
+    SaveStamina: 0
+    SavePlayerLevel: 0
+    SavePlayerExp: 0
+    SavePlayerGold: 0
+    SavePlayerPosition:
+      x: 0
+      y: 0
+      z: 0
+    SaveEquipLevel: 000000000000000000000000000000000000000000000000
+    SaveDay: 0
+    SaveHour: 0
+    SaveMinutes: 0
+    SaveQuestID: 
 --- !u!1 &511152283
 GameObject:
   m_ObjectHideFlags: 0
@@ -7306,9 +7317,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainCamera: {fileID: 5204862}
   VirtualCamera: {fileID: 728596131}
-  CinemachineCollider: {fileID: 0}
   VirtualcameraPov: {fileID: 0}
-  CamaraSpeed: 0
+  CameraSpeed: 0
 --- !u!1001 &1711602033
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8413,6 +8423,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1999121624}
   - component: {fileID: 1999121625}
+  - component: {fileID: 1999121626}
   m_Layer: 0
   m_Name: TitleTest
   m_TagString: Untagged
@@ -8451,6 +8462,18 @@ MonoBehaviour:
   _playerUI: {fileID: 1112195322}
   _globalTimeManager: {fileID: 1106509078}
   _mainCam: {fileID: 5204857}
+--- !u!114 &1999121626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999121623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f6b514d3a66b2447af3fac2e1eb8bd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1999131630 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6618348635420645029, guid: 937d59206e97dfa4cba48f70895250d7,
