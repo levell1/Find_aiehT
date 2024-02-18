@@ -134,6 +134,7 @@ public class CustomerController : MonoBehaviour
         {
             //TODO
             _collidingAIs.RemoveAll(ai => !ai.activeSelf || ai.GetComponent<NavMeshAgent>().isStopped);
+            CheckCollidingAICount();
         }
     }
 
@@ -207,6 +208,11 @@ public class CustomerController : MonoBehaviour
             _collidingAIs.Remove(obj);
         }
 
+        CheckCollidingAICount();
+    }
+
+    private void CheckCollidingAICount()
+    {
         if (_collidingAIs.Count == 0)
         {
             _agent.isStopped = false;
