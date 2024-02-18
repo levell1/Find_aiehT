@@ -23,6 +23,7 @@ public class StaminaSystem : MonoBehaviour
         _dash = GetComponent<Player>().DashForceReceiver;
 
         SetMaxStamina();
+        SetCurStamina();
 
         _regenTime = 0f;
     }
@@ -30,8 +31,23 @@ public class StaminaSystem : MonoBehaviour
     public void SetMaxStamina()
     {
         MaxStamina = _playerData.PlayerData.GetPlayerMaxStamina();
-        Stamina = MaxStamina;
-        OnChangeStaminaUI?.Invoke(Stamina, MaxStamina);
+    }
+
+    public void SetCurStamina()
+    {
+        GameStateManager _gameStateManager = GameManager.Instance.GameStateManager;
+
+        if (_gameStateManager.CurrentGameState == GameState.NEWGAME)
+        {
+            Stamina = MaxStamina;
+            OnChangeStaminaUI?.Invoke(Stamina, MaxStamina);
+        }
+        else if (_gameStateManager.CurrentGameState == GameState.LOADGAME)
+        {
+            float loadStamina = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveStamina;
+            Stamina = loadStamina;
+            OnChangeStaminaUI?.Invoke(Stamina, MaxStamina);
+        }
     }
 
     public bool CanUseDash(int dashStamina)

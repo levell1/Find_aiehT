@@ -26,12 +26,11 @@ public class TitleSceneButtonEvent : MonoBehaviour
     }
     public void LoadButton()
     {
-        // 로드?
-        LoadingSceneController.LoadScene(SceneName.VillageScene);
         GameManager.Instance.JsonReaderManager.LoadPlayerData();
-
         GameManager.Instance.GameStateManager.CurrentGameState = GameState.LOADGAME;
-        GameManager.Instance.SaveDataManger.SaveplayerData.SavePlayerCurrentStateData();
+
+        LoadingSceneController.LoadScene(GameManager.Instance.JsonReaderManager.LoadedPlayerData.CurrentSceneName);
+        Debug.Log(GameManager.Instance.JsonReaderManager.LoadedPlayerData.CurrentSceneName);
 
         //HealthSystem healthSystem = GameManager.Instance.Player.GetComponent<HealthSystem>();
         //healthSystem.SetCurHealth(); // LoadGame

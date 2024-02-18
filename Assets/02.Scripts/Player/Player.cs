@@ -79,7 +79,13 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(_stateMachine.SceneName);
+
+        if(GameManager.Instance.GameStateManager.CurrentGameState == GameState.LOADGAME)
+        {
+            Vector3 loadPosition = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SavePlayerPosition.ToVector3();
+            gameObject.transform.position = loadPosition;
+        }
+
         _stateMachine.SceneName = CurrentSceneName();
 
         Cursor.lockState = CursorLockMode.Locked;
