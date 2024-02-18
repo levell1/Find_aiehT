@@ -42,6 +42,7 @@ public class EffectManager : MonoBehaviour
         _healingObject = Instantiate(_healingEffect, _player.transform);
         _staminaHealingObject = Instantiate(_staminaHealingEffect, _player.transform);
         _playerAttackObject = Instantiate(_playerAttackEffect, _weaponPos.transform);
+        _questCompleteObject = Instantiate(_questCompleteEffect, _player.transform);
         _footStepObject = Instantiate(_footStepEffect, _player.transform);
     }
 
