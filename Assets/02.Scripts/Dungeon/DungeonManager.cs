@@ -8,7 +8,6 @@ using static UnityEngine.ParticleSystem;
 public class DungeonManager : MonoBehaviour
 {
     [SerializeField] private Image _fadeImage;
-
     [SerializeField] private GameObject[] Stages;
 
     [SerializeField] private GameObject[] _monsterPrefabs;
@@ -16,11 +15,14 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] private GameObject _bossHpbar;
 
     private int _stagenum = 1;
-
+    private int _enemyKindNum;
     private void Awake()
     {
+        _bossHpbar.SetActive(false);
         _stagenum = 1;
+        _enemyKindNum = _monsterPrefabs.Length / 2;
     }
+
     private void Start()
     {
         Stages[0].SetActive(true);
@@ -62,7 +64,7 @@ public class DungeonManager : MonoBehaviour
 
     public GameObject MonsterRandomSpawn(Vector3 pos,Transform transform)
     {
-        int random = Random.Range(_stagenum*6-6, _monsterPrefabs.Length/2 * _stagenum);
+        int random = Random.Range(_stagenum* _enemyKindNum - _enemyKindNum, _enemyKindNum * _stagenum);
         return Instantiate(_monsterPrefabs[random], pos,Quaternion.identity, transform);
     }
     public IEnumerator GoNextRoomFade(Vector3 nextRoomPos)
@@ -85,19 +87,18 @@ public class DungeonManager : MonoBehaviour
         yield return tween.WaitForCompletion();
         Stages[_stagenum - 1].SetActive(false);
         _stagenum++;
-        if (_stagenum==3)
+        if (_stagenum == 3)
         {
             _bossHpbar.SetActive(true);
         }
-        Stages[_stagenum-1].SetActive(true);
-
+        Stages[_stagenum - 1].SetActive(true);
         
         GameManager.Instance.Player.transform.position = Vector3.up;
 
         tween = _fadeImage.DOFade(0.0f, 2f);
         yield return tween.WaitForCompletion();
         
-        _fadeImage.gameObject.SetActive(true);
+        _fadeImage.gameObject.SetActive(false);
 
         NextStagePortalCheck();
     }

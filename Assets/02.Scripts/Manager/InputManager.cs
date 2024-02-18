@@ -20,7 +20,6 @@ public class InputManager : MonoBehaviour
         if(!Cursor.visible)
         {
             Cursor.visible = true;
-            GameManager.Instance.CameraManager.SaveCamSpeed();
             GameManager.Instance.CameraManager.DontMoveCam();
         }
 

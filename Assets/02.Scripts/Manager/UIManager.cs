@@ -38,7 +38,6 @@ public class UIManager
             PopupStack.Push(PopupDic[uiname]);
             PopupDic[uiname].SetActive(true);
             _canvasSortOrder++;
-            GameManager.Instance.CameraManager.SaveCamSpeed();
             GameManager.Instance.CameraManager.DontMoveCam();
         }
     }
@@ -60,7 +59,7 @@ public class UIManager
             }*/
             if (currentUi == PopupDic[UIName.SettingUI])
             {
-                GameManager.Instance.CameraManager.CamaraSpeed = CameraSpeed;
+                GameManager.Instance.CameraManager.CameraSpeed = CameraSpeed;
             }
             if (PopupStack.Count == 0)
             {

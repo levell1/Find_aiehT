@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class ItemSlot
@@ -75,7 +73,7 @@ public class Inventory : MonoBehaviour
 
     }
 
-    ItemSlot GetItemStack(ItemSO item) //최대수량보다 적은 아이템 중복 체크
+    private ItemSlot GetItemStack(ItemSO item) //최대수량보다 적은 아이템 중복 체크
     {
         for (int i = 0; i < Slots.Count; i++)
         {

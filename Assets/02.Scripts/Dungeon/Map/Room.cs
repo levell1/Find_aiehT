@@ -16,25 +16,26 @@ public class Room : MonoBehaviour
 
     private void Start()
     {
-        if (gameObject.name == "EndRoom")
+        if (gameObject.name == "EndRoom"|| gameObject.name == "FirstRoom")
         {
             _monsterCount = 0;
-            _doors[0].DoorColliderActive();
-
+            for (int i = 0; i < _doors.Length; i++)
+            {
+                _doors[i].DoorColliderActive();
+            }
         }
         else
         {
-            _monsterCount = Random.Range(2, 5);
-        }
-
-        for (int i = 0; i < _monsterCount; i++)
-        {
-            int ran = Random.Range(0, 360);
-            float x = Mathf.Cos(ran * Mathf.Deg2Rad) * 5f;
-            float z = Mathf.Sin(ran * Mathf.Deg2Rad) * 5f;
-            Vector3 pos = transform.position + new Vector3(x, 0, z);
-            _monsters.Add(_dungeonManager.MonsterRandomSpawn(pos, transform));
-            _monsters[i].GetComponent<EnemyHealthSystem>().OnDie += MonsterCheck;
+            _monsterCount = Random.Range(4, 10);
+            for (int i = 0; i < _monsterCount; i++)
+            {
+                int ran = Random.Range(0, 360);
+                float x = Mathf.Cos(ran * Mathf.Deg2Rad) * 5f;
+                float z = Mathf.Sin(ran * Mathf.Deg2Rad) * 5f;
+                Vector3 pos = transform.position + new Vector3(x, 0, z);
+                _monsters.Add(_dungeonManager.MonsterRandomSpawn(pos, transform));
+                _monsters[i].GetComponent<EnemyHealthSystem>().OnDie += MonsterCheck;
+            }
         }
     }
     private void MonsterCheck() 

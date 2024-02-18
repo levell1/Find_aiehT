@@ -34,27 +34,13 @@ public class TutorialGuideBook : MonoBehaviour
 
     private void OnEnable()
     {
-        //Invoke("CursorTimeLock", 1f);
-
-        GameManager.Instance.CameraManager.SaveCamSpeed();
         GameManager.Instance.CameraManager.DontMoveCam();
     }
 
     private void OnDisable()
     {
-        //CancelInvoke("CursorTimeLock");
-
         GameManager.Instance.CameraManager.ReturnCamSpeed();
     }
-
-    //private void CursorTimeLock()
-    //{
-    //    //Time.timeScale = 0.01f;
-    //    //Cursor.lockState = CursorLockMode.None;
-
-    //    GameManager.Instance.CameraManager.SaveCamSpeed();
-    //    GameManager.Instance.CameraManager.DontMoveCam();
-    //}
 
     private void PreviewImage()
     {

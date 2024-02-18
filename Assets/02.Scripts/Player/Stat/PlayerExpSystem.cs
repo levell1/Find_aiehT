@@ -66,7 +66,7 @@ public class PlayerExpSystem : MonoBehaviour
         OnChangeExpUI?.Invoke(PlayerExp, MaxExp);
 
         GameManager.Instance.EffectManager.PlayLevelUpEffect();
-
+        GameManager.Instance.EffectManager.PlayerLowHpEffect(false);
         //Debug.Log("레벨업!");
 
         //int a = _playerData.PlayerData.GetPlayerLevel();

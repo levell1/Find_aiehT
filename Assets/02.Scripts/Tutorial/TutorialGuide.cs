@@ -22,6 +22,15 @@ public class TutorialGuide : MonoBehaviour
     private int _index;
     private Coroutine _coroutine;
 
+    private void OnEnable()
+    {
+        GameManager.Instance.CameraManager.DisableCam();
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.CameraManager.EnableCam();
+    }
 
     private void Start()
     {

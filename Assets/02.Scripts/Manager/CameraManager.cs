@@ -1,37 +1,33 @@
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CameraManager : MonoBehaviour
 {
     public Camera MainCamera;
     public CinemachineVirtualCamera VirtualCamera;
-    public CinemachineCollider CinemachineCollider; //
     public CinemachinePOV VirtualcameraPov;
-    public float CamaraSpeed;
+    public float CameraSpeed;
 
+    private PlayerInput _playerInput; //
     private CinemachineVirtualCamera _tycoonCamera;
 
     private void Awake()
     { 
         VirtualcameraPov = VirtualCamera.GetCinemachineComponent<CinemachinePOV>();
+        _playerInput = GameManager.Instance.Player.GetComponent<PlayerInput>(); //
     }
 
-    public void SaveCamSpeed()
+    private void Start()
     {
-        CamaraSpeed = VirtualcameraPov.m_VerticalAxis.m_MaxSpeed;
+        CameraSpeed = 0.5f;
     }
 
     public void DontMoveCam() 
     {
-        VirtualcameraPov.m_VerticalAxis.m_MaxSpeed = 0;
-        VirtualcameraPov.m_HorizontalAxis.m_MaxSpeed = 0;
-        //Cursor.lockState = CursorLockMode.None;
-        //Time.timeScale = 0.01f;
-
-        Invoke("CursorTimeLock", 0.2f); //
-
-        VirtualCamera.enabled = false; //
-        //CinemachineCollider.enabled = false; //
+        Invoke("CursorTimeLock", 0.2f);
+        DisableCam();
     }
 
     public void ReturnCamSpeed()
@@ -39,16 +35,13 @@ public class CameraManager : MonoBehaviour
         CancelInvoke("CursorTimeLock"); //
 
         Time.timeScale = 1f;
-        if (CamaraSpeed==0)
-        {
-            CamaraSpeed = GameManager.Instance.UIManager.CameraSpeed;
-        }
-        VirtualcameraPov.m_VerticalAxis.m_MaxSpeed = CamaraSpeed;
-        VirtualcameraPov.m_HorizontalAxis.m_MaxSpeed = CamaraSpeed;
+
+        VirtualcameraPov.m_VerticalAxis.m_MaxSpeed = CameraSpeed;
+        VirtualcameraPov.m_HorizontalAxis.m_MaxSpeed = CameraSpeed;
+
         Cursor.lockState = CursorLockMode.Locked;
 
-        VirtualCamera.enabled = true; //
-        //CinemachineCollider.enabled = true; //
+        EnableCam();
     }
 
     public void TycoonCamSetting()
@@ -68,5 +61,17 @@ public class CameraManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void DisableCam()
+    {
+        _playerInput.InputActions.Disable(); //
+        VirtualCamera.enabled = false;
+    }
+
+    public void EnableCam()
+    {
+        _playerInput.InputActions.Enable(); //
+        VirtualCamera.enabled = true; //
     }
 }
