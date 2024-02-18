@@ -64,8 +64,6 @@ public class TycoonUI : MonoBehaviour
     {
         _resultCustomerText.text
             = $"{_todayArrivalCustomerNum - TycoonManager.Instance.AngryCustomerNum} / {_todayMaxCustomerNum}";
-        Debug.Log(_todayArrivalCustomerNum);
-        Debug.Log(TycoonManager.Instance.AngryCustomerNum);
         _resultGoldText.text = $"{_currentGold}";
 
         _playerGoldText.text = $"{UpdatePlayerGoldData(_currentGold)}";

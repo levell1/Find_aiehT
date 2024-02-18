@@ -48,5 +48,26 @@ public class TitleTest : MonoBehaviour
             }
             GameManager.Instance.UIManager.CloseLastCanvas();
         }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            GameManager.Instance.Player.transform.position = new Vector3(-45f, 1f, -80f);
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            GameManager.Instance.Player.transform.position = new Vector3(5f, 1f, 120f);
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            GameManager.Instance.Player.transform.position = new Vector3(80f, 1f, -40f);
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            GameManager.Instance.Player.transform.position = new Vector3(-90f, 1f, 50f);
+        }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            GameManager.Instance.Player.transform.position = new Vector3(120f, 1f, 0f);
+        }
     }
 }
