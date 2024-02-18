@@ -232,6 +232,7 @@ public class CustomerController : MonoBehaviour
 
     IEnumerator EatFood()
     {
+        _targetFoodName = null;
         _waitTime = _tycoonManager.CustomerWaitTime;
 
         _animator.SetBool(AnimationParameterName.TycoonIsEat, true);
@@ -243,6 +244,7 @@ public class CustomerController : MonoBehaviour
     
     IEnumerator NoReceivedFood()
     {
+        _targetFoodName = null;
         _waitTime = _tycoonManager.CustomerWaitTime;
 
         _orderFoodCanvas.InactiveUI();
@@ -257,8 +259,6 @@ public class CustomerController : MonoBehaviour
 
     IEnumerator ExitRestaurant()
     {
-        _targetFoodName = null;
-
         yield return _standAnimationTime;
 
         _agent.SetDestination(_tycoonManager.CustomerCreatePos.position);
