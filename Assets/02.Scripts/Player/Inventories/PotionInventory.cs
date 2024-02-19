@@ -13,17 +13,33 @@ public class PotionInventory : MonoBehaviour
     private int _hpDefaultPotionID = 0;
     private int _spDefaultPotionID = 3;
 
+    private int[] _loadPotionQuantity;
+    private int PotionKey = 2001;
     private void Awake()
     {
-        for (int i = 0; i < PotionDataList.ShopPotionList.Length; i++)
+        GameStateManager gameStateManager = GameManager.Instance.GameStateManager;
+        _loadPotionQuantity = new int[Potions.Length];
+
+        SavePlayerData save = GameManager.Instance.JsonReaderManager.LoadedPlayerData;
+
+        Debug.Log(">>");
+
+        for (int i = 0; i < PotionDataList.PotionList.Length; i++)
         {
+            _loadPotionQuantity[i] = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SavePotions[PotionKey + i];
+          
             ShopPotionInfoPopup.OnPurchaseSuccessAction += Potions[i].UpdatePotionQuantity;
-            Potions[i].Init(PotionDataList.ShopPotionList[i]);
+            Potions[i].Init(PotionDataList.PotionList[i]);
+
+            if (gameStateManager.CurrentGameState == GameState.LOADGAME)
+            {
+                Potions[i].InitQuantity = _loadPotionQuantity[i];
+            }
 
             Potions[i].TutorialPotion();
-            HPPotionQuick.DefaultPotionInit(PotionDataList.ShopPotionList[_hpDefaultPotionID]);
-            SPPotionQuick.DefaultPotionInit(PotionDataList.ShopPotionList[_spDefaultPotionID]);
+            HPPotionQuick.DefaultPotionInit(PotionDataList.PotionList[_hpDefaultPotionID]);
+            SPPotionQuick.DefaultPotionInit(PotionDataList.PotionList[_spDefaultPotionID]);
         }
-        
+
     }
 }

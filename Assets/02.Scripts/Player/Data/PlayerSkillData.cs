@@ -28,7 +28,7 @@ public class SkillInfoData
 [Serializable]
 public class PlayerSkillData
 {
-    [field: SerializeField] public List<SkillInfoData> SkillInfoDatas;
+    public List<SkillInfoData> SkillInfoDatas;
 
     public SkillInfoData GetSkillData(int skillIndex) { return SkillInfoDatas[skillIndex]; }
 

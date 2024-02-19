@@ -146,7 +146,8 @@ public class SavePlayerData
 
     public void SavePlayerSO()
     {
-        //SaveData = new PlayerSaveData();
+        //PlayerLoadJsonData playerLoadJsonData = new PlayerLoadJsonData();
+        //playerLoadJsonData.PlayerSaveData = SaveData;
 
         //SaveData.SetPlayerLevel(_playerData.GetPlayerLevel());
         //SaveData.SetPlayerMaxHealth(_playerData.GetPlayerMaxHealth());

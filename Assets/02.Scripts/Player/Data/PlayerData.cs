@@ -65,7 +65,7 @@ public class PlayerSaveData
     //public void SetPlayerAttack(float value) { PlayerAttack = value; }
     //public void SetPlayerDef(float value) { PlayerDef = value; }
     //public void SetPlayerExp(int value) { PlayerExp = value; }
-    //public void SetPlayerGold(int value) { PlayerGold = value;}
+    //public void SetPlayerGold(int value) { PlayerGold = value; }
 }
 
 [Serializable]

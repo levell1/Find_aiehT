@@ -55,8 +55,8 @@ public class JsonReader : MonoBehaviour
 
         string jsonText = File.ReadAllText(jsonFilePath);
 
-        return JsonUtility.FromJson<T>(jsonText);
-
+        //return JsonUtility.FromJson<T>(jsonText);
+        return JsonConvert.DeserializeObject<T>(jsonText);
     }
 
     public void SaveJson(object data, string filePath)
@@ -66,6 +66,8 @@ public class JsonReader : MonoBehaviour
 
         string jsonFilePath = Path.Combine(Application.persistentDataPath, jsonFilePathBuilder.ToString());
         Debug.Log(jsonFilePath);
+
+        //string jsonData = JsonUtility.ToJson(data);
         string jsonData = JsonConvert.SerializeObject(data, Formatting.Indented);
         File.WriteAllText(jsonFilePath, jsonData);
     }
