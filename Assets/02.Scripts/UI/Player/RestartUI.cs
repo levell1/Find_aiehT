@@ -3,33 +3,32 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class RestartUI : BaseUI
 {
-    [SerializeField] private Image _backImage;
-    public TextMeshProUGUI Description;
-    private float _duration = 2f;
+    private SceneMoveUI _sceneMoveUI;
 
-    private void OnEnable()
+    private void Start()
     {
-        _backImage.color = new Color(0, 0, 0, 0);
-        Description.color = new Color(1, 1, 1, 0);
-
-        ActiveUI();
+        _sceneMoveUI = GameManager.Instance.UIManager.PopupDic[UIName.SceneMoveUI].GetComponent<SceneMoveUI>();
+        Cursor.lockState = CursorLockMode.None;
     }
 
-    private void ActiveUI()
+    public void GoVillageBtn()
     {
-        _backImage.DOFade(1f, _duration);
-        Description.DOFade(1f, _duration);
-        StartCoroutine(GoVillage());
-    }
-
-    private IEnumerator GoVillage()
-    {
-        yield return new WaitForSeconds(_duration);
-        GameManager.Instance.Player.transform.position = new Vector3(-5, 0, 0);
-        LoadingSceneController.LoadScene(SceneName.VillageScene);
+        _sceneMoveUI.CurrentSceneName = SceneName.VillageScene;
+        _sceneMoveUI.Description.text = "마을로 돌아갑니다.";
+        _sceneMoveUI.gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
+
+    public void GoTitleBtn()
+    {
+        _sceneMoveUI.CurrentSceneName = SceneName.TitleScene;
+        _sceneMoveUI.Description.text = "타이틀로 돌아갑니다.";
+        _sceneMoveUI.gameObject.SetActive(true);
+        gameObject.SetActive(false);
+    }
+
 }

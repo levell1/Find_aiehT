@@ -23,6 +23,14 @@ public class TitleTest : MonoBehaviour
             _playerUI.SetActive(true);
 
         }
+        //else if (scene.name == SceneName.TitleScene)
+        //{
+        //    _globalTimeManager.SetActive(false);
+        //    _mainCam.SetActive(false);
+        //    _player.SetActive(false);
+        //    _playerUI.SetActive(false);
+        //}
+
         if (scene.name == SceneName.TycoonScene)
         {
             _globalTimeManager.SetActive(false);

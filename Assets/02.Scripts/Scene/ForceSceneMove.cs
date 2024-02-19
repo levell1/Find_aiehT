@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ForceSceneMove : MonoBehaviour
@@ -15,7 +16,12 @@ public class ForceSceneMove : MonoBehaviour
 
     private void DieToGoHome()
     {
-        _restartUI.Description.text = "마을에서 재시작 합니다.";
+        StartCoroutine(ActiveReStartUI());
+    }
+
+    private IEnumerator ActiveReStartUI()
+    {
+        yield return new WaitForSeconds(2f);
         _restartUI.gameObject.SetActive(true);
     }
 }
