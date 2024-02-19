@@ -20,14 +20,10 @@ public class PotionInventory : MonoBehaviour
         GameStateManager gameStateManager = GameManager.Instance.GameStateManager;
         _loadPotionQuantity = new int[Potions.Length];
 
-        SavePlayerData save = GameManager.Instance.JsonReaderManager.LoadedPlayerData;
-
-        Debug.Log(">>");
 
         for (int i = 0; i < PotionDataList.PotionList.Length; i++)
         {
-            _loadPotionQuantity[i] = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SavePotions[PotionKey + i];
-          
+           
             ShopPotionInfoPopup.OnPurchaseSuccessAction += Potions[i].UpdatePotionQuantity;
             Potions[i].Init(PotionDataList.PotionList[i]);
 
