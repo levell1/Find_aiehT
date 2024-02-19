@@ -6,5 +6,5 @@ using UnityEngine;
 
 public class PotionDataListSO : ScriptableObject
 {
-    public PotionSO[] ShopPotionList;
+    public PotionSO[] PotionList;
 }

@@ -45,14 +45,14 @@ public class PlayerExpSystem : MonoBehaviour
             
             PlayerLevel = loadPlayerLevel;
 
-            _playerData.PlayerData.SetPlayerLevel(PlayerLevel);
+            _playerData.PlayerData.PlayerLevel = PlayerLevel;
             _playerData.PlayerLevelData.ApplyNextLevelData(_playerData.PlayerData, PlayerLevel);
 
             OnLevelUp?.Invoke(PlayerLevel);
             return;
         }
 
-        PlayerLevel = _playerData.PlayerData.GetPlayerLevel();
+        PlayerLevel = _playerData.PlayerData.PlayerLevel;
 
         OnLevelUp?.Invoke(PlayerLevel);
     }
@@ -63,14 +63,14 @@ public class PlayerExpSystem : MonoBehaviour
         {
             int loadPlayerExp = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SavePlayerExp;
             PlayerExp = loadPlayerExp;
-            MaxExp = _playerData.PlayerLevelData.GetLevelData(PlayerLevel - 1).GetExp();
+            MaxExp = _playerData.PlayerLevelData.GetLevelData(PlayerLevel - 1).Exp;
             OnChangeExpUI?.Invoke(PlayerExp, MaxExp);
 
             return;
         }
 
-        PlayerExp = _playerData.PlayerData.GetPlayerExp();
-        MaxExp = _playerData.PlayerLevelData.GetLevelData(PlayerLevel - 1).GetExp();
+        PlayerExp = _playerData.PlayerData.PlayerExp;
+        MaxExp = _playerData.PlayerLevelData.GetLevelData(PlayerLevel - 1).Exp;
         OnChangeExpUI?.Invoke(PlayerExp, MaxExp);
     }
 
@@ -92,11 +92,11 @@ public class PlayerExpSystem : MonoBehaviour
 
         PlayerLevel++;
 
-        _playerData.PlayerData.SetPlayerLevel(PlayerLevel);
-        _playerData.PlayerData.SetPlayerExp(PlayerExp);
+        _playerData.PlayerData.PlayerLevel = PlayerLevel;
+        _playerData.PlayerData.PlayerExp = PlayerExp;
 
         _playerData.PlayerLevelData.ApplyNextLevelData(_playerData.PlayerData, PlayerLevel);
-        MaxExp = _playerData.PlayerLevelData.GetLevelData(PlayerLevel - 1).GetExp();
+        MaxExp = _playerData.PlayerLevelData.GetLevelData(PlayerLevel - 1).Exp;
 
         _healthSystem.SetMaxHealth();
         _healthSystem.Health = _healthSystem.MaxHealth;
@@ -112,10 +112,17 @@ public class PlayerExpSystem : MonoBehaviour
         GameManager.Instance.EffectManager.PlayerLowHpEffect(false);
         //Debug.Log("레벨업!");
 
-        //int a = _playerData.PlayerData.GetPlayerLevel();
-        //int b = _playerData.PlayerData.GetPlayerMaxHealth();
-        //int c = _playerData.PlayerData.GetPlayerMaxStamina();
-        //int d = _playerData.PlayerData.GetPlayerAtk();
+
+        //int a = _playerData.PlayerData.PlayerLevel;
+        //float b = _playerData.PlayerData.PlayerMaxHealth;
+        //float c = _playerData.PlayerData.PlayerMaxStamina;
+        //float d = _playerData.PlayerData.PlayerAttack;
+
+        //Debug.Log("level" + a);
+        //Debug.Log("PlayerMaxHealth" + b);
+        //Debug.Log("PlayerMaxStamina" + c);
+        //Debug.Log("PlayerAttack" + d);
+
         //int e = _playerData.PlayerData.GetPlayerDef();
         //int f = _playerData.PlayerData.GetPlayerExp();
 

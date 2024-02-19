@@ -30,7 +30,7 @@ public class StaminaSystem : MonoBehaviour
 
     public void SetMaxStamina()
     {
-        MaxStamina = _playerData.PlayerData.GetPlayerMaxStamina();
+        MaxStamina = _playerData.PlayerData.PlayerMaxStamina;
     }
 
     public void SetCurStamina()

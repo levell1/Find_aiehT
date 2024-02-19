@@ -43,7 +43,7 @@ public class ShopPotion : MonoBehaviour
 
         ShopPopupButton.onClick.AddListener(() =>
         {
-            if (_playerData.PlayerData.GetPlayerGold() >= PotionSO.Price)
+            if (_playerData.PlayerData.PlayerGold >= PotionSO.Price)
             {
                
                 ShopPotionInfoPopup.ShowPopup(PotionSO);

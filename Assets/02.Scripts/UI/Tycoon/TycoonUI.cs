@@ -68,9 +68,9 @@ public class TycoonUI : MonoBehaviour
 
     public int UpdatePlayerGoldData(int todayEarnGold)
     {
-        int playerGold = _playerData.PlayerData.GetPlayerGold();
+        int playerGold = _playerData.PlayerData.PlayerGold;
         playerGold += todayEarnGold;
-        _playerData.PlayerData.SetPlayerGold(playerGold);
+        _playerData.PlayerData.PlayerGold = playerGold;
 
         return playerGold;
     }

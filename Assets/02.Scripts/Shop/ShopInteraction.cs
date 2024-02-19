@@ -17,9 +17,9 @@ public class ShopInteraction : MonoBehaviour
     // TODO 상점이랑 상호작용시 상점에서 아이템 리스트 나열
     public void SetShop()
     {
-        for (int i = 0; i < PotionDataList.ShopPotionList.Length; i++)
+        for (int i = 0; i < PotionDataList.PotionList.Length; i++)
         {
-            ShopPotions[i].Init(PotionDataList.ShopPotionList[i]);
+            ShopPotions[i].Init(PotionDataList.PotionList[i]);
             ShopPotions[i].SetItemInfo();
 
         }

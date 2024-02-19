@@ -26,7 +26,7 @@ public class PlayerThrowSkillState : PlayerSkillState
         _skillData = _stateMachine.Player.Data.SkillData.GetSkillData(_skillIndex);
 
         
-        int _skillCost = _skillData.GetSkillCost();
+        int _skillCost = _skillData.SKillCost;
         _stateMachine.IsSkillCoolTime = _stateMachine.Player.FirstSkillCoolTimeController.IsCoolTime;
 
         base.Enter();
@@ -38,8 +38,8 @@ public class PlayerThrowSkillState : PlayerSkillState
             _stateMachine.MovementSpeedModifier = 0; // 공격할 때 안움직임
             _stateMachine.Player.SkillInstantiator.InstantiateTomato();
 
-            float skillDamage = _skillData.GetSkillDamage();
-            float playerDamage = _stateMachine.Player.Data.PlayerData.GetPlayerAtk();
+            float skillDamage = _skillData.SkillDamage;
+            float playerDamage = _stateMachine.Player.Data.PlayerData.PlayerAttack;
 
             float totalDamage = skillDamage + playerDamage;
 
@@ -48,7 +48,7 @@ public class PlayerThrowSkillState : PlayerSkillState
             Debug.Log("totalDamage: " + totalDamage);
             Debug.Log("사용");
 
-            _stateMachine.Player.FirstSkillCoolTimeController.StartCoolTime(_skillData.GetSkillCoolTime());
+            _stateMachine.Player.FirstSkillCoolTimeController.StartCoolTime(_skillData.SkillCoolTime);
            
         }
        else

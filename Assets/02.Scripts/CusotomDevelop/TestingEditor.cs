@@ -68,7 +68,7 @@ public class TestingEditor : EditorWindow
         {
             if (Int32.TryParse(_goldText, out int gold))
             {
-                playerSO.PlayerData.SetPlayerGold(gold);
+                playerSO.PlayerData.PlayerGold = gold;
             }
         }
         else

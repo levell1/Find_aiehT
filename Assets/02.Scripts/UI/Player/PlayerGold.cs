@@ -26,6 +26,6 @@ public class PlayerGold : CommaText
             return;
         }
 
-        base.ChangeGold(_playerData.PlayerData.GetPlayerGold());
+        base.ChangeGold(_playerData.PlayerData.PlayerGold);
     }
 }

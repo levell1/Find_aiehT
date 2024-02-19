@@ -239,8 +239,8 @@ public class QuestManager : MonoBehaviour
         }
         else if(quest is NatureDailyQuest)
         {
-            int rewardGold = player.Data.PlayerData.GetPlayerGold() + quest.QuestData.reward;
-            player.Data.PlayerData.SetPlayerGold(rewardGold);
+            int rewardGold = player.Data.PlayerData.PlayerGold + quest.QuestData.reward;
+            player.Data.PlayerData.PlayerGold = rewardGold;
         }
     }
 

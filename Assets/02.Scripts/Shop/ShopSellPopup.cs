@@ -109,9 +109,9 @@ public class ShopSellPopup : MonoBehaviour
         _itemTotalPrice = _itemCurQuantity * _itemCurGold;
         ShopSell.Inventory.RemoveItem(ShopSell.selectedItem.Item, _itemCurQuantity);
 
-        int _gold = PlayerSO.PlayerData.GetPlayerGold();
+        int _gold = PlayerSO.PlayerData.PlayerGold;
         _gold += _itemTotalPrice;
-        PlayerSO.PlayerData.SetPlayerGold(_gold);
+        PlayerSO.PlayerData.PlayerGold = _gold;
 
         ShopSell.UpdateUI();
         ShopSell.ClearSeletecItem();
