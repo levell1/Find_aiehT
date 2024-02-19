@@ -1520,7 +1520,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5599870185464220151}
-  m_LocalRotation: {x: 0, y: 0.012216957, z: 0, w: 0.9999254}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1531,7 +1531,7 @@ Transform:
   - {fileID: 898807112}
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 1.4, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1170719281690443638
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1957,7 +1957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &6002658799415571747 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3176489551943536477, guid: 39677a745aec9b24bb6d0949025c25c4,
@@ -1989,15 +1989,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: BossRoom
       objectReference: {fileID: 0}
-    - target: {fileID: 5234044481340373199, guid: 39677a745aec9b24bb6d0949025c25c4,
+    - target: {fileID: 3176489551943536477, guid: 39677a745aec9b24bb6d0949025c25c4,
         type: 3}
-      propertyPath: m_AnchorMax.x
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5234044481340373199, guid: 39677a745aec9b24bb6d0949025c25c4,
         type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5234044481340373199, guid: 39677a745aec9b24bb6d0949025c25c4,
+        type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6172167453562737105, guid: 39677a745aec9b24bb6d0949025c25c4,
         type: 3}

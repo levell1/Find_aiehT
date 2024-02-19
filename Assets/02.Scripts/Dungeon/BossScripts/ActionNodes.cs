@@ -79,9 +79,12 @@ public class LevitateNode : Node
     public override NodeState Evaluate()
     {
         _time += Time.deltaTime;
-        Quaternion rotation = Quaternion.LookRotation(_player.position - _pigTransform.position);
-        rotation.y = 0f;
-        _pigTransform.rotation = Quaternion.Lerp(_pigTransform.rotation, rotation, Time.deltaTime * 4);
+        if (_time < _cooltime)
+        {
+            Quaternion rotation = Quaternion.LookRotation(_player.position - _pigTransform.position);
+            _pigTransform.rotation = Quaternion.Lerp(_pigTransform.rotation, rotation, Time.deltaTime * 4);
+        }
+        
         if (_time > _cooltime)
         {
             _levitateObject.gameObject.SetActive(true);
@@ -100,10 +103,7 @@ public class LevitateNode : Node
             }
         }
         return state = NodeState.Running;
-
     }
-
-    
 }
 
 public class RangeAttackNode : Node
@@ -385,7 +385,7 @@ public class DashToPlayer : Node
         for (int i = 4; i >= 0; i--)
         {
             _dashPosition = _playerTransform.position + ((_playerTransform.position - _pigTransform.position).normalized * i * 10);
-            _dashPosition.y = 0;
+            _dashPosition.y = _pigTransform.position.y;
             NavMeshHit hit;
             if (NavMesh.SamplePosition(_dashPosition, out hit, 1f, NavMesh.AllAreas))
             {
