@@ -12,6 +12,7 @@ public struct UIName
     public const string PlayerStatusUI = "PlayerStatusUI";
     public const string ReforgeUI = "ReforgeUI";
     public const string RestartUI = "RestartUI";
+    public const string TimeToVillageUI = "TimeToVillageUI";
     public const string SceneMoveUI = "SceneMoveUI";
     public const string RestaurantUI = "RestaurantUI";
     public const string ResultUI = "ResultUI";

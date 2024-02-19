@@ -36,4 +36,6 @@ public class SceneMoveUI : MonoBehaviour
         LoadingSceneController.LoadScene(CurrentSceneName);
         gameObject.SetActive(false);
     }
+
+    
 }

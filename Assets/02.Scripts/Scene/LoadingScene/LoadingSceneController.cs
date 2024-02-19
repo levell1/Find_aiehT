@@ -15,7 +15,6 @@ public class LoadingSceneController : MonoBehaviour
 
     private Color _color;
 
-
     private void Awake()
     {
         Time.timeScale = 1f;
@@ -34,6 +33,10 @@ public class LoadingSceneController : MonoBehaviour
         _backImage.color = new Color(0f, 0f, 0f, 1f);
         _color = _backImage.color;
         StartCoroutine(LoadSceneProcess());
+        //if(NextScene == SceneName.TitleScene)
+        //{
+        //    Destroy(DontObjects);
+        //}
     }
 
     IEnumerator LoadSceneProcess() 
