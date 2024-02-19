@@ -25,11 +25,11 @@ public struct SceneName
 {
     public const string TitleScene = "TitleScene";
     public const string LoadingScene = "LoadingScene";
-    public const string VillageScene = "KGM_TestVillage";
-    public const string Field = "KGM";
+    public const string VillageScene = "VillageScene";
+    public const string Field = "HuntingScene";
     public const string TycoonScene = "TycoonScene";
-    public const string TutorialScene = "KGM_Tutorial";
-    public const string DungeonScene = "Dungeon";
+    public const string TutorialScene = "TutorialScene";
+    public const string DungeonScene = "DungeonScene";
 }
 
 public struct TagName
