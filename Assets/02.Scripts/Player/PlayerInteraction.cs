@@ -206,6 +206,8 @@ public class PlayerInteraction : MonoBehaviour
             else if (_curScene == SceneName.Field && _nextScene == SceneName.VillageScene)
             {
                 GameManager.Instance.Player.transform.position = new Vector3(-2, 0, 25);
+
+                GameManager.Instance.GlobalTimeManager.PenaltyTime();
             }
             /*else if (_curScene == SceneName.Dungeon && _nextScene == SceneName.VillageScene)
             {

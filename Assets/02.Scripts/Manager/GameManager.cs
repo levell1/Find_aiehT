@@ -59,6 +59,12 @@ public class GameManager : MonoSingleton<GameManager>
         _gameStateManager = FindObjectOfType<GameStateManager>();
 
         _uiManager.CreateCanvas();
+
+    }
+
+    private void Start()
+    {
+        _globalTimeManager.gameObject.SetActive(false);
     }
 
     //private void Start()
