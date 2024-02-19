@@ -1,20 +1,27 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TitleSceneButtonEvent : MonoBehaviour
 {
     private SaveDataManager _saveDataManager;
     private GlobalTimeManager _globalTimeManager;
 
+    public Button NewGameButton;
+    public Button LoadGameButton;
+
     private void Awake()
     {
         _saveDataManager = GameManager.Instance.SaveDataManger;
+        NewGameButton.onClick.AddListener(() => OnNewGameButtonEvent());
+        LoadGameButton.onClick.AddListener(() => OnLoadGameButtonEvent());
+
     }
     private void Update()
     {
         Cursor.lockState = CursorLockMode.None;
     }
-    public void NewGameButton()
+    public void OnNewGameButtonEvent()
     {
         //데이터 초기화 코드
         GameManager.Instance.JsonReaderManager.InitPlayerData();
@@ -29,7 +36,7 @@ public class TitleSceneButtonEvent : MonoBehaviour
         //HealthSystem healthSystem = GameManager.Instance.Player.GetComponent<HealthSystem>();
         //healthSystem.SetCurHealth(); // NewGame
     }
-    public void LoadButton()
+    public void OnLoadGameButtonEvent()
     {
         GameManager.Instance.JsonReaderManager.LoadPlayerData();
         GameManager.Instance.GameStateManager.CurrentGameState = GameState.LOADGAME;

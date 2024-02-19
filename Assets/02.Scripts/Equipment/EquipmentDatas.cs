@@ -3,6 +3,8 @@ using UnityEngine;
 public class EquipmentDatas : MonoBehaviour
 {
     public EquipmentData[] EquipData = new EquipmentData[6];
+    private int[] LoadEquipLevels = new int[6];
+
     private HealthSystem _healthSystem;
 
     public float SumHealth;
@@ -17,11 +19,23 @@ public class EquipmentDatas : MonoBehaviour
 
     private void Init()
     {
+        GameStateManager gameStateManager = GameManager.Instance.GameStateManager;
+        
+
         for (int i = 0; i < 6; i++)
         {
             //데이터 불러와서 level에 저장
-            EquipData[i].Level = 0;
-            SetEquipCurrent(i);
+            if (gameStateManager.CurrentGameState == GameState.LOADGAME)
+            {
+                LoadEquipLevels[i] = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveEquipLevel[i];
+                EquipData[i].Level = LoadEquipLevels[i];
+                SetEquipCurrent(i);
+            }
+            else if(gameStateManager.CurrentGameState == GameState.NEWGAME)
+            {
+                EquipData[i].Level = 0;
+                SetEquipCurrent(i);
+            }
         }
         SumEquipStat();
     }
