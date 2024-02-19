@@ -819,7 +819,6 @@ MonoBehaviour:
   GreenPigEffect: {fileID: 1601506141239540749, guid: 48c5715f9603c3842a353516a8baefbb,
     type: 3}
   _playerTakeDamageEffect: {fileID: 1253678237}
-  _playerDieEffect: {fileID: 0}
 --- !u!1 &100278225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2034,19 +2033,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 269087018}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1707168831}
-        m_TargetAssemblyTypeName: TitleSceneButtonEvent, Assembly-CSharp
-        m_MethodName: NewGameButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &269087018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7328,6 +7315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f475960dabddb45b9be742ea073433, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NewGameButton: {fileID: 269087017}
+  LoadGameButton: {fileID: 1814228600}
 --- !u!4 &1707168832
 Transform:
   m_ObjectHideFlags: 0
@@ -7586,7 +7575,7 @@ GameObject:
   - component: {fileID: 1814228601}
   - component: {fileID: 1814228600}
   m_Layer: 5
-  m_Name: Load
+  m_Name: LoadGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7656,19 +7645,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1814228601}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1707168831}
-        m_TargetAssemblyTypeName: TitleSceneButtonEvent, Assembly-CSharp
-        m_MethodName: LoadButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1814228601
 MonoBehaviour:
   m_ObjectHideFlags: 0

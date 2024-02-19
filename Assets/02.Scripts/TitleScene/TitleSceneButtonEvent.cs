@@ -13,6 +13,9 @@ public class TitleSceneButtonEvent : MonoBehaviour
     private void Awake()
     {
         _saveDataManager = GameManager.Instance.SaveDataManger;
+        NewGameButton.onClick.AddListener(() => OnNewGameButtonEvent());
+        LoadGameButton.onClick.AddListener(() => OnLoadGameButtonEvent());
+
     }
     private void Update()
     {
