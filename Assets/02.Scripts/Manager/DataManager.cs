@@ -13,8 +13,9 @@ public class DataManager : MonoBehaviour
     public FoodSO[] FoodSODatas = new FoodSO[20];
     public List<OrderFood> Orders = new List<OrderFood>();
 
-    public ItemDataListSO ItemDataList;
+    public ItemDataListSO NatureItemDataList;
     public EnemyDataListSO EnemyDataList;
+    public ItemDataListSO ItemDataList;
 
     public Dictionary<int, bool> ItemWaitSpawnDict = new Dictionary<int, bool>();
 

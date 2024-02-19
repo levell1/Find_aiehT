@@ -20,7 +20,7 @@ public class Quest
     public int TargetID;
     public int TargetQuantity;
 
-    public ItemDataListSO ItemDatas = GameManager.Instance.DataManager.ItemDataList;
+    public ItemDataListSO ItemDatas = GameManager.Instance.DataManager.NatureItemDataList;
     public EnemyDataListSO EnemyDatas = GameManager.Instance.DataManager.EnemyDataList;
 
     private List<int> _randomIDList =  new List<int>(); 
