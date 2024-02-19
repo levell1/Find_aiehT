@@ -29,7 +29,7 @@ public class HealthSystem : MonoBehaviour
         _playerData = GetComponent<Player>().Data;
         _gameStateManager = GameManager.Instance.GameStateManager;
     }
-    private void OnEnable()
+    private void Start()
     {
         SetMaxHealth();
         SetCurHealth();
