@@ -60,7 +60,7 @@ public class SkillInstantiator : MonoBehaviour
 
         foreach (SkillInfoData skillInfoDatas in _skillData)
         {
-            _skillNames.Add(skillInfoDatas.GetSkillPrefabsName());
+            _skillNames.Add(skillInfoDatas.SkillPrefabsName);
         }
 
         foreach (string skillName in _skillNames)

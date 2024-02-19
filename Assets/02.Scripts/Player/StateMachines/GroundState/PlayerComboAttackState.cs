@@ -82,7 +82,7 @@ public class PlayerComboAttackState : PlayerAttackState
             }
 
                 int comboIndex = _stateMachine.ComboIndex;
-                float playerAtk = _stateMachine.Player.Data.PlayerData.GetPlayerAtk();
+                float playerAtk = _stateMachine.Player.Data.PlayerData.PlayerAttack;
                 float damage = _stateMachine.Player.Data.AttackData.AttackInfoDatas[comboIndex].Damage;
 
                 float totalDamage = playerAtk + damage;

@@ -44,6 +44,7 @@ public class JsonReader : MonoBehaviour
     {
         string saveFilePath = Path.Combine(Application.persistentDataPath, JsonDataName.SaveFile);
         LoadedPlayerData = LoadJson<SavePlayerData>(saveFilePath);
+        PlayerSO.SetPlayerData(LoadedPlayerData.InitLoadPlayerData());
     }
 
     public T LoadJson<T>(string FilePath)

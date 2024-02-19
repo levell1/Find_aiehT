@@ -41,13 +41,12 @@ public class SavePlayerData
     private HealthSystem _healthSystem;
     private StaminaSystem _staminaSystem;
     private PlayerExpSystem _expSystem;
-    private PlayerSO _playerSO;
+    private PlayerSO _playerData;
     private EquipmentDatas _equipmentDatas;
     private GlobalTimeManager _globalTimeManager;
     private Inventory _inventory;
     private PotionInventory _potionInventory;
     private QuestManager _questManager;
-    private PlayerData _playerData;
 
     private Player _player;
 
@@ -55,7 +54,7 @@ public class SavePlayerData
     [HideInInspector] public string CurrentSceneName;
 
     [Header("PlayerSO")]
-    [HideInInspector] public PlayerSaveData SaveData;
+    [HideInInspector] public PlayerData SaveData;
 
     [Header("PlayerCurrenState")]
     [HideInInspector] public float SaveHealth;
@@ -101,9 +100,7 @@ public class SavePlayerData
     public void SetData(GameObject playerObject)
     {
         _player = GameManager.Instance.Player.GetComponent<Player>();
-        _playerSO = playerObject.GetComponent<Player>().Data;
-        _playerData = _playerSO.PlayerData;
-        
+        _playerData = playerObject.GetComponent<Player>().Data;
         _healthSystem = playerObject.GetComponent<HealthSystem>();
         _staminaSystem = playerObject.GetComponent<StaminaSystem>();
         _expSystem = playerObject.GetComponent<PlayerExpSystem>();
@@ -157,13 +154,19 @@ public class SavePlayerData
         //SaveData.SetPlayerExp(_playerData.GetPlayerExp());
         //SaveData.SetPlayerGold(_playerData.GetPlayerGold());
 
-        SaveData.PlayerLevel = _playerData.GetPlayerLevel();
-        SaveData.PlayerMaxHealth = _playerData.GetPlayerMaxHealth();
-        SaveData.PlayerMaxStamina = _playerData.GetPlayerMaxStamina();
-        SaveData.PlayerAttack = _playerData.GetPlayerAtk();
-        SaveData.PlayerDef = _playerData.GetPlayerDef();
-        SaveData.PlayerExp = _playerData.GetPlayerExp();
-        SaveData.PlayerGold = _playerData.GetPlayerGold();
+        SaveData.PlayerName = _playerData.PlayerData.PlayerName;
+        SaveData.PlayerLevel = _playerData.PlayerData.PlayerLevel;
+        SaveData.PlayerMaxHealth = _playerData.PlayerData.PlayerMaxHealth;
+        SaveData.PlayerMaxStamina = _playerData.PlayerData.PlayerMaxStamina;
+        SaveData.PlayerAttack = _playerData.PlayerData.PlayerAttack;
+        SaveData.PlayerDef = _playerData.PlayerData.PlayerDef;
+        SaveData.PlayerExp = _playerData.PlayerData.PlayerExp;
+        SaveData.PlayerGold = _playerData.PlayerData.PlayerGold;
+    }
+
+    public PlayerData InitLoadPlayerData()
+    {
+        return SaveData;
     }
 
     // TODO SaveDataManager 에서 받아온 내용 
@@ -175,7 +178,7 @@ public class SavePlayerData
         SaveStamina = _staminaSystem.Stamina;
         SavePlayerLevel = _expSystem.PlayerLevel;
         SavePlayerExp = _expSystem.PlayerExp;
-        SavePlayerGold = _playerSO.PlayerData.GetPlayerGold();
+        SavePlayerGold = _playerData.PlayerData.PlayerGold;
     }
 
     public void SavePlayerPositionData()

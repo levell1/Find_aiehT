@@ -38,9 +38,9 @@ public class ReforgeUI : BaseUI
     public void ClickUpgradeButton() 
     {
         StartCoroutine(ShowPopupForSeconds(_resultUI,1f));
-        if (_playerData.PlayerData.GetPlayerGold() >= _equipmentupgrade.EquipData[_itemnum].CurrentUpgradeGold)
+        if (_playerData.PlayerData.PlayerGold >= _equipmentupgrade.EquipData[_itemnum].CurrentUpgradeGold)
         {
-            _playerData.PlayerData.SetPlayerGold(_playerData.PlayerData.GetPlayerGold() - (int)_equipmentupgrade.EquipData[_itemnum].CurrentUpgradeGold);
+            _playerData.PlayerData.PlayerGold = _playerData.PlayerData.PlayerGold - (int)_equipmentupgrade.EquipData[_itemnum].CurrentUpgradeGold;
             _equipmentupgrade.EquipLevelUp(_itemnum);
             _resultText.text = "강화 성공";
             

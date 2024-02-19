@@ -51,7 +51,7 @@ public class TomatoWeapon : MonoBehaviour
 
         _damage = SkillTotalDamage();
         _distance = 0f;
-        _skillDistance = _playerSO.SkillData.GetSkillData(_skillIndex).GetSkillDistance();
+        _skillDistance = _playerSO.SkillData.GetSkillData(_skillIndex).SkillDistance;
         _initiatePos = transform.position;
 
         StartCoroutine(ShootSkill());
@@ -125,8 +125,8 @@ public class TomatoWeapon : MonoBehaviour
 
     private float SkillTotalDamage()
     {
-        float _playerDamage = _playerSO.PlayerData.GetPlayerAtk();
-        float _skillDamage = _playerSO.SkillData.GetSkillData(_skillIndex).GetSkillDamage();
+        float _playerDamage = _playerSO.PlayerData.PlayerAttack;
+        float _skillDamage = _playerSO.SkillData.GetSkillData(_skillIndex).SkillDamage;
         float _weaponDamage = _equipmentDatas.SumDmg;
         Debug.Log(_playerDamage + _skillDamage);
 

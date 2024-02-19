@@ -38,7 +38,8 @@ public class HealthSystem : MonoBehaviour
 
     public void SetMaxHealth() 
     {
-        MaxHealth = _playerData.PlayerData.GetPlayerMaxHealth() + _equipmentDatas.SumHealth;
+        MaxHealth = _playerData.PlayerData.PlayerMaxHealth + _equipmentDatas.SumHealth;
+        OnChangeHpUI?.Invoke(Health, MaxHealth);
     }
 
     // 로드게임 => Health = 저장된 체력
@@ -70,7 +71,7 @@ public class HealthSystem : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        _playerDef = _playerData.PlayerData.GetPlayerDef() + _equipmentDatas.SumDef;
+        _playerDef = _playerData.PlayerData.PlayerDef + _equipmentDatas.SumDef;
         if (_isInvincible) return;
 
         if (Health == 0) return;
@@ -92,6 +93,7 @@ public class HealthSystem : MonoBehaviour
         }
 
         StartCoroutine(InvincibleCooldown());
+
     }
 
     private IEnumerator InvincibleCooldown()

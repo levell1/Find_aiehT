@@ -44,7 +44,7 @@ public class PlayerDataEditor : EditorWindow
 
             if (Int32.TryParse(_levelText, out int level))
             {
-                playerData.SetPlayerLevel(level);
+                playerData.PlayerLevel = level;
                 playerSO.PlayerLevelData.ApplyNextLevelData(playerData, level);
 
             }

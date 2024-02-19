@@ -80,7 +80,7 @@ public class ShopPotionInfoPopup : MonoBehaviour
         _itemQuantity.text = _itemCurQuantity.ToString();
         _itemPrice.text = totalItemGold.ToString();
 
-        if (totalItemGold > _playerData.PlayerData.GetPlayerGold())
+        if (totalItemGold > _playerData.PlayerData.PlayerGold)
         {
             _itemPrice.color = Color.red;
         }
@@ -119,7 +119,7 @@ public class ShopPotionInfoPopup : MonoBehaviour
         _itemPrice.text = _itemTotalPrice.ToString();
         _itemSlider.value = _itemCurQuantity;
 
-        if (_itemTotalPrice > _playerData.PlayerData.GetPlayerGold())
+        if (_itemTotalPrice > _playerData.PlayerData.PlayerGold)
         {
             _itemPrice.color = Color.red;
         }
@@ -134,10 +134,10 @@ public class ShopPotionInfoPopup : MonoBehaviour
     {
         _itemTotalPrice = _itemCurQuantity * _itemCurGold;
 
-        if (_playerData.PlayerData.GetPlayerGold() >= _itemTotalPrice)
+        if (_playerData.PlayerData.PlayerGold >= _itemTotalPrice)
         {
             OnPurchaseSuccessAction?.Invoke(_itemCurQuantity);
-            _playerData.PlayerData.SetPlayerGold(_playerData.PlayerData.GetPlayerGold() - _itemTotalPrice);
+            _playerData.PlayerData.PlayerGold = _playerData.PlayerData.PlayerGold - _itemTotalPrice;
 
             
             StartCoroutine(PurchasePopupOff());

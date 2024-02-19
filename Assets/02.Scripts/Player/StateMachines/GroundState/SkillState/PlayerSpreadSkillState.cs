@@ -20,7 +20,7 @@ public class PlayerSpreadSkillState : PlayerSkillState
         _skillData = _stateMachine.Player.Data.SkillData.GetSkillData(_skillIndex);
 
 
-        int _skillCost = _skillData.GetSkillCost();
+        int _skillCost = _skillData.SKillCost;
         _stateMachine.IsSkillCoolTime = _stateMachine.Player.SecondSkillCoolTimeController.IsCoolTime;
 
         base.Enter();
@@ -35,8 +35,8 @@ public class PlayerSpreadSkillState : PlayerSkillState
                 _stateMachine.Player.SandSkill.EnableCollider();
                 _stateMachine.Player.SkillParticle.PlayParticle();
 
-                float skillDamage = _skillData.GetSkillDamage();
-                float playerDamage = _stateMachine.Player.Data.PlayerData.GetPlayerAtk();
+                float skillDamage = _skillData.SkillDamage;
+                float playerDamage = _stateMachine.Player.Data.PlayerData.PlayerAttack;
 
                 float totalDamage = skillDamage + playerDamage;
 
@@ -44,7 +44,7 @@ public class PlayerSpreadSkillState : PlayerSkillState
 
                 _stateMachine.Player.StaminaSystem.UseSkill(_skillCost);
 
-                _stateMachine.Player.SecondSkillCoolTimeController.StartCoolTime(_skillData.GetSkillCoolTime());
+                _stateMachine.Player.SecondSkillCoolTimeController.StartCoolTime(_skillData.SkillCoolTime);
             }
             else
             {

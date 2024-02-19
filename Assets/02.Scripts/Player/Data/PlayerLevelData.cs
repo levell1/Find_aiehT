@@ -6,20 +6,49 @@ using UnityEngine;
 [Serializable]
 public class LevelInfoData
 {
+    [SerializeField] private int _level;
+    [SerializeField] private float _health;
+    [SerializeField] private float _stamina;
+    [SerializeField] private float _attack;
+    [SerializeField] private float _defence;
+    [SerializeField] private int _exp;
+    public int Level
+    {
+        get { return _level; }
+        set { _level = value; }
+    }
+    public float Health
+    {
+        get { return _health; }
+        set { _health = value; }
+    }
+    public float Stamina
+    {
+        get { return _stamina; }
+        set { _stamina = value; }
+    }
+    public float Attack
+    {
+        get { return _attack; }
+        set { _attack = value; }
+    }
+    public float Defence
+    {
+        get { return _defence; }
+        set { _defence = value; }
+    }
+    public int Exp
+    {
+        get { return _exp; }
+        set { _exp = value; }
+    }
 
-    [SerializeField] private int Level;
-    [SerializeField] private float Health;
-    [SerializeField] private float Stamina;
-    [SerializeField] private float Attack;
-    [SerializeField] private float Defence;
-    [SerializeField] private int Exp;
-
-    public int GetLevel() { return Level; }
-    public float GetHealth() { return Health; }
-    public float GetStamina() { return Stamina; }
-    public float GetAttack() { return Attack; }
-    public float GetDefence() { return Defence; }
-    public int GetExp() { return Exp; }
+    //public int GetLevel() { return Level; }
+    //public float GetHealth() { return Health; }
+    //public float GetStamina() { return Stamina; }
+    //public float GetAttack() { return Attack; }
+    //public float GetDefence() { return Defence; }
+    //public int GetExp() { return Exp; }
 
 }
 
@@ -36,10 +65,10 @@ public class PlayerLevelData
 
         if (nextLevelData != null)
         {
-            playerData.SetPlayerMaxHealth(nextLevelData.GetHealth());
-            playerData.SetPlayerMaxStamina(nextLevelData.GetStamina());
-            playerData.SetPlayerAttack(nextLevelData.GetAttack());
-            playerData.SetPlayerDef(nextLevelData.GetDefence());
+            playerData.PlayerMaxHealth = nextLevelData.Health;
+            playerData.PlayerMaxStamina = nextLevelData.Stamina;
+            playerData.PlayerAttack = nextLevelData.Attack;
+            playerData.PlayerDef = nextLevelData.Defence;
         }
     }
 }
