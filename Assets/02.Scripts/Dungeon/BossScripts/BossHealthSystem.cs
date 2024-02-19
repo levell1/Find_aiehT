@@ -3,10 +3,9 @@ using UnityEngine;
 using System;
 using UnityEngine.AI;
 
-
 public class BossHealthSystem : MonoBehaviour
 {
-    public float MaxHealth;
+    private float MaxHealth;
     public float Health;
 
     public event Action OnDie;
@@ -29,10 +28,11 @@ public class BossHealthSystem : MonoBehaviour
 
     public void SetMaxHealth()
     {
-        MaxHealth = 210;
+        MaxHealth = 500;
+        //상속으로 다시
         if (gameObject.name=="Aieht")
         {
-            MaxHealth = 2000;
+            MaxHealth = 500;
         }
         Health = MaxHealth;
         OnChangeHpUI?.Invoke(Health, MaxHealth);
@@ -40,7 +40,6 @@ public class BossHealthSystem : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-
         if (Health == 0) return;
         _animation.SetBool(AnimationParameterName.BossHit, true);
         Health = Mathf.Max(Mathf.Floor(Health - damage), 0);
@@ -49,11 +48,18 @@ public class BossHealthSystem : MonoBehaviour
         StartCoroutine(DamageFlash());
         Invoke("Animation", 0.1f);
 
-        if (Health/MaxHealth <= 0.99f)
+        if (gameObject.name == "GreenPig")
+        {
+            if (Health / MaxHealth <= 0.2f)
+            {
+                OnDie?.Invoke();
+            }
+        }
+
+        if (gameObject.name == "Aieht" && Health <= 0)
         {
             OnDie?.Invoke();
         }
-
     }
 
     private void Animation() 

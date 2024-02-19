@@ -10,6 +10,7 @@ public class LevitateObject : MonoBehaviour
     private ParticleSystem _particle;
     readonly private float _staminaDamage =5f;
     readonly private float _delayTime = 0.1f;
+    readonly private float _dagage = 50f;
     [SerializeField] bool _isBoss=false;
 
     private void Awake()
@@ -34,7 +35,7 @@ public class LevitateObject : MonoBehaviour
     private void Update()
     {
         _time += Time.deltaTime;
-        if (_time>5)
+        if (_time>3)
         {
             EndSkill = true;
         }
@@ -54,7 +55,7 @@ public class LevitateObject : MonoBehaviour
 
         if (other.gameObject.TryGetComponent(out HealthSystem healthSystem) && _isBoss == true)
         {
-            healthSystem.TakeDamage(10f);
+            healthSystem.TakeDamage(_dagage);
         }
     }
 
