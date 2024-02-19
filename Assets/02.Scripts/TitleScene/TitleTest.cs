@@ -17,12 +17,20 @@ public class TitleTest : MonoBehaviour
     {
         if (scene.name!=SceneName.TitleScene)
         {
-            _globalTimeManager.SetActive(true);
+            //_globalTimeManager.SetActive(true);
             _mainCam.SetActive(true);
             _player.SetActive(true);
             _playerUI.SetActive(true);
 
         }
+        else if (scene.name == SceneName.TitleScene)
+        {
+            _globalTimeManager.SetActive(false);
+            _mainCam.SetActive(false);
+            _player.SetActive(false);
+            _playerUI.SetActive(false);
+        }
+
         if (scene.name == SceneName.TycoonScene)
         {
             _globalTimeManager.SetActive(false);
@@ -34,7 +42,7 @@ public class TitleTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (SceneManager.GetActiveScene().name == SceneName.TitleScene || GameManager.Instance.GlobalTimeManager.Day == 0)
+            if (SceneManager.GetActiveScene().name == SceneName.TutorialScene && GameManager.Instance.GlobalTimeManager.Day == 0 || SceneManager.GetActiveScene().name == SceneName.TycoonScene && GameManager.Instance.GlobalTimeManager.Day == 0)
             {
                 return;
             }

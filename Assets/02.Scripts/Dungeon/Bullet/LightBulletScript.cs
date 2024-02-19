@@ -6,6 +6,7 @@ public class LightBulletScript : MonoBehaviour
 {
     private Transform _player;
     private Rigidbody _rigidbody;
+    readonly private float _lightDamage =30f;
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -19,7 +20,7 @@ public class LightBulletScript : MonoBehaviour
 
     private void Update()
     {
-        _rigidbody.velocity = transform.forward * 5f;
+        _rigidbody.velocity = transform.forward * 6f;
         var ballTargetRotation = Quaternion.LookRotation(_player.position - transform.position);
         transform.rotation = Quaternion.Lerp(transform.rotation, ballTargetRotation, Time.deltaTime * 4);
     }
@@ -28,7 +29,7 @@ public class LightBulletScript : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out HealthSystem health))
         {
-            health.TakeDamage(10);
+            health.TakeDamage(_lightDamage);
         }
         else if (other.gameObject.tag == TagName.Wall)
         {
@@ -40,7 +41,7 @@ public class LightBulletScript : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out HealthSystem health))
         {
-            health.TakeDamage(10);
+            health.TakeDamage(_lightDamage);
         }
     }
 

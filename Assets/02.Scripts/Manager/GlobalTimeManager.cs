@@ -24,8 +24,9 @@ public class GlobalTimeManager : MonoBehaviour
     public TextMeshProUGUI TimeText;
 
     public bool IsItemRespawn = false;
-
+    public bool IsActiveOutFieldUI;
     public event Action OnInitQuest;
+    public event Action OnOutFieldUI;
 
     private void Start()
     {
@@ -74,6 +75,12 @@ public class GlobalTimeManager : MonoBehaviour
         {
             ChangeDay();
         }
+
+        if (Hour == 18f && IsActiveOutFieldUI)
+        {
+            IsActiveOutFieldUI = false;
+            OnOutFieldUI?.Invoke();
+        }
     }
 
     private void SetDayTime()
@@ -106,6 +113,7 @@ public class GlobalTimeManager : MonoBehaviour
     private void ChangeDay() 
     {
         _isChangeDay = true;
+        IsActiveOutFieldUI = true;
         IsItemRespawn = false;
         ++Day;
         OnInitQuest?.Invoke();
@@ -141,7 +149,7 @@ public class GlobalTimeManager : MonoBehaviour
 
     public void TycoonToVillage()
     {
-        DayTime = _tycoonTime;  // 6시 씬 이동하면 패널티 받아서 7시에 도착
+        DayTime = _tycoonTime;
     }
 
     public void ItemRespawn()

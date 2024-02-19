@@ -10,13 +10,17 @@ public class AiehtAI : Tree
     private Transform _pigTransform;
     private NavMeshAgent _navMeshAgent;
     private LevitateObject _levitateObject;
+
+    [Header("대쉬, 충돌")]
+    readonly private float _DashWaitTime = 3f;
+    readonly private float _DashDamage = 100f;
     readonly private float _knockBack = 7f;
     readonly private float _knockBackCount = 5f;
+
+    [Header("스킬 쿨타임")]
     readonly private float _levitateTiem = 4f;
-    readonly private float _DashWaitTime = 3f;
     readonly private float _LightAttackWaitTime = 2f;
-    readonly private float _runMoveSpeed = 10f;
-    float time = 0;
+  
     Vector3 Power;
 
 
@@ -72,7 +76,7 @@ public class AiehtAI : Tree
     {
         if (other.gameObject.TryGetComponent(out HealthSystem health))
         {
-            health.TakeDamage(20);
+            health.TakeDamage(_DashDamage);
             StartCoroutine(KnockBack(5f));
         }
     }
@@ -80,7 +84,7 @@ public class AiehtAI : Tree
 
     void OnDrawGizmos() {
         Gizmos.color = Color.white; 
-        Gizmos.DrawSphere(transform.position, 20f);
+        Gizmos.DrawSphere(transform.position, 10f);
     }
    
 
@@ -88,6 +92,7 @@ public class AiehtAI : Tree
     {
         Vector3 Direction = _playerTransform.position - _pigTransform.position;
         Power = Vector3.zero;
+        Direction.y = 0;
         int count = 0;
         while (count < _knockBackCount)
         {

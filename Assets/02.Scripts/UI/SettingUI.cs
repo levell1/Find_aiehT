@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SettingUI : BaseUI
@@ -13,7 +14,12 @@ public class SettingUI : BaseUI
     private void OnEnable()
     {
         _savePanel.SetActive(false);
-        _ExitCheck.SetActive(false);    
+        _ExitCheck.SetActive(false);
+        _checksaveButton.interactable = true;
+        if (GameManager.Instance.GlobalTimeManager.Day == 0)
+        {
+            _checksaveButton.interactable = false;
+        }
     }
     private void Start()
     {
