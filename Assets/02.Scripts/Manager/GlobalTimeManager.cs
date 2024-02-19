@@ -17,6 +17,10 @@ public class GlobalTimeManager : MonoBehaviour
     private bool _isChangeDay;
     private float _currentHour;
     private float _timeRate;
+
+    private float _penaltyTime = 1f / 24f;
+    private float _tycoonTime = 7f / 24f;
+
     public TextMeshProUGUI TimeText;
 
     public bool IsItemRespawn = false;
@@ -27,8 +31,30 @@ public class GlobalTimeManager : MonoBehaviour
     {
         _isChangeDay = true;
         SceneManager.sceneLoaded += LoadedsceneEvent;
+    }
+
+    // TODO
+    // DAY 기본값이 0일차, Load했을때는 Load한 날짜
+    // 00시에 저장하니 로딩쪽에서 시간을 빼고 다시 더하는 작업때문에 날짜가 변해버림
+    private void OnEnable()
+    {
+        GameStateManager gameStateManager = GameManager.Instance.GameStateManager;
+
         _timeRate = 1.0f / FullDayLength; //얼마큼씩 변하는지 계산 1/하루
-        DayTime = StartTime;
+        
+        if(gameStateManager.CurrentGameState == GameState.LOADGAME)
+        {
+            float LoadTime = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveDayTime;
+            //DayTime = LoadTime - (_penaltyTime) * 4;
+            DayTime = LoadTime;
+            Day = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveDay;
+        }
+        else if(gameStateManager.CurrentGameState == GameState.NEWGAME)
+        {
+            DayTime = StartTime;
+        }
+
+
     }
 
     private void Update()
@@ -41,16 +67,7 @@ public class GlobalTimeManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name != SceneName.TycoonScene && SceneManager.GetActiveScene().name != SceneName.TitleScene)
         {
-            DayTime = (DayTime + _timeRate * Time.deltaTime) % 1.0f;
-            // 하루를 24시간으로 다시 나눠버리기~
-            _totalHours = DayTime * 24f;
-            Hour = Mathf.Floor(_totalHours);
-            Minutes = Mathf.Floor((_totalHours - Hour) * 60f);
-            string timeString = string.Format("{0}일차 {1:00}:{2:00}", Day, Hour, Minutes);
-            if (TimeText != null)
-            {
-                TimeText.text = timeString;
-            }
+            SetDayTime();
         }
 
         if(!_isChangeDay)
@@ -59,9 +76,30 @@ public class GlobalTimeManager : MonoBehaviour
         }
     }
 
+    private void SetDayTime()
+    {
+        DayTime = (DayTime + _timeRate * Time.deltaTime) % 1.0f;
+
+        // 하루를 24시간으로 다시 나눠버리기~
+        _totalHours = DayTime * 24f;
+        Hour = Mathf.Floor(_totalHours);
+        Minutes = Mathf.Floor((_totalHours - Hour) * 60f);
+
+        string timeString = string.Format("{0}일차 {1:00}:{2:00}", Day, Hour, Minutes);
+        if (TimeText != null)
+        {
+            TimeText.text = timeString;
+        }
+    }
+
+    public void PenaltyTime()
+    {
+        DayTime += _penaltyTime;
+    }
+
     private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
     {
-        DayTime += 0.5f / 24f;
+        //DayTime += _penaltyTime;
         ItemRespawn();
     }
 
@@ -103,7 +141,7 @@ public class GlobalTimeManager : MonoBehaviour
 
     public void TycoonToVillage()
     {
-        DayTime = 0.25f;  // 6시 씬 이동하면 패널티 받아서 7시에 도착
+        DayTime = _tycoonTime;  // 6시 씬 이동하면 패널티 받아서 7시에 도착
     }
 
     public void ItemRespawn()

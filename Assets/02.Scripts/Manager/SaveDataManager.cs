@@ -71,6 +71,8 @@ public class SavePlayerData
     [HideInInspector] public float SaveDay;
     [HideInInspector] public float SaveHour;
     [HideInInspector] public float SaveMinutes;
+    [HideInInspector] public float SaveDayTime;
+
 
     [Header("Inventory")]
     //[HideInInspector] public List<ItemSlot> SaveInventory = new List<ItemSlot>();
@@ -170,7 +172,7 @@ public class SavePlayerData
         SaveDay = _globalTimeManager.Day;
         SaveHour = _globalTimeManager.Hour;
         SaveMinutes = _globalTimeManager.Minutes;
-
+        SaveDayTime = _globalTimeManager.DayTime;
     }
 
     // 인벤토리 아이템정보, 수량 가져오기

@@ -199,13 +199,11 @@ public class PlayerInteraction : MonoBehaviour
             {
                 GameManager.Instance.Player.transform.position = new Vector3(-4, 0, 8);
             }
-            else if (_curScene == SceneName.TycoonScene && _nextScene == SceneName.VillageScene)
-            {
-                //집으로~
-            }
             else if (_curScene == SceneName.Field && _nextScene == SceneName.VillageScene)
             {
                 GameManager.Instance.Player.transform.position = new Vector3(-2, 0, 25);
+
+                GameManager.Instance.GlobalTimeManager.PenaltyTime();
             }
             /*else if (_curScene == SceneName.Dungeon && _nextScene == SceneName.VillageScene)
             {
