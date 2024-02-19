@@ -9,10 +9,10 @@ public class BulletScript : MonoBehaviour
     private NavMeshAgent _agent;
     private CapsuleCollider _collider;
     private ChickBulletBT _chickBullet;
-    private Rigidbody _rb;
+    readonly private float _Dagage = 30f;
+
     private void Awake()
     {
-        _rb = gameObject.GetComponent<Rigidbody>();
         _chickBullet = gameObject.GetComponent<ChickBulletBT>();
         _agent = gameObject.GetComponent<NavMeshAgent>();
         _collider= gameObject.GetComponent<CapsuleCollider>();
@@ -29,7 +29,7 @@ public class BulletScript : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out HealthSystem health))
         {
-            health.TakeDamage(20);
+            health.TakeDamage(_Dagage);
             GameManager.Instance.PoolingManager.ReturnObject(gameObject);
         }
         else if (other.gameObject.tag == TagName.Wall)
@@ -40,15 +40,12 @@ public class BulletScript : MonoBehaviour
 
     private IEnumerator init()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1f);
         
         _collider.enabled = true;
         _agent.enabled = true;
         _chickBullet.enabled = true;
         yield return new WaitForSeconds(5f);
-        _chickBullet.enabled = false;
-        _collider.enabled = false;
-        _agent.enabled = false;
         GameManager.Instance.PoolingManager.ReturnObject(gameObject);
     }
     

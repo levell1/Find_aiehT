@@ -79,8 +79,12 @@ public class LevitateNode : Node
     public override NodeState Evaluate()
     {
         _time += Time.deltaTime;
-        Quaternion rotation = Quaternion.LookRotation(_player.position - _pigTransform.position);
-        _pigTransform.rotation = Quaternion.Lerp(_pigTransform.rotation, rotation, Time.deltaTime * 4);
+        if (_time < _cooltime)
+        {
+            Quaternion rotation = Quaternion.LookRotation(_player.position - _pigTransform.position);
+            _pigTransform.rotation = Quaternion.Lerp(_pigTransform.rotation, rotation, Time.deltaTime * 4);
+        }
+        
         if (_time > _cooltime)
         {
             _levitateObject.gameObject.SetActive(true);
@@ -99,10 +103,7 @@ public class LevitateNode : Node
             }
         }
         return state = NodeState.Running;
-
     }
-
-    
 }
 
 public class RangeAttackNode : Node
@@ -117,6 +118,7 @@ public class RangeAttackNode : Node
         _player = _playerTransform;
         this._pigTransform = transform;
         _animation = transform.GetComponent<Animator>();
+
     }
 
 
@@ -132,22 +134,26 @@ public class RangeAttackNode : Node
         }
         else
         {
+            Vector3 direction = _player.position - _pigTransform.position;
+            direction.y = 0f;
+
             _animation.SetBool(AnimationParameterName.BossAttack, true);
 
             GameObject bullet1 = GameManager.Instance.PoolingManager.GetObject("Bullet");
-            bullet1.transform.rotation = Quaternion.identity;
+            bullet1.transform.rotation = Quaternion.LookRotation(direction);
             bullet1.transform.position = _pigTransform.position + _pigTransform.forward * 2 ;
             bullet1.GetComponent<Rigidbody>().velocity = bullet1.transform.forward * 5f;
-           
+
 
             GameObject bullet2 = GameManager.Instance.PoolingManager.GetObject("Bullet");
-            bullet1.transform.rotation = Quaternion.identity;
+            bullet2.transform.rotation = Quaternion.LookRotation(direction);
             bullet2.transform.Rotate(Vector3.up * _Bulletangle);
             bullet2.transform.position = _pigTransform.position + _pigTransform.forward * 2 ;
             bullet2.GetComponent<Rigidbody>().velocity = bullet2.transform.forward * 5f;
 
+
             GameObject bullet3 = GameManager.Instance.PoolingManager.GetObject("Bullet");
-             bullet1.transform.rotation = Quaternion.identity;
+            bullet3.transform.rotation = Quaternion.LookRotation(direction);
             bullet3.transform.Rotate(Vector3.down * _Bulletangle);
             bullet3.transform.position = _pigTransform.position + _pigTransform.forward * 2 ;
             bullet3.GetComponent<Rigidbody>().velocity = bullet3.transform.forward * 5f;
@@ -204,6 +210,7 @@ public class RunAwayNode : Node
     private Vector3 _randomPoint = Vector3.zero;
     private NavMeshAgent _agent;
     private float _beforeSpeed;
+    private float _randomRange =10f;
     public RunAwayNode(Transform transform, NavMeshAgent agent, float beforeSpeed)
     {
         _animation = transform.GetComponent<Animator>();
@@ -214,18 +221,24 @@ public class RunAwayNode : Node
 
     private Vector3 GetRandomPositionOnNavMesh()
     {
-        Vector3 randomDirection = Random.insideUnitSphere * 15f;
-        randomDirection += _agent.gameObject.transform.position; 
+        Vector3 randomDirection = Random.insideUnitSphere * _randomRange;
+        randomDirection += _agent.gameObject.transform.position;
+        randomDirection.y= _agent.gameObject.transform.position.y;
 
         NavMeshHit hit;
-        while (true) { 
-            if (NavMesh.SamplePosition(randomDirection, out hit, 15f, NavMesh.AllAreas)) // 랜덤 위치가 NavMesh 위에 있는지 확인
-            {
-                return hit.position; 
-            }
+        if (NavMesh.SamplePosition(randomDirection, out hit, _randomRange, NavMesh.AllAreas)) // 랜덤 위치가 NavMesh 위에 있는지 확인
+        {
+            return hit.position;
+        }
+        else
+        {
+            return _agent.gameObject.transform.position;
         }
 
     }
+
+
+    
 
     public override NodeState Evaluate()
     {
@@ -328,13 +341,14 @@ public class DashToPlayer : Node
         if (_time < _waitTime)
         {
             Quaternion rotation = Quaternion.LookRotation(_playerTransform.position - _pigTransform.position);
-            _pigTransform.rotation = Quaternion.Lerp(_pigTransform.rotation, rotation, Time.deltaTime * 2);
+            _pigTransform.rotation = Quaternion.Lerp(_pigTransform.rotation, rotation, Time.deltaTime * 3);
+            _agent.SetDestination(_pigTransform.position);
             _animation.SetBool(AnimationParameterName.BossSit, true);
         }
         else if (_waitTime <= _time && _time <= _waitTime+0.5f)
         {
             Quaternion rotation = Quaternion.LookRotation(_playerTransform.position - _pigTransform.position);
-            _pigTransform.rotation = Quaternion.Lerp(_pigTransform.rotation, rotation, Time.deltaTime * 2);
+            _pigTransform.rotation = Quaternion.Lerp(_pigTransform.rotation, rotation, Time.deltaTime * 3);
             _animation.SetBool(AnimationParameterName.BossSit, false);
             _animation.SetBool(AnimationParameterName.BossRoll, true);
         }
@@ -345,15 +359,11 @@ public class DashToPlayer : Node
                 DashTowardsPlayer();
             }
 
-            _collider.enabled = true;
-            _animation.SetBool(AnimationParameterName.BossRoll, false);
-            _animation.SetBool(AnimationParameterName.BossRun, true);
-
             if (_agent.remainingDistance <= _agent.stoppingDistance && !_agent.pathPending)
             {
                 _hasDashed = false;
                 _count++;
-                if (_count > Random.Range(2, 5))
+                if (_count > Random.Range(2, 5)|| _pigTransform.gameObject.name == "ChickBullet(Clone)")
                 {
                     _collider.enabled = false;
                     _count = 0;
@@ -375,11 +385,14 @@ public class DashToPlayer : Node
         for (int i = 4; i >= 0; i--)
         {
             _dashPosition = _playerTransform.position + ((_playerTransform.position - _pigTransform.position).normalized * i * 10);
-            _dashPosition.y = 0;
+            _dashPosition.y = _pigTransform.position.y;
             NavMeshHit hit;
             if (NavMesh.SamplePosition(_dashPosition, out hit, 1f, NavMesh.AllAreas))
             {
                 _agent.SetDestination(_dashPosition);
+                _collider.enabled = true;
+                _animation.SetBool(AnimationParameterName.BossRoll, false);
+                _animation.SetBool(AnimationParameterName.BossRun, true);
                 break;
             }
         }

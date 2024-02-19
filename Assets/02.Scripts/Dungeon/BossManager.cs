@@ -8,12 +8,21 @@ using UnityEngine.UI;
 public class BossManager : MonoBehaviour
 {
     [SerializeField] private BossHealthSystem _greenpigHealthSystem;
+    private BossHealthSystem _AightHealthSystem;
     [SerializeField] private Light _light;
     [SerializeField] private AiehtAI _aieht;
     [SerializeField] private GameObject _pigs;
     private void Awake()
     {
+        _AightHealthSystem = _aieht.GetComponent<BossHealthSystem>();
         _greenpigHealthSystem.OnDie += RespawnNextBoss;
+
+        _AightHealthSystem.OnDie += Ending;
+    }
+
+    private void Ending()
+    {
+        Debug.Log("엔딩");
     }
 
     private void RespawnNextBoss()
@@ -21,15 +30,6 @@ public class BossManager : MonoBehaviour
         StartCoroutine(BossEffect());
     }
 
-    void Start()
-    {
-        
-    }
-    
-    void Update()
-    {
-        
-    }
 
     private IEnumerator BossEffect() 
     {
@@ -67,7 +67,7 @@ public class BossManager : MonoBehaviour
             {
                 _light.range += 1f;
             }
-            if (_light.gameObject.transform.localPosition.y < 3f)
+            if (_light.gameObject.transform.localPosition.y < 5f)
             {
                 _light.gameObject.transform.position += Vector3.up * 0.09f;
             }
