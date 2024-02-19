@@ -89,7 +89,6 @@ public class HealthSystem : MonoBehaviour
         {
             OnDie.Invoke();
             GameManager.Instance.EffectManager.PlayerLowHpEffect(false);
-            GameManager.Instance.EffectManager.PlayerDieEffect();
         }
 
         StartCoroutine(InvincibleCooldown());

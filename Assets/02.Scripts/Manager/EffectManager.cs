@@ -32,7 +32,6 @@ public class EffectManager : MonoBehaviour
     [SerializeField] public ParticleSystem GreenPigEffect;
 
     [SerializeField] private GameObject _playerTakeDamageEffect;
-    [SerializeField] private GameObject _playerDieEffect;
 
     private void Start()
     {
@@ -120,12 +119,6 @@ public class EffectManager : MonoBehaviour
     public void PlayerLowHpEffect(bool isLow)
     {
         _playerTakeDamageEffect.SetActive(isLow);
-    }
-    
-    // TODO: 재시작 구현 후 다시 구현
-    public void PlayerDieEffect()
-    {
-        _playerDieEffect.SetActive(true);
     }
 
     #region Coroutine

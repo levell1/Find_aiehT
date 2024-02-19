@@ -819,7 +819,7 @@ MonoBehaviour:
   GreenPigEffect: {fileID: 1601506141239540749, guid: 48c5715f9603c3842a353516a8baefbb,
     type: 3}
   _playerTakeDamageEffect: {fileID: 1253678237}
-  _playerDieEffect: {fileID: 635470004}
+  _playerDieEffect: {fileID: 0}
 --- !u!1 &100278225
 GameObject:
   m_ObjectHideFlags: 0
@@ -3119,12 +3119,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 633336783}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &635470004 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 603899666782195272, guid: fc9163f651843214cacc1532c5d80c52,
-    type: 3}
-  m_PrefabInstance: {fileID: 941013433}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &649842950 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3533890531207633210, guid: 87ee7d1ca24466242b13ad42b8b83912,
@@ -4031,7 +4025,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 603899666782195272, guid: fc9163f651843214cacc1532c5d80c52, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc9163f651843214cacc1532c5d80c52, type: 3}
