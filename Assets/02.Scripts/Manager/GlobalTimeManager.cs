@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,8 +20,8 @@ public class GlobalTimeManager : MonoBehaviour
     private float _timeRate;
 
     private float _penaltyTime = 1f / 24f;
-    private float _tycoonTime = 7f / 24f;
-
+    private float _nextMorning = 7f / 24f;
+    public int EventCount;
     public TextMeshProUGUI TimeText;
 
     public bool IsItemRespawn = false;
@@ -78,8 +79,16 @@ public class GlobalTimeManager : MonoBehaviour
 
         if (Hour == 18f && IsActiveOutFieldUI)
         {
+            EventCount = 0;
             IsActiveOutFieldUI = false;
             OnOutFieldUI?.Invoke();
+        }
+
+        if (Hour == 23f && Minutes == 59f)
+        {
+            EventCount = 1;
+            OnOutFieldUI?.Invoke();
+            DayTime = _nextMorning;
         }
     }
 
@@ -149,7 +158,7 @@ public class GlobalTimeManager : MonoBehaviour
 
     public void TycoonToVillage()
     {
-        DayTime = _tycoonTime;
+        DayTime = _nextMorning;
     }
 
     public void ItemRespawn()

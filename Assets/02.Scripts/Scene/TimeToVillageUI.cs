@@ -9,6 +9,10 @@ public class TimeToVillageUI : MonoBehaviour
     private void Start()
     {
         _sceneMoveUI = GameManager.Instance.UIManager.PopupDic[UIName.SceneMoveUI].GetComponent<SceneMoveUI>();
+    }
+
+    private void OnEnable()
+    {
         Cursor.lockState = CursorLockMode.None;
     }
 
