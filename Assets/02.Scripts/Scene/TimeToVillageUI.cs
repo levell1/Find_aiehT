@@ -1,6 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class RestartUI : BaseUI
+public class TimeToVillageUI : MonoBehaviour
 {
     private SceneMoveUI _sceneMoveUI;
 
@@ -12,7 +14,6 @@ public class RestartUI : BaseUI
 
     private void OnDisable()
     {
-        GameManager.Instance.GlobalTimeManager.DayTime = 7f / 24f;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -24,12 +25,8 @@ public class RestartUI : BaseUI
         gameObject.SetActive(false);
     }
 
-    public void GoTitleBtn()
+    public void StayHuntingBtn()
     {
-        _sceneMoveUI.CurrentSceneName = SceneName.TitleScene;
-        _sceneMoveUI.Description.text = "타이틀로 돌아갑니다.";
-        _sceneMoveUI.gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
-
 }

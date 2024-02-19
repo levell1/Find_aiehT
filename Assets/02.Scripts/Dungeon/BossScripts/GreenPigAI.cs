@@ -10,7 +10,6 @@ public class GreenPigAI : Tree
     private NavMeshAgent _navMeshAgent;
     private LevitateObject _levitateObject;
     readonly float _levitateTiem = 3f;
-    readonly private float _runMoveSpeed = 5f;
 
     private void Awake()
     {
@@ -40,6 +39,8 @@ public class GreenPigAI : Tree
                 {
                     new CheckPlayerDistanceNode(_pigTransform,5.0f),
                     new LevitateNode(_pigTransform,_playerTransform,_levitateObject,_levitateTiem),
+                    new RunAwayNode(_pigTransform,_navMeshAgent,_navMeshAgent.speed),
+                    new RangeAttackNode(_playerTransform, _pigTransform),
                 }
             ),
 

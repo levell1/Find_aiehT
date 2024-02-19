@@ -32,5 +32,7 @@ public class ChickBulletBT : Tree
         {
             health.TakeDamage(_runDamage);
         }
+
     }
+
 }

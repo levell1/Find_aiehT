@@ -11,10 +11,10 @@ public class BluePigAI : Tree
     private Transform _pigTransform;
     private NavMeshAgent _navMeshAgent;
     private SkinnedMeshRenderer[] meshRenderers;
-    readonly private float _waitTime = 5;
-    readonly private float _knockBack = 7f;
+    readonly private float _waitTime = 3;
+    readonly private float _knockBack = 5f;
     readonly private float _knockBackCount = 5;
-    readonly private float _runMoveSpeed = 5f;
+    readonly private float _Dagage = 50f;
     Vector3 Power;
 
     private void Awake()
@@ -48,7 +48,7 @@ public class BluePigAI : Tree
     {
         if (other.gameObject.TryGetComponent(out HealthSystem health))
         {
-            health.TakeDamage(20);
+            health.TakeDamage(_Dagage);
             StartCoroutine(KnockBack(5f));
         }
     }
@@ -56,6 +56,7 @@ public class BluePigAI : Tree
     IEnumerator KnockBack(float knockBack)
     {
         Vector3 Direction = _playerTransform.position - _pigTransform.position;
+        Direction.y = 0;
         Power = Vector3.zero;
         int count = 0;
         while (count < _knockBackCount)
