@@ -21,11 +21,10 @@ public class PotionInventorySlot : MonoBehaviour
 
     void OnEnable()
     {
-
         _potionInvenButton = GetComponent<Button>();
         
         _potionInvenButton.onClick.RemoveAllListeners();
-        _potionInvenButton.onClick.AddListener(SetQuickSlot);
+        _potionInvenButton.onClick.AddListener(() => SetQuickSlot(PotionSO, InitQuantity));
 
         Player.PlayerUseHealthPotion.OnPotionUsed += UpdateUsedHPPotionQuantity;
         Player.PlayerUseStaminaPotion.OnPotionUsed += UpdateUsedSPPotionQuantity;
@@ -64,29 +63,29 @@ public class PotionInventorySlot : MonoBehaviour
 
             if(ShopPotionInfoPopup.PotionData.ID == HPPotionQuickSlot.PotionSO.ID)
             {
-                SetQuickSlot();
+                SetQuickSlot(PotionSO, InitQuantity);
             }
 
             if (ShopPotionInfoPopup.PotionData.ID == SPPotionQuickSlot.PotionSO.ID)
             {
-                SetQuickSlot();
+                SetQuickSlot(PotionSO, InitQuantity);
             }
 
             UpdateUI();
         }
     }
 
-    public void SetQuickSlot()
+    public void SetQuickSlot(PotionSO data, int quantity)
     {
-        if(PotionSO.Kind == Kind.HP)
+        if(data.Kind == Kind.HP)
         {
-            HPPotionQuickSlot.ShowPotionToQuickslot(PotionSO, InitQuantity);
-            Player.PlayerUseHealthPotion.Potion(PotionSO, InitQuantity);
+            HPPotionQuickSlot.ShowPotionToQuickslot(data, quantity);
+            Player.PlayerUseHealthPotion.Potion(data, quantity);
         }
-        else if(PotionSO.Kind == Kind.SP)
+        else if(data.Kind == Kind.SP)
         {
-            SPPotionQuickSlot.ShowPotionToQuickslot(PotionSO, InitQuantity);
-            Player.PlayerUseStaminaPotion.Potion(PotionSO, InitQuantity);
+            SPPotionQuickSlot.ShowPotionToQuickslot(data, quantity);
+            Player.PlayerUseStaminaPotion.Potion(data, quantity);
         }
     }
 
@@ -98,7 +97,7 @@ public class PotionInventorySlot : MonoBehaviour
             InitQuantity = quantity;
             UpdateUI();
 
-            SetQuickSlot();
+            SetQuickSlot(PotionSO, InitQuantity);
         }
       
     }
@@ -110,7 +109,7 @@ public class PotionInventorySlot : MonoBehaviour
             InitQuantity = quantity;
             UpdateUI();
 
-            SetQuickSlot();
+            SetQuickSlot(PotionSO, InitQuantity);
         }
 
     }

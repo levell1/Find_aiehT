@@ -46,7 +46,7 @@ public class PlayerExpSystem : MonoBehaviour
             PlayerLevel = loadPlayerLevel;
 
             _playerData.PlayerData.PlayerLevel = PlayerLevel;
-            _playerData.PlayerLevelData.ApplyNextLevelData(_playerData.PlayerData, PlayerLevel);
+            _playerData.PlayerLevelData.ApplyNextLevelData(_playerData.PlayerData, PlayerLevel - 1);
 
             OnLevelUp?.Invoke(PlayerLevel);
             return;

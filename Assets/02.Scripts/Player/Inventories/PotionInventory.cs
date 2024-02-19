@@ -39,49 +39,53 @@ public class PotionInventory : MonoBehaviour
 
     private void InitInventoryForLoadGame()
     {
-        _hpDefaultPotionID = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveQuickSlotPotions.Keys.ElementAt(0);
-        _spDefaultPotionID = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveQuickSlotPotions.Keys.ElementAt(1);
-
         for (int i = 0; i < PotionDataList.PotionList.Length; i++)
         {
+            ShopPotionInfoPopup.OnPurchaseSuccessAction += Potions[i].UpdatePotionQuantity;
+
             _loadPotionQuantity[i] = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SavePotions[_potionKey + i];
             Potions[i].InitQuantity = _loadPotionQuantity[i];
+            Potions[i].Init(PotionDataList.PotionList[i]);
 
-            HPPotionQuick.DefaultPotionInit(PotionDataList.PotionList[_hpDefaultPotionID - _potionKey]);
-            SPPotionQuick.DefaultPotionInit(PotionDataList.PotionList[_spDefaultPotionID - _potionKey]);
+            _hpDefaultPotionID = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveQuickSlotPotions.Keys.ElementAt(0);
+            _spDefaultPotionID = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveQuickSlotPotions.Keys.ElementAt(1);
+
+            //HPPotionQuick.DefaultPotionInit(PotionDataList.PotionList[_hpDefaultPotionID - _potionKey]);
+            //SPPotionQuick.DefaultPotionInit(PotionDataList.PotionList[_spDefaultPotionID - _potionKey]);
 
             if (PotionDataList.PotionList[i].ID == _hpDefaultPotionID)
             {
                 int HPQuickSlotQuantity = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveQuickSlotPotions[PotionDataList.PotionList[i].ID];
-                HPPotionQuick.ShowPotionToQuickslot(PotionDataList.PotionList[i], HPQuickSlotQuantity);
+                Potions[i].SetQuickSlot(PotionDataList.PotionList[i], HPQuickSlotQuantity);
+                //HPPotionQuick.ShowPotionToQuickslot(, HPQuickSlotQuantity);
             }
 
             if (PotionDataList.PotionList[i].ID == _spDefaultPotionID)
             {
                 int SPQuickSlotQuantity = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveQuickSlotPotions[PotionDataList.PotionList[i].ID];
-                SPPotionQuick.ShowPotionToQuickslot(PotionDataList.PotionList[i], SPQuickSlotQuantity);
+                Potions[i].SetQuickSlot(PotionDataList.PotionList[i], SPQuickSlotQuantity);
+                //SPPotionQuick.ShowPotionToQuickslot(, );
             }
 
-            ShopPotionInfoPopup.OnPurchaseSuccessAction += Potions[i].UpdatePotionQuantity;
-            Potions[i].Init(PotionDataList.PotionList[i]);
+            
         }
     }
 
     private void InitInventoryForNewGame()
     {
-        _hpDefaultPotionID = Potions[0].PotionSO.ID;
-        _spDefaultPotionID = Potions[3].PotionSO.ID;
-
         for (int i = 0; i < PotionDataList.PotionList.Length; i++)
         {
+            Potions[i].Init(PotionDataList.PotionList[i]);
             Potions[i].TutorialPotion();
-            HPPotionQuick.DefaultPotionInit(PotionDataList.PotionList[_hpDefaultPotionID]);
-            SPPotionQuick.DefaultPotionInit(PotionDataList.PotionList[_spDefaultPotionID]);
 
             ShopPotionInfoPopup.OnPurchaseSuccessAction += Potions[i].UpdatePotionQuantity;
-            Potions[i].Init(PotionDataList.PotionList[i]);
         }
 
+        _hpDefaultPotionID = 0;
+        _spDefaultPotionID = 3;
+
+        HPPotionQuick.DefaultPotionInit(PotionDataList.PotionList[_hpDefaultPotionID]);
+        SPPotionQuick.DefaultPotionInit(PotionDataList.PotionList[_spDefaultPotionID]);
     }
 
 }

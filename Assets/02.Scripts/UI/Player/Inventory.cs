@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -25,6 +26,8 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
+        GameStateManager gameStateManager = GameManager.Instance.GameStateManager;
+
         InventoryUI.SetActive(false);
 
         for (int i = 0; i < UISlots.Length; i++)
@@ -33,6 +36,12 @@ public class Inventory : MonoBehaviour
             UISlots[i].Index = i;
             UISlots[i].Clear();
         }
+
+        if (gameStateManager.CurrentGameState == GameState.LOADGAME)
+        {
+            LoadItem();
+        }
+
         ClearSeletecItem();
     }
 
@@ -69,6 +78,53 @@ public class Inventory : MonoBehaviour
             newSlot.Quantity = 1;
             Slots.Add(newSlot); //슬롯 생성
             UpdateUI();
+        }
+    }
+
+    private void AddLoadedItem(ItemSO item, int quantity)
+    {
+        ItemSlot slotToStackTo = GetItemStack(item); 
+        if (slotToStackTo != null)
+        {
+            slotToStackTo.Quantity++;
+            UpdateUI();
+            return;
+        }
+
+        if (Slots.Count < UISlots.Length) 
+        {
+            ItemSlot newSlot = new ItemSlot();
+            newSlot.Item = item;
+            newSlot.Quantity = quantity;
+            Slots.Add(newSlot); //슬롯 생성
+            UpdateUI();
+        }
+    }
+
+    private void LoadItem()
+    {
+        ItemSO[] itemDataListSO = GameManager.Instance.DataManager.ItemDataList.ItemList;
+
+        Dictionary<int, ItemSO> itemDataListDic = new Dictionary<int, ItemSO>();
+        Dictionary<int, int> LoadItemList = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveInventoryItems;
+
+        foreach (ItemSO item in itemDataListSO)
+        {
+            itemDataListDic.Add(item.ItemID, item);
+        }
+
+        foreach (int key in LoadItemList.Keys)
+        {
+            if (itemDataListDic.ContainsKey(key))
+            {
+                ItemSO item = itemDataListDic[key];
+                int itemCount = LoadItemList[key];
+                AddLoadedItem(item, itemCount);
+            }
+            else
+            {
+                // 처리할 경우가 없는 경우에 대한 예외 처리 또는 로그 작성
+            }
         }
 
     }
