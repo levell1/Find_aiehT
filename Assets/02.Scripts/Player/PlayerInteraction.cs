@@ -209,6 +209,11 @@ public class PlayerInteraction : MonoBehaviour
             {
                 GameManager.Instance.Player.transform.position = new Vector3(5, 0, 8);
             }*/
+            else if(_curScene == SceneName.VillageScene && _nextScene == SceneName.VillageScene)
+            {
+                GameManager.Instance.Player.transform.position = new Vector3(-15, 0, -160);
+                // TODO: 시간 다음날 아침으로 바꾸기
+            }
 
             LoadingSceneController.LoadScene(_nextScene);
             _nextScene = string.Empty;
