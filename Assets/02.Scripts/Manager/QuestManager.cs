@@ -32,6 +32,8 @@ public class QuestManager : MonoBehaviour
 
 
     public Dictionary<int, int> loadActivQuestDic;
+
+    private GameStateManager _gameStateManager;
     private void Start()
     {
         GameManager.Instance.GlobalTimeManager.OnInitQuest += InitializeQuest;
@@ -41,20 +43,49 @@ public class QuestManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameStateManager gameStateManager = GameManager.Instance.GameStateManager;
+        _gameStateManager  = GameManager.Instance.GameStateManager;
 
-        //if (gameStateManager.CurrentGameState == GameState.LOADGAME)
-        //{
-        //    loadActivQuestDic = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveActiveQuest;
-        //    //LoadQuestInit();
+        if(_gameStateManager.CurrentGameState == GameState.LOADGAME)
+        {
+            Dictionary<int, int> enemyQuestNumber = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveEnemyQuestProgress;
+            Dictionary<int, int> natureQuestNumber = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveNatureQuestProgress;
 
-        //    //gameStateManager.CurrentGameState = GameState.NEWGAME;
-        //}
+            Dictionary<int, int> loadActiveQuest = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveActiveQuest;
+            
+            List<int> questKey = enemyQuestNumber.Keys.Concat(natureQuestNumber.Keys).ToList();
+            List<int> activeQuestKey = loadActiveQuest.Keys.ToList();
+            List<int> activeQuestValue = loadActiveQuest.Values.ToList();
+
+            int halfLength = questKey.Count / 2;
+
+            for(int i = 0; i < questKey.Count; i++)
+            {
+                if( i < halfLength)
+                {
+                    EnemyDailyQuest enemyDailyQuest = new EnemyDailyQuest(QuestSO.EnemyQuestData, questKey[i]);
+                    enemyDailyQuest.TargetID = activeQuestKey[i];
+                    enemyDailyQuest.TargetQuantity = activeQuestValue[i];
+                    ActiveQuests.Add(enemyDailyQuest);
+                }
+                else
+                {
+                    // 나머지 반은 NatureDailyQuest 생성
+                    NatureDailyQuest natureDailyQuest = new NatureDailyQuest(QuestSO.NatureQuestData, questKey[i]);
+                    natureDailyQuest.TargetID = activeQuestKey[i];
+                    natureDailyQuest.TargetQuantity = activeQuestValue[i];
+                    ActiveQuests.Add(natureDailyQuest);
+                }
+            }
+
+            //AcceptQuestList.Add( );
+
+        }
     }
 
     // 퀘스트를 초기화하고 추가하는 메서드
     public void InitializeQuest()
     {
+        _gameStateManager.CurrentGameState = GameState.NEWGAME;
         ActiveQuests.Clear();
         AcceptQuestList.Clear();
         EnemyQuantityDict.Clear();

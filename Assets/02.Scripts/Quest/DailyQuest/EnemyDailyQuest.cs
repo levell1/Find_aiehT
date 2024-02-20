@@ -25,7 +25,20 @@ public class EnemyDailyQuest : Quest
 
     public override string GetQuestDescription()
     {
+        if(gameStateManager.CurrentGameState == GameState.LOADGAME)
+        {
+            foreach (var enemyData in EnemyDatas.EnemyList)
+            {
+                if (enemyData.EnemyID == TargetID)
+                {
+                    _enemyName = enemyData.EnemyName;
+                    break;
+                }
+            }
+        }
+
         return string.Format($"{_enemyName} 몬스터를 {TargetQuantity}마리 잡아라");
+
     }
 
     public override int GetTargetID()

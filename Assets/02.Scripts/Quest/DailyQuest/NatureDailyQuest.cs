@@ -24,6 +24,18 @@ public class NatureDailyQuest : Quest
 
     public override string GetQuestDescription()
     {
+        if (gameStateManager.CurrentGameState == GameState.LOADGAME)
+        {
+            foreach (var natureItem in ItemDatas.ItemList)
+            {
+                if (natureItem.ItemID == TargetID)
+                {
+                    _natureItemName = natureItem.ObjName;
+                    break;
+                }
+            }
+        }
+
         return string.Format($"{_natureItemName} 채집물을 {TargetQuantity}개 채집해라");
     }
 

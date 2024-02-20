@@ -127,6 +127,7 @@ public class SavePlayerData
         SaveAcceptQuest.Clear();
         SaveEnemyQuestProgress.Clear();
         SaveNatureQuestProgress.Clear();
+        SaveActiveQuest.Clear();
 
         SavePlayerSO();
         SaveSceneData();
