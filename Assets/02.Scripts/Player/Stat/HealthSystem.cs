@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class HealthSystem : MonoBehaviour
 {
    [SerializeField] private float _invincibleTime = 3f; // 무적 시간 
     
+    private Player _player;
     private PlayerSO _playerData;
     public float MaxHealth;
     private float _playerDef;
@@ -20,11 +22,12 @@ public class HealthSystem : MonoBehaviour
     public event Action OnDie;
     public  Action<float,float> OnChangeHpUI;
 
-    public bool IsDead => Health == 0;
+    public bool IsDead = false;
 
     private GameStateManager _gameStateManager;
     private void Awake()
     {
+        _player = GetComponent<Player>();
         _equipmentDatas = GetComponent<EquipmentDatas>();
         _playerData = GetComponent<Player>().Data;
         _gameStateManager = GameManager.Instance.GameStateManager;
@@ -88,6 +91,7 @@ public class HealthSystem : MonoBehaviour
 
         if (Health == 0)
         {
+            IsDead = true;
             OnDie.Invoke();
             GameManager.Instance.EffectManager.PlayerLowHpEffect(false);
         }
@@ -118,6 +122,14 @@ public class HealthSystem : MonoBehaviour
             if(Health >= _dangerHealth)
                 GameManager.Instance.EffectManager.PlayerLowHpEffect(false);
         }
+    }
+
+    public void Respawn()
+    {
+        IsDead = false;
+        Health = MaxHealth;
+        OnChangeHpUI?.Invoke(Health, MaxHealth);
+        _player.enabled = true;
     }
 
 }

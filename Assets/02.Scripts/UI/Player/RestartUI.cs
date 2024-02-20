@@ -7,6 +7,10 @@ public class RestartUI : BaseUI
     private void Start()
     {
         _sceneMoveUI = GameManager.Instance.UIManager.PopupDic[UIName.SceneMoveUI].GetComponent<SceneMoveUI>();
+    }
+
+    private void OnEnable()
+    {
         Cursor.lockState = CursorLockMode.None;
     }
 
@@ -16,14 +20,6 @@ public class RestartUI : BaseUI
         GameManager.Instance.CameraManager.DisableCam();
     }
 
-    private void OnDisable()
-    {
-        GameManager.Instance.GlobalTimeManager.DayTime = 7f / 24f;
-        Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1f;
-        GameManager.Instance.CameraManager.EnableCam();
-    }
-
     public void GoVillageBtn()
     {
         _sceneMoveUI.CurrentSceneName = SceneName.VillageScene;
@@ -31,13 +27,4 @@ public class RestartUI : BaseUI
         _sceneMoveUI.gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
-
-    //public void GoTitleBtn()
-    //{
-    //    _sceneMoveUI.CurrentSceneName = SceneName.TitleScene;
-    //    _sceneMoveUI.Description.text = "타이틀로 돌아갑니다.";
-    //    _sceneMoveUI.gameObject.SetActive(true);
-    //    gameObject.SetActive(false);
-    //}
-
 }
