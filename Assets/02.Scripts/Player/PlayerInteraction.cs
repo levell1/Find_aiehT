@@ -14,6 +14,8 @@ public enum Enum
 
 public class PlayerInteraction : MonoBehaviour
 {
+    private GlobalTimeManager _globalTimeManager;
+
     public TMP_Text InteractionText; // UI Text 요소를 가리키는 변수
     public TextMeshProUGUI ErrorText;
 
@@ -38,22 +40,28 @@ public class PlayerInteraction : MonoBehaviour
 
     Coroutine _coroutine;
 
+    private void Awake()
+    {
+        _globalTimeManager = GameManager.Instance.GlobalTimeManager;
+    }
+
     private void Start()
     {
         InitializeCollider();
 
         _interactCollider = GetComponent<Collider>();
-        _curScene =SceneManager.GetActiveScene().name;
+        //_curScene =SceneManager.GetActiveScene().name;
         // 아이템
         LayerDic.Add(LayerMask.NameToLayer(LayerName.Item), Enum.ITEM);
         // 택시, 상점등
         LayerDic.Add(LayerMask.NameToLayer(LayerName.NpcInteract), Enum.NPC);
 
-        SceneManager.sceneLoaded += NoneInteractionText;
+        SceneManager.sceneLoaded += 문원정;
     }
 
-    private void NoneInteractionText(Scene arg0, LoadSceneMode arg1)
+    private void 문원정(Scene scene, LoadSceneMode mode)
     {
+        _curScene = scene.name;
         InteractionText.text = string.Empty;
     }
 
@@ -184,9 +192,11 @@ public class PlayerInteraction : MonoBehaviour
 
     public void GoNextScene()
     {
+        Debug.Log(_curScene);
+        Debug.Log(_nextScene);
         if (_nextScene != string.Empty)
         {
-            if (_nextScene == SceneName.TycoonScene && !GameManager.Instance.GlobalTimeManager.EnterTycoonTime())
+            if (_nextScene == SceneName.TycoonScene && !_globalTimeManager.EnterTycoonTime())
             {
                 if(_coroutine == null)
                 {
@@ -201,9 +211,20 @@ public class PlayerInteraction : MonoBehaviour
             }
             else if (_curScene == SceneName.Field && _nextScene == SceneName.VillageScene)
             {
-                GameManager.Instance.Player.transform.position = new Vector3(-2, 0, 25);
+                GameManager.Instance.Player.transform.position = new Vector3(-4, 0, 19);
 
-                GameManager.Instance.GlobalTimeManager.PenaltyTime();
+                _globalTimeManager.PenaltyTime();
+            }
+            else if (_curScene == SceneName.VillageScene && _nextScene == SceneName.Field)
+            {
+                if (!_globalTimeManager.IsMoveVillageToField)
+                {
+                    if (_coroutine == null)
+                    {
+                        _coroutine = StartCoroutine(ErrorMessage());
+                    }
+                    return;
+                }
             }
             /*else if (_curScene == SceneName.Dungeon && _nextScene == SceneName.VillageScene)
             {
@@ -233,9 +254,9 @@ public class PlayerInteraction : MonoBehaviour
 
     public IEnumerator ErrorMessage()
     {
-        if(_nextScene == SceneName.TycoonScene)
+        if(_nextScene == SceneName.TycoonScene || _nextScene == SceneName.Field)
         {
-            ErrorText.text = ErrorMessageTxt.TycoonErrorMessage;
+            ErrorText.text = ErrorMessageTxt.DontSceneMoveErrorMessage;
         }
 
         ErrorText.gameObject.SetActive(true);

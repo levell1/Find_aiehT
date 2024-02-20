@@ -54,11 +54,11 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public void AddBoss(int index, bool isActive)
+    public void AddBoss(int index, bool isDead)
     {
         if (!BossDeadCheckDict.ContainsKey(index))
         {
-            BossDeadCheckDict.Add(index, isActive);
+            BossDeadCheckDict.Add(index, isDead);
         }
     }
 

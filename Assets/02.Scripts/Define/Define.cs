@@ -123,7 +123,7 @@ public struct CoolTimeObjName
 
 public struct ErrorMessageTxt
 {
-    public const string TycoonErrorMessage = "입장가능시간이 아닙니다!";
+    public const string DontSceneMoveErrorMessage = "입장가능시간이 아닙니다!";
     public const string TenMinutesLeft = "10분 남았습니다.";
     public const string TwentyMinutesLeft = "20분 남았습니다.";
     public const string ThirtyMinutesLeft = "30분 남았습니다.";
