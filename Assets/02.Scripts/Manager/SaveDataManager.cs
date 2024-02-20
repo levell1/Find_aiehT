@@ -259,34 +259,24 @@ public class SavePlayerData
         {
             SaveAcceptQuestID.Add(quest.QuestNumber);
             SaveAcceptQuest.Add(quest.TargetID, quest.TargetQuantity);
-
-            Debug.Log("1" + quest.QuestNumber);
-            Debug.Log("2" + quest.TargetID);
-            Debug.Log("3" + quest.TargetQuantity);
         }
 
         //활성화된 퀘스트
         foreach(var quest in _questManager.ActiveQuests)
         {
             SaveActiveQuest.Add(quest.TargetID, quest.TargetQuantity);
-            Debug.Log(quest.TargetID);
-            Debug.Log(quest.TargetQuantity);
         }
 
         //퀘스트 진행도
         foreach (var quest in _questManager.EnemyQuantityDict)
         {
             SaveEnemyQuestProgress.Add(quest.Key, quest.Value);
-            Debug.Log("4" + quest.Key);
-            Debug.Log("5" + quest.Value);
         }
 
         //퀘스트 진행도
         foreach (var quest in _questManager.NatureQuantityDict)
         {
             SaveNatureQuestProgress.Add(quest.Key, quest.Value);
-            Debug.Log("6" + quest.Key);
-            Debug.Log("7" + quest.Value);
         }
 
     }

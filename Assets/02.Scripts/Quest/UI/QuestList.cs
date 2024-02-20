@@ -191,8 +191,6 @@ public class QuestList : MonoBehaviour
             QuestContent.text = _questList[questIndex].GetQuestDescription();
             QuestReward.text = _questList[questIndex].GetQuestRewardToString();
 
-            Debug.Log("퀘스트 선택됨: " + _questList[questIndex].GetQuestTitle());
-
             if (!_questManager.AcceptQuestList.Contains(_questList[questIndex]))
             {
                 AcceptButton.interactable = true; // 버튼 비활성화
@@ -200,7 +198,6 @@ public class QuestList : MonoBehaviour
             }
             else
             {
-                Debug.Log(_questList[questIndex].QuestNumber);
                 AcceptButton.interactable = false; // 버튼 비활성화
                 AcceptButtonText.text = "수락 완료";
             }

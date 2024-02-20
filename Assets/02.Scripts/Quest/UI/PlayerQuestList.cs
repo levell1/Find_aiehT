@@ -56,8 +56,6 @@ public class PlayerQuestList : MonoBehaviour
 
             float progressPercentage = (float)currentQuantity /TargetQuantity;
             progressSlider.value = progressPercentage;
-
-            Debug.Log(currentQuantity);
         }
 
     }

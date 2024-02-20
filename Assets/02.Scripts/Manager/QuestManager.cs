@@ -213,13 +213,11 @@ public class QuestManager : MonoBehaviour
             {
                 EnemyHealthSystem.OnQuestTargetDie -= UpdateEnemyQuestProgress;
                 EnemyHealthSystem.OnQuestTargetDie += UpdateEnemyQuestProgress;
-                Debug.Log("몬스터 퀘스트 수락 및 이벤트 등록: ");
             }
             else if (quest is NatureDailyQuest)
             {
                 ItemObject.OnQuestTargetInteraction -= UpdateNatureQuestProgress;
                 ItemObject.OnQuestTargetInteraction += UpdateNatureQuestProgress;
-                Debug.Log("채집물 퀘스트 수락 및 이벤트 등록: ");
             }
         }
     }

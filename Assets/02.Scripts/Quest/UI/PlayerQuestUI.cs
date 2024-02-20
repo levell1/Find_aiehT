@@ -91,8 +91,6 @@ public class PlayerQuestUI : MonoBehaviour
         float progressPercentage = (float)currentQuantity / _quest.TargetQuantity;
         SliderQuestProgress.value = progressPercentage;
 
-        Debug.Log(currentQuantity);
-
         if (SliderQuestProgress.value >= 1)
         {
             gameObject.SetActive(false);
