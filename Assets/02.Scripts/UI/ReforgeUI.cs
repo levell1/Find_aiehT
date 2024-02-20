@@ -43,7 +43,7 @@ public class ReforgeUI : BaseUI
             _playerData.PlayerData.PlayerGold = _playerData.PlayerData.PlayerGold - (int)_equipmentupgrade.EquipData[_itemnum].CurrentUpgradeGold;
             _equipmentupgrade.EquipLevelUp(_itemnum);
             _resultText.text = "강화 성공";
-            
+            GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Upgrade);
             SetImageName();
         }
         else
