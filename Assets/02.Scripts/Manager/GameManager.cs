@@ -65,6 +65,7 @@ public class GameManager : MonoSingleton<GameManager>
     private void Start()
     {
         _globalTimeManager.gameObject.SetActive(false);
+        _questManager.gameObject.SetActive(false);
     }
 
     //private void Start()

@@ -6,6 +6,7 @@ public class TitleSceneButtonEvent : MonoBehaviour
 {
     private SaveDataManager _saveDataManager;
     private GlobalTimeManager _globalTimeManager;
+    private QuestManager _questManager;
 
     public Button NewGameButton;
     public Button LoadGameButton;
@@ -29,8 +30,10 @@ public class TitleSceneButtonEvent : MonoBehaviour
         LoadingSceneController.LoadScene(SceneName.VillageScene);
 
         _globalTimeManager = GameManager.Instance.GlobalTimeManager;
-        _globalTimeManager.gameObject.SetActive(true);
+        _questManager = GameManager.Instance.QuestManager;
 
+        _globalTimeManager.gameObject.SetActive(true);
+        _questManager.gameObject.SetActive(true);
 
 
         //HealthSystem healthSystem = GameManager.Instance.Player.GetComponent<HealthSystem>();
@@ -43,8 +46,10 @@ public class TitleSceneButtonEvent : MonoBehaviour
         LoadingSceneController.LoadScene(GameManager.Instance.JsonReaderManager.LoadedPlayerData.CurrentSceneName);
 
         _globalTimeManager = GameManager.Instance.GlobalTimeManager;
-        _globalTimeManager.gameObject.SetActive(true);
+        _questManager = GameManager.Instance.QuestManager;
 
+        _globalTimeManager.gameObject.SetActive(true);
+        _questManager.gameObject.SetActive(true);
 
         //HealthSystem healthSystem = GameManager.Instance.Player.GetComponent<HealthSystem>();
         //healthSystem.SetCurHealth(); // LoadGame

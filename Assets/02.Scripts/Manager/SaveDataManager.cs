@@ -90,9 +90,11 @@ public class SavePlayerData
     [Header("Quest")]
     //[HideInInspector] public List<Quest> SaveQuest = new List<Quest>(); // 저장할 퀘스트들 가져옴
 
-    [HideInInspector] public List<int> SaveQuestID = new List<int>();
-    [HideInInspector] public Dictionary<int, int> SaveQuest = new Dictionary<int, int>();
+    //수락된 퀘스트
+    [HideInInspector] public List<int> SaveAcceptQuestID = new List<int>();
+    [HideInInspector] public Dictionary<int, int> SaveAcceptQuest = new Dictionary<int, int>();
 
+    [HideInInspector] public Dictionary<int, int> SaveActiveQuest = new Dictionary<int, int>();
 
     [HideInInspector] public Dictionary<int, int> SaveEnemyQuestProgress = new Dictionary<int, int>(); // 퀘스트 진행상황 가져옴
     [HideInInspector] public Dictionary<int, int> SaveNatureQuestProgress = new Dictionary<int, int>(); // 퀘스트 진행상황 가져옴
@@ -121,8 +123,8 @@ public class SavePlayerData
         SavePotions.Clear();
         SaveQuickSlotPotions.Clear();
 
-        SaveQuest.Clear();
-        SaveQuestID.Clear();
+        SaveAcceptQuestID.Clear();
+        SaveAcceptQuest.Clear();
         SaveEnemyQuestProgress.Clear();
         SaveNatureQuestProgress.Clear();
 
@@ -251,16 +253,26 @@ public class SavePlayerData
         //SaveNatureQuestProgress.Clear();
         //SaveQuest.Clear();
 
+        // 수락한 퀘스트
         foreach (Quest quest in _questManager.AcceptQuestList)
         {
-            SaveQuestID.Add(quest.QuestNumber);
-            SaveQuest.Add(quest.TargetID, quest.TargetQuantity);
+            SaveAcceptQuestID.Add(quest.QuestNumber);
+            SaveAcceptQuest.Add(quest.TargetID, quest.TargetQuantity);
 
             Debug.Log("1" + quest.QuestNumber);
             Debug.Log("2" + quest.TargetID);
             Debug.Log("3" + quest.TargetQuantity);
         }
 
+        //활성화된 퀘스트
+        foreach(var quest in _questManager.ActiveQuests)
+        {
+            SaveActiveQuest.Add(quest.TargetID, quest.TargetQuantity);
+            Debug.Log(quest.TargetID);
+            Debug.Log(quest.TargetQuantity);
+        }
+
+        //퀘스트 진행도
         foreach (var quest in _questManager.EnemyQuantityDict)
         {
             SaveEnemyQuestProgress.Add(quest.Key, quest.Value);
@@ -268,6 +280,7 @@ public class SavePlayerData
             Debug.Log("5" + quest.Value);
         }
 
+        //퀘스트 진행도
         foreach (var quest in _questManager.NatureQuantityDict)
         {
             SaveNatureQuestProgress.Add(quest.Key, quest.Value);

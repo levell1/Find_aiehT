@@ -31,17 +31,31 @@ public class Quest
         QuestData = data;
         QuestNumber = questNumber;
         _questReward = data.reward;
-        InitQuest();
 
-        for(int i = _minTargetID; i < _maxTargetID; i++)
+        // Load시에는 지정퀘스트
+        if(GameManager.Instance.GameStateManager.CurrentGameState == GameState.LOADGAME)
         {
-            _randomIDList.Add(i);
+            LoadQuest(TargetID, TargetQuantity);
+        }
+        else if(GameManager.Instance.GameStateManager.CurrentGameState == GameState.NEWGAME)
+        {
+            InitQuest();
+
+            for (int i = _minTargetID; i < _maxTargetID; i++)
+            {
+                _randomIDList.Add(i);
+            }
+            RandomQuest();
         }
 
-        RandomQuest();
     }
 
     protected virtual void InitQuest() {}
+
+    public void LoadQuest(int targetID, int targetQuantity)
+    {
+
+    }
 
     private void RandomQuest()
     {
