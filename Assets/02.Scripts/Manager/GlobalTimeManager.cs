@@ -192,7 +192,7 @@ public class GlobalTimeManager : MonoBehaviour
 
     public void TycoonToVillage()
     {
-        DayTime = NextMorning;
+        GoodMorning();
     }
 
     public void ItemRespawn()
