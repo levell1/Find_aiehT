@@ -27,6 +27,14 @@ public class LoadingSceneController : MonoBehaviour
     public static void LoadScene(string nextScene) 
     {
         NextScene = nextScene;
+        if (NextScene==SceneName.HuntingScene)
+        {
+            GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Door);
+        }
+        if (NextScene == SceneName.TycoonScene)
+        {
+            GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.HouseDoor);
+        }
         SceneManager.LoadScene(SceneName.LoadingScene);
     }
     

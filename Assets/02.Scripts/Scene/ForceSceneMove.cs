@@ -44,7 +44,10 @@ public class ForceSceneMove : MonoBehaviour
         }
         else
         {
+
             //24시 or 잠자기
+            GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Sleep);
+
             _sceneMoveUI.CurrentSceneName = SceneName.VillageScene;
             _sceneMoveUI.Description.text = "어우 졸~려ㅓㅓㅓㅓ";
             _sceneMoveUI.gameObject.SetActive(true);

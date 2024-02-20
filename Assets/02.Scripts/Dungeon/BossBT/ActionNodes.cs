@@ -199,6 +199,7 @@ public class LightAttack : Node
             lightObject.transform.position = _pigTransform.position + _pigTransform.forward * 2;
             _animation.SetBool(AnimationParameterName.BossFly, false);
             _time = 0;
+            GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Pig2);
             return state = NodeState.Success;
         }
     }
@@ -236,9 +237,6 @@ public class RunAwayNode : Node
         }
 
     }
-
-
-    
 
     public override NodeState Evaluate()
     {
@@ -311,7 +309,6 @@ public class GoToPlayerNode : Node
 
 }
 
-
 public class DashToPlayer : Node
 {
     private Transform _playerTransform;
@@ -337,6 +334,7 @@ public class DashToPlayer : Node
 
     public override NodeState Evaluate()
     {
+        
         _time += Time.deltaTime;
         if (_time < _waitTime)
         {
@@ -389,6 +387,7 @@ public class DashToPlayer : Node
             NavMeshHit hit;
             if (NavMesh.SamplePosition(_dashPosition, out hit, 1f, NavMesh.AllAreas))
             {
+                GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Pig1);
                 _agent.SetDestination(_dashPosition);
                 _collider.enabled = true;
                 _animation.SetBool(AnimationParameterName.BossRoll, false);

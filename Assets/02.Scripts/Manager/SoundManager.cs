@@ -54,9 +54,12 @@ public class SoundManager : MonoBehaviour
 
     public void SFXPlay(string sfxName, Vector3 audioPosition, float audioVolume)
     {
-        GameObject AudioObject = new GameObject(sfxName + "Sound");
+        GameObject AudioObject = GameManager.Instance.PoolingManager.GetObject("Sound");
+        /*GameObject AudioObject = new GameObject(sfxName + "Sound");
+        AudioSource audiosource = AudioObject.AddComponent<AudioSource>();*/
+        AudioSource audiosource = AudioObject.GetComponent<AudioSource>();
         AudioObject.transform.position = audioPosition;
-        AudioSource audiosource = AudioObject.AddComponent<AudioSource>();
+       
         audiosource.outputAudioMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
         _audioClip = Resources.Load<AudioClip>("Sound/SFX/" + sfxName);
 
@@ -66,10 +69,39 @@ public class SoundManager : MonoBehaviour
             audiosource.volume = audioVolume;
             audiosource.Play();
 
-            Destroy(audiosource.gameObject, audiosource.clip.length);
+            StartCoroutine(SFXStop(AudioObject, audiosource));
+            //Destroy(audiosource.gameObject, audiosource.clip.length);//오브젝트 풀로 변경
         }
 
     }
+    public void SFXPlay(string sfxName)
+    {
+        GameObject AudioObject = GameManager.Instance.PoolingManager.GetObject("Sound");
+        /*GameObject AudioObject = new GameObject(sfxName + "Sound");
+        AudioSource audiosource = AudioObject.AddComponent<AudioSource>();*/
+        AudioSource audiosource = AudioObject.GetComponent<AudioSource>();
+        AudioObject.transform.position = Vector3.zero;
+
+        audiosource.outputAudioMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
+        _audioClip = Resources.Load<AudioClip>("Sound/SFX/" + sfxName);
+
+        if (_audioClip != null)
+        {
+            audiosource.clip = _audioClip;
+            audiosource.volume = 0.5f;
+            audiosource.Play();
+
+            StartCoroutine(SFXStop(AudioObject, audiosource));
+            //Destroy(audiosource.gameObject, audiosource.clip.length);//오브젝트 풀로 변경
+        }
+
+    }
+    IEnumerator SFXStop(GameObject AudioObject, AudioSource audiosource)
+    {
+        yield return new WaitForSeconds(audiosource.clip.length);
+        GameManager.Instance.PoolingManager.ReturnObject(AudioObject);
+    }
+
 
     public void BgmSoundPlay(string BgName)
     {

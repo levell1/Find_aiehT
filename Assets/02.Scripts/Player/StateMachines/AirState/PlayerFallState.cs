@@ -29,6 +29,8 @@ public class PlayerFallState : PlayerAirState
 
         if (_stateMachine.Player.GroundCheck.IsGrounded())
         {
+
+            GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Landing);
             Debug.Log("땅");
             _stateMachine.ChangeState(_stateMachine.IdleState);
             return;
