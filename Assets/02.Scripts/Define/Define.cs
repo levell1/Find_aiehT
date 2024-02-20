@@ -21,6 +21,7 @@ public struct UIName
     public const string InventoryUI = "InventoryUI";
     public const string QuestUI = "QuestUI";
     public const string DungeontUI = "GoDungeonUI";
+    public const string PlayerBaseUI = "PlayerBaseUI";
 }
 
 public struct SceneName
@@ -28,7 +29,7 @@ public struct SceneName
     public const string TitleScene = "TitleScene";
     public const string LoadingScene = "LoadingScene";
     public const string VillageScene = "VillageScene";
-    public const string Field = "HuntingScene";
+    public const string HuntingScene = "HuntingScene";
     public const string TycoonScene = "TycoonScene";
     public const string TutorialScene = "TutorialScene";
     public const string DungeonScene = "DungeonScene";
@@ -118,6 +119,28 @@ public struct CoolTimeObjName
     public const string SpreadSkill = "SpreadSkill";
     public const string HealthPotion = "HealthPotion";
     public const string StaminaPotion = "StaminaPotion";
+}
+
+public struct BGMSoundName
+{
+    public const string VillageBGM1 = "VillageBGM1";
+    public const string VillageBGM2 = "VillageBGM2";
+
+    public const string TycoonBGM1 = "TycoonBGM1";
+    public const string TycoonBGM2 = "TycoonBGM2";
+
+   
+    public const string DungeonBGM = "DungeonBGM";
+    public const string DungeonBGM2 = "DungeonBGM2";
+    public const string DungeonBoss = "DungeonBossBGM";
+
+    public const string TitleBGM = "TitleBGM";
+    public const string EndingBGM = "EndingBGM";
+
+    public const string HuntingField = "HuntingField";
+    public const string HuntingField2 = "HuntingField2";
+    public const string HuntingField3 = "HuntingField3";
+    public const string HuntingField4 = "HuntingField4";
 
 }
 
@@ -128,5 +151,19 @@ public struct ErrorMessageTxt
     public const string TwentyMinutesLeft = "20분 남았습니다.";
     public const string ThirtyMinutesLeft = "30분 남았습니다.";
     public const string OneHourLeft = "1시간 뒤에 사냥터에서 퇴장됩니다.";
+public struct SFXSoundPathName
+{
+    public const string ClickSound = "UI/Click";
+
+    public const string Eat = "Tycoon/Eat";
+    public const string Eat2 = "Tycoon/Eat2";
+    public const string Money = "Tycoon/Money";
+    public const string PutDownFood = "Tycoon/PutDownFood";
+
+    public const string AttackSound1 = "Player/AttackSound1";
+    public const string AttackSound2 = "Player/AttackSound2";
+    public const string AttackSound3 = "Player/AttackSound3";
+
+    public const string Dash = "Player/Dash";
 }
 

@@ -32,6 +32,16 @@ public class TutorialGuideBook : MonoBehaviour
         UpdateUI();
     }
 
+    private void Update()
+    {
+        if (Time.timeScale == 1)
+        { 
+            Time.timeScale = 0.0f;
+            Cursor.lockState = CursorLockMode.None;
+            GameManager.Instance.CameraManager.DisableCam();
+        }
+    }
+
     private void OnEnable()
     {
         GameManager.Instance.CameraManager.DontMoveCam();

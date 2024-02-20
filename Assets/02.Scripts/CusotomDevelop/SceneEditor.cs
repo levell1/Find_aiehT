@@ -29,7 +29,7 @@ public class SceneEditor : EditorWindow
         if (GUILayout.Button("Hunting Scene"))
         {
             GameManager.Instance.Player.transform.position = new Vector3(-2, 0, 25);
-            LoadingSceneController.LoadScene(SceneName.Field);
+            LoadingSceneController.LoadScene(SceneName.HuntingScene);
         }
 
         GUILayout.Space(10);

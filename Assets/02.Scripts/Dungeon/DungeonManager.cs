@@ -90,6 +90,7 @@ public class DungeonManager : MonoBehaviour
         if (_stagenum == 3)
         {
             _bossHpbar.SetActive(true);
+            GameManager.Instance.SoundManager.BgmSoundPlay(BGMSoundName.DungeonBGM2);
         }
         Stages[_stagenum - 1].SetActive(true);
         

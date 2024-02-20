@@ -28,7 +28,7 @@ public class test : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             GameManager.Instance.Player.transform.position = new Vector3(-2, 0, 25);
-            LoadingSceneController.LoadScene(SceneName.Field);
+            LoadingSceneController.LoadScene(SceneName.HuntingScene);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha6))

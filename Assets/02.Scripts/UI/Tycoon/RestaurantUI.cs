@@ -111,5 +111,6 @@ public class RestaurantUI : BaseUI
     {
         GameManager.Instance.UIManager.CloseAllCanvas();
         TycoonManager.Instance.TycoonGameStart();
+        GameManager.Instance.SoundManager.BgmSoundPlay(BGMSoundName.TycoonBGM2);
     }
 }

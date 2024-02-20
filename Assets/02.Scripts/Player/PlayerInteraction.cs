@@ -207,7 +207,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 GameManager.Instance.Player.transform.position = new Vector3(-4, 0, 8);
             }
-            else if (_curScene == SceneName.Field && _nextScene == SceneName.VillageScene)
+            else if (_curScene == SceneName.HuntingScene && _nextScene == SceneName.VillageScene)
             {
                 if (_globalTimeManager.IsMoveFieldToVillage)
                 {

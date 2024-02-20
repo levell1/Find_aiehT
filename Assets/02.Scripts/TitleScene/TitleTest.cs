@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -42,10 +43,10 @@ public class TitleTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (SceneManager.GetActiveScene().name == SceneName.TutorialScene && GameManager.Instance.GlobalTimeManager.Day == 0 || SceneManager.GetActiveScene().name == SceneName.TycoonScene && GameManager.Instance.GlobalTimeManager.Day == 0)
+            /*if (SceneManager.GetActiveScene().name == SceneName.TutorialScene|| SceneManager.GetActiveScene().name == SceneName.TycoonScene && GameManager.Instance.GlobalTimeManager.Day == 0)
             {
                 return;
-            }
+            }*/
             if (GameManager.Instance.UIManager.PopupStack .Count!=0)
             {
                 if (GameManager.Instance.UIManager.PopupStack.Peek().name == UIName.InventoryUI)
@@ -55,6 +56,14 @@ public class TitleTest : MonoBehaviour
                 }
             }
             GameManager.Instance.UIManager.CloseLastCanvas();
+        }
+        
+        if (Time.timeScale == 0&& Cursor.lockState == CursorLockMode.None||SceneManager.GetActiveScene().name==SceneName.TitleScene)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.ClickSound, Vector3.zero, 0.5f);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.B))
