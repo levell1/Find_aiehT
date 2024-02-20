@@ -241,7 +241,8 @@ public class CustomerController : MonoBehaviour
         _waitTime = _tycoonManager.CustomerWaitTime;
 
         _animator.SetBool(AnimationParameterName.TycoonIsEat, true);
-        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Eat, transform.position, 1f);
+        int random = UnityEngine.Random.Range(1, 3);
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Eat+random.ToString(), transform.position, 1f);
         yield return TycoonManager.Instance._waitForCustomerEatTime;
         _animator.SetBool(AnimationParameterName.TycoonIsEat, false);
 

@@ -138,7 +138,6 @@ public struct SFXSoundPathName
     public const string UISound = "UI/UISound";
 
     public const string Eat = "Tycoon/Eat";
-    public const string Eat2 = "Tycoon/Eat2";
     public const string Money = "Tycoon/Money";
     public const string PutDownFood = "Tycoon/PutDownFood";
 
@@ -162,6 +161,7 @@ public struct SFXSoundPathName
     public const string Door = "Environment/Door";
     public const string HouseDoor = "Environment/HouseDoor";
     public const string Portal = "Environment/Portal";
+    public const string Upgrade = "Environment/Upgrade";
 
     public const string LightMagic = "Animal/LightMagic";
     public const string Levitate = "Animal/Levitate";
