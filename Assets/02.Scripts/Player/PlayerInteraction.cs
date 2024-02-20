@@ -219,7 +219,7 @@ public class PlayerInteraction : MonoBehaviour
 
                 //_globalTimeManager.PenaltyTime();
             }
-            else if (_curScene == SceneName.VillageScene && _nextScene == SceneName.Field)
+            else if (_curScene == SceneName.VillageScene && _nextScene == SceneName.HuntingScene)
             {
                 if (!_globalTimeManager.IsMoveVillageToField)
                 {
@@ -258,7 +258,7 @@ public class PlayerInteraction : MonoBehaviour
 
     public IEnumerator ErrorMessage()
     {
-        if(_nextScene == SceneName.TycoonScene || _nextScene == SceneName.Field)
+        if(_nextScene == SceneName.TycoonScene || _nextScene == SceneName.HuntingScene)
         {
             ErrorText.text = ErrorMessageTxt.DontSceneMoveErrorMessage;
         }

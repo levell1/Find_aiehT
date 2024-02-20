@@ -83,7 +83,7 @@ public class GlobalTimeManager : MonoBehaviour
             ChangeDay();
         }
 
-        if (Hour == 18f && IsActiveOutFieldUI && SceneManager.GetActiveScene().name == SceneName.Field)
+        if (Hour == 18f && IsActiveOutFieldUI && SceneManager.GetActiveScene().name == SceneName.HuntingScene)
         {
             EventCount = 0;
             IsActiveOutFieldUI = false;
@@ -96,7 +96,7 @@ public class GlobalTimeManager : MonoBehaviour
             IsMoveFieldToVillage = true;
         }
 
-        if(Hour == 23f && SceneManager.GetActiveScene().name == SceneName.Field)
+        if(Hour == 23f && SceneManager.GetActiveScene().name == SceneName.HuntingScene)
         {
             if (_coroutine == null)
             {

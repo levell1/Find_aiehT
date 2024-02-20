@@ -29,7 +29,7 @@ public class GoDungeon : BaseUI
         {
             _playerData = GameManager.Instance.Player.GetComponent<Player>().Data;
 
-            _playerData.PlayerData.SetPlayerGold(_playerData.PlayerData.GetPlayerGold() - _gold);
+            _playerData.PlayerData.PlayerGold= _playerData.PlayerData.PlayerGold - _gold;
             GameManager.Instance.SaveDataManger.SavePlayerDataToJson();
 
             GameManager.Instance.Player.transform.position = new Vector3(0, 0, 0);
