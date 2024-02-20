@@ -192,8 +192,6 @@ public class PlayerInteraction : MonoBehaviour
 
     public void GoNextScene()
     {
-        Debug.Log(_curScene);
-        Debug.Log(_nextScene);
         if (_nextScene != string.Empty)
         {
             if (_nextScene == SceneName.TycoonScene && !_globalTimeManager.EnterTycoonTime())
@@ -211,9 +209,15 @@ public class PlayerInteraction : MonoBehaviour
             }
             else if (_curScene == SceneName.Field && _nextScene == SceneName.VillageScene)
             {
+                if (_globalTimeManager.IsMoveFieldToVillage)
+                {
+                    GameManager.Instance.GlobalTimeManager.GoodMorning();
+                    return;
+                }
+
                 GameManager.Instance.Player.transform.position = new Vector3(-4, 0, 19);
 
-                _globalTimeManager.PenaltyTime();
+                //_globalTimeManager.PenaltyTime();
             }
             else if (_curScene == SceneName.VillageScene && _nextScene == SceneName.Field)
             {
@@ -230,11 +234,11 @@ public class PlayerInteraction : MonoBehaviour
             {
                 GameManager.Instance.Player.transform.position = new Vector3(5, 0, 8);
             }*/
-            else if(_curScene == SceneName.VillageScene && _nextScene == SceneName.VillageScene)
-            {
-                GameManager.Instance.Player.transform.position = new Vector3(-15, 0, -160);
-                // TODO: 시간 다음날 아침으로 바꾸기
-            }
+            //else if(_curScene == SceneName.VillageScene && _nextScene == SceneName.VillageScene)
+            //{
+            //    GameManager.Instance.Player.transform.position = new Vector3(-15, 0, -160);
+            //    // TODO: 시간 다음날 아침으로 바꾸기
+            //}
 
             LoadingSceneController.LoadScene(_nextScene);
             _nextScene = string.Empty;

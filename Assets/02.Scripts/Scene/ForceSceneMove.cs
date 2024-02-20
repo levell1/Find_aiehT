@@ -10,9 +10,11 @@ public class ForceSceneMove : MonoBehaviour
 
     private void Start()
     {
-        _sceneMoveUI = GameManager.Instance.UIManager.PopupDic[UIName.SceneMoveUI].GetComponent<SceneMoveUI>();
-        _restartUI = GameManager.Instance.UIManager.PopupDic[UIName.RestartUI].GetComponent<RestartUI>();
-        _timeToVillageUI = GameManager.Instance.UIManager.PopupDic[UIName.TimeToVillageUI].GetComponent<TimeToVillageUI>();
+        UIManager uIManager = GameManager.Instance.UIManager;
+        _sceneMoveUI = uIManager.PopupDic[UIName.SceneMoveUI].GetComponent<SceneMoveUI>();
+        _restartUI = uIManager.PopupDic[UIName.RestartUI].GetComponent<RestartUI>();
+        _timeToVillageUI = uIManager.PopupDic[UIName.TimeToVillageUI].GetComponent<TimeToVillageUI>();
+
         _playerHealthSystem = GameManager.Instance.Player.GetComponent<HealthSystem>();
         _playerHealthSystem.OnDie += DieToGoHome;
         GameManager.Instance.GlobalTimeManager.OnOutFieldUI += TimeToGoHome;
