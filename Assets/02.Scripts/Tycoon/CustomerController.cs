@@ -126,7 +126,6 @@ public class CustomerController : MonoBehaviour
                 _targetFoodPlace.OnCustomerGetFood -= GetFood;
                 _targetFoodPlace.CurrentCustomer = null;
                 _targetFoodPlace = null;
-
                 GameManager.Instance.PoolingManager.ReturnObject(gameObject);
             }
         }
