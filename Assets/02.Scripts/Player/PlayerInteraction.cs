@@ -231,11 +231,11 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    private IEnumerator ErrorMessage()
+    public IEnumerator ErrorMessage()
     {
         if(_nextScene == SceneName.TycoonScene)
         {
-            ErrorText.text = "입장가능시간이 아닙니다!";
+            ErrorText.text = ErrorMessageTxt.TycoonErrorMessage;
         }
 
         ErrorText.gameObject.SetActive(true);
