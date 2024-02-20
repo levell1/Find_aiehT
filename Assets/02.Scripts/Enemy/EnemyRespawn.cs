@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class EnemyRespawn : MonoBehaviour
 {
+    private GlobalTimeManager _globalTimeManager;
     private Enemy _enemy;
     private Vector3 _enemySpawnPoint;
     private float _respawnTime = 0;
@@ -10,12 +11,23 @@ public class EnemyRespawn : MonoBehaviour
 
     private void Awake()
     {
+        _globalTimeManager = GameManager.Instance.GlobalTimeManager;
         _enemy = GetComponent<Enemy>();
         _enemySpawnPoint = transform.position;
         if (SceneManager.GetActiveScene().name==SceneName.DungeonScene)
         {
             RespawnDelay = 1000;
         }
+    }
+
+    private void Start()
+    {
+        _globalTimeManager.OnNightCheck += NightEnemyStat;
+    }
+
+    private void OnDisable()
+    {
+        _globalTimeManager.OnNightCheck -= NightEnemyStat;
     }
 
     private void Update()
@@ -33,11 +45,9 @@ public class EnemyRespawn : MonoBehaviour
     private void Respawn()
     {
         _enemy.SetData();
-        if (GameManager.Instance.GlobalTimeManager.NightCheck())
+        if (_globalTimeManager.NightCheck())
         {
-            _enemy.EnemyDamage *= 2f;
-            _enemy.EnemyMaxHealth *= 2f;
-            _enemy.EnemyDropEXP *= 2;
+            NightEnemyStat();
         }
 
         _respawnTime = 0f;
@@ -50,5 +60,12 @@ public class EnemyRespawn : MonoBehaviour
         {
             _enemy.transform.position = _enemySpawnPoint;
         }
+    }
+
+    private void NightEnemyStat()
+    {
+        _enemy.EnemyDamage *= 2f;
+        _enemy.EnemyMaxHealth *= 2f;
+        _enemy.EnemyDropEXP *= 2;
     }
 }

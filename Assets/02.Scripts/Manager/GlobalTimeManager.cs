@@ -26,8 +26,12 @@ public class GlobalTimeManager : MonoBehaviour
 
     public bool IsItemRespawn = false;
     public bool IsActiveOutFieldUI;
+    public bool IsMoveVillageToField;
+    public bool IsMoveFieldToVillage;
     public event Action OnInitQuest;
     public event Action OnOutFieldUI;
+    public event Action OnNightCheck;
+    public event Action OnBossRespawn;
 
     private Coroutine _coroutine;
 
@@ -86,6 +90,12 @@ public class GlobalTimeManager : MonoBehaviour
             OnOutFieldUI?.Invoke();
         }
 
+        if(Hour >= 18f)
+        {
+            IsMoveVillageToField = false;
+            IsMoveFieldToVillage = true;
+        }
+
         if(Hour == 23f && SceneManager.GetActiveScene().name == SceneName.Field)
         {
             if (_coroutine == null)
@@ -139,19 +149,28 @@ public class GlobalTimeManager : MonoBehaviour
         _isChangeDay = true;
         IsActiveOutFieldUI = true;
         IsItemRespawn = false;
+        IsMoveVillageToField = true;
+        IsMoveFieldToVillage = false;
         ++Day;
         OnInitQuest?.Invoke();
+        OnBossRespawn?.Invoke();
     }
 
-    public bool NightCheck() //오전 0~6 , 오후 6~12
+    public void NightChecker()
     {
-        if (Hour <= 6f || 18f <= Hour)
+        OnNightCheck?.Invoke();
+    }
+
+    public bool NightCheck()
+    {
+        if (Hour >= 18f)
         {
+            OnNightCheck?.Invoke();
             return true;
         }
-        else
+        else 
         {
-            return false;
+            return false; 
         }
     }
 
@@ -217,11 +236,16 @@ public class GlobalTimeManager : MonoBehaviour
         StartCoroutine(playerInteraction.ErrorMessage());
         yield return new WaitForSeconds(oneHour / 6f); //10분
 
+        GoodMorning();
+
+        _coroutine = null;
+    }
+
+    public void GoodMorning()
+    {
         EventCount = 1;
         OnOutFieldUI?.Invoke();
         DayTime = _nextMorning;
-
-        _coroutine = null;
     }
 }
 

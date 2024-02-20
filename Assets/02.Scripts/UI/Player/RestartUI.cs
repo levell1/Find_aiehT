@@ -9,6 +9,7 @@ public class RestartUI : BaseUI
         _sceneMoveUI = GameManager.Instance.UIManager.PopupDic[UIName.SceneMoveUI].GetComponent<SceneMoveUI>();
         Cursor.lockState = CursorLockMode.None;
     }
+
     private void Update()
     {
         Time.timeScale = 0f;
@@ -31,12 +32,12 @@ public class RestartUI : BaseUI
         gameObject.SetActive(false);
     }
 
-    public void GoTitleBtn()
-    {
-        _sceneMoveUI.CurrentSceneName = SceneName.TitleScene;
-        _sceneMoveUI.Description.text = "타이틀로 돌아갑니다.";
-        _sceneMoveUI.gameObject.SetActive(true);
-        gameObject.SetActive(false);
-    }
+    //public void GoTitleBtn()
+    //{
+    //    _sceneMoveUI.CurrentSceneName = SceneName.TitleScene;
+    //    _sceneMoveUI.Description.text = "타이틀로 돌아갑니다.";
+    //    _sceneMoveUI.gameObject.SetActive(true);
+    //    gameObject.SetActive(false);
+    //}
 
 }

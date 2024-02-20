@@ -788,9 +788,9 @@ GameObject:
   - component: {fileID: 2359527117510519047}
   - component: {fileID: 2606130945817301785}
   - component: {fileID: 3283412749982687934}
-  - component: {fileID: 1214924832069856377}
   - component: {fileID: 5181423539722241560}
   - component: {fileID: 1750051027285038823}
+  - component: {fileID: 3366493852260033912}
   m_Layer: 10
   m_Name: BossRooster
   m_TagString: Enemy
@@ -813,7 +813,7 @@ Transform:
   - {fileID: 5757769398730413795}
   - {fileID: 2497287984170180311}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &2606130945817301785
 CapsuleCollider:
@@ -861,19 +861,6 @@ MonoBehaviour:
   HitCool: 3
   DamageAmount: 0
   IsDead: 0
---- !u!114 &1214924832069856377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8585590306559059365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddd566529265f5f4ba2414bc21f0401d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RespawnDelay: 3
 --- !u!114 &5181423539722241560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,6 +915,18 @@ NavMeshAgent:
   m_BaseOffset: -0.07
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &3366493852260033912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8585590306559059365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9534914fd1ac68409b8d755a35e9c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5757769398730804333
 PrefabInstance:
   m_ObjectHideFlags: 0

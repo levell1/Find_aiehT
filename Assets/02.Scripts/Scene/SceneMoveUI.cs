@@ -29,9 +29,13 @@ public class SceneMoveUI : MonoBehaviour
     private IEnumerator MoveScene()
     {
         yield return new WaitForSeconds(_duration);
-        if (CurrentSceneName == SceneName.VillageScene)
+        if (CurrentSceneName == SceneName.VillageScene && GameManager.Instance.GlobalTimeManager.EventCount == 0)
         {
-            GameManager.Instance.Player.transform.position = new Vector3(-5, 0, 0);
+            GameManager.Instance.Player.transform.position = new Vector3(-4, 0, 19);
+        }
+        else if (CurrentSceneName == SceneName.VillageScene && GameManager.Instance.GlobalTimeManager.EventCount == 1)
+        {
+            GameManager.Instance.Player.transform.position = new Vector3(-15, 0, -160);
         }
         LoadingSceneController.LoadScene(CurrentSceneName);
         gameObject.SetActive(false);

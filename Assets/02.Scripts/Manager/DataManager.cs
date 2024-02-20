@@ -19,6 +19,8 @@ public class DataManager : MonoBehaviour
 
     public Dictionary<int, bool> ItemWaitSpawnDict = new Dictionary<int, bool>();
 
+    public Dictionary<int, bool> BossDeadCheckDict = new Dictionary<int, bool>();
+
     public void AddMenu(FoodSO foodData, int count)
     {
         OrderFood orderFood = new OrderFood();
@@ -49,6 +51,14 @@ public class DataManager : MonoBehaviour
         if(!ItemWaitSpawnDict.ContainsKey(index))
         {
             ItemWaitSpawnDict.Add(index, isActive);
+        }
+    }
+
+    public void AddBoss(int index, bool isDead)
+    {
+        if (!BossDeadCheckDict.ContainsKey(index))
+        {
+            BossDeadCheckDict.Add(index, isDead);
         }
     }
 
