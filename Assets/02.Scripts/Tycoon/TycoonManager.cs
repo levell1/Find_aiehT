@@ -64,11 +64,14 @@ public class TycoonManager : MonoSingleton<TycoonManager>
         _playerInteraction = GameManager.Instance.Player.GetComponentInChildren<PlayerInteraction>().gameObject;
         _waitForCustomerSpawnTime = new WaitForSeconds(_customerSpawnTime);
         _waitForCustomerEatTime = new WaitForSeconds(_customerEatTime);
+
+        DecideTodayCustomerNum();
     }
 
     public void TycoonGameStart()
     {
         DecideTodayFoods();
+
         _playerInteraction.SetActive(false);
         GameManager.Instance.CameraManager.TycoonCamSetting();
         StartCoroutine(CreateCustomerCoroutine());
@@ -82,6 +85,12 @@ public class TycoonManager : MonoSingleton<TycoonManager>
         _TycoonUI.OnReusltUI();
         GameManager.Instance.DataManager.RemoveOrderData();
         _playerInteraction.SetActive(true);
+    }
+
+    private void DecideTodayCustomerNum()
+    {
+        int playerLevel = GameManager.Instance.Player.GetComponent<Player>().Data.PlayerData.PlayerLevel;
+        _todayMaxCustomerNum = 5 + (playerLevel - 1) * 2;
     }
 
     private void DecideTodayFoods()
