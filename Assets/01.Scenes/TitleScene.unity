@@ -2366,6 +2366,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SaveplayerData:
     CurrentSceneName: 
+    SaveData:
+      _playerName: 
+      _playerLevel: 0
+      _playerMaxHealth: 0
+      _playerMaxStamina: 0
+      _playerAttack: 0
+      _playerDef: 0
+      _playerExp: 0
+      _playerGold: 0
     SaveHealth: 0
     SaveStamina: 0
     SavePlayerLevel: 0
@@ -4282,11 +4291,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DayTime: 0
-  FullDayLength: 6000
+  FullDayLength: 60
   StartTime: 0.5
   Day: 0
   Hour: 0
   Minutes: 0
+  EventCount: 0
   TimeText: {fileID: 1735455544}
   IsItemRespawn: 0
   IsActiveOutFieldUI: 0

@@ -1,6 +1,6 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -28,6 +28,8 @@ public class GlobalTimeManager : MonoBehaviour
     public bool IsActiveOutFieldUI;
     public event Action OnInitQuest;
     public event Action OnOutFieldUI;
+
+    private Coroutine _coroutine;
 
     private void Start()
     {
@@ -84,12 +86,20 @@ public class GlobalTimeManager : MonoBehaviour
             OnOutFieldUI?.Invoke();
         }
 
-        if (Hour == 23f && Minutes == 59f)
+        if(Hour == 23f)
         {
-            EventCount = 1;
-            OnOutFieldUI?.Invoke();
-            DayTime = _nextMorning;
+            if (_coroutine == null)
+            {
+                _coroutine = StartCoroutine(WarningTimeMessage());
+            }
         }
+
+        //if (Hour == 23f && Minutes == 59f)
+        //{
+        //    EventCount = 1;
+        //    OnOutFieldUI?.Invoke();
+        //    DayTime = _nextMorning;
+        //}
     }
 
     private void SetDayTime()
@@ -117,6 +127,11 @@ public class GlobalTimeManager : MonoBehaviour
     {
         //DayTime += _penaltyTime;
         ItemRespawn();
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+            _coroutine = null;
+        }
     }
 
     private void ChangeDay() 
@@ -179,6 +194,34 @@ public class GlobalTimeManager : MonoBehaviour
 
             IsItemRespawn = true;
         }
+    }
+
+    private IEnumerator WarningTimeMessage()
+    {
+        PlayerInteraction playerInteraction = GameManager.Instance.Player.GetComponentInChildren<PlayerInteraction>();
+        float oneHour = FullDayLength / 24f;
+
+        playerInteraction.ErrorText.text = ErrorMessageTxt.OneHourLeft;
+        StartCoroutine(playerInteraction.ErrorMessage());
+        yield return new WaitForSeconds(oneHour / 2f); //30분
+
+        playerInteraction.ErrorText.text = ErrorMessageTxt.ThirtyMinutesLeft;
+        StartCoroutine(playerInteraction.ErrorMessage());
+        yield return new WaitForSeconds(oneHour / 6f); //10분
+
+        playerInteraction.ErrorText.text = ErrorMessageTxt.TwentyMinutesLeft;
+        StartCoroutine(playerInteraction.ErrorMessage());
+        yield return new WaitForSeconds(oneHour / 6f); //10분
+
+        playerInteraction.ErrorText.text = ErrorMessageTxt.TenMinutesLeft;
+        StartCoroutine(playerInteraction.ErrorMessage());
+        yield return new WaitForSeconds(oneHour / 6f); //10분
+
+        EventCount = 1;
+        OnOutFieldUI?.Invoke();
+        DayTime = _nextMorning;
+
+        _coroutine = null;
     }
 }
 
