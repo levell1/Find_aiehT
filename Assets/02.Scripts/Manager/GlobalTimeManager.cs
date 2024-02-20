@@ -20,13 +20,14 @@ public class GlobalTimeManager : MonoBehaviour
     private float _timeRate;
 
     private float _penaltyTime = 1f / 24f;
-    public float NextMorning = 7f / 24f;
+    private float _nextMorning = 7f / 24f;
     public int EventCount;
     public TextMeshProUGUI TimeText;
 
     public bool IsItemRespawn = false;
     public bool IsActiveOutFieldUI;
     public bool IsMoveVillageToField;
+    public bool IsMoveFieldToVillage;
     public event Action OnInitQuest;
     public event Action OnOutFieldUI;
     public event Action OnNightCheck;
@@ -92,6 +93,7 @@ public class GlobalTimeManager : MonoBehaviour
         if(Hour >= 18f)
         {
             IsMoveVillageToField = false;
+            IsMoveFieldToVillage = true;
         }
 
         if(Hour == 23f && SceneManager.GetActiveScene().name == SceneName.Field)
@@ -148,6 +150,7 @@ public class GlobalTimeManager : MonoBehaviour
         IsActiveOutFieldUI = true;
         IsItemRespawn = false;
         IsMoveVillageToField = true;
+        IsMoveFieldToVillage = false;
         ++Day;
         OnInitQuest?.Invoke();
         OnBossRespawn?.Invoke();
@@ -189,7 +192,7 @@ public class GlobalTimeManager : MonoBehaviour
 
     public void TycoonToVillage()
     {
-        DayTime = NextMorning;
+        DayTime = _nextMorning;
     }
 
     public void ItemRespawn()
@@ -233,11 +236,16 @@ public class GlobalTimeManager : MonoBehaviour
         StartCoroutine(playerInteraction.ErrorMessage());
         yield return new WaitForSeconds(oneHour / 6f); //10분
 
-        EventCount = 1;
-        OnOutFieldUI?.Invoke();
-        DayTime = NextMorning;
+        GoodMorning();
 
         _coroutine = null;
+    }
+
+    public void GoodMorning()
+    {
+        EventCount = 1;
+        OnOutFieldUI?.Invoke();
+        DayTime = _nextMorning;
     }
 }
 
