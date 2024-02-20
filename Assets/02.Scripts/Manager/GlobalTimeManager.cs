@@ -28,6 +28,8 @@ public class GlobalTimeManager : MonoBehaviour
     public bool IsActiveOutFieldUI;
     public event Action OnInitQuest;
     public event Action OnOutFieldUI;
+    public event Action OnNightCheck;
+    public event Action OnBossRespawn;
 
     private Coroutine _coroutine;
 
@@ -141,17 +143,24 @@ public class GlobalTimeManager : MonoBehaviour
         IsItemRespawn = false;
         ++Day;
         OnInitQuest?.Invoke();
+        OnBossRespawn?.Invoke();
     }
 
-    public bool NightCheck() //오전 0~6 , 오후 6~12
+    public void NightChecker()
     {
-        if (Hour <= 6f || 18f <= Hour)
+        OnNightCheck?.Invoke();
+    }
+
+    public bool NightCheck()
+    {
+        if (Hour >= 18f)
         {
+            OnNightCheck?.Invoke();
             return true;
         }
-        else
+        else 
         {
-            return false;
+            return false; 
         }
     }
 

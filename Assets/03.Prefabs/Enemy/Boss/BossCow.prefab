@@ -456,9 +456,9 @@ GameObject:
   - component: {fileID: 2898042982797025053}
   - component: {fileID: 3045373518641518818}
   - component: {fileID: 7650215782226997228}
-  - component: {fileID: 7887892286641211050}
   - component: {fileID: 5342864545303041363}
   - component: {fileID: 5105766925069762634}
+  - component: {fileID: 1170462199640750904}
   m_Layer: 10
   m_Name: BossCow
   m_TagString: Enemy
@@ -529,19 +529,6 @@ MonoBehaviour:
   HitCool: 3
   DamageAmount: 0
   IsDead: 0
---- !u!114 &7887892286641211050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4387801608050561868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddd566529265f5f4ba2414bc21f0401d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RespawnDelay: 3
 --- !u!114 &5342864545303041363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,6 +583,18 @@ NavMeshAgent:
   m_BaseOffset: -0.07
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1170462199640750904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4387801608050561868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9534914fd1ac68409b8d755a35e9c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7049041461276216602
 GameObject:
   m_ObjectHideFlags: 0

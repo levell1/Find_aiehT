@@ -807,9 +807,9 @@ GameObject:
   - component: {fileID: 5500161106087053539}
   - component: {fileID: 5462418041458444222}
   - component: {fileID: 5954234251006575414}
-  - component: {fileID: 2088155949768067921}
   - component: {fileID: 1539154274824134629}
   - component: {fileID: 3531941530349959689}
+  - component: {fileID: 3098602006156163699}
   m_Layer: 10
   m_Name: BossBuffalo
   m_TagString: Enemy
@@ -880,19 +880,6 @@ MonoBehaviour:
   HitCool: 3
   DamageAmount: 0
   IsDead: 0
---- !u!114 &2088155949768067921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6165128449691624472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddd566529265f5f4ba2414bc21f0401d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RespawnDelay: 3
 --- !u!114 &1539154274824134629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -947,6 +934,18 @@ NavMeshAgent:
   m_BaseOffset: -0.07
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &3098602006156163699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6165128449691624472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9534914fd1ac68409b8d755a35e9c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6340723048321522613
 GameObject:
   m_ObjectHideFlags: 0
