@@ -27,8 +27,8 @@ public class PlayerUseBase : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        GameManager.Instance.UIManager.PopupDic[UIName.InventoryUI].SetActive(true); 
-        
+        GameManager.Instance.UIManager.PopupDic[UIName.InventoryUI].SetActive(true);
+
         GameManager.Instance.UIManager.PopupDic[UIName.InventoryUI].SetActive(false);
     }
 

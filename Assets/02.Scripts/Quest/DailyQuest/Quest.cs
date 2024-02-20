@@ -32,30 +32,16 @@ public class Quest
         QuestNumber = questNumber;
         _questReward = data.reward;
 
-        // Load시에는 지정퀘스트
-        if(GameManager.Instance.GameStateManager.CurrentGameState == GameState.LOADGAME)
-        {
-            LoadQuest(TargetID, TargetQuantity);
-        }
-        else if(GameManager.Instance.GameStateManager.CurrentGameState == GameState.NEWGAME)
-        {
-            InitQuest();
+        InitQuest();
 
-            for (int i = _minTargetID; i < _maxTargetID; i++)
-            {
-                _randomIDList.Add(i);
-            }
-            RandomQuest();
+        for (int i = _minTargetID; i < _maxTargetID; i++)
+        {
+            _randomIDList.Add(i);
         }
-
+        RandomQuest();
     }
 
     protected virtual void InitQuest() {}
-
-    public void LoadQuest(int targetID, int targetQuantity)
-    {
-
-    }
 
     private void RandomQuest()
     {
