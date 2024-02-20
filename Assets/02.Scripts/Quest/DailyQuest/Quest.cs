@@ -5,6 +5,8 @@ using UnityEngine;
 public class Quest
 {
     public DailyQuestData QuestData;
+
+    protected GameStateManager gameStateManager;
     protected int _minTargetID;
     protected int _maxTargetID;
 
@@ -23,8 +25,8 @@ public class Quest
     public ItemDataListSO ItemDatas = GameManager.Instance.DataManager.NatureItemDataList;
     public EnemyDataListSO EnemyDatas = GameManager.Instance.DataManager.EnemyDataList;
 
-    private List<int> _randomIDList =  new List<int>(); 
-
+    private List<int> _randomIDList =  new List<int>();
+   
     public Quest(DailyQuestData data, int questNumber)
     {
 
@@ -32,63 +34,53 @@ public class Quest
         QuestNumber = questNumber;
         _questReward = data.reward;
 
-        // Load시에는 지정퀘스트
-        if(GameManager.Instance.GameStateManager.CurrentGameState == GameState.LOADGAME)
-        {
-            LoadQuest(TargetID, TargetQuantity);
-        }
-        else if(GameManager.Instance.GameStateManager.CurrentGameState == GameState.NEWGAME)
-        {
-            InitQuest();
+        InitQuest();
 
-            for (int i = _minTargetID; i < _maxTargetID; i++)
-            {
-                _randomIDList.Add(i);
-            }
-            RandomQuest();
+        for (int i = _minTargetID; i < _maxTargetID; i++)
+        {
+            _randomIDList.Add(i);
         }
-
+        RandomQuest();
     }
 
     protected virtual void InitQuest() {}
 
-    public void LoadQuest(int targetID, int targetQuantity)
-    {
-
-    }
-
     private void RandomQuest()
     {
-        //TargetID = Random.Range(_minTargetID, _maxTargetID);
-        TargetQuantity = Random.Range(_minTargetQuantity, _maxTargetQuantity);
+        gameStateManager = GameManager.Instance.GameStateManager;
 
-        int index = Random.Range(0, _randomIDList.Count);
-
-        TargetID = _randomIDList[index];
-        _randomIDList.RemoveAt(index);
-
-        foreach (var enemyData in EnemyDatas.EnemyList)
+        if(gameStateManager.CurrentGameState == GameState.NEWGAME)
         {
-            if (enemyData.EnemyID == TargetID)
+            //TargetID = Random.Range(_minTargetID, _maxTargetID);
+            TargetQuantity = Random.Range(_minTargetQuantity, _maxTargetQuantity);
+
+            int index = Random.Range(0, _randomIDList.Count);
+
+            TargetID = _randomIDList[index];
+            _randomIDList.RemoveAt(index);
+
+            foreach (var enemyData in EnemyDatas.EnemyList)
             {
-                // 해당 몬스터의 이름을 가져옴
-                _enemyName = enemyData.EnemyName;
-                Debug.Log("동물 이름: " + _enemyName);
-                break;
+                if (enemyData.EnemyID == TargetID)
+                {
+                    // 해당 몬스터의 이름을 가져옴
+                    _enemyName = enemyData.EnemyName;
+                    Debug.Log("동물 이름: " + _enemyName);
+                    break;
+                }
+            }
+
+            foreach (var natureItem in ItemDatas.ItemList)
+            {
+                if (natureItem.ItemID == TargetID)
+                {
+                    // 해당 몬스터의 이름을 가져옴
+                    _natureItemName = natureItem.ObjName;
+                    Debug.Log("채집물 이름: " + _natureItemName);
+                    break;
+                }
             }
         }
-
-        foreach (var natureItem in ItemDatas.ItemList)
-        {
-            if (natureItem.ItemID == TargetID)
-            {
-                // 해당 몬스터의 이름을 가져옴
-                _natureItemName = natureItem.ObjName;
-                Debug.Log("채집물 이름: " + _natureItemName);
-                break;
-            }
-        }
-
     }
 
     public virtual string GetQuestTitle()
