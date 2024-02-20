@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -55,6 +56,14 @@ public class TitleTest : MonoBehaviour
                 }
             }
             GameManager.Instance.UIManager.CloseLastCanvas();
+        }
+        
+        if (Time.timeScale == 0&& Cursor.lockState == CursorLockMode.None||SceneManager.GetActiveScene().name==SceneName.TitleScene)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                GameManager.Instance.SoundManager.SFXPlay("UI/Click", Vector3.zero, 0.5f);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.B))

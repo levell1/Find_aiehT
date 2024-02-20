@@ -20,7 +20,6 @@ public class PlayerInput : MonoBehaviour
         InputActions = new PlayerInputActions();
         //PlayerActions = InputActions.Player;
         SceneManager.sceneLoaded += LoadedsceneEvent;
-        
 
     }
 

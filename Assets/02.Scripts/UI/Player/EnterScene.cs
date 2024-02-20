@@ -42,7 +42,7 @@ public class EnterScene : MonoBehaviour
             gameObject.SetActive(false);
             return;
         }
-        else if (scene.name == SceneName.Field)
+        else if (scene.name == SceneName.HuntingScene)
         {
             AreaInfo = "사냥터";
         }

@@ -26,7 +26,7 @@ public class MinimapSetting : MonoBehaviour
         {
             ChangeMapName("마을");
         }
-        else if (scene.name == SceneName.Field)
+        else if (scene.name == SceneName.HuntingScene)
         {
             ChangeMapName("사냥터");
         }

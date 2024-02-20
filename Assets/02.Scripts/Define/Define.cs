@@ -28,7 +28,7 @@ public struct SceneName
     public const string TitleScene = "TitleScene";
     public const string LoadingScene = "LoadingScene";
     public const string VillageScene = "VillageScene";
-    public const string Field = "HuntingScene";
+    public const string HuntingScene = "HuntingScene";
     public const string TycoonScene = "TycoonScene";
     public const string TutorialScene = "TutorialScene";
     public const string DungeonScene = "DungeonScene";
@@ -118,6 +118,23 @@ public struct CoolTimeObjName
     public const string SpreadSkill = "SpreadSkill";
     public const string HealthPotion = "HealthPotion";
     public const string StaminaPotion = "StaminaPotion";
+}
 
+public struct BGMSoundName
+{
+    public const string VillageBGM1 = "VillageBGM1";
+    public const string VillageBGM2 = "VillageBGM2";
+
+    public const string TycoonBGM1 = "TycoonBGM1";
+    public const string TycoonBGM2 = "TycoonBGM2";
+
+    public const string DungeonBoss = "DungeonBoss";
+    public const string DungeonBGM = "DungeonBGM";
+
+    public const string TitleBGM = "TitleBGM";
+    public const string HuntingField = "HuntingField";
+    public const string EndingBGM = "EndingBGM";
+
+    
 }
 

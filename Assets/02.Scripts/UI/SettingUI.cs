@@ -27,7 +27,11 @@ public class SettingUI : BaseUI
                 _checksaveButton.interactable = false;
                 _keyControlButton.interactable = false;
             }
-            
+        }
+
+        if (SceneManager.GetActiveScene().name == SceneName.DungeonScene)
+        {
+            _checksaveButton.interactable = false;
         }
     }
     private void Start()
