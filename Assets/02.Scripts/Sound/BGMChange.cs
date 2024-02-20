@@ -1,17 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BGMChange : MonoBehaviour
 {
-    protected string bgmName ;
-    protected private string beforeBgmName;
+    [SerializeField] private string bgmName ;
+    [SerializeField] private string beforeBgmName;
 
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().name==SceneName.VillageScene)
+        {
+            bgmName = BGMSoundName.VillageBGM2;
+            beforeBgmName = BGMSoundName.VillageBGM1;
+        }
+    }
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == TagName.Player)
         {
-            GameManager.Instance.SoundManager.BgSoundPlay(bgmName);
+            GameManager.Instance.SoundManager.BgmSoundPlay(bgmName);
         }
     }
 
@@ -19,7 +28,7 @@ public class BGMChange : MonoBehaviour
     {
         if (other.gameObject.tag == TagName.Player)
         {
-            GameManager.Instance.SoundManager.BgSoundPlay(beforeBgmName);
+            GameManager.Instance.SoundManager.BgmSoundPlay(beforeBgmName);
         }
     }
 

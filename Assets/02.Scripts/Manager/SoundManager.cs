@@ -24,7 +24,7 @@ public class SoundManager : MonoBehaviour
     private void Start()
     {
         SceneManager.sceneLoaded += LoadedsceneEvent;
-        BgSoundPlay("TitleBGM");
+        BgmSoundPlay("TitleBGM");
     }
 
     private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
@@ -47,7 +47,7 @@ public class SoundManager : MonoBehaviour
         }
         if (_bgFilename!=null)
         {
-            BgSoundPlay(_bgFilename);
+            BgmSoundPlay(_bgFilename);
         }
         _bgFilename= null;
     }
@@ -71,7 +71,7 @@ public class SoundManager : MonoBehaviour
 
     }
 
-    public void BgSoundPlay(string BgName)
+    public void BgmSoundPlay(string BgName)
     {
 
         if (_bgmQueue.Count != 0)
@@ -84,7 +84,7 @@ public class SoundManager : MonoBehaviour
             StartCoroutine(BgmVolumeDown(firstAudio));
         }
 
-        GameObject AudioGo = new GameObject(BgName + "BGM");
+        GameObject AudioGo = new GameObject(BgName);
         DontDestroyOnLoad(AudioGo);
         AudioSource audiosource = AudioGo.AddComponent<AudioSource>();
         audiosource.outputAudioMixerGroup = _mixer.FindMatchingGroups("BGSound")[0];

@@ -16,7 +16,7 @@ public class UIManager
         GameObject uiobject = GameObject.Find("Dont");
         PopupDic.Add(UIName.InventoryUI, uiobject.transform.Find(UIName.InventoryUI).gameObject);
         PopupDic.Add(UIName.ShopUI, uiobject.transform.Find(UIName.ShopUI).gameObject);
-
+        PopupDic.Add(UIName.PlayerBaseUI, uiobject.transform.Find(UIName.PlayerBaseUI).gameObject);
         GameObject uiObject = GameObject.Find("UIs");
         if (uiObject == null)
         {

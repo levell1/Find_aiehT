@@ -62,7 +62,7 @@ public class TitleTest : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                GameManager.Instance.SoundManager.SFXPlay("UI/Click", Vector3.zero, 0.5f);
+                GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.ClickSound, Vector3.zero, 0.5f);
             }
         }
 

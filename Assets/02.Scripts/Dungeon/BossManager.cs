@@ -23,6 +23,7 @@ public class BossManager : MonoBehaviour
     private void Ending()
     {
         Debug.Log("엔딩");
+        GameManager.Instance.SoundManager.BgmSoundPlay(BGMSoundName.EndingBGM);
     }
 
     private void RespawnNextBoss()
@@ -34,7 +35,7 @@ public class BossManager : MonoBehaviour
     private IEnumerator BossEffect() 
     {
         var pigsAgent = _pigs.GetComponentsInChildren<NavMeshAgent>();
-        
+        GameManager.Instance.SoundManager.BgmSoundPlay(BGMSoundName.DungeonBoss);
         while (_light.gameObject.transform.localPosition.y > 1f) 
         {
 

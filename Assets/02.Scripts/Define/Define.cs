@@ -21,6 +21,7 @@ public struct UIName
     public const string InventoryUI = "InventoryUI";
     public const string QuestUI = "QuestUI";
     public const string DungeontUI = "GoDungeonUI";
+    public const string PlayerBaseUI = "PlayerBaseUI";
 }
 
 public struct SceneName
@@ -128,13 +129,34 @@ public struct BGMSoundName
     public const string TycoonBGM1 = "TycoonBGM1";
     public const string TycoonBGM2 = "TycoonBGM2";
 
-    public const string DungeonBoss = "DungeonBoss";
+   
     public const string DungeonBGM = "DungeonBGM";
+    public const string DungeonBGM2 = "DungeonBGM2";
+    public const string DungeonBoss = "DungeonBossBGM";
 
     public const string TitleBGM = "TitleBGM";
-    public const string HuntingField = "HuntingField";
     public const string EndingBGM = "EndingBGM";
 
-    
+    public const string HuntingField = "HuntingField";
+    public const string HuntingField2 = "HuntingField2";
+    public const string HuntingField3 = "HuntingField3";
+    public const string HuntingField4 = "HuntingField4";
+
+}
+
+public struct SFXSoundPathName
+{
+    public const string ClickSound = "UI/Click";
+
+    public const string Eat = "Tycoon/Eat";
+    public const string Eat2 = "Tycoon/Eat2";
+    public const string Money = "Tycoon/Money";
+    public const string PutDownFood = "Tycoon/PutDownFood";
+
+    public const string AttackSound1 = "Player/AttackSound1";
+    public const string AttackSound2 = "Player/AttackSound2";
+    public const string AttackSound3 = "Player/AttackSound3";
+
+    public const string Dash = "Player/Dash";
 }
 
