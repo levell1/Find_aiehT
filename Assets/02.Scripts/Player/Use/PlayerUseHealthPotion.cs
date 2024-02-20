@@ -10,6 +10,11 @@ public class PlayerUseHealthPotion : PlayerUseBase
         _coolTimeManager.AddCoolTimeEvent(CoolTimeObjName.HealthPotion, HandleCoolTimeFinish);
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+    }
+
     public override void UsePotion()
     {
         if (_player.HealthSystem.Health >= _player.HealthSystem.MaxHealth)

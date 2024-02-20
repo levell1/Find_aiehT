@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,13 @@ public class PlayerUseBase : MonoBehaviour
     {
         _player = GetComponent<Player>();
         _coolTimeManager = GameManager.Instance.CoolTimeManger;
+    }
+
+    protected virtual void OnEnable()
+    {
+        GameManager.Instance.UIManager.PopupDic[UIName.InventoryUI].SetActive(true); 
+        
+        GameManager.Instance.UIManager.PopupDic[UIName.InventoryUI].SetActive(false);
     }
 
     public virtual void Potion(PotionSO data, int quantity)

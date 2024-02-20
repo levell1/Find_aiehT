@@ -9,7 +9,10 @@ public class PlayerUseStaminaPotion : PlayerUseBase
         base.Start();
         _coolTimeManager.AddCoolTimeEvent(CoolTimeObjName.StaminaPotion, HandleCoolTimeFinish);
     }
-
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+    }
     public override void UsePotion()
     {
         if (_player.StaminaSystem.Stamina >= _player.StaminaSystem.MaxStamina)
