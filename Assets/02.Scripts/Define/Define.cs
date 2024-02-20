@@ -1,10 +1,4 @@
 
-using System.Drawing;
-
-public struct EnemyColor 
-{
-    //public const Color 
-}
 public struct UIName
 {
     public const string ControlKeyUI = "ControlKeyUI";
@@ -64,20 +58,6 @@ public struct LayerName
     public const string Title = "Title";
 }
 
-public struct BGMResourceName
-{
-    public const string TitleBGM = "TitleBGM";
-    public const string VillageBGM = "VillageBGM";
-    public const string FirstFieldBGM = "FirstFieldBGM";
-    public const string SecondFieldBGM = "SecondFieldBGM";
-    public const string ThirdFieldBGM = "ThirdFieldBGM";
-    public const string FourthFieldBGM = "FourthFieldBGM";
-    public const string TycoonBGM = "TycoonBGM";
-}
-public struct SFXResourceName
-{
-    public const string TitleBGM = "TitleBGM";
-}
 
 public struct PoolingObjectName
 {
