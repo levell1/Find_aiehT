@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerQuestList : MonoBehaviour
 {
     public GameObject[] QuestImageList;
+    public GameObject[] ProgressList;
 
     private void Start()
     {
@@ -22,23 +24,42 @@ public class PlayerQuestList : MonoBehaviour
         }
     }
 
-    private void PlayerAceeptQuestList(List<Quest> acceptedQuests)
+    public void PlayerAceeptQuestList(List<Quest> acceptedQuests, int quantity)
     {
+
+        int minCount = Mathf.Min(QuestImageList.Length, acceptedQuests.Count);
         // 조건이 두개의 수를 비교해서 작은 수를 가져옴
-        for(int i = 0; i < QuestImageList.Length && i < acceptedQuests.Count; i++)
+        for(int i = 0; i < minCount; i++)
         {
-            QuestImageList[i].GetComponent<PlayerQuestUI>().UpdateQuestUI(acceptedQuests[i]);
+            QuestImageList[i].GetComponent<PlayerQuestUI>().UpdateQuestUI(acceptedQuests[i], quantity);
         }
 
-
-        //foreach (Quest quest in acceptedQuests)
-        //{
-        //    questData.Add(quest);
-
-        //    Debug.Log(quest.GetQuestDescription());
-        //    Debug.Log(quest.GetQuestTitle());
-        //}
+        if(GameManager.Instance.GameStateManager.CurrentGameState == GameState.LOADGAME)
+        {
+            LoadQuantities();
+        }
+        
     }
 
+    private void LoadQuantities()
+    {
+        for (int i = 0; i < GameManager.Instance.QuestManager.LoadAcceptQuestQuantities.Count; i++)
+        {
+            TextMeshProUGUI progressText = ProgressList[i].GetComponentInChildren<TextMeshProUGUI>();
+            Slider progressSlider = ProgressList[i].GetComponentInChildren<Slider>();
+
+            int currentQuantity = GameManager.Instance.QuestManager.LoadProgressQuantities[i];
+            int TargetQuantity = GameManager.Instance.QuestManager.LoadAcceptQuestQuantities[i];
+
+            string valueText = string.Format($"{currentQuantity} / {TargetQuantity}");
+            progressText.text = valueText;
+
+            float progressPercentage = (float)currentQuantity /TargetQuantity;
+            progressSlider.value = progressPercentage;
+
+            Debug.Log(currentQuantity);
+        }
+
+    }
 
 }
