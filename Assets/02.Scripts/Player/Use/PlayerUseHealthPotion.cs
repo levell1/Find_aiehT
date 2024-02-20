@@ -21,7 +21,7 @@ public class PlayerUseHealthPotion : PlayerUseBase
         {
             return;
         }
-
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Heal);
         base.UsePotion();
     }
     protected override void StartCoolTime()

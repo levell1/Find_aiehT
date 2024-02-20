@@ -222,12 +222,12 @@ public class CustomerController : MonoBehaviour
     private void GetFood()
     {
         _isGetFood = true;
-
+        
         _orderFoodCanvas.InactiveUI();
         _animator.SetTrigger(AnimationParameterName.TycoonGetFood);
 
         GetComponentInChildren<CustomerEffect>().PlayGetCoinEffect();
-
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Money,transform.position, 1f);
         StartCoroutine(EatFood());
     }
 
@@ -241,6 +241,7 @@ public class CustomerController : MonoBehaviour
         _waitTime = _tycoonManager.CustomerWaitTime;
 
         _animator.SetBool(AnimationParameterName.TycoonIsEat, true);
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Eat, transform.position, 1f);
         yield return TycoonManager.Instance._waitForCustomerEatTime;
         _animator.SetBool(AnimationParameterName.TycoonIsEat, false);
 

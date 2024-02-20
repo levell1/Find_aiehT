@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class EffectManager : MonoBehaviour
 {
     [SerializeField] private GameObject _weaponPos;
 
+    private WaitForSeconds _StepSound = new WaitForSeconds(0.3f);
     private WaitForSeconds _healingEffectTime = new WaitForSeconds(2f);
     private WaitForSeconds _levelupEffectTime = new WaitForSeconds(3f);
     private WaitForSeconds _eatEffectTime = new WaitForSeconds(6f);
@@ -33,6 +35,7 @@ public class EffectManager : MonoBehaviour
 
     [SerializeField] private GameObject _playerTakeDamageEffect;
 
+    private Coroutine _coroutine;
     private void Start()
     {
         _player = GameManager.Instance.Player;
@@ -47,32 +50,38 @@ public class EffectManager : MonoBehaviour
 
     public void PlayLevelUpEffect()
     {
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.LevelUp);
         _levelupObject.Play();
         StartCoroutine(StopParticle(_levelupObject, _levelupEffectTime));
     }
     
     public void PlayHealingEffect()
     {
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Heal);
         _healingObject.Play();
         StartCoroutine(StopParticle(_healingObject, _healingEffectTime));
     }
 
     public void PlayStaminaEffect()
     {
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Stamina);
         _staminaHealingObject.Play();
         StartCoroutine(StopParticle(_staminaHealingObject, _healingEffectTime));
     }
 
     public void QuestCompleteEffect()
     {
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Quest);
         _questCompleteObject.Play();
         StartCoroutine(StopParticle(_questCompleteObject, _healingEffectTime));
     }
 
     public void GreenPigLevitate()
     {
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Levitate);
         GreenPigEffect.Play();
         StartCoroutine(StopParticle(GreenPigEffect, _greenPigEffect));
+
     }
 
     public void PlayAttackEffect()
@@ -80,16 +89,28 @@ public class EffectManager : MonoBehaviour
         _playerAttackObject.Play();
     }
 
+
     public void PlayFootStepEffect()
     {
+        _coroutine = StartCoroutine(StepSound());
         _footStepObject.Play();
     }
 
     public void StopFootStepEffect()
     {
+        StopCoroutine(_coroutine);
         _footStepObject.Stop();
     }
-
+    private IEnumerator StepSound() 
+    {
+        while (true)
+        {
+            float x = UnityEngine.Random.Range(0.1f, 0.4f);
+            GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Landing);
+            yield return new WaitForSeconds(0.3f);
+        }
+        
+    }
     public ParticleSystem CreateCustomerEatParticle(Transform customerEatTransform)
     {
         return Instantiate(_eatFoodEffect, customerEatTransform);
@@ -112,6 +133,7 @@ public class EffectManager : MonoBehaviour
 
     public void PlayerTakeDamageEffect()
     {
+        
         _playerTakeDamageEffect.SetActive(true);
         StartCoroutine(StopEffectObject(_playerTakeDamageEffect, new WaitForSeconds(0.4f)));
     }

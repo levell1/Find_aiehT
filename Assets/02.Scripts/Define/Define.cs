@@ -135,16 +135,40 @@ public struct ErrorMessageTxt
 public struct SFXSoundPathName
 {
     public const string ClickSound = "UI/Click";
+    public const string UISound = "UI/UISound";
 
     public const string Eat = "Tycoon/Eat";
     public const string Eat2 = "Tycoon/Eat2";
     public const string Money = "Tycoon/Money";
     public const string PutDownFood = "Tycoon/PutDownFood";
 
-    public const string AttackSound1 = "Player/AttackSound1";
-    public const string AttackSound2 = "Player/AttackSound2";
-    public const string AttackSound3 = "Player/AttackSound3";
+    public const string AttackSound = "Player/AttackSound";
 
     public const string Dash = "Player/Dash";
+    public const string Hit = "Player/Hit";
+    public const string Landing = "Player/Landing";
+
+    public const string Heal = "Player/Heal";
+    public const string Stamina = "Player/Stamina";
+    public const string LevelUp = "Player/LevelUp";
+    public const string Quest = "Environment/Quest";
+
+    public const string Skill1 = "Player/Skill1";
+    public const string Skill2 = "Player/Skill2";
+
+    public const string Dead = "Player/Dead";
+    public const string Sleep = "Player/Sleep";
+
+    public const string Door = "Environment/Door";
+    public const string HouseDoor = "Environment/HouseDoor";
+    public const string Portal = "Environment/Portal";
+
+    public const string LightMagic = "Animal/LightMagic";
+    public const string Levitate = "Animal/Levitate";
+    public const string Pig1 = "Animal/Pig1";
+    public const string Pig2 = "Animal/Pig2";
+
+
+
 }
 

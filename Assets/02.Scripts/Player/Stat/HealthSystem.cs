@@ -89,6 +89,7 @@ public class HealthSystem : MonoBehaviour
         if (Health == 0)
         {
             OnDie.Invoke();
+            GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Dead);
             GameManager.Instance.EffectManager.PlayerLowHpEffect(false);
         }
 

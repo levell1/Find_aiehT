@@ -25,7 +25,8 @@ public class PlayerComboAttackState : PlayerAttackState
         int comboIndex = _stateMachine.ComboIndex;
         _attackInfoData = _stateMachine.Player.Data.AttackData.GetAttackInfo(comboIndex);
         _stateMachine.Player.Animator.SetInteger("Combo", comboIndex);
-
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.AttackSound + (comboIndex+1).ToString());
+        Debug.Log(SFXSoundPathName.AttackSound + comboIndex.ToString());
     }
 
     public override void Exit()
@@ -57,7 +58,7 @@ public class PlayerComboAttackState : PlayerAttackState
 
         float comboForceMultiplier = 1.0f + (_stateMachine.ComboIndex * 0.1f); 
         float scaledForce = _attackInfoData.Force * comboForceMultiplier;
-
+        
         _stateMachine.Player.Rigidbody.AddForce(_stateMachine.Player.transform.forward * scaledForce);
     }
 
@@ -89,6 +90,7 @@ public class PlayerComboAttackState : PlayerAttackState
 
                 _stateMachine.Player.Weapon.SetAttack(totalDamage);
                 _stateMachine.Player.Weapon.EnableCollider();
+                
 
             // TODO
             //if (WeaponCollider != null)

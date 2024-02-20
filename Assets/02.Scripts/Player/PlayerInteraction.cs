@@ -229,6 +229,7 @@ public class PlayerInteraction : MonoBehaviour
                     }
                     return;
                 }
+               
             }
             /*else if (_curScene == SceneName.Dungeon && _nextScene == SceneName.VillageScene)
             {
