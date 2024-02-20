@@ -15,10 +15,19 @@ public class SettingUI : BaseUI
     {
         _savePanel.SetActive(false);
         _ExitCheck.SetActive(false);
+        _checkExitButton.interactable = true;
         _checksaveButton.interactable = true;
+        _keyControlButton.interactable = true;
         if (GameManager.Instance.GlobalTimeManager.Day == 0)
         {
             _checksaveButton.interactable = false;
+            if (SceneManager.GetActiveScene().name ==SceneName.TitleScene)
+            {
+                _checkExitButton.interactable = false;
+                _checksaveButton.interactable = false;
+                _keyControlButton.interactable = false;
+            }
+            
         }
     }
     private void Start()

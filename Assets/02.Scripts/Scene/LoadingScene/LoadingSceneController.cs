@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,7 +12,9 @@ public class LoadingSceneController : MonoBehaviour
 
     [SerializeField] private Image _bar;
     [SerializeField] private Image _backImage;
-    [SerializeField] private TMP_Text _text;
+    [SerializeField] private TMP_Text _percentText;
+    [SerializeField] private TMP_Text _tipText;
+    private int _randomIndex;
 
     private Color _color;
 
@@ -29,6 +32,10 @@ public class LoadingSceneController : MonoBehaviour
     
     private void Start()
     {
+        List<Dictionary<string, object>> data_Dialog = CSVReader.Read("CSV/Tip");
+        _randomIndex = Random.Range(0, data_Dialog.Count);
+        _tipText.text = (data_Dialog[_randomIndex]["Tip"].ToString());
+
         _backImage.gameObject.SetActive(true);
         _backImage.color = new Color(0f, 0f, 0f, 1f);
         _color = _backImage.color;
@@ -57,7 +64,7 @@ public class LoadingSceneController : MonoBehaviour
         while(!op.isDone) 
         {
             yield return null;
-            _text.text = ((int)(_bar.fillAmount * 100)).ToString() + "%";
+            _percentText.text = ((int)(_bar.fillAmount * 100)).ToString() + "%";
             if (op.progress <0.9f)
             {
                 _bar.fillAmount = op.progress;

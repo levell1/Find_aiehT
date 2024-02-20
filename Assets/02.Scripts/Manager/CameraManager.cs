@@ -75,7 +75,7 @@ public class CameraManager : MonoBehaviour
 
     public void EnableCam()
     {
-        if (_playerInput.gameObject.activeSelf)
+        if (_playerInput.gameObject.activeSelf&& VirtualCamera.enabled == false)
         {
             _playerInput.InputActions.Enable(); //
             VirtualCamera.enabled = true; //

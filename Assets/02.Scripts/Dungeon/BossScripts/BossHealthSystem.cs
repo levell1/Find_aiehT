@@ -50,7 +50,7 @@ public class BossHealthSystem : MonoBehaviour
 
         if (gameObject.name == "GreenPig")
         {
-            if (Health / MaxHealth <= 0.2f)
+            if (Health / MaxHealth <= 0.99f)
             {
                 OnDie?.Invoke();
             }
