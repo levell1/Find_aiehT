@@ -79,14 +79,14 @@ public class GlobalTimeManager : MonoBehaviour
             ChangeDay();
         }
 
-        if (Hour == 18f && IsActiveOutFieldUI)
+        if (Hour == 18f && IsActiveOutFieldUI && SceneManager.GetActiveScene().name == SceneName.Field)
         {
             EventCount = 0;
             IsActiveOutFieldUI = false;
             OnOutFieldUI?.Invoke();
         }
 
-        if(Hour == 23f)
+        if(Hour == 23f && SceneManager.GetActiveScene().name == SceneName.Field)
         {
             if (_coroutine == null)
             {

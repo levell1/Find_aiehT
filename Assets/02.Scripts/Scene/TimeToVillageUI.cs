@@ -16,9 +16,17 @@ public class TimeToVillageUI : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
+    private void Update()
+    {
+        Time.timeScale = 0f;
+        GameManager.Instance.CameraManager.DisableCam();
+    }
+
     private void OnDisable()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1f;
+        GameManager.Instance.CameraManager.EnableCam();
     }
 
     public void GoVillageBtn()
@@ -31,6 +39,8 @@ public class TimeToVillageUI : MonoBehaviour
 
     public void StayHuntingBtn()
     {
+        Time.timeScale = 1f;
+        GameManager.Instance.CameraManager.EnableCam();
         gameObject.SetActive(false);
     }
 }

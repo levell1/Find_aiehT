@@ -9,11 +9,18 @@ public class RestartUI : BaseUI
         _sceneMoveUI = GameManager.Instance.UIManager.PopupDic[UIName.SceneMoveUI].GetComponent<SceneMoveUI>();
         Cursor.lockState = CursorLockMode.None;
     }
+    private void Update()
+    {
+        Time.timeScale = 0f;
+        GameManager.Instance.CameraManager.DisableCam();
+    }
 
     private void OnDisable()
     {
         GameManager.Instance.GlobalTimeManager.DayTime = 7f / 24f;
         Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1f;
+        GameManager.Instance.CameraManager.EnableCam();
     }
 
     public void GoVillageBtn()

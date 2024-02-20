@@ -33,18 +33,13 @@ public class ForceSceneMove : MonoBehaviour
     {
         if (GameManager.Instance.GlobalTimeManager.EventCount == 0)
         {
-            StartCoroutine(ActiveTimeToVillageUI());
+            _timeToVillageUI.gameObject.SetActive(true); ;
         }
         else
         {
+            _sceneMoveUI.CurrentSceneName = SceneName.VillageScene;
             _sceneMoveUI.Description.text = "어우 졸~려ㅓㅓㅓㅓ";
             _sceneMoveUI.gameObject.SetActive(true);
         }
-    }
-
-    private IEnumerator ActiveTimeToVillageUI()
-    {
-        yield return new WaitForSeconds(2f);
-        _timeToVillageUI.gameObject.SetActive(true);
     }
 }
