@@ -7,9 +7,11 @@ public class ForceSceneMove : MonoBehaviour
     private RestartUI _restartUI;
     private TimeToVillageUI _timeToVillageUI;
     private HealthSystem _playerHealthSystem;
+    private GlobalTimeManager _globalTimeManager;
 
     private void Start()
     {
+        _globalTimeManager = GameManager.Instance.GlobalTimeManager;
         UIManager uIManager = GameManager.Instance.UIManager;
         _sceneMoveUI = uIManager.PopupDic[UIName.SceneMoveUI].GetComponent<SceneMoveUI>();
         _restartUI = uIManager.PopupDic[UIName.RestartUI].GetComponent<RestartUI>();
@@ -17,11 +19,13 @@ public class ForceSceneMove : MonoBehaviour
 
         _playerHealthSystem = GameManager.Instance.Player.GetComponent<HealthSystem>();
         _playerHealthSystem.OnDie += DieToGoHome;
-        GameManager.Instance.GlobalTimeManager.OnOutFieldUI += TimeToGoHome;
+        _globalTimeManager.OnOutFieldUI += TimeToGoHome;
     }
 
     private void DieToGoHome()
     {
+        _globalTimeManager.IsActiveOutFieldUI = false;
+        _globalTimeManager.EventCount = 1;
         StartCoroutine(ActiveReStartUI());
     }
 
@@ -33,12 +37,17 @@ public class ForceSceneMove : MonoBehaviour
 
     private void TimeToGoHome()
     {
-        if (GameManager.Instance.GlobalTimeManager.EventCount == 0)
+        if (_globalTimeManager.EventCount == 0)
         {
+            // 타이쿤 시간 됬을 때
             _timeToVillageUI.gameObject.SetActive(true); ;
         }
         else
         {
+
+            //24시 or 잠자기
+            GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Sleep);
+
             _sceneMoveUI.CurrentSceneName = SceneName.VillageScene;
             _sceneMoveUI.Description.text = "어우 졸~려ㅓㅓㅓㅓ";
             _sceneMoveUI.gameObject.SetActive(true);

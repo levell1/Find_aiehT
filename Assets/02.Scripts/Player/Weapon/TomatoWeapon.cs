@@ -102,7 +102,7 @@ public class TomatoWeapon : MonoBehaviour
         dir += offset;
 
         _skillRigidbody.AddForce(dir * _speed, ForceMode.Impulse);
-
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Skill1);
         StartCoroutine(SkillDistance());
     }
 

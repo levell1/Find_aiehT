@@ -62,7 +62,6 @@ public class PlayerQuestUI : MonoBehaviour
     public Slider SliderQuestProgress;
 
     private Quest _quest;
-
     // 나머지 코드 생략
 
     private void Start()
@@ -70,13 +69,14 @@ public class PlayerQuestUI : MonoBehaviour
         GameManager.Instance.QuestManager.OnQuestValueUpdate += UpdateQuantityValue;
     }
 
-    public void UpdateQuestUI(Quest quest)
+    public void UpdateQuestUI(Quest quest, int quantity)
     {
         _quest = quest;
         gameObject.SetActive(true);
         QuestTitle.text = quest.GetQuestTitle();
         QuestContent.text = quest.GetQuestDescription();
-        UpdateQuantityValue(0, quest.TargetID);
+
+        UpdateQuantityValue(quantity, quest.TargetID);
 
     }
 

@@ -30,6 +30,7 @@ public class PlayerSpreadSkill : MonoBehaviour
     private void OnEnable()
     {
         InitializeCollider();
+        
     }
 
     private void InitializeCollider()
@@ -64,6 +65,7 @@ public class PlayerSpreadSkill : MonoBehaviour
     public void EnableCollider()
     {
         StartCoroutine(DelayCollider());
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Skill2);
     }
 
     private IEnumerator DelayCollider()

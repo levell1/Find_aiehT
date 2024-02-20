@@ -20,7 +20,7 @@ public class GlobalTimeManager : MonoBehaviour
     private float _timeRate;
 
     private float _penaltyTime = 1f / 24f;
-    private float _nextMorning = 7f / 24f;
+    public float NextMorning = 7f / 24f;
     public int EventCount;
     public TextMeshProUGUI TimeText;
 
@@ -192,7 +192,7 @@ public class GlobalTimeManager : MonoBehaviour
 
     public void TycoonToVillage()
     {
-        DayTime = _nextMorning;
+        GoodMorning();
     }
 
     public void ItemRespawn()
@@ -245,7 +245,6 @@ public class GlobalTimeManager : MonoBehaviour
     {
         EventCount = 1;
         OnOutFieldUI?.Invoke();
-        DayTime = _nextMorning;
     }
 }
 

@@ -13,13 +13,16 @@ public enum QuestTarget
 public class QuestManager : MonoBehaviour
 {
     public QuestSO QuestSO; // 퀘스트 데이터를 저장하고 있는 ScriptableObject
+    public PlayerQuestList playerQuestList;
 
     [SerializeField] private int _questCount = 4;
+    private int _halfLength;
+
 
     public List<Quest> ActiveQuests = new List<Quest>(); // 퀘스트 목록
     public List<Quest> AcceptQuestList = new List<Quest>(); // 수락한 퀘스트 목록
 
-    public delegate void QuestAcceptedEvent(List<Quest> acceptedQuests);
+    public delegate void QuestAcceptedEvent(List<Quest> acceptedQuests, int quantity);
     public event QuestAcceptedEvent OnQuestAccepted;
 
     public event Action<int, int> OnQuestValueUpdate;
@@ -33,7 +36,14 @@ public class QuestManager : MonoBehaviour
 
     public Dictionary<int, int> loadActivQuestDic;
 
+    private List<int> _questKey;
+
+    public List<int> LoadProgressQuantities;
+    public List<int> LoadAcceptQuestQuantities;
+
     private GameStateManager _gameStateManager;
+
+
     private void Start()
     {
         GameManager.Instance.GlobalTimeManager.OnInitQuest += InitializeQuest;
@@ -50,19 +60,21 @@ public class QuestManager : MonoBehaviour
             Dictionary<int, int> enemyQuestNumber = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveEnemyQuestProgress;
             Dictionary<int, int> natureQuestNumber = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveNatureQuestProgress;
 
-            Dictionary<int, int> loadActiveQuest = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveActiveQuest;
+            Dictionary<int, int> loadActiveQuestDic = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveActiveQuest;
             
-            List<int> questKey = enemyQuestNumber.Keys.Concat(natureQuestNumber.Keys).ToList();
-            List<int> activeQuestKey = loadActiveQuest.Keys.ToList();
-            List<int> activeQuestValue = loadActiveQuest.Values.ToList();
+           _questKey = enemyQuestNumber.Keys.Concat(natureQuestNumber.Keys).ToList();
+            LoadProgressQuantities = enemyQuestNumber.Values.Concat(natureQuestNumber.Values).ToList();
 
-            int halfLength = questKey.Count / 2;
+            List<int> activeQuestKey = loadActiveQuestDic.Keys.ToList();
+            List<int> activeQuestValue = loadActiveQuestDic.Values.ToList();
 
-            for(int i = 0; i < questKey.Count; i++)
+            _halfLength = _questKey.Count / 2;
+
+            for(int i = 0; i < _questKey.Count; i++)
             {
-                if( i < halfLength)
+                if( i < _halfLength)
                 {
-                    EnemyDailyQuest enemyDailyQuest = new EnemyDailyQuest(QuestSO.EnemyQuestData, questKey[i]);
+                    EnemyDailyQuest enemyDailyQuest = new EnemyDailyQuest(QuestSO.EnemyQuestData, _questKey[i]);
                     enemyDailyQuest.TargetID = activeQuestKey[i];
                     enemyDailyQuest.TargetQuantity = activeQuestValue[i];
                     ActiveQuests.Add(enemyDailyQuest);
@@ -70,14 +82,24 @@ public class QuestManager : MonoBehaviour
                 else
                 {
                     // 나머지 반은 NatureDailyQuest 생성
-                    NatureDailyQuest natureDailyQuest = new NatureDailyQuest(QuestSO.NatureQuestData, questKey[i]);
+                    NatureDailyQuest natureDailyQuest = new NatureDailyQuest(QuestSO.NatureQuestData, _questKey[i]);
                     natureDailyQuest.TargetID = activeQuestKey[i];
                     natureDailyQuest.TargetQuantity = activeQuestValue[i];
                     ActiveQuests.Add(natureDailyQuest);
                 }
             }
 
-            //AcceptQuestList.Add( );
+            List<int> loadAcceptQuest = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveAcceptQuestID;
+            LoadAcceptQuestQuantities = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveAcceptQuest.Values.ToList();
+
+            EnemyQuantityDict = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveEnemyQuestProgress;
+            NatureQuantityDict = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveNatureQuestProgress;
+
+            for (int i = 0; i < loadAcceptQuest.Count; i++)
+            {
+                Quest quest = ActiveQuests[i];
+                AcceptQuest(quest);
+            }
 
         }
     }
@@ -165,19 +187,37 @@ public class QuestManager : MonoBehaviour
         {
             // 이 리스트를 BaseUI 에 전달
             AcceptQuestList.Add(quest);
-            OnQuestAccepted?.Invoke(AcceptQuestList);
+
+            if (OnQuestAccepted != null)
+            {
+                OnQuestAccepted.Invoke(AcceptQuestList, 0);
+            }
+            else
+            {
+                for(int i = 0; i < ActiveQuests.Count; i++)
+                {
+                    if(i < _halfLength)
+                    {
+                        playerQuestList.PlayerAceeptQuestList(AcceptQuestList, LoadProgressQuantities[i]);
+
+                    }
+                    else
+                    {
+                        playerQuestList.PlayerAceeptQuestList(AcceptQuestList, LoadProgressQuantities[i]);
+                    }
+             
+                }
+            }
 
             if (quest is EnemyDailyQuest)
             {
                 EnemyHealthSystem.OnQuestTargetDie -= UpdateEnemyQuestProgress;
                 EnemyHealthSystem.OnQuestTargetDie += UpdateEnemyQuestProgress;
-                Debug.Log("몬스터 퀘스트 수락 및 이벤트 등록: ");
             }
             else if (quest is NatureDailyQuest)
             {
                 ItemObject.OnQuestTargetInteraction -= UpdateNatureQuestProgress;
                 ItemObject.OnQuestTargetInteraction += UpdateNatureQuestProgress;
-                Debug.Log("채집물 퀘스트 수락 및 이벤트 등록: ");
             }
         }
     }

@@ -33,6 +33,7 @@ public class UIManager
     
     public void ShowCanvas(string uiname)
     {
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.UISound,Vector3.zero,1f);
         if (!PopupDic[uiname].activeSelf) { 
             PopupDic[uiname].GetComponent<Canvas>().sortingOrder = _canvasSortOrder;
             PopupStack.Push(PopupDic[uiname]);

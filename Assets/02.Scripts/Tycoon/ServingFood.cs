@@ -49,7 +49,7 @@ public class ServingFood : MonoBehaviour
     private void PickupFood()
     {
         _canHoldFood.GetComponentInParent<FoodPlace>().CurrentFood = null;
-
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.PutDownFood, transform.position, 1f);
         _holdingFood = _canHoldFood;
         _canHoldFood = null;
 
@@ -69,7 +69,7 @@ public class ServingFood : MonoBehaviour
         {
             GameObject station = TycoonManager.Instance.ServingStations[i];
             FoodPlace stationFood = station.GetComponent<FoodPlace>();
-
+            
             if (stationFood.CurrentFood == null)
             {
                 float d = Vector3.Distance(_handTransform.position, station.transform.position);
@@ -89,6 +89,7 @@ public class ServingFood : MonoBehaviour
             _holdingFood.transform.localPosition = Vector3.zero;
             
             foodPlace.CurrentFood = _holdingFood.GetComponent<CookedFood>();
+            GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.PutDownFood,transform.position,1f);
             _holdingFood = null;
         }
     }

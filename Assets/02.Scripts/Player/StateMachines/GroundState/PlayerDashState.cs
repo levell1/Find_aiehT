@@ -26,8 +26,9 @@ public class PlayerDashState : PlayerGroundState
               
                 _stateMachine.Player.StaminaSystem.UseDash(_stateMachine.DashStamina);
                 _stateMachine.Player.DashForceReceiver.Dash(_stateMachine.DashForce);
-
+                GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Dash);
                 StartAnimation(_stateMachine.Player.AnimationData.DashParameterHash);
+
             }
             else
             {

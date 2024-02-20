@@ -95,7 +95,7 @@ public class DungeonManager : MonoBehaviour
         Stages[_stagenum - 1].SetActive(true);
         
         GameManager.Instance.Player.transform.position = Vector3.up;
-
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Portal);
         tween = _fadeImage.DOFade(0.0f, 2f);
         yield return tween.WaitForCompletion();
         

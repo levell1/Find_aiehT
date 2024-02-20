@@ -11,14 +11,10 @@ public class TimeToVillageUI : MonoBehaviour
         _sceneMoveUI = GameManager.Instance.UIManager.PopupDic[UIName.SceneMoveUI].GetComponent<SceneMoveUI>();
     }
 
-    private void OnEnable()
-    {
-        Cursor.lockState = CursorLockMode.None;
-    }
-
     private void Update()
     {
         Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
         GameManager.Instance.CameraManager.DisableCam();
     }
 

@@ -15,6 +15,7 @@ public class LevitateObject : MonoBehaviour
 
     private void Awake()
     {
+        
         _particle = GameManager.Instance.EffectManager.CreateGreenPigLevitate(transform);
         _particle.gameObject.transform.localScale = Vector3.one * 1.5f;
         var particles = GameManager.Instance.EffectManager.GreenPigEffect.GetComponentsInChildren<ParticleSystem>();
@@ -29,7 +30,7 @@ public class LevitateObject : MonoBehaviour
     {
         EndSkill = false;
         _time = 0;
-        
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Levitate);
         GameManager.Instance.EffectManager.GreenPigLevitate();
     }
     private void Update()
