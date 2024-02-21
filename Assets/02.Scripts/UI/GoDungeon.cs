@@ -18,9 +18,8 @@ public class GoDungeon : BaseUI
         _commaText = _goldText.gameObject.GetComponent<CommaText>();
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        //테스트용 낮은금액
         if (SceneManager.GetActiveScene().name == SceneName.HuntingScene)
         {
             _gold = 0;
