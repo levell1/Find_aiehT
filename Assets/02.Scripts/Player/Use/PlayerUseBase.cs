@@ -9,12 +9,12 @@ public class PlayerUseBase : MonoBehaviour
 {
     protected Player _player;
     protected PotionSO _potion;
-    protected int _healingAmount;
+    protected float _healingAmount;
     protected int _quantity;
     [SerializeField] protected Image _coolTimeImage;
     protected CoolTimeManager _coolTimeManager;
 
-    public float CoolTime = 3f;
+    public float CoolTime;
     protected bool _isCoolTime = false;
 
     public event Action<int> OnPotionUsed;
@@ -50,8 +50,6 @@ public class PlayerUseBase : MonoBehaviour
         }
         else
         {
-            CoolTime = 3f;
-
             Healing();
             _quantity--;
 

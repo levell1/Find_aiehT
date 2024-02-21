@@ -42,6 +42,7 @@ public class PotionInventorySlot : MonoBehaviour
         PotionAmount.text = InitQuantity.ToString();
     }
 
+    //TODO 1일차에 포션 3개
     public void TutorialPotion()
     {
         if(PotionSO.ID == 2001)

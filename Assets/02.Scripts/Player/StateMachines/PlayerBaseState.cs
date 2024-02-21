@@ -274,6 +274,7 @@ public class PlayerBaseState : IState
         }
     }
 
+    //TODO 체젠 추가
     private void RengenStamina()
     {
         _stateMachine.RegenStamina = _stateMachine.Player.Data.GroundData.RegenerateStamina;

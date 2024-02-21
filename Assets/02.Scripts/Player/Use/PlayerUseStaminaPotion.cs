@@ -6,6 +6,7 @@ public class PlayerUseStaminaPotion : PlayerUseBase
 {
     protected override void Start()
     {
+        CoolTime = 10f;
         base.Start();
         _coolTimeManager.AddCoolTimeEvent(CoolTimeObjName.StaminaPotion, HandleCoolTimeFinish);
     }

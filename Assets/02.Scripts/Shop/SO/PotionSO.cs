@@ -14,7 +14,7 @@ public class PotionSO : ScriptableObject
     public Kind Kind;
     public string Name;
     public string Description;
-    public int HealingAmount;
+    public float HealingAmount;
     public Sprite sprite;
     public int Price;
     public int Quantity = 99;

@@ -5,7 +5,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class HealthSystem : MonoBehaviour
 {
-   [SerializeField] private float _invincibleTime = 3f; // 무적 시간 
+   //[SerializeField] private float _invincibleTime = 0.5f; // 무적 시간 
     
     private Player _player;
     private PlayerSO _playerData;
@@ -97,22 +97,24 @@ public class HealthSystem : MonoBehaviour
             GameManager.Instance.EffectManager.PlayerLowHpEffect(false);
         }
 
-        StartCoroutine(InvincibleCooldown());
+        // StartCoroutine(InvincibleCooldown());
 
     }
 
-    private IEnumerator InvincibleCooldown()
-    {
-        _isInvincible = true;
-        yield return new WaitForSeconds(_invincibleTime);
-        _isInvincible = false;
-    }
+    // 무적
+    //private IEnumerator InvincibleCooldown()
+    //{
+    //    _isInvincible = true;
+    //    yield return new WaitForSeconds(_invincibleTime);
+    //    _isInvincible = false;
+    //}
 
-    public void Healing(int healingAmount)
+    public void Healing(float healingAmount)
     {
         if(Health < MaxHealth)
         {
-            Health += healingAmount;
+
+            Health += Mathf.Ceil(Health * (healingAmount * 0.01f));
 
             Health = Mathf.Min(Health, MaxHealth);
 
@@ -124,6 +126,8 @@ public class HealthSystem : MonoBehaviour
                 GameManager.Instance.EffectManager.PlayerLowHpEffect(false);
         }
     }
+
+    // TODO 체젠 추가
 
     public void Respawn()
     {
