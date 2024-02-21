@@ -144,17 +144,18 @@ public class EnemyHealthSystem : MonoBehaviour
 
         for (int i = 0;i < _enemySO.AppropriateLevel.Length; ++i)
         {
-            if (_player.Data.PlayerData.PlayerLevel > _enemySO.AppropriateLevel[i])
+            if (_player.Data.PlayerData.PlayerLevel >= _enemySO.AppropriateLevel[i])
             {
                 EnemyName.color = Color.white;
             }
-            else if (_player.Data.PlayerData.PlayerLevel == _enemySO.AppropriateLevel[i])
+            else if (_player.Data.PlayerData.PlayerLevel < _enemySO.AppropriateLevel[i]) // 별로 차이 안날 때
             {
                 EnemyName.color = Color.yellow;
-            }
-            else
-            {
-                EnemyName.color = Color.red;
+                if (_enemySO.AppropriateLevel[0] - _player.Data.PlayerData.PlayerLevel >= 3) // 많이 차이 날 때
+                {
+                    EnemyName.color = Color.red;
+                }
+
             }
         }
     }
