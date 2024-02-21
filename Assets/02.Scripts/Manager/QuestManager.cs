@@ -13,13 +13,16 @@ public enum QuestTarget
 public class QuestManager : MonoBehaviour
 {
     public QuestSO QuestSO; // 퀘스트 데이터를 저장하고 있는 ScriptableObject
+   
     public PlayerQuestList playerQuestList;
 
     [SerializeField] private int _questCount = 4;
+    [SerializeField] private int _mainQuestCount = 4;
     private int _halfLength;
 
 
-    public List<Quest> ActiveQuests = new List<Quest>(); // 퀘스트 목록
+    public List<Quest> ActiveMainQuests = new List<Quest>(); // 메인 퀘스트 목록
+    public List<Quest> ActiveDailyQuests = new List<Quest>(); // 퀘스트 목록
     public List<Quest> AcceptQuestList = new List<Quest>(); // 수락한 퀘스트 목록
 
     public delegate void QuestAcceptedEvent(List<Quest> acceptedQuests, int quantity);
@@ -46,7 +49,8 @@ public class QuestManager : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.GlobalTimeManager.OnInitQuest += InitializeQuest;
+        GameManager.Instance.GlobalTimeManager.OnInitQuest += InitializeDailyQuest;
+        GameManager.Instance.GlobalTimeManager.OnInitQuest += InitializeMainQuest;
         //EnemyHealthSystem.OnQuestTargetDie += UpdateEnemyQuestProgress;
         //ItemObject.OnQuestTargetInteraction += UpdateNatureQuestProgress;
     }
@@ -74,18 +78,18 @@ public class QuestManager : MonoBehaviour
             {
                 if( i < _halfLength)
                 {
-                    EnemyDailyQuest enemyDailyQuest = new EnemyDailyQuest(QuestSO.EnemyQuestData, _questKey[i]);
+                    EnemyDailyQuest enemyDailyQuest = new EnemyDailyQuest(QuestSO, _questKey[i]);
                     enemyDailyQuest.TargetID = activeQuestKey[i];
                     enemyDailyQuest.TargetQuantity = activeQuestValue[i];
-                    ActiveQuests.Add(enemyDailyQuest);
+                    ActiveDailyQuests.Add(enemyDailyQuest);
                 }
                 else
                 {
                     // 나머지 반은 NatureDailyQuest 생성
-                    NatureDailyQuest natureDailyQuest = new NatureDailyQuest(QuestSO.NatureQuestData, _questKey[i]);
+                    NatureDailyQuest natureDailyQuest = new NatureDailyQuest(QuestSO, _questKey[i]);
                     natureDailyQuest.TargetID = activeQuestKey[i];
                     natureDailyQuest.TargetQuantity = activeQuestValue[i];
-                    ActiveQuests.Add(natureDailyQuest);
+                    ActiveDailyQuests.Add(natureDailyQuest);
                 }
             }
 
@@ -97,7 +101,7 @@ public class QuestManager : MonoBehaviour
 
             for (int i = 0; i < loadAcceptQuest.Count; i++)
             {
-                Quest quest = ActiveQuests[i];
+                Quest quest = ActiveDailyQuests[i];
                 AcceptQuest(quest);
             }
 
@@ -105,10 +109,11 @@ public class QuestManager : MonoBehaviour
     }
 
     // 퀘스트를 초기화하고 추가하는 메서드
-    public void InitializeQuest()
+    public void InitializeDailyQuest()
     {
+
         _gameStateManager.CurrentGameState = GameState.NEWGAME;
-        ActiveQuests.Clear();
+        ActiveDailyQuests.Clear();
         AcceptQuestList.Clear();
         EnemyQuantityDict.Clear();
         NatureQuantityDict.Clear();
@@ -118,6 +123,8 @@ public class QuestManager : MonoBehaviour
 
         int currentQuantity = 0;
 
+
+
         for (int i = 0; i < _questCount; i++) 
         { 
             if(i < _questCount / 2)
@@ -126,10 +133,10 @@ public class QuestManager : MonoBehaviour
                 EnemyDailyQuest newEnemyQuest;
                 do
                 {
-                    newEnemyQuest = new EnemyDailyQuest(QuestSO.EnemyQuestData, enemyQuestID);
+                    newEnemyQuest = new EnemyDailyQuest(QuestSO, enemyQuestID);
                 } while (CheckForDuplicateTargetID(newEnemyQuest.TargetID));
 
-                ActiveQuests.Add(newEnemyQuest);
+                ActiveDailyQuests.Add(newEnemyQuest);
                 EnemyQuantityDict.Add(enemyQuestID, currentQuantity);
                 Debug.Log("퀘스트 " + enemyQuestID + " 내용: " + newEnemyQuest.GetQuestDescription());
                 enemyQuestID++;
@@ -140,10 +147,10 @@ public class QuestManager : MonoBehaviour
                 NatureDailyQuest newNatureQuest;
                 do
                 {
-                    newNatureQuest = new NatureDailyQuest(QuestSO.NatureQuestData, natureQuestID);
+                    newNatureQuest = new NatureDailyQuest(QuestSO, natureQuestID);
                 } while (CheckForDuplicateTargetID(newNatureQuest.TargetID));
 
-                ActiveQuests.Add(newNatureQuest);
+                ActiveDailyQuests.Add(newNatureQuest);
                 NatureQuantityDict.Add(natureQuestID, currentQuantity);
                 Debug.Log("퀘스트 " + natureQuestID + " 내용: " + newNatureQuest.GetQuestDescription());
                 natureQuestID++;
@@ -167,10 +174,24 @@ public class QuestManager : MonoBehaviour
         //activeQuests.Add(newQuest2);
     }
 
+    private void InitializeMainQuest()
+    {
+        int mainQuestID = 30001;
+        for(int i = 0; i < QuestSO.MainQuestData.Length; i++)
+        {
+            MainQuest mainQuest = new MainQuest(QuestSO, mainQuestID, i);
+            ActiveMainQuests.Add(mainQuest);
+            mainQuestID++;
+        }
+
+        Debug.Log(ActiveMainQuests.Count);
+
+    }
+
     // 중복확인
     private bool CheckForDuplicateTargetID(int targetID)
     {
-        foreach (var quest in ActiveQuests)
+        foreach (var quest in ActiveDailyQuests)
         {
             if (quest.GetTargetID() == targetID)
             {
@@ -194,7 +215,7 @@ public class QuestManager : MonoBehaviour
             }
             else
             {
-                for(int i = 0; i < ActiveQuests.Count; i++)
+                for(int i = 0; i < ActiveDailyQuests.Count; i++)
                 {
                     if(i < _halfLength)
                     {
@@ -226,7 +247,6 @@ public class QuestManager : MonoBehaviour
     // TODO 퀘스트 진행 관리(수락했을 때)
     public void UpdateEnemyQuestProgress(int targetID)
     {
-
         foreach(Quest quest in AcceptQuestList)
         {
             if (quest is EnemyDailyQuest)
@@ -322,11 +342,11 @@ public class QuestManager : MonoBehaviour
 
         if (quest is EnemyDailyQuest)
         {
-            player.PlayerExpSystem.GetExpPlus(quest.QuestData.reward);
+            player.PlayerExpSystem.GetExpPlus(quest.EnemyQuestReward);
         }
         else if(quest is NatureDailyQuest)
         {
-            int rewardGold = player.Data.PlayerData.PlayerGold + quest.QuestData.reward;
+            int rewardGold = player.Data.PlayerData.PlayerGold + quest.NatureQuestReward;
             player.Data.PlayerData.PlayerGold = rewardGold;
         }
     }

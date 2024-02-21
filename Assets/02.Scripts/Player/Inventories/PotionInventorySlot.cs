@@ -19,6 +19,7 @@ public class PotionInventorySlot : MonoBehaviour
     public int InitQuantity;
     private Button _potionInvenButton;
 
+    [SerializeField] private int _basicInitQuantity = 3;
     void OnEnable()
     {
         _potionInvenButton = GetComponent<Button>();
@@ -46,9 +47,14 @@ public class PotionInventorySlot : MonoBehaviour
     public void TutorialPotion()
     {
         if(PotionSO.ID == 2001)
-        {
-            InitQuantity = 1;
+            {
+            InitQuantity = _basicInitQuantity + 1;
+            UpdateUI();
+        }
 
+        if (PotionSO.ID == 2004)
+        {
+            InitQuantity = _basicInitQuantity;
             UpdateUI();
         }
     }

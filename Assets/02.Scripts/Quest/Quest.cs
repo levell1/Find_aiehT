@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Quest
 {
-    public DailyQuestData QuestData;
+    protected DailyQuestData _enemyQuestData;
+    protected DailyQuestData _natureQuestData;
+    protected MainQuestData[] _mainQuestDataList;
 
-    protected GameStateManager gameStateManager;
+    public QuestSO QuestData;
+
+    protected Player _player;
+    protected GameStateManager _gameStateManager;
     protected int _minTargetID;
     protected int _maxTargetID;
 
@@ -16,7 +21,8 @@ public class Quest
     protected int _minTargetQuantity = 1;
     protected int _maxTargetQuantity;
 
-    protected int _questReward;
+    public int EnemyQuestReward;
+    public int NatureQuestReward;
 
     public int QuestNumber;
     public int TargetID;
@@ -25,31 +31,30 @@ public class Quest
     public ItemDataListSO ItemDatas = GameManager.Instance.DataManager.NatureItemDataList;
     public EnemyDataListSO EnemyDatas = GameManager.Instance.DataManager.EnemyDataList;
 
-    private List<int> _randomIDList =  new List<int>();
+    protected List<int> _randomIDList =  new List<int>();
    
-    public Quest(DailyQuestData data, int questNumber)
+    public Quest(QuestSO data, int questNumber)
     {
 
         QuestData = data;
+        _enemyQuestData = data.EnemyQuestData;
+        _natureQuestData = data.NatureQuestData;
+       
+
         QuestNumber = questNumber;
-        _questReward = data.reward;
+        EnemyQuestReward = data.EnemyQuestData.reward;
+        _player = GameManager.Instance.Player.GetComponent<Player>();
 
         InitQuest();
-
-        for (int i = _minTargetID; i < _maxTargetID; i++)
-        {
-            _randomIDList.Add(i);
-        }
-        RandomQuest();
     }
 
     protected virtual void InitQuest() {}
 
-    private void RandomQuest()
+    protected virtual void RandomQuest()
     {
-        gameStateManager = GameManager.Instance.GameStateManager;
+        _gameStateManager = GameManager.Instance.GameStateManager;
 
-        if(gameStateManager.CurrentGameState == GameState.NEWGAME)
+        if(_gameStateManager.CurrentGameState == GameState.NEWGAME)
         {
             //TargetID = Random.Range(_minTargetID, _maxTargetID);
             TargetQuantity = Random.Range(_minTargetQuantity, _maxTargetQuantity);
@@ -74,8 +79,8 @@ public class Quest
             {
                 if (natureItem.ItemID == TargetID)
                 {
-                    // 해당 몬스터의 이름을 가져옴
                     _natureItemName = natureItem.ObjName;
+                    NatureQuestReward = natureItem.Price;
                     Debug.Log("채집물 이름: " + _natureItemName);
                     break;
                 }
@@ -101,7 +106,8 @@ public class Quest
 
     public virtual string GetQuestRewardToString()
     {
-        return _questReward.ToString();
+        int questReward = EnemyQuestReward * _player.Data.PlayerData.PlayerLevel;
+        return questReward.ToString();
     }
 
 }
