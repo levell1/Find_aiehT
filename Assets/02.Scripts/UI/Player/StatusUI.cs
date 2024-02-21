@@ -60,10 +60,7 @@ public class StatusUI : BaseUI
 
         _playerName.text = _playerData.PlayerData.PlayerName;
         _playerLevel.text = _playerData.PlayerData.PlayerLevel.ToString();
-        _maxHealth.text = _playerData.PlayerData.PlayerMaxHealth.ToString();
-        _maxStamina.text = _playerData.PlayerData.PlayerMaxStamina.ToString();
-        _attack.text = _playerData.PlayerData.PlayerAttack.ToString();
-        _defence.text = _playerData.PlayerData.PlayerDef.ToString();
+        
 
         for (int i = 0; i < _equipment.Length; i++)
         {
@@ -76,9 +73,14 @@ public class StatusUI : BaseUI
         }
 
 
-        _equipmentHealth.text = _sumequipHealth.ToString();
-        _equipmentDef.text = _sumEquipDef.ToString();
-        _weaponDamageText.text = _weaponDamage.ToString();
+        _equipmentHealth.text = "("+_sumequipHealth.ToString()+")";
+        _equipmentDef.text = "("+_sumEquipDef.ToString()+")";
+        _weaponDamageText.text = "("+_weaponDamage.ToString()+")";
+
+        _maxHealth.text = (_playerData.PlayerData.PlayerMaxHealth + _sumequipHealth).ToString();
+        _maxStamina.text = _playerData.PlayerData.PlayerMaxStamina.ToString();
+        _attack.text = (_playerData.PlayerData.PlayerAttack + _weaponDamage).ToString();
+        _defence.text = (_playerData.PlayerData.PlayerDef + _sumEquipDef).ToString();
 
         _qSkillName.text = _playerData.SkillData.SkillInfoDatas[0].SkillName+"(Q)";
         _qSkillDmg.text = _playerData.SkillData.SkillInfoDatas[0].SkillDamage.ToString();

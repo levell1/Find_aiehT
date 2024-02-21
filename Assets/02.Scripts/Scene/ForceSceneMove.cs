@@ -24,8 +24,6 @@ public class ForceSceneMove : MonoBehaviour
 
     private void DieToGoHome()
     {
-        _globalTimeManager.IsActiveOutFieldUI = false;
-        _globalTimeManager.EventCount = 1;
         StartCoroutine(ActiveReStartUI());
     }
 

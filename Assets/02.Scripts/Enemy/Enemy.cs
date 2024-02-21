@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
     public float PatrolDelay = 0;
     public float AttackDelay = 0;
 
-    public EnemyStateMachine _stateMachine;
+    public EnemyStateMachine StateMachine;
 
     public NavMeshAgent Agent;
 
@@ -54,16 +54,16 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        _stateMachine = new EnemyStateMachine(this);
-        _stateMachine.ChangeState(_stateMachine.IdlingState);
+        StateMachine = new EnemyStateMachine(this);
+        StateMachine.ChangeState(StateMachine.IdlingState);
         HealthSystem.OnDie += OnDie;
     }
 
     private void Update()
     {
-        _stateMachine.HandleInput();
+        StateMachine.HandleInput();
 
-        _stateMachine.Update();
+        StateMachine.Update();
     }
 
     private void FixedUpdate()
@@ -71,13 +71,13 @@ public class Enemy : MonoBehaviour
         PatrolDelay += Time.deltaTime;
         AttackDelay += Time.deltaTime;
 
-        _stateMachine.PhyscisUpdate();
+        StateMachine.PhyscisUpdate();
     }
 
     private void OnDie()
     {
         // 경험치
-        _stateMachine.Target.PlayerExpSystem.GetExpPlus(EnemyDropEXP);
+        StateMachine.Target.PlayerExpSystem.GetExpPlus(EnemyDropEXP);
         //드랍아이템
         if(Data.DropItem != null)
         {
@@ -101,8 +101,8 @@ public class Enemy : MonoBehaviour
         EnemyDropEXP = Data.DropEXP;
         if (SceneManager.GetActiveScene().name == SceneName.DungeonScene)
         {
-            EnemyDamage *= 3;
-            EnemyMaxHealth *= 3;
+            EnemyDamage *= 1.5f;
+            EnemyMaxHealth *= 1.5f;
             EnemyDropEXP *= 2;
         }
     }

@@ -203,6 +203,17 @@ public class PlayerInteraction : MonoBehaviour
                 return;
             }
 
+            if (_curScene == SceneName.DungeonScene && _nextScene == SceneName.VillageScene)
+            {
+                GameManager.Instance.GlobalTimeManager.GoodMorning();
+                return;
+            }
+            if (_curScene == SceneName.VillageScene && _nextScene == SceneName.VillageScene)
+            {
+                GameManager.Instance.GlobalTimeManager.GoodMorning();
+                return;
+            }
+
             if (_nextScene == SceneName.TycoonScene)
             {
                 GameManager.Instance.Player.transform.position = new Vector3(-4, 0, 8);

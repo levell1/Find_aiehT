@@ -9,11 +9,14 @@ public class EnemyHealthSystem : MonoBehaviour
     public GameObject TakeDamageText;
     public GameObject TakeDamageText2;
 
+    private Player _player;
+    private PlayerExpSystem _playerExpSystem;
     private Enemy _enemy;
     private EnemySO _enemySO;
     public float MaxHealth;
     public float Health;
     public Canvas HpCanvas;
+    public Image HpBack;
     public Image HpBar;
     public TextMeshProUGUI EnemyName;
     public bool Hit;
@@ -32,24 +35,36 @@ public class EnemyHealthSystem : MonoBehaviour
 
     private void Start()
     {
+        _player = GameManager.Instance.Player.GetComponent<Player>();
+        _playerExpSystem = GameManager.Instance.Player.GetComponent<PlayerExpSystem>();
         _enemy = GetComponent<Enemy>();
         _enemySO = GetComponent<Enemy>().Data;
         meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
 
         MaxHealth = _enemy.EnemyMaxHealth;
         Health = MaxHealth;
-        EnemyName.text = string.Format("[" + _enemySO.EnemyName + "]");
-        HpCanvas.gameObject.SetActive(false);
+        EnemyNameToAppropriateColor();
+        _playerExpSystem.OnChangeEnemyName += EnemyNameToAppropriateColor;
+        HpBack.gameObject.SetActive(false);
         _camera = Camera.main;
     }
 
     private void Update()
     {
-        if (Hit)
+        HpCanvas.transform.LookAt(HpCanvas.transform.position + _camera.transform.rotation * Vector3.forward, _camera.transform.rotation * Vector3.up);
+
+        if (IsAcitveNameRange())
         {
             HpCanvas.gameObject.SetActive(true);
-            //카메라 방향으로 캔버스 돌리기
-            HpCanvas.transform.LookAt(HpCanvas.transform.position + _camera.transform.rotation * Vector3.forward, _camera.transform.rotation * Vector3.up);
+        }
+        else
+        {
+            HpCanvas.gameObject.SetActive(false);
+        }
+
+        if (Hit)
+        {
+            HpBack.gameObject.SetActive(true);
             if (_coroutine == null)
             {
                 _coroutine = StartCoroutine(HitCancel());
@@ -57,12 +72,11 @@ public class EnemyHealthSystem : MonoBehaviour
         }
         else
         {
-            HpCanvas.gameObject.SetActive(false);
+            HpBack.gameObject.SetActive(false);
         }
 
         HpBar.fillAmount = Health / MaxHealth;
     }
-
 
     public void TakeDamage(float damage)
     {
@@ -85,7 +99,7 @@ public class EnemyHealthSystem : MonoBehaviour
         Health = Mathf.Max(Health - damage, 0);
         StartCoroutine(DamageFlash());
 
-        _enemy._stateMachine.ChangeState(_enemy._stateMachine.ChasingState);
+        _enemy.StateMachine.ChangeState(_enemy.StateMachine.ChasingState);
 
         if (Health == 0)
         {
@@ -101,8 +115,6 @@ public class EnemyHealthSystem : MonoBehaviour
         Hit = false;
         _coroutine = null;
     }
-
-    
 
     public IEnumerator DamageFlash()
     {
@@ -123,6 +135,35 @@ public class EnemyHealthSystem : MonoBehaviour
             propBlock.SetColor("_Color", a);
             meshRenderers[i].SetPropertyBlock(propBlock);
         }
+    }
 
+    public void EnemyNameToAppropriateColor()
+    {
+        int randomLevel = UnityEngine.Random.Range(0, _enemySO.AppropriateLevel.Length);
+        EnemyName.text = string.Format("[ LV." + _enemySO.AppropriateLevel[randomLevel] + " " + _enemySO.EnemyName + " ]");
+
+        for (int i = 0;i < _enemySO.AppropriateLevel.Length; ++i)
+        {
+            if (_player.Data.PlayerData.PlayerLevel >= _enemySO.AppropriateLevel[i])
+            {
+                EnemyName.color = Color.white;
+            }
+            else if (_player.Data.PlayerData.PlayerLevel < _enemySO.AppropriateLevel[i]) // 별로 차이 안날 때
+            {
+                EnemyName.color = Color.yellow;
+                if (_enemySO.AppropriateLevel[0] - _player.Data.PlayerData.PlayerLevel >= 3) // 많이 차이 날 때
+                {
+                    EnemyName.color = Color.red;
+                }
+
+            }
+        }
+    }
+
+    private bool IsAcitveNameRange()
+    {
+        float playerDistanceSqr = (_player.transform.position - _enemy.transform.position).sqrMagnitude;
+
+        return playerDistanceSqr <= _enemy.Data.ActiveNameRange * _enemy.Data.ActiveNameRange;
     }
 }

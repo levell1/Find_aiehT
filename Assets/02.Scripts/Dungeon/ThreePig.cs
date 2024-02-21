@@ -9,7 +9,7 @@ public class ThreePig : MonoBehaviour
     [SerializeField] private BossHealthSystem _greenPigHealthSystem;
     [SerializeField] private Transform[] _pigsTransform = new Transform[3];
     [SerializeField] private Vector3[] _pigsPosition = new Vector3[3];
-    private int _count = 0;
+
     private void Awake()
     {
         _greenPigHealthSystem.OnDie += ThreePigOn;
@@ -22,6 +22,7 @@ public class ThreePig : MonoBehaviour
             _pigsTransform[i].gameObject.SetActive(false);
         }
     }
+
     private void ThreePigOn()
     {
         StartCoroutine(ThreePigPattern());
@@ -29,7 +30,7 @@ public class ThreePig : MonoBehaviour
 
     private IEnumerator ThreePigPattern() 
     {
-        while (_count < 6)
+        while (true)
         {
             yield return new WaitForSeconds(15f);
 
@@ -46,9 +47,6 @@ public class ThreePig : MonoBehaviour
                 _pigsTransform[i].transform.position = _pigsPosition[i];
                 _pigsTransform[i].gameObject.SetActive(false);
             }
-            _count++;
         }
-        gameObject.SetActive(false);
     }
-
 }

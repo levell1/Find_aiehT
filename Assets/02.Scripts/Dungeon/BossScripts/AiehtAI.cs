@@ -10,10 +10,11 @@ public class AiehtAI : Tree
     private Transform _pigTransform;
     private NavMeshAgent _navMeshAgent;
     private LevitateObject _levitateObject;
+    [SerializeField] private GameObject _lightObject;
 
     [Header("대쉬, 충돌")]
     readonly private float _DashWaitTime = 3f;
-    readonly private float _DashDamage = 100f;
+    readonly private float _DashDamage = 1000f;
     readonly private float _knockBack = 7f;
     readonly private float _knockBackCount = 5f;
 
@@ -44,7 +45,7 @@ public class AiehtAI : Tree
                 new List<Node>()
                 {
                    new CheckPlayerDistanceNotNode(_pigTransform,12.0f),
-                   new LightAttack(_playerTransform, _pigTransform,_LightAttackWaitTime),
+                   new LightAttack(_playerTransform, _pigTransform,_LightAttackWaitTime,_lightObject),
                    new RunAwayNode(_pigTransform,_navMeshAgent,_navMeshAgent.speed),
                 }
             ),

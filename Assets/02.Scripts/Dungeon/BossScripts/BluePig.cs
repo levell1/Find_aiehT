@@ -14,7 +14,7 @@ public class BluePigAI : Tree
     readonly private float _waitTime = 3;
     readonly private float _knockBack = 5f;
     readonly private float _knockBackCount = 5;
-    readonly private float _Dagage = 50f;
+    readonly private float _Dagage = 500f;
     Vector3 Power;
 
     private void Awake()
