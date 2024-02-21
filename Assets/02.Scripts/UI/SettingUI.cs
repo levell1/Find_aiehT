@@ -1,3 +1,5 @@
+using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,7 +12,7 @@ public class SettingUI : BaseUI
     [SerializeField] private GameObject _ExitCheck;
     [SerializeField] private Button _exitButton;
     [SerializeField] private Button _keyControlButton;
-
+    [SerializeField] private Button _homeButton;
     private void OnEnable()
     {
         _savePanel.SetActive(false);
@@ -32,6 +34,8 @@ public class SettingUI : BaseUI
         if (SceneManager.GetActiveScene().name == SceneName.DungeonScene)
         {
             _checksaveButton.interactable = false;
+            _checksaveButton.gameObject.SetActive(false);
+            _homeButton.gameObject.SetActive(true);
         }
     }
     private void Start()
@@ -40,6 +44,13 @@ public class SettingUI : BaseUI
         _checkExitButton.onClick.AddListener(ShowExitGame);
         _exitButton.onClick.AddListener(ExitGame);
         _keyControlButton.onClick.AddListener(ShowControlKey);
+        _homeButton.onClick.AddListener(GoSleep);
+    }
+
+    private void GoSleep()
+    {
+        GameManager.Instance.UIManager.ShowCanvas(UIName.RestartUI);
+        Time.timeScale = 1;
     }
 
     private void SaveGame() 

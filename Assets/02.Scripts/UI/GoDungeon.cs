@@ -16,7 +16,6 @@ public class GoDungeon : BaseUI
     {
         _playerData = GameManager.Instance.Player.GetComponent<Player>().Data;
         _commaText = _goldText.gameObject.GetComponent<CommaText>();
-
     }
 
     private void Start()
