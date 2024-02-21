@@ -28,11 +28,11 @@ public class BossHealthSystem : MonoBehaviour
 
     public void SetMaxHealth()
     {
-        MaxHealth = 500;
+        MaxHealth = 6000;
         //상속으로 다시
         if (gameObject.name=="Aieht")
         {
-            MaxHealth = 500;
+            MaxHealth = 8000;
         }
         Health = MaxHealth;
         OnChangeHpUI?.Invoke(Health, MaxHealth);

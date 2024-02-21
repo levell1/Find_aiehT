@@ -101,8 +101,8 @@ public class Enemy : MonoBehaviour
         EnemyDropEXP = Data.DropEXP;
         if (SceneManager.GetActiveScene().name == SceneName.DungeonScene)
         {
-            EnemyDamage *= 3;
-            EnemyMaxHealth *= 3;
+            EnemyDamage *= 1.5f;
+            EnemyMaxHealth *= 1.5f;
             EnemyDropEXP *= 2;
         }
     }

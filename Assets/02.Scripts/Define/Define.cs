@@ -134,39 +134,39 @@ public struct ErrorMessageTxt
 }
 public struct SFXSoundPathName
 {
-    public const string ClickSound = "UI/Click";
-    public const string UISound = "UI/UISound";
+    public const string ClickSound = "Click";
+    public const string UISound = "UISound";
 
-    public const string Eat = "Tycoon/Eat";
-    public const string Money = "Tycoon/Money";
-    public const string PutDownFood = "Tycoon/PutDownFood";
+    public const string Eat = "Eat";
+    public const string Money = "Money";
+    public const string PutDownFood = "PutDownFood";
 
-    public const string AttackSound = "Player/AttackSound";
+    public const string AttackSound = "AttackSound";
 
-    public const string Dash = "Player/Dash";
-    public const string Hit = "Player/Hit";
-    public const string Landing = "Player/Landing";
+    public const string Dash = "Dash";
+    public const string Hit = "Hit";
+    public const string Landing = "Landing";
 
-    public const string Heal = "Player/Heal";
-    public const string Stamina = "Player/Stamina";
-    public const string LevelUp = "Player/LevelUp";
-    public const string Quest = "Environment/Quest";
+    public const string Heal = "Heal";
+    public const string Stamina = "Stamina";
+    public const string LevelUp = "LevelUp";
+    public const string Quest = "Quest";
 
-    public const string Skill1 = "Player/Skill1";
-    public const string Skill2 = "Player/Skill2";
+    public const string Skill1 = "Skill1";
+    public const string Skill2 = "Skill2";
 
-    public const string Dead = "Player/Dead";
-    public const string Sleep = "Player/Sleep";
+    public const string Dead = "Dead";
+    public const string Sleep = "Sleep";
 
-    public const string Door = "Environment/Door";
-    public const string HouseDoor = "Environment/HouseDoor";
-    public const string Portal = "Environment/Portal";
-    public const string Upgrade = "Environment/Upgrade";
+    public const string Door = "Door";
+    public const string HouseDoor = "HouseDoor";
+    public const string Portal = "Portal";
+    public const string Upgrade = "Upgrade";
 
-    public const string LightMagic = "Animal/LightMagic";
-    public const string Levitate = "Animal/Levitate";
-    public const string Pig1 = "Animal/Pig1";
-    public const string Pig2 = "Animal/Pig2";
+    public const string LightMagic = "LightMagic";
+    public const string Levitate = "Levitate";
+    public const string Pig1 = "Pig1";
+    public const string Pig2 = "Pig2";
 
 
 

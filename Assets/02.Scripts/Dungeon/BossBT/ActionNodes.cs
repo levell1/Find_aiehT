@@ -171,14 +171,16 @@ public class LightAttack : Node
     private Transform _player;
     private Transform _pigTransform;
     private Animator _animation;
-    float _time = 0;
-    float _waitTime;
-    public LightAttack(Transform _playerTransform, Transform transform, float WaitTime)
+    private float _time = 0;
+    private float _waitTime;
+    private GameObject _LighObject;
+    public LightAttack(Transform _playerTransform, Transform transform, float WaitTime, GameObject lighObject)
     {
         _player = _playerTransform;
         this._pigTransform = transform;
         _animation = transform.GetComponent<Animator>();
         _waitTime = WaitTime;
+        _LighObject = lighObject;
     }
 
 
@@ -193,8 +195,8 @@ public class LightAttack : Node
             return state = NodeState.Running;
         }
         else
-        {            
-            GameObject lightObject = GameManager.Instance.PoolingManager.GetObject("Light");
+        {
+            GameObject lightObject = Object.Instantiate(_LighObject);
             lightObject.transform.rotation = Quaternion.identity;
             lightObject.transform.position = _pigTransform.position + _pigTransform.forward * 2;
             _animation.SetBool(AnimationParameterName.BossFly, false);

@@ -82,9 +82,9 @@ public class TitleTest : MonoBehaviour
         {
             GameManager.Instance.Player.transform.position = new Vector3(-90f, 1f, 50f);
         }
-        if (Input.GetKeyDown(KeyCode.J))
+        /*if (Input.GetKeyDown(KeyCode.J))
         {
             GameManager.Instance.Player.transform.position = new Vector3(120f, 1f, 0f);
-        }
+        }*/
     }
 }
