@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class SceneMoveUI : MonoBehaviour
 {
@@ -48,7 +49,7 @@ public class SceneMoveUI : MonoBehaviour
         {
             _healthSystem.Respawn();
             _globalTimeManager.DayTime = _globalTimeManager.NextMorning;
-            GameManager.Instance.Player.transform.position = new Vector3(-15, 0, -160);
+            GameManager.Instance.Player.transform.position = new Vector3(-11, 0, -128);
         }
 
         Cursor.lockState = CursorLockMode.Locked;

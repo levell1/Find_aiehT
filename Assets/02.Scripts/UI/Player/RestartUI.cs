@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class RestartUI : BaseUI
 {
     private SceneMoveUI _sceneMoveUI;
-    private TMP_Text _text;
+    [SerializeField] private TMP_Text _text;
 
     private void Start()
     {
@@ -15,6 +15,8 @@ public class RestartUI : BaseUI
     private void OnEnable()
     {
         Cursor.lockState = CursorLockMode.None;
+        GameManager.Instance.GlobalTimeManager.IsActiveOutFieldUI = false;
+        GameManager.Instance.GlobalTimeManager.EventCount = 1;
         if (SceneManager.GetActiveScene().name ==SceneName.DungeonScene)
         {
             _text.text = "마을로 돌아갑니다.";

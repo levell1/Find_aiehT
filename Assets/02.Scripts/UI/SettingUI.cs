@@ -9,14 +9,16 @@ public class SettingUI : BaseUI
     [SerializeField] private Button _checksaveButton;
     [SerializeField] private Button _checkExitButton;
     [SerializeField] private GameObject _savePanel;
-    [SerializeField] private GameObject _ExitCheck;
+    [SerializeField] private GameObject _exitCheck;
     [SerializeField] private Button _exitButton;
     [SerializeField] private Button _keyControlButton;
     [SerializeField] private Button _homeButton;
     private void OnEnable()
     {
         _savePanel.SetActive(false);
-        _ExitCheck.SetActive(false);
+        _exitCheck.SetActive(false);
+        _homeButton.gameObject.SetActive(false);
+        _checksaveButton.gameObject.SetActive(true);
         _checkExitButton.interactable = true;
         _checksaveButton.interactable = true;
         _keyControlButton.interactable = true;
@@ -49,8 +51,9 @@ public class SettingUI : BaseUI
 
     private void GoSleep()
     {
-        GameManager.Instance.UIManager.ShowCanvas(UIName.RestartUI);
-        Time.timeScale = 1;
+        GameManager.Instance.UIManager.PopupDic[UIName.RestartUI].SetActive(true);
+        base.CloseUI();
+        Cursor.lockState = CursorLockMode.None;
     }
 
     private void SaveGame() 
@@ -61,7 +64,7 @@ public class SettingUI : BaseUI
     }
     private void ShowExitGame() 
     {
-        _ExitCheck.SetActive(true);
+        _exitCheck.SetActive(true);
     }
     private void ShowControlKey()
     {
