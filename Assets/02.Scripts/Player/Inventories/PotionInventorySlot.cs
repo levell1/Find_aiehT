@@ -19,7 +19,7 @@ public class PotionInventorySlot : MonoBehaviour
     public int InitQuantity;
     private Button _potionInvenButton;
 
-    void OnEnable()
+    void Start()
     {
         _potionInvenButton = GetComponent<Button>();
         
