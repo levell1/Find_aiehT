@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DashForceReceiver : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class DashForceReceiver : MonoBehaviour
    
     [SerializeField] private float _dashDuration = 0.5f;
     [SerializeField] private float _dashCoolTime = 5f;
+    [SerializeField] private Image _coolTimeImage;
+    [SerializeField] private GameObject _dashImage;
 
     private float _dashTime = 0f; // 대쉬를 하기위한 시간
     private float _coolTime= 0f; //  쿨타임을 계산하기위한 시간
@@ -42,19 +45,29 @@ public class DashForceReceiver : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(IsDash)
+
+        if (IsDash)
         {
             _dashTime += Time.fixedDeltaTime;
 
             if (_dashTime >= _dashDuration )
             {
                 IsDash = false;
-
-                if (!IsCoolTime)
+                
+                if (!IsCoolTime) 
+                {
+                    
                     IsCoolTime = true;
-                _coolTimeManager.StartCoolTimeCoroutine(CoolTimeObjName.Dash, _dashCoolTime, null);
+                    _dashImage.SetActive(true);
+                }
+                    
+                _coolTimeManager.StartCoolTimeCoroutine(CoolTimeObjName.Dash, _dashCoolTime, _coolTimeImage);
             }
-        }    
+        }
+        if (!IsCoolTime)
+        {
+            _dashImage.SetActive(false);
+        }
     }
 
     public void Dash(float dashForce)
@@ -62,6 +75,7 @@ public class DashForceReceiver : MonoBehaviour
         if (_player.GroundCheck.IsGrounded() && !IsDash && !IsCoolTime)
         {
             IsDash = true;
+            
             _dashTime = 0f;
 
             StartCoroutine(DashCoroutine(dashForce));
@@ -83,7 +97,7 @@ public class DashForceReceiver : MonoBehaviour
             _player.Rigidbody.AddForce(dashPower, ForceMode.VelocityChange);
             yield return new WaitForSeconds(0.01f);
         }
-        
+       
         yield return null;
     }
     
