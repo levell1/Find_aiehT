@@ -162,7 +162,7 @@ public class EnemyHealthSystem : MonoBehaviour
 
     private bool IsAcitveNameRange()
     {
-        float playerDistanceSqr = (_enemy.StateMachine.Target.transform.position - _enemy.transform.position).sqrMagnitude;
+        float playerDistanceSqr = (_player.transform.position - _enemy.transform.position).sqrMagnitude;
 
         return playerDistanceSqr <= _enemy.Data.ActiveNameRange * _enemy.Data.ActiveNameRange;
     }
