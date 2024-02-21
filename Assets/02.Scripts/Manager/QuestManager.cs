@@ -314,6 +314,8 @@ public class QuestManager : MonoBehaviour
     }
 
     // 골드 보상 또는 경험치보상
+    // TODO 골드보상 - 채집물가격 / 2
+    // 경험치 - 플레이어 레벨 * 500
     private void QuestReward(Quest quest)
     {
         Player player = GameManager.Instance.Player.GetComponent<Player>();

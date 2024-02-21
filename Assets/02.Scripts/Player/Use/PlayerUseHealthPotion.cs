@@ -6,6 +6,7 @@ public class PlayerUseHealthPotion : PlayerUseBase
 {
     protected override void Start()
     {
+        CoolTime = 7f;
         base.Start();
         _coolTimeManager.AddCoolTimeEvent(CoolTimeObjName.HealthPotion, HandleCoolTimeFinish);
     }

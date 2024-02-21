@@ -88,8 +88,10 @@ public class PlayerExpSystem : MonoBehaviour
 
     private void LevelUp()
     {
-        PlayerExp -= MaxExp;
+        if (PlayerLevel == 10)
+            return;
 
+        PlayerExp -= MaxExp;
         PlayerLevel++;
 
         _playerData.PlayerData.PlayerLevel = PlayerLevel;
@@ -112,39 +114,5 @@ public class PlayerExpSystem : MonoBehaviour
         GameManager.Instance.EffectManager.PlayerLowHpEffect(false);
         //Debug.Log("레벨업!");
 
-
-        //int a = _playerData.PlayerData.PlayerLevel;
-        //float b = _playerData.PlayerData.PlayerMaxHealth;
-        //float c = _playerData.PlayerData.PlayerMaxStamina;
-        //float d = _playerData.PlayerData.PlayerAttack;
-
-        //Debug.Log("level" + a);
-        //Debug.Log("PlayerMaxHealth" + b);
-        //Debug.Log("PlayerMaxStamina" + c);
-        //Debug.Log("PlayerAttack" + d);
-
-        //int e = _playerData.PlayerData.GetPlayerDef();
-        //int f = _playerData.PlayerData.GetPlayerExp();
-
-        //Debug.Log("level" + a);
-        //Debug.Log("PlayerMaxHealth" + b);
-        //Debug.Log("PlayerMaxStamina" + c);
-        //Debug.Log("PlayerAttack" + d);
-        //Debug.Log("PlayerDef" + e);
-        //Debug.Log("PlayerExp" + f);
-
     }
-
-    //IEnumerator TestCoroutine()
-    //{
-    //    int enemyExp = 13;
-
-    //    while(true)
-    //    {
-    //        yield return new WaitForSeconds(1f);
-    //        EnemyExpPlus(enemyExp);
-    //    }
-    //}
-
-
 }

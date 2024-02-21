@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class StaminaSystem : MonoBehaviour
 {
-    [SerializeField] private float _targetRegenTime = 0.2f;
+    [SerializeField] private float _targetRegenTime = 1f;
 
     private PlayerSO _playerData;
     private DashForceReceiver _dash;
@@ -110,11 +110,11 @@ public class StaminaSystem : MonoBehaviour
         }
     }
 
-    public void Healing(int healingAmount)
+    public void Healing(float healingAmount)
     {
         if (Stamina < MaxStamina)
         {
-            Stamina += healingAmount;
+            Stamina += Mathf.Ceil(Stamina * (healingAmount * 0.01f));
 
             Stamina = Mathf.Min(Stamina, MaxStamina);
 
