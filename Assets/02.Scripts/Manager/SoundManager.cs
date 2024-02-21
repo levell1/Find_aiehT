@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,18 +12,34 @@ public class SoundManager : MonoBehaviour
     private string _bgFilename;
 
     private Queue<AudioSource> _bgmQueue = new Queue<AudioSource>();
+    private Dictionary<string, AudioClip> _soundDictionary = new Dictionary<string, AudioClip>();
 
     private Coroutine _coroutine = null;
+
+
+
+    public GameObject Prefabs;
+    public int Size;
+    public Transform SpawnPoint;
+
+
+    private Queue<GameObject> _poolObject;
 
 
     private void Awake()
     {
         _audioClip = GetComponent<AudioClip>();
         _mixer = Resources.Load<AudioMixer>("Sound/AudioMixer");
+        intit();
     }
 
     private void Start()
     {
+        var pre = Resources.LoadAll<AudioClip>("Sound");
+        foreach (var p in pre)
+        {
+            _soundDictionary.Add(p.name, p);
+        }
         SceneManager.sceneLoaded += LoadedsceneEvent;
         BgmSoundPlay("TitleBGM");
     }
@@ -45,23 +62,23 @@ public class SoundManager : MonoBehaviour
         {
             _bgFilename = BGMSoundName.HuntingField;
         }
-        if (_bgFilename!=null)
+        if (_bgFilename != null)
         {
             BgmSoundPlay(_bgFilename);
         }
-        _bgFilename= null;
+        _bgFilename = null;
     }
 
     public void SFXPlay(string sfxName, Vector3 audioPosition, float audioVolume)
     {
-        GameObject AudioObject = GameManager.Instance.PoolingManager.GetObject("Sound");
+        GameObject AudioObject = GetSoundObject();
         /*GameObject AudioObject = new GameObject(sfxName + "Sound");
         AudioSource audiosource = AudioObject.AddComponent<AudioSource>();*/
         AudioSource audiosource = AudioObject.GetComponent<AudioSource>();
-        AudioObject.transform.position = audioPosition;
-       
-        audiosource.outputAudioMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
-        _audioClip = Resources.Load<AudioClip>("Sound/SFX/" + sfxName);
+        //AudioObject.transform.position = audioPosition;
+
+        //audiosource.outputAudioMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
+        _audioClip = _soundDictionary[sfxName];
 
         if (_audioClip != null)
         {
@@ -76,14 +93,15 @@ public class SoundManager : MonoBehaviour
     }
     public void SFXPlay(string sfxName)
     {
-        GameObject AudioObject = GameManager.Instance.PoolingManager.GetObject("Sound");
+        GameObject AudioObject = GetSoundObject();
         /*GameObject AudioObject = new GameObject(sfxName + "Sound");
         AudioSource audiosource = AudioObject.AddComponent<AudioSource>();*/
         AudioSource audiosource = AudioObject.GetComponent<AudioSource>();
-        AudioObject.transform.position = Vector3.zero;
-
-        audiosource.outputAudioMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
-        _audioClip = Resources.Load<AudioClip>("Sound/SFX/" + sfxName);
+        //AudioObject.transform.position = Vector3.zero;
+        Debug.Log(AudioObject.name);
+        Debug.Log(audiosource.name);
+        //audiosource.outputAudioMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
+        _audioClip = _soundDictionary[sfxName];
 
         if (_audioClip != null)
         {
@@ -98,8 +116,8 @@ public class SoundManager : MonoBehaviour
     }
     IEnumerator SFXStop(GameObject AudioObject, AudioSource audiosource)
     {
-        yield return new WaitForSeconds(audiosource.clip.length);
-        GameManager.Instance.PoolingManager.ReturnObject(AudioObject);
+        yield return new WaitForSecondsRealtime(audiosource.clip.length);
+        ReturnSoundObject(AudioObject);
     }
 
 
@@ -120,7 +138,7 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(AudioGo);
         AudioSource audiosource = AudioGo.AddComponent<AudioSource>();
         audiosource.outputAudioMixerGroup = _mixer.FindMatchingGroups("BGSound")[0];
-        _audioClip = Resources.Load<AudioClip>("Sound/BGM/" + BgName);
+        _audioClip = _soundDictionary[BgName];
 
         if (_audioClip != null)
         {
@@ -138,7 +156,7 @@ public class SoundManager : MonoBehaviour
         {
             bgmsource.volume -= 0.03f;
             yield return new WaitForSeconds(0.3f);
-            if (bgmsource==null)
+            if (bgmsource == null)
             {
                 break;
             }
@@ -155,8 +173,8 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void SetMasterVolume(float volume)
-    {   
+    public void SetMasterVolume(float volume)
+    {
         _mixer.SetFloat("MasterSound", volume);
     }
 
@@ -170,4 +188,30 @@ public class SoundManager : MonoBehaviour
         _mixer.SetFloat("SFXSound", volume);
     }
 
+    public void intit()
+    {
+        _poolObject = new Queue<GameObject>();
+        for (int i = 0; i < Size; i++)
+        {
+            var newObj = Instantiate(Prefabs, SpawnPoint);
+            newObj.gameObject.SetActive(false);
+            _poolObject.Enqueue(newObj);
+        }
+    }
+
+    public void ReturnSoundObject(GameObject obj)
+    {
+        _poolObject.Enqueue(obj);
+        obj.SetActive(false);
+    }
+
+    public GameObject GetSoundObject()
+    {
+        GameObject obj = _poolObject.Dequeue();
+        obj.SetActive(true);
+        return obj;
+    }
+
 }
+
+

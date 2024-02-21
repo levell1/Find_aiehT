@@ -15,7 +15,7 @@ public class LightBulletScript : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.LightMagic,transform.position,0.1f);
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.LightMagic,Vector3.zero,0.1f);
         Invoke("ReturnForSec", 7f);
     }
 

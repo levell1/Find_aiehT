@@ -2659,7 +2659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6172167453562737105
 Transform:
   m_ObjectHideFlags: 0
@@ -4919,6 +4919,10 @@ MonoBehaviour:
   - {fileID: 1220077122066242852}
   - {fileID: 4521307475598170070}
   - {fileID: 5479986493094311045}
+  _pigsPosition:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
 --- !u!1 &6859102244222284718
 GameObject:
   m_ObjectHideFlags: 0
@@ -7181,6 +7185,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6172167453562737105}
     m_Modifications:
+    - target: {fileID: 2469973494926335086, guid: e0069b5c4facb2e468877c45c527ca68,
+        type: 3}
+      propertyPath: _lightObject
+      value: 
+      objectReference: {fileID: 5361332721134729373, guid: f230d237a1b6a3240b4aa6f54cb5032b,
+        type: 3}
     - target: {fileID: 6849424056945457566, guid: e0069b5c4facb2e468877c45c527ca68,
         type: 3}
       propertyPath: m_RootOrder
@@ -7456,12 +7466,12 @@ PrefabInstance:
     - target: {fileID: 1895408113601621351, guid: e6207204273253b46968d698dbf6d6d4,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1895408113601621351, guid: e6207204273253b46968d698dbf6d6d4,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2122559228039950942, guid: e6207204273253b46968d698dbf6d6d4,
         type: 3}

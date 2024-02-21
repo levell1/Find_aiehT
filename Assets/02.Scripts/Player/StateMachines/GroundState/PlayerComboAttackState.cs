@@ -26,7 +26,6 @@ public class PlayerComboAttackState : PlayerAttackState
         _attackInfoData = _stateMachine.Player.Data.AttackData.GetAttackInfo(comboIndex);
         _stateMachine.Player.Animator.SetInteger("Combo", comboIndex);
         GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.AttackSound + (comboIndex+1).ToString());
-        Debug.Log(SFXSoundPathName.AttackSound + comboIndex.ToString());
     }
 
     public override void Exit()

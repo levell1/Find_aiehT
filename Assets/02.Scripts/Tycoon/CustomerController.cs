@@ -227,7 +227,7 @@ public class CustomerController : MonoBehaviour
         _animator.SetTrigger(AnimationParameterName.TycoonGetFood);
 
         GetComponentInChildren<CustomerEffect>().PlayGetCoinEffect();
-        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Money,transform.position, 1f);
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Money,Vector3.zero, 1f);
         StartCoroutine(EatFood());
     }
 
@@ -242,7 +242,9 @@ public class CustomerController : MonoBehaviour
 
         _animator.SetBool(AnimationParameterName.TycoonIsEat, true);
         int random = UnityEngine.Random.Range(1, 3);
-        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Eat+random.ToString(), transform.position, 1f);
+        
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Eat+random.ToString(), Vector3.zero, 1f);
+
         yield return TycoonManager.Instance._waitForCustomerEatTime;
         _animator.SetBool(AnimationParameterName.TycoonIsEat, false);
 
