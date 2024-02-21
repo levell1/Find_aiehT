@@ -16,6 +16,7 @@ public class PlayerExpSystem : MonoBehaviour
     private StaminaSystem _staminaSystem;
     public event Action<float, float> OnChangeExpUI;
 
+    public event Action OnChangeEnemyName; //
     public event Action<int> OnLevelUp;
     public event Action<float, float> OnChangeHpUI;
     public event Action<float, float> OnChangeSpUI;
@@ -105,6 +106,7 @@ public class PlayerExpSystem : MonoBehaviour
         _staminaSystem.SetMaxStamina();
         _staminaSystem.Stamina = _staminaSystem.MaxStamina;
 
+        OnChangeEnemyName?.Invoke(); //
         OnLevelUp?.Invoke(PlayerLevel);
         OnChangeExpUI?.Invoke(PlayerExp, MaxExp);
 

@@ -20,7 +20,7 @@ public class EnemyStateMachine : StateMachine
     public EnemyStateMachine(Enemy enemy)
     {
         Enemy = enemy;
-        Target = GameObject.FindGameObjectWithTag(TagName.Player).GetComponent<Player>();
+        Target = GameManager.Instance.Player.GetComponent<Player>();
         IdlingState = new EnemyIdleState(this);
         ChasingState = new EnemyChasingState(this);
         AttackState = new EnemyAttackState(this);
