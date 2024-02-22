@@ -157,6 +157,8 @@ public class QuestList : MonoBehaviour
     {
         Init();
         GameManager.Instance.GlobalTimeManager.OnInitQuest += Init;
+
+        QuestToggle[0].isOn = true;
     }
 
     private void Init()

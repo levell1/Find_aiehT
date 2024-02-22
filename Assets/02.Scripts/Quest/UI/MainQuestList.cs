@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,7 +56,7 @@ public class MainQuestList : MonoBehaviour
             QuestContent.text = _questList[questIndex].GetQuestDescription();
             QuestReward.text = _questList[questIndex].GetQuestRewardToString();
 
-            if (_questManager.ActiveMainQuests.Contains(_questList[questIndex]))
+            if (!_questList[questIndex].IsProgress)
             {
                 QuestStateImage.color = new Color(0.3f, 0.69f, 1);
                 _questStateImageText.color = new Color(0, 0, 0);
@@ -64,6 +65,7 @@ public class MainQuestList : MonoBehaviour
             {
                 QuestStateImage.color = new Color(0.7f, 0.67f, 0);
                 _questStateImageText.color = new Color(1, 1, 1);
+                _questStateImageText.text = string.Format("퀘스트 완료");
             }
 
         }

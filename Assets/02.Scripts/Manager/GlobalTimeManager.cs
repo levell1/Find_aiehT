@@ -105,10 +105,6 @@ public class GlobalTimeManager : MonoBehaviour
             }
         }
 
-        if(Day == 1)
-        {
-            OnInitMainQuest?.Invoke();
-        }
 
         //if (Hour == 23f && Minutes == 59f)
         //{
@@ -160,6 +156,12 @@ public class GlobalTimeManager : MonoBehaviour
         ++Day;
         OnInitQuest?.Invoke();
         OnBossRespawn?.Invoke();
+
+        if (Day == 1)
+        {
+            OnInitMainQuest?.Invoke();
+        }
+
     }
 
     public void NightChecker()

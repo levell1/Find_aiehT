@@ -6,11 +6,12 @@ public class MainQuest : Quest
 {
     private MainQuestData _mainQuestData;
     private string _mainQuestDescription;
-
     public MainQuest(QuestSO data, int questNumber, int index) : base(data, questNumber)
     {
-        TargetQuantity = data.MainQuestData[index].Target;
         _mainQuestData = data.MainQuestData[index];
+        TargetQuantity = data.MainQuestData[index].Target;
+        IsProgress = data.MainQuestData[index].IsProgress;
+        MainQuestReward = data.MainQuestData[index].Reward;
 
         InitMainQuestData();
 
@@ -40,6 +41,6 @@ public class MainQuest : Quest
 
     public override string GetQuestRewardToString()
     {
-        return string.Format($"{_mainQuestData.Reward} GOLD");
+        return string.Format($"{MainQuestReward} GOLD");
     }
 }

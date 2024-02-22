@@ -186,6 +186,11 @@ public class QuestManager : MonoBehaviour
         goDungeon.OnEnterDungeon += UpdateMainQuest;
         player.Data.PlayerData.OnAccumulateGold += UpdateMainQuest;
 
+        //EventSubscriptions.Add(() => GameManager.Instance.DataManager.OnTycoonMainQuest += UpdateMainQuest);
+        //EventSubscriptions.Add(() => goDungeon.OnEnterDungeon += UpdateMainQuest);
+        //EventSubscriptions.Add(() => EnemyHealthSystem.OnMainQuestTargetDie += UpdateMainQuest);
+        //EventSubscriptions.Add(() => player.Data.PlayerData.OnAccumulateGold += UpdateMainQuest);
+
     }
 
     // 중복확인
@@ -342,12 +347,47 @@ public class QuestManager : MonoBehaviour
                 if (MainQuestQuantityDict[mainQuestNumber] >= ActiveMainQuests[i].TargetQuantity)
                 {
                     // 퀘스트 삭제
-                    CompleteQuest(ActiveMainQuests[i]);
+                    CompleteQuest(ActiveMainQuests[i], questID);
                 }
                 break;
             }
         }
     }
+
+    public void CompleteQuest(Quest quest, int questID)
+    {  
+        // 퀘스트 완료시 보상 등등
+        QuestReward(quest);
+
+        if (quest is MainQuest)
+        {
+            //ActiveMainQuests.Remove(quest);
+            quest.IsProgress = true;
+
+            if (questID == 30001)
+            {
+                GameManager.Instance.DataManager.OnTycoonMainQuest -= UpdateMainQuest; // 타이쿤 구독
+            }
+            else if(questID == 30002)
+            {
+                GoDungeon goDungeon = GameManager.Instance.UIManager.PopupDic[UIName.GoDungeonUI].GetComponent<GoDungeon>();
+                goDungeon.OnEnterDungeon -= UpdateMainQuest;
+            }
+            else if (questID == 30003)
+            {
+                EnemyHealthSystem.OnMainQuestTargetDie -= UpdateMainQuest; // 불닭 구독
+            }
+            else if (questID == 30004)
+            {
+                Player player = GameManager.Instance.Player.GetComponent<Player>();
+                player.Data.PlayerData.OnAccumulateGold -= UpdateMainQuest;
+            }
+            Debug.Log("-완-");
+            return;
+        }
+
+    }
+
 
     //TODO 퀘스트를 완료하고 보상을 처리
     public void CompleteQuest(Quest quest)
@@ -402,6 +442,11 @@ public class QuestManager : MonoBehaviour
             int rewardGold = player.Data.PlayerData.PlayerGold + quest.NatureQuestReward;
             player.Data.PlayerData.PlayerGold = rewardGold;
         }
+        else if(quest is MainQuest)
+        {
+            player.Data.PlayerData.PlayerGold = quest.MainQuestReward;
+        }
+
     }
 
 
