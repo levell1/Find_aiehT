@@ -6,7 +6,7 @@ public class CookingUI : MonoBehaviour
 {
     private Canvas _cookingUIcanvas;
     public GameObject FoodUIPrefab;
-    public Transform Content;
+    public GameObject Content;
     public List<CookingSlotsUI> CookingSlotsUIs = new List<CookingSlotsUI>();
     private Camera _camera;
 
@@ -26,6 +26,6 @@ public class CookingUI : MonoBehaviour
         CookingSlotsUI cookingSlotsUI = FoodUIPrefab.GetComponent<CookingSlotsUI>();
         cookingSlotsUI.SelectedFood.sprite = foodSO.FoodSprite;
         //TODO 풀링으로 바꾸기
-        CookingSlotsUIs.Add(Instantiate(cookingSlotsUI, Content));
+        CookingSlotsUIs.Add(Instantiate(cookingSlotsUI, Content.transform));
     }
 }

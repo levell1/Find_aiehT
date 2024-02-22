@@ -22,7 +22,7 @@ public class SettingUI : BaseUI
         _checkExitButton.interactable = true;
         _checksaveButton.interactable = true;
         _keyControlButton.interactable = true;
-        if (GameManager.Instance.GlobalTimeManager.Day == 0)
+        if (GameManager.Instance.GlobalTimeManager.Day == 0 || SceneManager.GetActiveScene().name == SceneName.TycoonScene)
         {
             _checksaveButton.interactable = false;
             if (SceneManager.GetActiveScene().name ==SceneName.TitleScene)
