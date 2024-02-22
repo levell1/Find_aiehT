@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class CustomerController : MonoBehaviour
 {
@@ -80,15 +81,15 @@ public class CustomerController : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
     }
 
-    private void Start()
-    {
-        _tycoonManager = TycoonManager.Instance;
-        _foodCreater = _tycoonManager._FoodCreater;
-        _waitTime = _tycoonManager.CustomerWaitTime;
-    }
 
     private void OnEnable()
     {
+        if (SceneManager.GetActiveScene().name == SceneName.TycoonScene)
+        {
+            _tycoonManager = TycoonManager.Instance;
+            _foodCreater = _tycoonManager._FoodCreater;
+            _waitTime = _tycoonManager.CustomerWaitTime;
+        }
         Init();
     }
 
