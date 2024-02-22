@@ -51,7 +51,10 @@ public class QuestManager : MonoBehaviour
     private void Start()
     {
         GameManager.Instance.GlobalTimeManager.OnInitQuest += InitializeDailyQuest;
-        GameManager.Instance.GlobalTimeManager.OnInitMainQuest += InitializeMainQuest;
+        if(_gameStateManager.CurrentGameState == GameState.NEWGAME)
+        {
+            GameManager.Instance.GlobalTimeManager.OnInitMainQuest += InitializeMainQuest;
+        }
         //EnemyHealthSystem.OnQuestTargetDie += UpdateEnemyQuestProgress;
         //ItemObject.OnQuestTargetInteraction += UpdateNatureQuestProgress;
     }
@@ -131,7 +134,6 @@ public class QuestManager : MonoBehaviour
                 quest.IsProgress = loadQuestProgress;
             }
         }
-        _gameStateManager.CurrentGameState = GameState.NEWGAME;
     }
 
     // 퀘스트를 초기화하고 추가하는 메서드
@@ -200,6 +202,12 @@ public class QuestManager : MonoBehaviour
             MainQuestQuantityDict.Add(mainQuestID, currentQuantity);
         }
 
+        int goldQuestNum = 30004;
+
+        if (MainQuestQuantityDict.ContainsKey(goldQuestNum) && _gameStateManager.CurrentGameState == GameState.LOADGAME)
+        {
+            _currentPlayerGold = MainQuestQuantityDict[goldQuestNum];
+        }
         //TODO 퀘스트의 각 이벤트 걸어줌
         // 타이쿤 - 타이쿤 매니저 angry어쩌구
         // 타이쿤 결과창이 떴을 때 Angry가 0명이다 -> 퀘 완
