@@ -78,6 +78,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
         _TycoonUI.UpdateInitUI();
 
         _prepareStation.GetComponent<PrepareStation>().OffPrepareStation();
+        _TycoonUI.ShowTycoonStartText();
     }
 
     private void TycoonGameEnd()
