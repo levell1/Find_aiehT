@@ -9,6 +9,7 @@ public class MainQuest : Quest
 
     public MainQuest(QuestSO data, int questNumber, int index) : base(data, questNumber)
     {
+        TargetQuantity = data.MainQuestData[index].Target;
         _mainQuestData = data.MainQuestData[index];
 
         InitMainQuestData();

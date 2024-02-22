@@ -140,12 +140,12 @@ public class QuestList : MonoBehaviour
     public TMP_Text QuestContent;
     public TMP_Text QuestReward;
 
+    public Image QuestStateImage;
     public Button AcceptButton;
     public TMP_Text AcceptButtonText;
 
     private QuestManager _questManager;
     private Quest[] _questList; // 매니저에서 가져온 퀘스트 리스트 저장
-    private Quest[] _mainQuestList;
     private int _selectedQuestIndex = -1; // 선택된 퀘스트의 인덱스 저장
 
     private void Awake()
@@ -157,8 +157,6 @@ public class QuestList : MonoBehaviour
     {
         Init();
         GameManager.Instance.GlobalTimeManager.OnInitQuest += Init;
-
-        MainQuestInit();
     }
 
     private void Init()
@@ -185,13 +183,11 @@ public class QuestList : MonoBehaviour
         AcceptButton.onClick.AddListener(AcceptQuest);
     }
 
-    private void MainQuestInit()
-    {
-        _mainQuestList = _questManager.ActiveMainQuests.ToArray();
-    }
-
     private void ToggleValueChanged(bool toggle, int questIndex)
     {
+        QuestStateImage.gameObject.SetActive(false);
+        AcceptButton.gameObject.SetActive(true);
+
         if (toggle)
         {
             _selectedQuestIndex = questIndex;
