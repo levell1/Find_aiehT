@@ -1,23 +1,21 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
+
 
 public class BossManager : MonoBehaviour
 {
     [SerializeField] private BossHealthSystem _greenpigHealthSystem;
-    private BossHealthSystem _AightHealthSystem;
+    private BossHealthSystem _aightHealthSystem;
     [SerializeField] private Light _light;
     [SerializeField] private AiehtAI _aieht;
     [SerializeField] private GameObject _pigs;
     private void Awake()
     {
-        _AightHealthSystem = _aieht.GetComponent<BossHealthSystem>();
+        _aightHealthSystem = _aieht.GetComponent<BossHealthSystem>();
         _greenpigHealthSystem.OnDie += RespawnNextBoss;
 
-        _AightHealthSystem.OnDie += Ending;
+        _aightHealthSystem.OnDie += Ending;
     }
 
     private void Ending()

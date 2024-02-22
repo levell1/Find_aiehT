@@ -1,23 +1,19 @@
-using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 public class Door : MonoBehaviour
 {
     public Vector3 NextRoomPosition;
     [SerializeField] private GameObject _nextRoom;
     [SerializeField] private DungeonManager _dungeonManager ;
-    private BoxCollider BoxCollider;
-    private MeshRenderer Renderer;
+    private BoxCollider _boxCollider;
+    private MeshRenderer _mrenderer;
     private void Awake()
     {
         _dungeonManager= FindAnyObjectByType<DungeonManager>();
-        Renderer = GetComponent<MeshRenderer>();
-        BoxCollider =GetComponent<BoxCollider>();
-        BoxCollider.enabled = false;
+        _mrenderer = GetComponent<MeshRenderer>();
+        _boxCollider =GetComponent<BoxCollider>();
+        _boxCollider.enabled = false;
     }
     void Start()
     {
@@ -36,8 +32,8 @@ public class Door : MonoBehaviour
 
     public void DoorColliderActive() 
     {
-        BoxCollider.enabled=true;
-        Renderer.enabled=false;
+        _boxCollider.enabled=true;
+        _mrenderer.enabled=false;
     }
 
 }

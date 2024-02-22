@@ -19,6 +19,10 @@ public class EnemyRespawn : MonoBehaviour
         {
             RespawnDelay = 1000;
         }
+        if (SceneManager.GetActiveScene().name == SceneName.TutorialScene)
+        {
+            RespawnDelay = 5;
+        }
     }
 
     private void Start()

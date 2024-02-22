@@ -1,20 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Tree : MonoBehaviour
 {
-    private Node rootNode;
+    private Node _rootNode;
 
     protected void Start()
     {
-        rootNode = SetupBehaviorTree();
+        _rootNode = SetupBehaviorTree();
     }
 
     protected void Update()
     {
-        if (rootNode is null) return;
-        rootNode.Evaluate();
+        if (_rootNode is null) return;
+        _rootNode.Evaluate();
     }
 
     protected abstract Node SetupBehaviorTree();
