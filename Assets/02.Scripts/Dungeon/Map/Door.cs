@@ -4,7 +4,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     public Vector3 NextRoomPosition;
-    [SerializeField] private GameObject _nextRoom;
+    public GameObject _nextRoom;
     [SerializeField] private DungeonManager _dungeonManager ;
     private BoxCollider _boxCollider;
     private MeshRenderer _mrenderer;

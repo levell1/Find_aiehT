@@ -29,7 +29,6 @@ public class BossManager : MonoBehaviour
         StartCoroutine(BossEffect());
     }
 
-
     private IEnumerator BossEffect() 
     {
         var pigsAgent = _pigs.GetComponentsInChildren<NavMeshAgent>();
