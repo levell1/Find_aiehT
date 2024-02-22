@@ -80,4 +80,12 @@ public class JsonReader : MonoBehaviour
         //File.WriteAllText(jsonFilePath, jsonData);
     }
 
+    public bool CheckJsonFileExist()
+    {
+        string saveFilePath = Path.Combine(Application.persistentDataPath, string.Format("{0}.json", JsonDataName.SaveFile));
+        bool saveFileExists = File.Exists(saveFilePath);
+
+        return saveFileExists;
+    }
+
 }
