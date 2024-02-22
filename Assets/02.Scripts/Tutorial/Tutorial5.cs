@@ -30,7 +30,7 @@ public class Tutorial5 : MonoBehaviour
         _player.HealthSystem.TakeDamage(10);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (_player.HealthSystem.MaxHealth == _player.HealthSystem.Health)
         {

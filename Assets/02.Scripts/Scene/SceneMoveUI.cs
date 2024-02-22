@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class SceneMoveUI : MonoBehaviour
 {
     private HealthSystem _healthSystem;
+    private StaminaSystem _staminaSystem;
     private GlobalTimeManager _globalTimeManager;
     [SerializeField] private Image _backImage;
     public TextMeshProUGUI Description;
@@ -18,6 +20,7 @@ public class SceneMoveUI : MonoBehaviour
     {
         _globalTimeManager = GameManager.Instance.GlobalTimeManager;
         _healthSystem = GameManager.Instance.Player.GetComponent<HealthSystem>();
+        _staminaSystem = GameManager.Instance.Player.GetComponent<StaminaSystem>();
     }
 
     private void OnEnable()
@@ -48,6 +51,7 @@ public class SceneMoveUI : MonoBehaviour
         else if (CurrentSceneName == SceneName.VillageScene && _globalTimeManager.EventCount == 1)
         {
             _healthSystem.Respawn();
+            _staminaSystem.Stamina = _staminaSystem.MaxStamina; //
             _globalTimeManager.DayTime = _globalTimeManager.NextMorning;
             GameManager.Instance.Player.transform.position = new Vector3(-11, 0, -128);
         }
