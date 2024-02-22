@@ -60,6 +60,7 @@ public class MainQuestList : MonoBehaviour
             {
                 QuestStateImage.color = new Color(0.3f, 0.69f, 1);
                 _questStateImageText.color = new Color(0, 0, 0);
+                _questStateImageText.text = string.Format("퀘스트 진행중");
             }
             else
             {

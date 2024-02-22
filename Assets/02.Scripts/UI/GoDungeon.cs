@@ -45,8 +45,8 @@ public class GoDungeon : BaseUI
         {
             int questID = GameManager.Instance.DataManager.QuestDataList.MainQuestData[1].QuestID;
             _playerData.PlayerData.PlayerGold= _playerData.PlayerData.PlayerGold - _gold;
-            GameManager.Instance.SaveDataManger.SavePlayerDataToJson();
             OnEnterDungeon?.Invoke(questID);
+            GameManager.Instance.SaveDataManger.SavePlayerDataToJson();
 
             GameManager.Instance.Player.transform.position = new Vector3(0, 0, 0);
             LoadingSceneController.LoadScene(SceneName.DungeonScene);
