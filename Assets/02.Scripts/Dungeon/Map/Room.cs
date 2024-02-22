@@ -7,14 +7,25 @@ public class Room : MonoBehaviour
     private List<GameObject> _monsters = new List<GameObject>();
     private int _monsterCount = 0;
     [SerializeField] private Door[] _doors;
+    public HideRoom HideRoom;
 
     private void Awake()
     {
         _dungeonManager = FindAnyObjectByType<DungeonManager>();
+        HideRoom =GetComponentInChildren<HideRoom>();
     }
 
     private void Start()
     {
+        if (gameObject.name == "FirstRoom")
+        {
+            gameObject.GetComponentInChildren<HideRoom>().ShowRoom();
+            for (int i = 0; i < _doors.Length; i++)
+            {
+                _doors[i]._nextRoom.GetComponentInChildren<HideRoom>().ShowRoom();
+            }
+            
+        }
         if (gameObject.name == "EndRoom"|| gameObject.name == "FirstRoom")
         {
             _monsterCount = 0;
@@ -45,6 +56,8 @@ public class Room : MonoBehaviour
             for (int i = 0; i < _doors.Length; i++)
             {
                 _doors[i].DoorColliderActive();
+                _doors[i]._nextRoom.GetComponentInChildren<HideRoom>().ShowRoom();
+                
             }
         }
     }
