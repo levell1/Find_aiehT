@@ -28,7 +28,7 @@ public class Tutorial3 : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (GameManager.Instance.UIManager.PopupDic[UIName.InventoryUI].activeSelf)
         {

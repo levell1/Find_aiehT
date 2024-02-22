@@ -23,10 +23,12 @@ public class Quest
 
     public int EnemyQuestReward;
     public int NatureQuestReward;
+    public int MainQuestReward;
 
     public int QuestNumber;
     public int TargetID;
     public int TargetQuantity;
+    public bool IsProgress;
 
     public ItemDataListSO ItemDatas = GameManager.Instance.DataManager.NatureItemDataList;
     public EnemyDataListSO EnemyDatas = GameManager.Instance.DataManager.EnemyDataList;

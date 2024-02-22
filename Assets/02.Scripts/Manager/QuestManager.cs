@@ -45,12 +45,16 @@ public class QuestManager : MonoBehaviour
     public List<int> LoadAcceptQuestQuantities;
 
     private GameStateManager _gameStateManager;
-
+    private Player _player;
+    private SavePlayerData _savePlayerData;
 
     private void Start()
     {
         GameManager.Instance.GlobalTimeManager.OnInitQuest += InitializeDailyQuest;
-        GameManager.Instance.GlobalTimeManager.OnInitQuest += InitializeMainQuest;
+        if(_gameStateManager.CurrentGameState == GameState.NEWGAME)
+        {
+            GameManager.Instance.GlobalTimeManager.OnInitMainQuest += InitializeMainQuest;
+        }
         //EnemyHealthSystem.OnQuestTargetDie += UpdateEnemyQuestProgress;
         //ItemObject.OnQuestTargetInteraction += UpdateNatureQuestProgress;
     }
@@ -58,15 +62,22 @@ public class QuestManager : MonoBehaviour
     private void OnEnable()
     {
         _gameStateManager  = GameManager.Instance.GameStateManager;
+        _player = GameManager.Instance.Player.GetComponent<Player>();
+        _savePlayerData = GameManager.Instance.JsonReaderManager.LoadedPlayerData;
+        LoadDailyQuest();
+        LoadMainQuest();
+    }
 
-        if(_gameStateManager.CurrentGameState == GameState.LOADGAME)
+    private void LoadDailyQuest()
+    {
+        if (_gameStateManager.CurrentGameState == GameState.LOADGAME)
         {
-            Dictionary<int, int> enemyQuestNumber = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveEnemyQuestProgress;
-            Dictionary<int, int> natureQuestNumber = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveNatureQuestProgress;
+            Dictionary<int, int> enemyQuestNumber = _savePlayerData.SaveEnemyQuestProgress;
+            Dictionary<int, int> natureQuestNumber = _savePlayerData.SaveNatureQuestProgress;
 
-            Dictionary<int, int> loadActiveQuestDic = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveActiveQuest;
-            
-           _questKey = enemyQuestNumber.Keys.Concat(natureQuestNumber.Keys).ToList();
+            Dictionary<int, int> loadActiveQuestDic = _savePlayerData.SaveActiveQuest;
+
+            _questKey = enemyQuestNumber.Keys.Concat(natureQuestNumber.Keys).ToList();
             LoadProgressQuantities = enemyQuestNumber.Values.Concat(natureQuestNumber.Values).ToList();
 
             List<int> activeQuestKey = loadActiveQuestDic.Keys.ToList();
@@ -74,9 +85,9 @@ public class QuestManager : MonoBehaviour
 
             _halfLength = _questKey.Count / 2;
 
-            for(int i = 0; i < _questKey.Count; i++)
+            for (int i = 0; i < _questKey.Count; i++)
             {
-                if( i < _halfLength)
+                if (i < _halfLength)
                 {
                     EnemyDailyQuest enemyDailyQuest = new EnemyDailyQuest(QuestSO, _questKey[i]);
                     enemyDailyQuest.TargetID = activeQuestKey[i];
@@ -93,11 +104,11 @@ public class QuestManager : MonoBehaviour
                 }
             }
 
-            List<int> loadAcceptQuest = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveAcceptQuestID;
-            LoadAcceptQuestQuantities = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveAcceptQuest.Values.ToList();
+            List<int> loadAcceptQuest = _savePlayerData.SaveAcceptQuestID;
+            LoadAcceptQuestQuantities = _savePlayerData.SaveAcceptQuest.Values.ToList();
 
-            EnemyQuantityDict = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveEnemyQuestProgress;
-            NatureQuantityDict = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveNatureQuestProgress;
+            EnemyQuantityDict = _savePlayerData.SaveEnemyQuestProgress;
+            NatureQuantityDict = _savePlayerData.SaveNatureQuestProgress;
 
             for (int i = 0; i < loadAcceptQuest.Count; i++)
             {
@@ -105,6 +116,23 @@ public class QuestManager : MonoBehaviour
                 AcceptQuest(quest);
             }
 
+        }
+    }
+
+    private void LoadMainQuest()
+    {
+        if (_gameStateManager.CurrentGameState == GameState.LOADGAME)
+        {
+            InitializeMainQuest();
+            MainQuestQuantityDict = _savePlayerData.SaveActiveMainQuest;
+            
+            Dictionary<int ,bool> LoadQuestProgress = _savePlayerData.SaveActiveMainQuestProgress;
+
+            foreach (Quest quest in ActiveMainQuests)
+            {
+                bool loadQuestProgress = LoadQuestProgress[quest.QuestNumber];
+                quest.IsProgress = loadQuestProgress;
+            }
         }
     }
 
@@ -174,17 +202,26 @@ public class QuestManager : MonoBehaviour
             MainQuestQuantityDict.Add(mainQuestID, currentQuantity);
         }
 
+        int goldQuestNum = 30004;
+
+        if (MainQuestQuantityDict.ContainsKey(goldQuestNum) && _gameStateManager.CurrentGameState == GameState.LOADGAME)
+        {
+            _currentPlayerGold = MainQuestQuantityDict[goldQuestNum];
+        }
         //TODO 퀘스트의 각 이벤트 걸어줌
         // 타이쿤 - 타이쿤 매니저 angry어쩌구
         // 타이쿤 결과창이 떴을 때 Angry가 0명이다 -> 퀘 완
-
-        GoDungeon goDungeon = GameManager.Instance.UIManager.PopupDic[UIName.GoDungeonUI].GetComponent<GoDungeon>();
-        Player player = GameManager.Instance.Player.GetComponent<Player>();
+        GoDungeon _goDungeon = GameManager.Instance.UIManager.PopupDic[UIName.GoDungeonUI].GetComponent<GoDungeon>();
 
         GameManager.Instance.DataManager.OnTycoonMainQuest += UpdateMainQuest; // 타이쿤 구독
         EnemyHealthSystem.OnMainQuestTargetDie += UpdateMainQuest; // 불닭 구독
-        goDungeon.OnEnterDungeon += UpdateMainQuest;
-        player.Data.PlayerData.OnAccumulateGold += UpdateMainQuest;
+        _goDungeon.OnEnterDungeon += UpdateMainQuest;
+        _player.Data.PlayerData.OnAccumulateGold += UpdateMainQuest;
+
+        //EventSubscriptions.Add(() => GameManager.Instance.DataManager.OnTycoonMainQuest += UpdateMainQuest);
+        //EventSubscriptions.Add(() => goDungeon.OnEnterDungeon += UpdateMainQuest);
+        //EventSubscriptions.Add(() => EnemyHealthSystem.OnMainQuestTargetDie += UpdateMainQuest);
+        //EventSubscriptions.Add(() => player.Data.PlayerData.OnAccumulateGold += UpdateMainQuest);
 
     }
 
@@ -342,12 +379,43 @@ public class QuestManager : MonoBehaviour
                 if (MainQuestQuantityDict[mainQuestNumber] >= ActiveMainQuests[i].TargetQuantity)
                 {
                     // 퀘스트 삭제
-                    CompleteQuest(ActiveMainQuests[i]);
+                    CompleteQuest(ActiveMainQuests[i], questID);
                 }
                 break;
             }
         }
     }
+
+    public void CompleteQuest(Quest quest, int questID)
+    {  
+        if (quest is MainQuest)
+        {
+            //ActiveMainQuests.Remove(quest);
+            quest.IsProgress = true;
+
+            if (questID == 30001)
+            {
+                GameManager.Instance.DataManager.OnTycoonMainQuest -= UpdateMainQuest; // 타이쿤 구독
+            }
+            else if(questID == 30002)
+            {
+                GoDungeon _goDungeon = GameManager.Instance.UIManager.PopupDic[UIName.GoDungeonUI].GetComponent<GoDungeon>();
+                _goDungeon.OnEnterDungeon -= UpdateMainQuest;
+            }
+            else if (questID == 30003)
+            {
+                EnemyHealthSystem.OnMainQuestTargetDie -= UpdateMainQuest; // 불닭 구독
+            }
+            else if (questID == 30004)
+            {
+                _player.Data.PlayerData.OnAccumulateGold -= UpdateMainQuest;
+            }
+            Debug.Log("-완-");
+        }
+        // 퀘스트 완료시 보상 등등
+        QuestReward(quest);
+    }
+
 
     //TODO 퀘스트를 완료하고 보상을 처리
     public void CompleteQuest(Quest quest)
@@ -355,12 +423,6 @@ public class QuestManager : MonoBehaviour
         // 퀘스트 완료시 보상 등등
         QuestReward(quest);
 
-        if(quest is MainQuest)
-        {
-            ActiveMainQuests.Remove(quest);
-            Debug.Log("-완-");
-            return;
-        }
         AcceptQuestList.Remove(quest);
         Debug.Log("퀘스트 완");
 
@@ -400,8 +462,13 @@ public class QuestManager : MonoBehaviour
         else if(quest is NatureDailyQuest)
         {
             int rewardGold = player.Data.PlayerData.PlayerGold + quest.NatureQuestReward;
-            player.Data.PlayerData.PlayerGold = rewardGold;
+            player.Data.PlayerData.PlayerGold += rewardGold;
         }
+        else if(quest is MainQuest)
+        {
+            player.Data.PlayerData.PlayerGold += quest.MainQuestReward;
+        }
+
     }
 
 

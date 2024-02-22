@@ -30,7 +30,7 @@ public class Tutorial6 : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (_inventory.Slots.Count <=   0)
         {

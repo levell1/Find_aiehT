@@ -20,11 +20,11 @@ public class RedPig : Tree
         _pigTransform = gameObject.transform;
         MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
   
-        for (int x = 0; x < _meshRenderers.Length; x++)
+        for (int i = 0; i < _meshRenderers.Length; i++)
         {
-            _meshRenderers[x].GetPropertyBlock(propBlock);
+            _meshRenderers[i].GetPropertyBlock(propBlock);
             propBlock.SetColor("_Color", new Color(1.0f, 0.6f, 0.6f));
-            _meshRenderers[x].SetPropertyBlock(propBlock);
+            _meshRenderers[i].SetPropertyBlock(propBlock);
         }
 
     }

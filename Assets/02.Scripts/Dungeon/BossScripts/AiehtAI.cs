@@ -22,7 +22,7 @@ public class AiehtAI : Tree
     readonly private float _levitateTiem = 4f;
     readonly private float _LightAttackWaitTime = 2f;
   
-    Vector3 Power;
+    private Vector3 _power;
 
 
     private void Awake()
@@ -92,14 +92,13 @@ public class AiehtAI : Tree
     IEnumerator KnockBack(float knockBack)
     {
         Vector3 Direction = _playerTransform.position - _pigTransform.position;
-        Power = Vector3.zero;
+        _power = Vector3.zero;
         Direction.y = 0;
         int count = 0;
         while (count < _knockBackCount)
         {
-
-            Power += Direction.normalized * _knockBack;
-            _playerTransform.gameObject.GetComponent<Rigidbody>().AddForce(Power, ForceMode.VelocityChange);
+            _power += Direction.normalized * _knockBack;
+            _playerTransform.gameObject.GetComponent<Rigidbody>().AddForce(_power, ForceMode.VelocityChange);
             yield return new WaitForSeconds(0.01f);
             count++;
         }

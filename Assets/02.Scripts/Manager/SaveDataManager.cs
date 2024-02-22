@@ -93,11 +93,14 @@ public class SavePlayerData
     //수락된 퀘스트
     [HideInInspector] public List<int> SaveAcceptQuestID = new List<int>();
     [HideInInspector] public Dictionary<int, int> SaveAcceptQuest = new Dictionary<int, int>();
-
     [HideInInspector] public Dictionary<int, int> SaveActiveQuest = new Dictionary<int, int>();
 
     [HideInInspector] public Dictionary<int, int> SaveEnemyQuestProgress = new Dictionary<int, int>(); // 퀘스트 진행상황 가져옴
     [HideInInspector] public Dictionary<int, int> SaveNatureQuestProgress = new Dictionary<int, int>(); // 퀘스트 진행상황 가져옴
+
+    [Header("MainQuest")]
+    [HideInInspector] public Dictionary<int, int> SaveActiveMainQuest = new Dictionary<int, int>();
+    [HideInInspector] public Dictionary<int, bool> SaveActiveMainQuestProgress = new Dictionary<int, bool>();
 
     public void SetData(GameObject playerObject)
     {
@@ -119,6 +122,21 @@ public class SavePlayerData
     {
         //SaveInventory.Clear();
         //SavePotionInventory.Clear();
+        ClearList();
+
+        SavePlayerSO();
+        SaveSceneData();
+        SavePlayerCurrentStateData();
+        SavePlayerPositionData();
+        SavePlayerEquipData();
+        SaveGlobalTimeData();
+        SavePlayerInventoryData();
+        SavePlayerQuestData();
+        SaveMainQuest();
+    }
+
+    private void ClearList()
+    {
         SaveInventoryItems.Clear();
         SavePotions.Clear();
         SaveQuickSlotPotions.Clear();
@@ -129,14 +147,8 @@ public class SavePlayerData
         SaveNatureQuestProgress.Clear();
         SaveActiveQuest.Clear();
 
-        SavePlayerSO();
-        SaveSceneData();
-        SavePlayerCurrentStateData();
-        SavePlayerPositionData();
-        SavePlayerEquipData();
-        SaveGlobalTimeData();
-        SavePlayerInventoryData();
-        SavePlayerQuestData();
+        SaveActiveMainQuest.Clear();
+        SaveActiveMainQuestProgress.Clear();
     }
 
     public void SaveSceneData()
@@ -146,17 +158,6 @@ public class SavePlayerData
 
     public void SavePlayerSO()
     {
-        //PlayerLoadJsonData playerLoadJsonData = new PlayerLoadJsonData();
-        //playerLoadJsonData.PlayerSaveData = SaveData;
-
-        //SaveData.SetPlayerLevel(_playerData.GetPlayerLevel());
-        //SaveData.SetPlayerMaxHealth(_playerData.GetPlayerMaxHealth());
-        //SaveData.SetPlayerMaxStamina(_playerData.GetPlayerMaxStamina());
-        //SaveData.SetPlayerAttack(_playerData.GetPlayerAtk());
-        //SaveData.SetPlayerDef(_playerData.GetPlayerDef());
-        //SaveData.SetPlayerExp(_playerData.GetPlayerExp());
-        //SaveData.SetPlayerGold(_playerData.GetPlayerGold());
-
         SaveData.PlayerName = _playerData.PlayerData.PlayerName;
         SaveData.PlayerLevel = _playerData.PlayerData.PlayerLevel;
         SaveData.PlayerMaxHealth = _playerData.PlayerData.PlayerMaxHealth;
@@ -262,7 +263,7 @@ public class SavePlayerData
         }
 
         //활성화된 퀘스트
-        foreach(var quest in _questManager.ActiveDailyQuests)
+        foreach(Quest quest in _questManager.ActiveDailyQuests)
         {
             SaveActiveQuest.Add(quest.TargetID, quest.TargetQuantity);
         }
@@ -280,6 +281,24 @@ public class SavePlayerData
         }
 
     }
+
+    // 메인 퀘스트 정보 저장
+    // 메인 퀘스트 현재 진행중인지 아닌지 저장
+    // 메인 퀘스트 진척도 저장
+    public void SaveMainQuest()
+    {
+        foreach(var quest in _questManager.MainQuestQuantityDict)
+        {
+            SaveActiveMainQuest.Add(quest.Key, quest.Value);
+        }
+
+        foreach (var quest in _questManager.ActiveMainQuests)
+        {
+            SaveActiveMainQuestProgress.Add(quest.QuestNumber, quest.IsProgress);
+        }
+       
+    }
+
 }
 
 

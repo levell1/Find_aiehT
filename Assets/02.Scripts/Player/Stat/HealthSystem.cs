@@ -113,7 +113,7 @@ public class HealthSystem : MonoBehaviour
         if(Health < MaxHealth)
         {
 
-            Health += Mathf.Ceil(Health * (healingAmount * 0.01f));
+            Health += Mathf.Ceil(MaxHealth * (healingAmount * 0.01f));
 
             Health = Mathf.Min(Health, MaxHealth);
 

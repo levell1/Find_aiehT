@@ -7,15 +7,35 @@ public class TitleSceneButtonEvent : MonoBehaviour
     private SaveDataManager _saveDataManager;
     private GlobalTimeManager _globalTimeManager;
     private QuestManager _questManager;
+    private JsonReader _jsonReader;
 
     public Button NewGameButton;
     public Button LoadGameButton;
+    [SerializeField] private Button _exitButton;
+    [SerializeField] private Button _keyButton;
+    [SerializeField] private Button _settingButton;
+    
+    
 
     private void Awake()
     {
         _saveDataManager = GameManager.Instance.SaveDataManger;
+        _jsonReader = GameManager.Instance.JsonReaderManager;
+
         NewGameButton.onClick.AddListener(() => OnNewGameButtonEvent());
         LoadGameButton.onClick.AddListener(() => OnLoadGameButtonEvent());
+        _exitButton.onClick.AddListener(ExitButton);
+        _keyButton.onClick.AddListener(ControlKeyButton);
+        _settingButton.onClick.AddListener(OptionButton);
+        
+        if(_jsonReader.CheckJsonFileExist())
+        {
+            LoadGameButton.interactable = true;
+        }
+        else
+        {
+            LoadGameButton.interactable = false;
+        }
 
     }
     private void Update()

@@ -74,7 +74,8 @@ public class GlobalTimeManager : MonoBehaviour
         }
          _currentHour = DayTime;
 
-        if (SceneManager.GetActiveScene().name != SceneName.TycoonScene && SceneManager.GetActiveScene().name != SceneName.TitleScene)
+        if (SceneManager.GetActiveScene().name != SceneName.TycoonScene && SceneManager.GetActiveScene().name != SceneName.TutorialScene
+            && SceneManager.GetActiveScene().name != SceneName.DungeonScene)
         {
             SetDayTime();
         }
@@ -105,17 +106,12 @@ public class GlobalTimeManager : MonoBehaviour
             }
         }
 
-        if(Day == 1)
-        {
-            OnInitMainQuest?.Invoke();
-        }
 
-        //if (Hour == 23f && Minutes == 59f)
-        //{
-        //    EventCount = 1;
-        //    OnOutFieldUI?.Invoke();
-        //    DayTime = _nextMorning;
-        //}
+        if (Hour == 23f && Minutes == 59f)
+        {
+            DayTime += 0.01f / 24f;
+            GoodMorning();
+        }
     }
 
     private void SetDayTime()
@@ -160,6 +156,12 @@ public class GlobalTimeManager : MonoBehaviour
         ++Day;
         OnInitQuest?.Invoke();
         OnBossRespawn?.Invoke();
+
+        if (Day == 1)
+        {
+            OnInitMainQuest?.Invoke();
+        }
+
     }
 
     public void NightChecker()

@@ -1,15 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
+
 
 public class BulletScript : MonoBehaviour
 {
     private NavMeshAgent _agent;
     private CapsuleCollider _collider;
     private ChickBulletBT _chickBullet;
-    readonly private float _Dagage = 30f;
+    readonly private float _dagage = 30f;
 
     private void Awake()
     {
@@ -29,7 +28,7 @@ public class BulletScript : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out HealthSystem health))
         {
-            health.TakeDamage(_Dagage);
+            health.TakeDamage(_dagage);
             GameManager.Instance.PoolingManager.ReturnObject(gameObject);
         }
         else if (other.gameObject.tag == TagName.Wall)
