@@ -8,6 +8,7 @@ public class TitleTest : MonoBehaviour
     [SerializeField] private GameObject _playerUI;
     [SerializeField] private GameObject _globalTimeManager;
     [SerializeField] private GameObject _mainCam;
+    [SerializeField] private GameObject _timeCycle;
 
     private void Awake()
     {
@@ -34,7 +35,7 @@ public class TitleTest : MonoBehaviour
 
         if (scene.name == SceneName.TycoonScene)
         {
-            _globalTimeManager.SetActive(false);
+            _timeCycle.SetActive(false);
             _playerUI.SetActive(false);
 
         }
