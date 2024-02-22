@@ -32,6 +32,7 @@ public class GlobalTimeManager : MonoBehaviour
     public event Action OnOutFieldUI;
     public event Action OnNightCheck;
     public event Action OnBossRespawn;
+    public event Action OnInitMainQuest;
 
     private Coroutine _coroutine;
 
@@ -67,11 +68,11 @@ public class GlobalTimeManager : MonoBehaviour
 
     private void Update()
     {
-        if (Hour < _currentHour)
+        if (DayTime < _currentHour)
         {
             _isChangeDay = false;
         }
-         _currentHour = Hour;
+         _currentHour = DayTime;
 
         if (SceneManager.GetActiveScene().name != SceneName.TycoonScene && SceneManager.GetActiveScene().name != SceneName.TitleScene)
         {
@@ -102,6 +103,11 @@ public class GlobalTimeManager : MonoBehaviour
             {
                 _coroutine = StartCoroutine(WarningTimeMessage());
             }
+        }
+
+        if(Day == 1)
+        {
+            OnInitMainQuest?.Invoke();
         }
 
         //if (Hour == 23f && Minutes == 59f)

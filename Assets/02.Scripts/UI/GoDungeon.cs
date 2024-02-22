@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -12,16 +13,15 @@ public class GoDungeon : BaseUI
     private CommaText _commaText;
     private int _gold;
 
+    public event Action<int> OnEnterDungeon;
     private void Awake()
     {
         _playerData = GameManager.Instance.Player.GetComponent<Player>().Data;
         _commaText = _goldText.gameObject.GetComponent<CommaText>();
-
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        //테스트용 낮은금액
         if (SceneManager.GetActiveScene().name == SceneName.HuntingScene)
         {
             _gold = 0;
@@ -43,8 +43,10 @@ public class GoDungeon : BaseUI
         }
         else
         {
+            int questID = GameManager.Instance.DataManager.QuestDataList.MainQuestData[1].QuestID;
             _playerData.PlayerData.PlayerGold= _playerData.PlayerData.PlayerGold - _gold;
             GameManager.Instance.SaveDataManger.SavePlayerDataToJson();
+            OnEnterDungeon?.Invoke(questID);
 
             GameManager.Instance.Player.transform.position = new Vector3(0, 0, 0);
             LoadingSceneController.LoadScene(SceneName.DungeonScene);

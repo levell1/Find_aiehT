@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class NatureDailyQuest : Quest
 {
-    public NatureDailyQuest(DailyQuestData data, int questNumber) : base(data, questNumber)
+    //private DailyQuestData _natureQuestData;
+    public NatureDailyQuest(QuestSO data, int questNumber) : base(data, questNumber)
     {
+        for (int i = _minTargetID; i < _maxTargetID; i++)
+        {
+            _randomIDList.Add(i);
+        }
+        RandomQuest();
     }
+
     protected override void InitQuest()
     {
         _minTargetID = ItemDatas.ItemList[0].ItemID;
@@ -14,7 +21,7 @@ public class NatureDailyQuest : Quest
         // 마지막 위치의 데이터를 불러오는 법
         _maxTargetID = ItemDatas.ItemList[^1].ItemID;
 
-        _maxTargetQuantity = QuestData.maxTargetQuantity;
+        _maxTargetQuantity = _natureQuestData.maxTargetQuantity;
     }
 
     public override string GetQuestTitle()
@@ -24,7 +31,7 @@ public class NatureDailyQuest : Quest
 
     public override string GetQuestDescription()
     {
-        if (gameStateManager.CurrentGameState == GameState.LOADGAME)
+        if (_gameStateManager.CurrentGameState == GameState.LOADGAME)
         {
             foreach (var natureItem in ItemDatas.ItemList)
             {
@@ -45,7 +52,8 @@ public class NatureDailyQuest : Quest
     }
     public override string GetQuestRewardToString()
     {
-        return string.Format($"{base.GetQuestRewardToString()} GOLD");
+        int questReward = (NatureQuestReward * TargetQuantity) / 2;
+        return string.Format($"{questReward} GOLD");
     }
 
 }

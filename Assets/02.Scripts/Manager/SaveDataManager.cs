@@ -262,7 +262,7 @@ public class SavePlayerData
         }
 
         //활성화된 퀘스트
-        foreach(var quest in _questManager.ActiveQuests)
+        foreach(var quest in _questManager.ActiveDailyQuests)
         {
             SaveActiveQuest.Add(quest.TargetID, quest.TargetQuantity);
         }

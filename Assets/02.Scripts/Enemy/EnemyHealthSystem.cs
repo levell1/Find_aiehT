@@ -24,6 +24,7 @@ public class EnemyHealthSystem : MonoBehaviour
     public float DamageAmount;
     public event Action OnDie;
     public static event Action<int> OnQuestTargetDie;
+    public static event Action<int> OnMainQuestTargetDie;
 
     public bool IsDead;
 
@@ -103,6 +104,13 @@ public class EnemyHealthSystem : MonoBehaviour
 
         if (Health == 0)
         {
+            int bossRooster = 3901;
+            if(_enemySO.EnemyID == bossRooster)
+            {
+                int questID = GameManager.Instance.DataManager.QuestDataList.MainQuestData[2].QuestID;
+                OnMainQuestTargetDie?.Invoke(questID);
+            }
+
             IsDead = true;
             OnDie.Invoke();
             OnQuestTargetDie?.Invoke(_enemySO.EnemyID);
@@ -162,7 +170,7 @@ public class EnemyHealthSystem : MonoBehaviour
 
     private bool IsAcitveNameRange()
     {
-        float playerDistanceSqr = (_enemy.StateMachine.Target.transform.position - _enemy.transform.position).sqrMagnitude;
+        float playerDistanceSqr = (_player.transform.position - _enemy.transform.position).sqrMagnitude;
 
         return playerDistanceSqr <= _enemy.Data.ActiveNameRange * _enemy.Data.ActiveNameRange;
     }

@@ -98,8 +98,7 @@ public class SoundManager : MonoBehaviour
         AudioSource audiosource = AudioObject.AddComponent<AudioSource>();*/
         AudioSource audiosource = AudioObject.GetComponent<AudioSource>();
         //AudioObject.transform.position = Vector3.zero;
-        Debug.Log(AudioObject.name);
-        Debug.Log(audiosource.name);
+
         //audiosource.outputAudioMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
         _audioClip = _soundDictionary[sfxName];
 

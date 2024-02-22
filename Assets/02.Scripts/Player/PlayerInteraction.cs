@@ -208,6 +208,11 @@ public class PlayerInteraction : MonoBehaviour
                 GameManager.Instance.GlobalTimeManager.GoodMorning();
                 return;
             }
+            if (_curScene == SceneName.VillageScene && _nextScene == SceneName.VillageScene)
+            {
+                GameManager.Instance.GlobalTimeManager.GoodMorning();
+                return;
+            }
 
             if (_nextScene == SceneName.TycoonScene)
             {

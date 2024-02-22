@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class EnemyDailyQuest : Quest
 {
-    public EnemyDailyQuest(DailyQuestData data, int questNumber) : base(data, questNumber)
+    public EnemyDailyQuest(QuestSO data, int questNumber) : base(data ,questNumber)
     {
+        for (int i = _minTargetID; i < _maxTargetID; i++)
+        {
+            _randomIDList.Add(i);
+        }
+        RandomQuest();
     }
 
     protected override void InitQuest()
@@ -15,7 +20,7 @@ public class EnemyDailyQuest : Quest
         // 마지막 위치의 데이터를 불러오는 법
         _maxTargetID = EnemyDatas.EnemyList[^1].EnemyID;
         
-        _maxTargetQuantity = QuestData.maxTargetQuantity;
+        _maxTargetQuantity = _enemyQuestData.maxTargetQuantity;
     }
 
     public override string GetQuestTitle()
@@ -25,7 +30,7 @@ public class EnemyDailyQuest : Quest
 
     public override string GetQuestDescription()
     {
-        if(gameStateManager.CurrentGameState == GameState.LOADGAME)
+        if(_gameStateManager.CurrentGameState == GameState.LOADGAME)
         {
             foreach (var enemyData in EnemyDatas.EnemyList)
             {

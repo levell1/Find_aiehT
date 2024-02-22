@@ -140,6 +140,7 @@ public class QuestList : MonoBehaviour
     public TMP_Text QuestContent;
     public TMP_Text QuestReward;
 
+    public Image QuestStateImage;
     public Button AcceptButton;
     public TMP_Text AcceptButtonText;
 
@@ -166,7 +167,7 @@ public class QuestList : MonoBehaviour
         AcceptButton.onClick.RemoveAllListeners();
 
         _questManager = GameManager.Instance.QuestManager;
-        _questList = _questManager.ActiveQuests.ToArray(); // 퀘스트 리스트 복사
+        _questList = _questManager.ActiveDailyQuests.ToArray(); // 퀘스트 리스트 복사
 
         for (int i = 0; i < _questList.Length; i++)
         {
@@ -174,7 +175,6 @@ public class QuestList : MonoBehaviour
 
             // 토글이 변경될 때마다 해당 퀘스트의 인덱스를 전달하도록 수정
             int questIndex = i;
-            QuestToggle[i].isOn = false;
             QuestToggle[i].GetComponentInChildren<Text>().text = quest.GetQuestTitle();
             QuestToggle[i].onValueChanged.AddListener((toggle) => { ToggleValueChanged(toggle, questIndex); });
         }
@@ -185,6 +185,9 @@ public class QuestList : MonoBehaviour
 
     private void ToggleValueChanged(bool toggle, int questIndex)
     {
+        QuestStateImage.gameObject.SetActive(false);
+        AcceptButton.gameObject.SetActive(true);
+
         if (toggle)
         {
             _selectedQuestIndex = questIndex;
