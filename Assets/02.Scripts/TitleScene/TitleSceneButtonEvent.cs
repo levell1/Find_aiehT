@@ -47,7 +47,7 @@ public class TitleSceneButtonEvent : MonoBehaviour
         //데이터 초기화 코드
         GameManager.Instance.JsonReaderManager.InitPlayerData();
         GameManager.Instance.GameStateManager.CurrentGameState = GameState.NEWGAME;
-        LoadingSceneController.LoadScene(SceneName.VillageScene);
+        LoadingSceneController.LoadScene(SceneName.TutorialScene);
 
         _globalTimeManager = GameManager.Instance.GlobalTimeManager;
         _questManager = GameManager.Instance.QuestManager;
