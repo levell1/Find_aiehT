@@ -86,6 +86,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
         _TycoonUI.OnReusltUI();
         GameManager.Instance.DataManager.AngryCustomerNum(AngryCustomerNum);
         GameManager.Instance.DataManager.RemoveOrderData();
+        GameManager.Instance.Player.GetComponent<ServingFood>().ThrowAwayFood();
         _playerInteraction.SetActive(true);
     }
 

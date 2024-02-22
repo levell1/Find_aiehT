@@ -108,9 +108,10 @@ public class ServingFood : MonoBehaviour
         Destroy(food);
     }
 
-    private void ThrowAwayFood()
+    public void ThrowAwayFood()
     {
-        Destroy(_holdingFood.gameObject);
+        if (_holdingFood != null)
+            Destroy(_holdingFood.gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
