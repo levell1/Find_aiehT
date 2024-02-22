@@ -6,9 +6,6 @@ public class PlayerBaseSlider : MonoBehaviour
     protected Slider _slider;
     [SerializeField] private TMP_Text _Text;
 
-    private float _currentValue;
-    private float _maxValue;
-
     protected virtual void Awake()
     {
         _slider = GetComponent<Slider>();

@@ -1,14 +1,13 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEngine.ParticleSystem;
+
 
 public class DungeonManager : MonoBehaviour
 {
     [SerializeField] private Image _fadeImage;
-    [SerializeField] private GameObject[] Stages;
+    [SerializeField] private GameObject[] _stages;
 
     [SerializeField] private GameObject[] _monsterPrefabs;
     [SerializeField] private GameObject[] _nextStagePortal;
@@ -25,11 +24,11 @@ public class DungeonManager : MonoBehaviour
 
     private void Start()
     {
-        Stages[0].SetActive(true);
+        _stages[0].SetActive(true);
         
-        for (int i = 1; i < Stages.Length; i++)
+        for (int i = 1; i < _stages.Length; i++)
         {
-            Stages[i].SetActive(false);
+            _stages[i].SetActive(false);
         }
         NextStagePortalCheck();
     }
@@ -85,14 +84,14 @@ public class DungeonManager : MonoBehaviour
         _fadeImage.gameObject.SetActive(true);
         Tween tween = _fadeImage.DOFade(1.0f, 2f);
         yield return tween.WaitForCompletion();
-        Stages[_stagenum - 1].SetActive(false);
+        _stages[_stagenum - 1].SetActive(false);
         _stagenum++;
         if (_stagenum == 3)
         {
             _bossHpbar.SetActive(true);
             GameManager.Instance.SoundManager.BgmSoundPlay(BGMSoundName.DungeonBGM2);
         }
-        Stages[_stagenum - 1].SetActive(true);
+        _stages[_stagenum - 1].SetActive(true);
         
         GameManager.Instance.Player.transform.position = Vector3.up;
         GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Portal);

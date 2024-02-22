@@ -42,14 +42,10 @@ public class StatusUI : BaseUI
 
     private void Awake()
     {
-        if (_equipmentUpgrade == null)
-        {
-            _equipmentUpgrade = GameObject.FindWithTag(TagName.Player).GetComponent<EquipmentDatas>();
-        }
-        if (_playerData == null)
-        {
-            _playerData = GameObject.FindWithTag(TagName.Player).GetComponent<Player>().Data;
-        }
+
+        _equipmentUpgrade = GameManager.Instance.Player.GetComponent<EquipmentDatas>();
+        _playerData = GameManager.Instance.Player.GetComponent<Player>().Data;
+        
     }
 
     private void OnEnable()

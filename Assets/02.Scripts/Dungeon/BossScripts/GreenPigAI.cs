@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,7 +12,6 @@ public class GreenPigAI : Tree
 
     private void Awake()
     {
-        
         _playerTransform = GameManager.Instance.Player.transform;
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _pigTransform = gameObject.transform;

@@ -114,7 +114,7 @@ public class StaminaSystem : MonoBehaviour
     {
         if (Stamina < MaxStamina)
         {
-            Stamina += Mathf.Ceil(Stamina * (healingAmount * 0.01f));
+            Stamina += Mathf.Ceil(MaxStamina * (healingAmount * 0.01f));
 
             Stamina = Mathf.Min(Stamina, MaxStamina);
 

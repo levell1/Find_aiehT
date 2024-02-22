@@ -8,26 +8,26 @@ public class BluePigAI : Tree
     private Transform _playerTransform;
     private Transform _pigTransform;
     private NavMeshAgent _navMeshAgent;
-    private SkinnedMeshRenderer[] meshRenderers;
+    private SkinnedMeshRenderer[] _meshRenderers;
     readonly private float _waitTime = 3;
     readonly private float _knockBack = 5f;
     readonly private float _knockBackCount = 5;
     readonly private float _Dagage = 500f;
-    Vector3 Power;
+    private Vector3 _power;
 
     private void Awake()
     {
-        meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+        _meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
         _playerTransform = GameManager.Instance.Player.transform;
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _pigTransform = gameObject.transform;
         MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
 
-        for (int x = 0; x < meshRenderers.Length; x++)
+        for (int i = 0; i < _meshRenderers.Length; i++)
         {
-            meshRenderers[x].GetPropertyBlock(propBlock);
+            _meshRenderers[i].GetPropertyBlock(propBlock);
             propBlock.SetColor("_Color", new Color(0.2f, 0.9f, 0.9f));
-            meshRenderers[x].SetPropertyBlock(propBlock);
+            _meshRenderers[i].SetPropertyBlock(propBlock);
         }
 
     }
@@ -53,15 +53,14 @@ public class BluePigAI : Tree
 
     IEnumerator KnockBack(float knockBack)
     {
-        Vector3 Direction = _playerTransform.position - _pigTransform.position;
-        Direction.y = 0;
-        Power = Vector3.zero;
+        Vector3 direction = _playerTransform.position - _pigTransform.position;
+        direction.y = 0;
+        _power = Vector3.zero;
         int count = 0;
         while (count < _knockBackCount)
         {
-
-            Power += Direction.normalized * _knockBack;
-            _playerTransform.gameObject.GetComponent<Rigidbody>().AddForce(Power, ForceMode.VelocityChange);
+            _power += direction.normalized * _knockBack;
+            _playerTransform.gameObject.GetComponent<Rigidbody>().AddForce(_power, ForceMode.VelocityChange);
             yield return new WaitForSeconds(0.01f);
             count++;
         }

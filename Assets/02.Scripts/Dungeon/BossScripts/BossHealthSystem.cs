@@ -1,25 +1,23 @@
 using System.Collections;
 using UnityEngine;
 using System;
-using UnityEngine.AI;
-
 public class BossHealthSystem : MonoBehaviour
 {
-    private float MaxHealth;
+    private float _maxHealth;
     public float Health;
 
     public event Action OnDie;
     public Action<float, float> OnChangeHpUI;
 
     public bool IsDead =false;
-    private SkinnedMeshRenderer[] meshRenderers;
+    private SkinnedMeshRenderer[] _meshRenderers;
     private Animator _animation;
     
 
     private void Awake()
     {
         _animation = gameObject.GetComponent<Animator>();
-        meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+        _meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
     }
     private void Start()
     {
@@ -28,14 +26,14 @@ public class BossHealthSystem : MonoBehaviour
 
     public void SetMaxHealth()
     {
-        MaxHealth = 6000;
+        _maxHealth = 6000;
         //상속으로 다시
         if (gameObject.name=="Aieht")
         {
-            MaxHealth = 8000;
+            _maxHealth = 8000;
         }
-        Health = MaxHealth;
-        OnChangeHpUI?.Invoke(Health, MaxHealth);
+        Health = _maxHealth;
+        OnChangeHpUI?.Invoke(Health, _maxHealth);
     }
 
     public void TakeDamage(float damage)
@@ -43,14 +41,14 @@ public class BossHealthSystem : MonoBehaviour
         if (Health == 0) return;
         _animation.SetBool(AnimationParameterName.BossHit, true);
         Health = Mathf.Max(Mathf.Floor(Health - damage), 0);
-        OnChangeHpUI?.Invoke(Health, MaxHealth);
+        OnChangeHpUI?.Invoke(Health, _maxHealth);
 
         StartCoroutine(DamageFlash());
         Invoke("Animation", 0.1f);
 
         if (gameObject.name == "GreenPig")
         {
-            if (Health / MaxHealth <= 0.99f)
+            if (Health / _maxHealth <= 0.99f)
             {
                 OnDie?.Invoke();
             }
@@ -71,21 +69,21 @@ public class BossHealthSystem : MonoBehaviour
     {
         MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
 
-        Color a = meshRenderers[0].material.color;
-        for (int i = 0; i < meshRenderers.Length; i++)
+        Color a = _meshRenderers[0].material.color;
+        for (int i = 0; i < _meshRenderers.Length; i++)
         {
 
-            meshRenderers[i].GetPropertyBlock(propBlock);
+            _meshRenderers[i].GetPropertyBlock(propBlock);
             propBlock.SetColor("_Color", new Color(1.0f, 0.4f, 0.4f));
-            meshRenderers[i].SetPropertyBlock(propBlock);
+            _meshRenderers[i].SetPropertyBlock(propBlock);
         }
 
         yield return new WaitForSeconds(0.3f);
-        for (int i = 0; i < meshRenderers.Length; i++)
+        for (int i = 0; i < _meshRenderers.Length; i++)
         {
-            meshRenderers[i].GetPropertyBlock(propBlock);
+            _meshRenderers[i].GetPropertyBlock(propBlock);
             propBlock.SetColor("_Color", a);
-            meshRenderers[i].SetPropertyBlock(propBlock);
+            _meshRenderers[i].SetPropertyBlock(propBlock);
         }
     }
 

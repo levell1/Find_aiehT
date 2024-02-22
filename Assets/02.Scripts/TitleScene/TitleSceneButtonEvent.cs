@@ -10,12 +10,21 @@ public class TitleSceneButtonEvent : MonoBehaviour
 
     public Button NewGameButton;
     public Button LoadGameButton;
+    [SerializeField] private Button _exitButton;
+    [SerializeField] private Button _keyButton;
+    [SerializeField] private Button _settingButton;
+    
+    
 
     private void Awake()
     {
         _saveDataManager = GameManager.Instance.SaveDataManger;
         NewGameButton.onClick.AddListener(() => OnNewGameButtonEvent());
         LoadGameButton.onClick.AddListener(() => OnLoadGameButtonEvent());
+        _exitButton.onClick.AddListener(ExitButton);
+        _keyButton.onClick.AddListener(ControlKeyButton);
+        _settingButton.onClick.AddListener(OptionButton);
+        
 
     }
     private void Update()
