@@ -52,7 +52,7 @@ public class NatureDailyQuest : Quest
     }
     public override string GetQuestRewardToString()
     {
-        int questReward = (NatureQuestReward * TargetQuantity) / 2;
+        int questReward = NatureQuestReward * TargetQuantity * 10;
         return string.Format($"{questReward} GOLD");
     }
 

@@ -98,7 +98,7 @@ public class PlayerExpSystem : MonoBehaviour
         _playerData.PlayerData.PlayerLevel = PlayerLevel;
         _playerData.PlayerData.PlayerExp = PlayerExp;
 
-        _playerData.PlayerLevelData.ApplyNextLevelData(_playerData.PlayerData, PlayerLevel);
+        _playerData.PlayerLevelData.ApplyNextLevelData(_playerData.PlayerData, PlayerLevel - 1);
         MaxExp = _playerData.PlayerLevelData.GetLevelData(PlayerLevel - 1).Exp;
 
         _healthSystem.SetMaxHealth();
