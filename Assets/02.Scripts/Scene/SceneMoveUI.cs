@@ -44,11 +44,11 @@ public class SceneMoveUI : MonoBehaviour
     {
         yield return new WaitForSeconds(_duration);
         
-        if (CurrentSceneName == SceneName.VillageScene && _globalTimeManager.EventCount == 0)
+        if (CurrentSceneName == SceneName.VillageScene && _globalTimeManager.EventCount == 0) // 타이쿤 
         {
-            GameManager.Instance.Player.transform.position = new Vector3(-4, 0, 19);
+            GameManager.Instance.Player.transform.position = new Vector3(4, 0, -160);
         }
-        else if (CurrentSceneName == SceneName.VillageScene && _globalTimeManager.EventCount == 1)
+        else if (CurrentSceneName == SceneName.VillageScene && _globalTimeManager.EventCount == 1) //집으로
         {
             _healthSystem.Respawn();
             _staminaSystem.Stamina = _staminaSystem.MaxStamina; //
