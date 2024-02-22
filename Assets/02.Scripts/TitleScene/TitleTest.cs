@@ -23,6 +23,7 @@ public class TitleTest : MonoBehaviour
             _mainCam.SetActive(true);
             _player.SetActive(true);
             _playerUI.SetActive(true);
+            _timeCycle.SetActive(true);
 
         }
         else if (scene.name == SceneName.TitleScene)
@@ -37,8 +38,8 @@ public class TitleTest : MonoBehaviour
         {
             _timeCycle.SetActive(false);
             _playerUI.SetActive(false);
-
         }
+
     }
     private void Update()
     {
