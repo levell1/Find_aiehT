@@ -1,9 +1,12 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
 public class TycoonUI : MonoBehaviour
 {
+    [SerializeField] private TMP_Text _tycoonStartText;
+
     [Header("Tycoon Base UI")]
     [SerializeField] private TMP_Text _currentGoldText;
     [SerializeField] private TMP_Text _remainingCustomerText;
@@ -30,6 +33,18 @@ public class TycoonUI : MonoBehaviour
         {
             _playerData = GameObject.FindWithTag(TagName.Player).GetComponent<Player>().Data;
         }
+    }
+
+    public void ShowTycoonStartText()
+    {
+        _tycoonStartText.gameObject.SetActive(true);
+        StartCoroutine(TurnOffTycoonStartText());
+    }
+
+    IEnumerator TurnOffTycoonStartText()
+    {
+        yield return new WaitForSeconds(3f);
+        _tycoonStartText.gameObject.SetActive(false);
     }
 
     public void UpdateCurrentGold(int gold)
