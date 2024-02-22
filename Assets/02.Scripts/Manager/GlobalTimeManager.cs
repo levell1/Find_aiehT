@@ -184,7 +184,8 @@ public class GlobalTimeManager : MonoBehaviour
 
     public bool EnterTycoonTime()
     {
-        if (12f <= Hour && Hour <= 20f)
+        //테스트용
+        if (07f <= Hour && Hour <= 20f)
         {
             return true;
         }
