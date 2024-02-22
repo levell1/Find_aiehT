@@ -10,6 +10,7 @@ public class JsonReader : MonoBehaviour
 {
     public PlayerSO PlayerSO;
     private SaveDataManager _saveDataManager;
+    private AESManager _aesManager;
     public SavePlayerData LoadedPlayerData { get; private set; }
     /// 불러오기 (LoadJSON)
     // 1. new 게임인지 save게임인지 판별 (타이틀에서 새로하기 / 이어하기 버튼으로 판별하기)
@@ -19,6 +20,7 @@ public class JsonReader : MonoBehaviour
     private void Awake()
     {
         _saveDataManager = GameManager.Instance.SaveDataManger;
+        _aesManager = GameManager.Instance.AESManager;
         //InitPlayerData();
 
         //PlayerJsonData playerJsonData = LoadJson<PlayerJsonData>(JsonDataName.PlayerData);
@@ -55,9 +57,11 @@ public class JsonReader : MonoBehaviour
         string jsonFilePath = jsonFilePathBuilder.ToString();
 
         string jsonText = File.ReadAllText(jsonFilePath);
+        string decryptedJson = _aesManager.AESDecrypt(jsonText);
 
+        return JsonConvert.DeserializeObject<T>(decryptedJson);
         //return JsonUtility.FromJson<T>(jsonText);
-        return JsonConvert.DeserializeObject<T>(jsonText);
+        //return JsonConvert.DeserializeObject<T>(jsonText);
     }
 
     public void SaveJson(object data, string filePath)
@@ -70,7 +74,10 @@ public class JsonReader : MonoBehaviour
 
         //string jsonData = JsonUtility.ToJson(data);
         string jsonData = JsonConvert.SerializeObject(data, Formatting.Indented);
-        File.WriteAllText(jsonFilePath, jsonData);
+        string encryptedJson = _aesManager.AESEncrypt(jsonData);
+
+        File.WriteAllText(jsonFilePath, encryptedJson);
+        //File.WriteAllText(jsonFilePath, jsonData);
     }
 
 }

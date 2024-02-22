@@ -462,7 +462,7 @@ public class QuestManager : MonoBehaviour
         else if(quest is NatureDailyQuest)
         {
             int rewardGold = player.Data.PlayerData.PlayerGold + quest.NatureQuestReward;
-            player.Data.PlayerData.PlayerGold = rewardGold;
+            player.Data.PlayerData.PlayerGold += rewardGold;
         }
         else if(quest is MainQuest)
         {

@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager>
@@ -18,6 +19,7 @@ public class GameManager : MonoSingleton<GameManager>
     private SaveDataManager _saveDataManager = new SaveDataManager();
     private LoadDataManager _loadDataManager = new LoadDataManager();
     private GameStateManager _gameStateManager = new GameStateManager();
+    private AESManager _aesManager = new AESManager();
 
     private Inventory _inventory;
 
@@ -36,6 +38,7 @@ public class GameManager : MonoSingleton<GameManager>
     public SaveDataManager SaveDataManger { get { return Instance._saveDataManager; } }
     public LoadDataManager LoadDataManager { get { return Instance._loadDataManager; } }
     public GameStateManager GameStateManager { get { return Instance._gameStateManager; } } 
+    public AESManager AESManager { get { return Instance._aesManager; } }
 
     public Inventory Inventory { get { return Instance._inventory; } }
 
@@ -57,6 +60,7 @@ public class GameManager : MonoSingleton<GameManager>
         _saveDataManager = FindObjectOfType<SaveDataManager>();
         _loadDataManager = FindObjectOfType<LoadDataManager>();
         _gameStateManager = FindObjectOfType<GameStateManager>();
+        _aesManager = FindObjectOfType<AESManager>();
 
         _uiManager.CreateCanvas();
 
