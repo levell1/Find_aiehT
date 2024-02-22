@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,7 +11,7 @@ public enum QuestTarget
 
 public class QuestManager : MonoBehaviour
 {
-    public QuestSO QuestSO; // 퀘스트 데이터를 저장하고 있는 ScriptableObject
+    public QuestSO QuestSO; 
    
     public PlayerQuestList playerQuestList;
 
@@ -21,9 +20,9 @@ public class QuestManager : MonoBehaviour
     private int _halfLength;
     private int _currentPlayerGold = 0;
 
-    public List<Quest> ActiveMainQuests = new List<Quest>(); // 메인 퀘스트 목록
-    public List<Quest> ActiveDailyQuests = new List<Quest>(); // 퀘스트 목록
-    public List<Quest> AcceptQuestList = new List<Quest>(); // 수락한 퀘스트 목록
+    public List<Quest> ActiveMainQuests = new List<Quest>(); 
+    public List<Quest> ActiveDailyQuests = new List<Quest>(); 
+    public List<Quest> AcceptQuestList = new List<Quest>(); 
 
     public delegate void QuestAcceptedEvent(List<Quest> acceptedQuests, int quantity);
     public event QuestAcceptedEvent OnQuestAccepted;
@@ -33,9 +32,9 @@ public class QuestManager : MonoBehaviour
     /// <summary>
     /// Key: 퀘스트 번호, Value: 수량
     /// </summary>
-    public Dictionary<int, int> EnemyQuantityDict = new Dictionary<int, int>(); //진행중인 퀘스트의 수량을 담고, 삭제하는 역할
-    public Dictionary<int, int> NatureQuantityDict = new Dictionary<int, int>(); //진행중인 퀘스트의 수량을 담고, 삭제하는 역할
-    public Dictionary<int, int> MainQuestQuantityDict = new Dictionary<int, int>(); //진행중인 퀘스트의 수량을 담고, 삭제하는 역할
+    public Dictionary<int, int> EnemyQuantityDict = new Dictionary<int, int>(); 
+    public Dictionary<int, int> NatureQuantityDict = new Dictionary<int, int>(); 
+    public Dictionary<int, int> MainQuestQuantityDict = new Dictionary<int, int>();
 
     public Dictionary<int, int> loadActivQuestDic;
 
@@ -55,8 +54,6 @@ public class QuestManager : MonoBehaviour
         {
             GameManager.Instance.GlobalTimeManager.OnInitMainQuest += InitializeMainQuest;
         }
-        //EnemyHealthSystem.OnQuestTargetDie += UpdateEnemyQuestProgress;
-        //ItemObject.OnQuestTargetInteraction += UpdateNatureQuestProgress;
     }
 
     private void OnEnable()
@@ -96,7 +93,6 @@ public class QuestManager : MonoBehaviour
                 }
                 else
                 {
-                    // 나머지 반은 NatureDailyQuest 생성
                     NatureDailyQuest natureDailyQuest = new NatureDailyQuest(QuestSO, _questKey[i]);
                     natureDailyQuest.TargetID = activeQuestKey[i];
                     natureDailyQuest.TargetQuantity = activeQuestValue[i];
@@ -136,7 +132,7 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    // 퀘스트를 초기화하고 추가하는 메서드
+
     public void InitializeDailyQuest()
     {
 
@@ -155,7 +151,6 @@ public class QuestManager : MonoBehaviour
         { 
             if(i < _questCount / 2)
             {
-                // Do While로 처리한 이유: 퀘스트 내용이 중복되지 않게 하기 위함
                 EnemyDailyQuest newEnemyQuest;
                 do
                 {
@@ -164,12 +159,11 @@ public class QuestManager : MonoBehaviour
 
                 ActiveDailyQuests.Add(newEnemyQuest);
                 EnemyQuantityDict.Add(enemyQuestID, currentQuantity);
-                Debug.Log("퀘스트 " + enemyQuestID + " 내용: " + newEnemyQuest.GetQuestDescription());
                 enemyQuestID++;
             }
-            else // 나머지 절반은 Nature 퀘스트에 할당
+            else 
             {
-                //NatureDailyQuest newNatureQuest = new NatureDailyQuest(QuestSO.NatureQuestData, natureCount);
+                
                 NatureDailyQuest newNatureQuest;
                 do
                 {
@@ -178,18 +172,12 @@ public class QuestManager : MonoBehaviour
 
                 ActiveDailyQuests.Add(newNatureQuest);
                 NatureQuantityDict.Add(natureQuestID, currentQuantity);
-                Debug.Log("퀘스트 " + natureQuestID + " 내용: " + newNatureQuest.GetQuestDescription());
                 natureQuestID++;
             }
 
         }
     }
 
-    // 글타매에 1일차에 이벤트 등록해서 이걸 구독해놨어요 1일차가 되면 바로 이 함수가 한번 실행이됩니다.
-    // 1일차에 이벤트가 등록되면서 이 함수가 실행됨 - 실행되면서 함수 호출되고 동시에 퀘스트 4개 짜라락 구독하고
-    // 퀘스트가 수행될 때 이벤트가 호출되면서 수치 조정하고 완료되면 퀘스트 완료
-
-    // 문제 구독을 못함 tycoonManager가 tycoon에 있어서
     private void InitializeMainQuest()
     {
         int currentQuantity = 0;
@@ -208,24 +196,16 @@ public class QuestManager : MonoBehaviour
         {
             _currentPlayerGold = MainQuestQuantityDict[goldQuestNum];
         }
-        //TODO 퀘스트의 각 이벤트 걸어줌
-        // 타이쿤 - 타이쿤 매니저 angry어쩌구
-        // 타이쿤 결과창이 떴을 때 Angry가 0명이다 -> 퀘 완
+
         GoDungeon _goDungeon = GameManager.Instance.UIManager.PopupDic[UIName.GoDungeonUI].GetComponent<GoDungeon>();
 
-        GameManager.Instance.DataManager.OnTycoonMainQuest += UpdateMainQuest; // 타이쿤 구독
-        EnemyHealthSystem.OnMainQuestTargetDie += UpdateMainQuest; // 불닭 구독
+        GameManager.Instance.DataManager.OnTycoonMainQuest += UpdateMainQuest; 
+        EnemyHealthSystem.OnMainQuestTargetDie += UpdateMainQuest; 
         _goDungeon.OnEnterDungeon += UpdateMainQuest;
         _player.Data.PlayerData.OnAccumulateGold += UpdateMainQuest;
 
-        //EventSubscriptions.Add(() => GameManager.Instance.DataManager.OnTycoonMainQuest += UpdateMainQuest);
-        //EventSubscriptions.Add(() => goDungeon.OnEnterDungeon += UpdateMainQuest);
-        //EventSubscriptions.Add(() => EnemyHealthSystem.OnMainQuestTargetDie += UpdateMainQuest);
-        //EventSubscriptions.Add(() => player.Data.PlayerData.OnAccumulateGold += UpdateMainQuest);
-
     }
 
-    // 중복확인
     private bool CheckForDuplicateTargetID(int targetID)
     {
         foreach (var quest in ActiveDailyQuests)
@@ -238,12 +218,10 @@ public class QuestManager : MonoBehaviour
         return false;
     }
 
-    // TODO 퀘스트를 수락하고 처리하는 메서드
     public void AcceptQuest(Quest quest)
     {
         if (!AcceptQuestList.Contains(quest))
         {
-            // 이 리스트를 BaseUI 에 전달
             AcceptQuestList.Add(quest);
 
             if (OnQuestAccepted != null)
@@ -281,7 +259,6 @@ public class QuestManager : MonoBehaviour
     }
 
 
-    // TODO 퀘스트 진행 관리(수락했을 때)
     public void UpdateEnemyQuestProgress(int targetID)
     {
         foreach(Quest quest in AcceptQuestList)
@@ -291,17 +268,14 @@ public class QuestManager : MonoBehaviour
                 EnemyDailyQuest enemyQuest = (EnemyDailyQuest)quest;
                 if (enemyQuest.TargetID == targetID)
                 {
-                    // 퀘스트 번호 
                     int questNumber = enemyQuest.QuestNumber;
                     if (EnemyQuantityDict.ContainsKey(questNumber))
                     {
                         EnemyQuantityDict[questNumber]++;
                         OnQuestValueUpdate?.Invoke(EnemyQuantityDict[questNumber], targetID);
 
-                        Debug.Log("수량 줄어줘:  " + EnemyQuantityDict[questNumber]);
                         if (EnemyQuantityDict[questNumber] >= enemyQuest.TargetQuantity)
                         {
-                            // 퀘스트 삭제
                             CompleteQuest(quest);
                         }
                     }
@@ -320,17 +294,14 @@ public class QuestManager : MonoBehaviour
                 NatureDailyQuest natureItemQuest = (NatureDailyQuest)quest;
                 if (natureItemQuest.TargetID == targetID)
                 {
-                    // 퀘스트 번호 
                     int questNumber = natureItemQuest.QuestNumber;
                     if (NatureQuantityDict.ContainsKey(questNumber))
                     {
                         NatureQuantityDict[questNumber]++;
                         OnQuestValueUpdate?.Invoke(NatureQuantityDict[questNumber], targetID);
 
-                        Debug.Log("수량 줄어줘:  " + NatureQuantityDict[questNumber]);
                         if (NatureQuantityDict[questNumber] >= natureItemQuest.TargetQuantity)
                         {
-                            // 퀘스트 삭제
                             CompleteQuest(quest);
                         }
                     }
@@ -349,7 +320,6 @@ public class QuestManager : MonoBehaviour
             int mainQuestNumber = ActiveMainQuests[i].QuestNumber;
             if (MainQuestQuantityDict.ContainsKey(mainQuestNumber) && mainQuestNumber == questID)
             {
-                Debug.Log("수량 체크");
 
                 MainQuestQuantityDict[mainQuestNumber]++;
 
@@ -366,19 +336,10 @@ public class QuestManager : MonoBehaviour
                     _currentPlayerGold = playerGold;
 
                     MainQuestQuantityDict[mainQuestNumber]--;
-                    Debug.Log("???" + MainQuestQuantityDict[mainQuestNumber]);
                 }
-                // 불닭 잡았다 그럼 이 함수가 이벤트로인해 호출되고 수량 ++
-                // 1 -> 완료
-                // 던전 들어갔다 그러면 들어갔을 때 이벤트 호출 ++
-                // 1 -> 완료
-
-                // 누적돈 setgolod할때 이벤트 호출 수량 ++
-                // 50000 -> 완료
 
                 if (MainQuestQuantityDict[mainQuestNumber] >= ActiveMainQuests[i].TargetQuantity)
                 {
-                    // 퀘스트 삭제
                     CompleteQuest(ActiveMainQuests[i], questID);
                 }
                 break;
@@ -390,12 +351,11 @@ public class QuestManager : MonoBehaviour
     {  
         if (quest is MainQuest)
         {
-            //ActiveMainQuests.Remove(quest);
             quest.IsProgress = true;
 
             if (questID == 30001)
             {
-                GameManager.Instance.DataManager.OnTycoonMainQuest -= UpdateMainQuest; // 타이쿤 구독
+                GameManager.Instance.DataManager.OnTycoonMainQuest -= UpdateMainQuest; 
             }
             else if(questID == 30002)
             {
@@ -404,30 +364,23 @@ public class QuestManager : MonoBehaviour
             }
             else if (questID == 30003)
             {
-                EnemyHealthSystem.OnMainQuestTargetDie -= UpdateMainQuest; // 불닭 구독
+                EnemyHealthSystem.OnMainQuestTargetDie -= UpdateMainQuest; 
             }
             else if (questID == 30004)
             {
                 _player.Data.PlayerData.OnAccumulateGold -= UpdateMainQuest;
             }
-            Debug.Log("-완-");
         }
-        // 퀘스트 완료시 보상 등등
         QuestReward(quest);
     }
 
 
-    //TODO 퀘스트를 완료하고 보상을 처리
     public void CompleteQuest(Quest quest)
     {
-        // 퀘스트 완료시 보상 등등
         QuestReward(quest);
 
         AcceptQuestList.Remove(quest);
-        Debug.Log("퀘스트 완");
 
-
-        // 이벤트 구독 해제
         if (AcceptQuestList.Count == 0)
         {
             if (quest is EnemyDailyQuest)
@@ -440,17 +393,9 @@ public class QuestManager : MonoBehaviour
             }
         }
 
-        foreach (Quest newquest in AcceptQuestList)
-        {
-            Debug.Log(newquest.QuestNumber);
-        }
-
         GameManager.Instance.EffectManager.QuestCompleteEffect();
     }
 
-    // 골드 보상 또는 경험치보상
-    // TODO 골드보상 - 채집물가격 / 2
-    // 경험치 - 플레이어 레벨 * 500
     private void QuestReward(Quest quest)
     {
         Player player = GameManager.Instance.Player.GetComponent<Player>();
@@ -468,9 +413,5 @@ public class QuestManager : MonoBehaviour
         {
             player.Data.PlayerData.PlayerGold += quest.MainQuestReward;
         }
-
     }
-
-
-
 }

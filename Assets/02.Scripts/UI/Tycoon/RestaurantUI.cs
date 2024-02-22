@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -104,7 +103,6 @@ public class RestaurantUI : BaseUI
             }
         }
         _menuCount.text = AddMenus.ToString() + " / " + TycoonManager.Instance.TodayMaxCustomerNum.ToString();
-        // 추가된 메뉴 , 개수 정보 전달
     }
 
     private void StartGame()

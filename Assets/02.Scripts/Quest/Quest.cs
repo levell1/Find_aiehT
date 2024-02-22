@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -58,7 +57,6 @@ public class Quest
 
         if(_gameStateManager.CurrentGameState == GameState.NEWGAME)
         {
-            //TargetID = Random.Range(_minTargetID, _maxTargetID);
             TargetQuantity = Random.Range(_minTargetQuantity, _maxTargetQuantity);
 
             int index = Random.Range(0, _randomIDList.Count);
@@ -70,9 +68,7 @@ public class Quest
             {
                 if (enemyData.EnemyID == TargetID)
                 {
-                    // 해당 몬스터의 이름을 가져옴
                     _enemyName = enemyData.EnemyName;
-                    Debug.Log("동물 이름: " + _enemyName);
                     break;
                 }
             }
@@ -83,7 +79,6 @@ public class Quest
                 {
                     _natureItemName = natureItem.ObjName;
                     NatureQuestReward = natureItem.Price;
-                    Debug.Log("채집물 이름: " + _natureItemName);
                     break;
                 }
             }

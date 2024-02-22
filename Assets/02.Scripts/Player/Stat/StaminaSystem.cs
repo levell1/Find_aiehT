@@ -1,7 +1,4 @@
-using Newtonsoft.Json.Bson;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StaminaSystem : MonoBehaviour
@@ -55,7 +52,6 @@ public class StaminaSystem : MonoBehaviour
         return Stamina >= dashStamina;
     }
 
-    /// 대쉬시 - 10;
     public void UseDash(int dashStamina)
     {
         if (Stamina == 0 || _dash.IsDash) return;
@@ -73,12 +69,10 @@ public class StaminaSystem : MonoBehaviour
     {
         if (Stamina == 0) return;
         Stamina = Mathf.Max(Stamina - skillStamina, 0);
-        OnChangeStaminaUI?.Invoke(Stamina, MaxStamina);
-        Debug.Log(Stamina);
+        OnChangeStaminaUI?.Invoke(Stamina, MaxStamina);;
     }
 
 
-    /// 스태미너 초당 재생력
     public void RegenerateStamina(int regenStamina)
     {
         if (Stamina == 100) return;
@@ -90,9 +84,6 @@ public class StaminaSystem : MonoBehaviour
             Stamina = Mathf.Min(Stamina + regenStamina, MaxStamina);
             OnChangeStaminaUI?.Invoke(Stamina, MaxStamina);
             _regenTime = 0;
-
-            //Debug.Log(_stamina);
-            //Debug.Log("재생!");
         }
     }
     public void ReduceStamina(float reduceStamina, float delayTime)

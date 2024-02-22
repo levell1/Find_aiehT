@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,7 +46,6 @@ public class PlayerSpreadSkill : MonoBehaviour
 
         if (other.TryGetComponent(out EnemyHealthSystem health))
         {
-            Debug.Log(_damage);
             health.TakeDamage(_damage);
         }
         if (other.TryGetComponent(out BossHealthSystem bosshealth))
@@ -80,16 +78,6 @@ public class PlayerSpreadSkill : MonoBehaviour
 
     }
 
-    // 콜라이더를 활성화할 때 이 메서드 호출
-    //public void EnableCollider()
-    //{
-    //    if (_skillRangeCollider != null)
-    //    {
-    //        _skillRangeCollider.enabled = true;
-    //    }
-    //}
-
-    // 콜라이더를 비활성화할 때 이 메서드 호출
     public void DisableCollider()
     {
         if (_skillRangeCollider != null)

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -50,17 +47,8 @@ public class ShopPotion : MonoBehaviour
 
                 ShopPotionInfoPopup.gameObject.SetActive(true);
             }
-            else
-            {
-                Debug.Log("골드 부족");
-            }
         });
        
     }
 
-    //private void ShowItemInfo()
-    //{
-    //    Debug.Log("Item Name: " + potionSO.Name);
-    //    Debug.Log("Item Description: " + potionSO.Description);
-    //}
 }

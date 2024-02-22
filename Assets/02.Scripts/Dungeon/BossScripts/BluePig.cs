@@ -29,7 +29,6 @@ public class BluePigAI : Tree
             propBlock.SetColor("_Color", new Color(0.2f, 0.9f, 0.9f));
             _meshRenderers[i].SetPropertyBlock(propBlock);
         }
-
     }
 
     protected override Node SetupBehaviorTree()

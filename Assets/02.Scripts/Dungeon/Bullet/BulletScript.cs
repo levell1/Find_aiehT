@@ -1,8 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-
-
 public class BulletScript : MonoBehaviour
 {
     private NavMeshAgent _agent;
@@ -47,6 +45,4 @@ public class BulletScript : MonoBehaviour
         yield return new WaitForSeconds(5f);
         GameManager.Instance.PoolingManager.ReturnObject(gameObject);
     }
-    
-
 }

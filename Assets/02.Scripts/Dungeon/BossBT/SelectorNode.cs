@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 
-
 public class SelectorNode : Node
 {
     private List<Node> children;

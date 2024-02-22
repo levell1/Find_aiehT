@@ -1,22 +1,19 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class PlayerExpSystem : MonoBehaviour
 {
     private PlayerSO _playerData;
 
-    public int PlayerLevel; // 현재 플레이어 레벨
-    public int MaxExp; // 전체 경험치
-    public int PlayerExp; // 플레이어 경험치
+    public int PlayerLevel; 
+    public int MaxExp; 
+    public int PlayerExp;
 
     private HealthSystem _healthSystem;
     private StaminaSystem _staminaSystem;
     public event Action<float, float> OnChangeExpUI;
 
-    public event Action OnChangeEnemyName; //
+    public event Action OnChangeEnemyName; 
     public event Action<int> OnLevelUp;
     public event Action<float, float> OnChangeHpUI;
     public event Action<float, float> OnChangeSpUI;
@@ -32,9 +29,6 @@ public class PlayerExpSystem : MonoBehaviour
 
         SetPlayerLevel();
         SetPlayerExp();
-
-        //Debug.Log("현재 경험치: " + _playerExp);
-        //Debug.Log("전체 경험치: " + _maxExp);
 
     }
 
@@ -108,13 +102,12 @@ public class PlayerExpSystem : MonoBehaviour
         _staminaSystem.SetMaxStamina();
         _staminaSystem.Stamina = _staminaSystem.MaxStamina;
 
-        OnChangeEnemyName?.Invoke(); //
+        OnChangeEnemyName?.Invoke(); 
         OnLevelUp?.Invoke(PlayerLevel);
         OnChangeExpUI?.Invoke(PlayerExp, MaxExp);
 
         GameManager.Instance.EffectManager.PlayLevelUpEffect();
         GameManager.Instance.EffectManager.PlayerLowHpEffect(false);
-        //Debug.Log("레벨업!");
 
     }
 }

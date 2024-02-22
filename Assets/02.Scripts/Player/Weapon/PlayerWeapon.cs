@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,14 +10,7 @@ public class PlayerWeapon : MonoBehaviour
     private readonly List<Collider> _alreadyCollidedObjects = new List<Collider>();
     [SerializeField] private EquipmentDatas _equipmentDatas;
 
-    //private void Awake()
-    //{
-    //    if (_equipmentDatas == null)
-    //    {
-    //        _equipmentDatas = transform.root.GetComponent<EquipmentDatas>();
-    //    }
-        
-    //}
+
     private void OnEnable()
     {
         InitializeCollider();
@@ -52,7 +44,6 @@ public class PlayerWeapon : MonoBehaviour
         this._damage = damage +_equipmentDatas.SumDmg;
     }
 
-    // 콜라이더를 활성화할 때 이 메서드 호출
     public void EnableCollider()
     {
         if (_weaponCollider != null)
@@ -61,7 +52,6 @@ public class PlayerWeapon : MonoBehaviour
         }
     }
 
-    // 콜라이더를 비활성화할 때 이 메서드 호출
     public void DisableCollider()
     {
         if (_weaponCollider != null)

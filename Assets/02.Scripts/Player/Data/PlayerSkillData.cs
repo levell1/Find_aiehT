@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 [Serializable]
@@ -55,14 +53,6 @@ public class SkillInfoData
     }
 
 }
-
-    //public string GetSkillName() { return SkillName; }
-    //public int GetSkillCost() { return SkillCost; }
-    //public float GetSkillDamage() { return SkillDamage; }
-    //public float GetSkillCoolTime() { return SkillCoolTime; }
-    //public float GetSkillRange() { return SkillRange; }
-    //public float GetSkillDistance() { return SkillDistance; }
-    //public string GetSkillPrefabsName() { return SkillPrefabsName; }
 
 
 

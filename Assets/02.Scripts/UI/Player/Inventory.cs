@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ public class ItemSlot
 public class Inventory : MonoBehaviour
 {
     public ItemSlotUI[] UISlots;
-    public List<ItemSlot> Slots = new List<ItemSlot>(); // 원래 배열이였던 부분
+    public List<ItemSlot> Slots = new List<ItemSlot>(); 
 
     public GameObject InventoryUI;
     public GameObject Panel;
@@ -32,7 +31,6 @@ public class Inventory : MonoBehaviour
 
         for (int i = 0; i < UISlots.Length; i++)
         {
-           // Slots.Add(new ItemSlot());
             UISlots[i].Index = i;
             UISlots[i].Clear();
         }
@@ -63,20 +61,20 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(ItemSO item)
     {
-        ItemSlot slotToStackTo = GetItemStack(item); // 이미 아이템이 있는지 체크
+        ItemSlot slotToStackTo = GetItemStack(item); 
         if (slotToStackTo != null)
         {
-            slotToStackTo.Quantity++; // 있다면 수량 증가
+            slotToStackTo.Quantity++; 
             UpdateUI();
             return;
         }
 
-        if (Slots.Count < UISlots.Length) //새로운 아이템이 들어오는 부분
+        if (Slots.Count < UISlots.Length) 
         {
             ItemSlot newSlot = new ItemSlot();
             newSlot.Item = item;
             newSlot.Quantity = 1;
-            Slots.Add(newSlot); //슬롯 생성
+            Slots.Add(newSlot); 
             UpdateUI();
         }
     }
@@ -96,7 +94,7 @@ public class Inventory : MonoBehaviour
             ItemSlot newSlot = new ItemSlot();
             newSlot.Item = item;
             newSlot.Quantity = quantity;
-            Slots.Add(newSlot); //슬롯 생성
+            Slots.Add(newSlot); 
             UpdateUI();
         }
     }
@@ -121,15 +119,11 @@ public class Inventory : MonoBehaviour
                 int itemCount = LoadItemList[key];
                 AddLoadedItem(item, itemCount);
             }
-            else
-            {
-                // 처리할 경우가 없는 경우에 대한 예외 처리 또는 로그 작성
-            }
         }
 
     }
 
-    private ItemSlot GetItemStack(ItemSO item) //최대수량보다 적은 아이템 중복 체크
+    private ItemSlot GetItemStack(ItemSO item) 
     {
         for (int i = 0; i < Slots.Count; i++)
         {
@@ -145,7 +139,7 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < Slots.Count; ++i)
         {
-            if (Slots[i].Item != null) //슬롯에 아이템이 있으면 같은 인덱스의 UI슬롯에 넣는다.
+            if (Slots[i].Item != null) 
             {
                 UISlots[i].Set(Slots[i]);
             }
@@ -160,7 +154,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void SelectItem(int index) // 선택한 아이템 하단에 정보 표시
+    public void SelectItem(int index) 
     {
         if (Slots.Count <= index || Slots[index].Item == null) return;
 
@@ -178,9 +172,9 @@ public class Inventory : MonoBehaviour
         selectedItemDescription.text = string.Empty;
     }
 
-    public void RemoveItem(ItemSO item, int num)  // 아이템 판매하거나 타이쿤에 들어가는 재료
+    public void RemoveItem(ItemSO item, int num) 
     {
-        ItemSlot selectItem = GetItemStack(item); //아이템이 있는지 체크
+        ItemSlot selectItem = GetItemStack(item); 
         if (selectItem != null)
         {
             if (num > selectItem.Quantity)
@@ -189,7 +183,7 @@ public class Inventory : MonoBehaviour
             }
             else if (num == selectItem.Quantity)
             {
-                Slots.Remove(selectItem); //slot 삭제
+                Slots.Remove(selectItem); 
                 ClearSeletecItem();
             }
             else

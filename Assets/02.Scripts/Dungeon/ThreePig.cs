@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-
 public class ThreePig : MonoBehaviour
 {
     [SerializeField] private BossHealthSystem _greenPigHealthSystem;

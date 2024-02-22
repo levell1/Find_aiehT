@@ -1,4 +1,3 @@
-using DG.Tweening.Core.Easing;
 using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager>
@@ -17,7 +16,6 @@ public class GameManager : MonoSingleton<GameManager>
     private CoolTimeManager _coolTimeManager = new CoolTimeManager();
     private JsonReader _jsonReaderManager = new JsonReader();
     private SaveDataManager _saveDataManager = new SaveDataManager();
-    private LoadDataManager _loadDataManager = new LoadDataManager();
     private GameStateManager _gameStateManager = new GameStateManager();
     private AESManager _aesManager = new AESManager();
 
@@ -36,7 +34,6 @@ public class GameManager : MonoSingleton<GameManager>
     public CoolTimeManager CoolTimeManger { get { return Instance._coolTimeManager; } }
     public JsonReader JsonReaderManager { get { return Instance._jsonReaderManager; } }
     public SaveDataManager SaveDataManger { get { return Instance._saveDataManager; } }
-    public LoadDataManager LoadDataManager { get { return Instance._loadDataManager; } }
     public GameStateManager GameStateManager { get { return Instance._gameStateManager; } } 
     public AESManager AESManager { get { return Instance._aesManager; } }
 
@@ -58,7 +55,6 @@ public class GameManager : MonoSingleton<GameManager>
         _coolTimeManager = FindObjectOfType<CoolTimeManager>();
         _jsonReaderManager = FindObjectOfType<JsonReader>();
         _saveDataManager = FindObjectOfType<SaveDataManager>();
-        _loadDataManager = FindObjectOfType<LoadDataManager>();
         _gameStateManager = FindObjectOfType<GameStateManager>();
         _aesManager = FindObjectOfType<AESManager>();
 
@@ -71,10 +67,4 @@ public class GameManager : MonoSingleton<GameManager>
         _globalTimeManager.gameObject.SetActive(false);
         _questManager.gameObject.SetActive(false);
     }
-
-    //private void Start()
-    //{
-    //    _uiManager.CreateCanvas();
-    //}
-
 }

@@ -1,8 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class TomatoWeapon : MonoBehaviour
 {
@@ -76,8 +75,6 @@ public class TomatoWeapon : MonoBehaviour
         if (other.TryGetComponent(out EnemyHealthSystem health))
         {
             health.TakeDamage(_damage);
-
-            Debug.Log(_damage);
             Destroy(_skillCollider.gameObject);
         }
         if (other.TryGetComponent(out BossHealthSystem bosshealth))
@@ -91,11 +88,8 @@ public class TomatoWeapon : MonoBehaviour
     {
         Vector3 dir = GetPlayerDir();
 
-        Debug.Log(dir);
-
         yield return new WaitForSeconds(_waitTime);
         Rotate(dir);
-        //_skillRigidbody.velocity = dir;
 
         Vector3 offset = transform.forward * _offsetAngle;
 
@@ -128,7 +122,6 @@ public class TomatoWeapon : MonoBehaviour
         float _playerDamage = _playerSO.PlayerData.PlayerAttack;
         float _skillDamage = _playerSO.SkillData.GetSkillData(_skillIndex).SkillDamage;
         float _weaponDamage = _equipmentDatas.SumDmg;
-        Debug.Log(_playerDamage + _skillDamage);
 
         return _playerDamage + (_skillDamage + _weaponDamage)* _playerSO.PlayerData.PlayerLevel*2;
     }

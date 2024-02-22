@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TimeToVillageUI : MonoBehaviour
@@ -36,7 +34,7 @@ public class TimeToVillageUI : MonoBehaviour
     public void StayHuntingBtn()
     {
         Time.timeScale = 1f;
-        GameManager.Instance.GlobalTimeManager.NightChecker(); //
+        GameManager.Instance.GlobalTimeManager.NightChecker(); 
         GameManager.Instance.CameraManager.EnableCam();
         gameObject.SetActive(false);
     }

@@ -1,5 +1,3 @@
-using DG.Tweening;
-using Suntail;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,7 +14,7 @@ public class PlayerInteraction : MonoBehaviour
 {
     private GlobalTimeManager _globalTimeManager;
 
-    public TMP_Text InteractionText; // UI Text 요소를 가리키는 변수
+    public TMP_Text InteractionText; 
     public TextMeshProUGUI ErrorText;
 
     public LayerMask LayerMask;
@@ -36,7 +34,6 @@ public class PlayerInteraction : MonoBehaviour
     private string _showUI = string.Empty;
 
     public GameObject ShopUI;
-    private Vector3 _dungeonNextPosition;
 
     Coroutine _coroutine;
 
@@ -50,30 +47,27 @@ public class PlayerInteraction : MonoBehaviour
         InitializeCollider();
 
         _interactCollider = GetComponent<Collider>();
-        //_curScene =SceneManager.GetActiveScene().name;
-        // 아이템
+
         LayerDic.Add(LayerMask.NameToLayer(LayerName.Item), Enum.ITEM);
-        // 택시, 상점등
         LayerDic.Add(LayerMask.NameToLayer(LayerName.NpcInteract), Enum.NPC);
 
-        SceneManager.sceneLoaded += 문원정;
+        SceneManager.sceneLoaded += LoadSceneEvent;
     }
 
-    private void 문원정(Scene scene, LoadSceneMode mode)
+    private void LoadSceneEvent(Scene scene, LoadSceneMode mode)
     {
         _curScene = scene.name;
         InteractionText.text = string.Empty;
     }
 
-    // TODO NPC 상호작용 추가
+
     private void OnTriggerEnter(Collider other)
     {
         if (other == _playerCollider) { return; }
 
         if (other == _interactCollider) { return; }
 
-        /// DropItem의 경우
-        // TODO 퀘스트 이벤트 구독
+
         if (LayerDic.TryGetValue(other.gameObject.layer, out Enum _objectType))
         {
             if (_objectType == Enum.ITEM)
@@ -94,33 +88,29 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (_objectType == Enum.NPC)
             {
-                if (other.gameObject.CompareTag(TagName.RealDoor)) //씬이동 (마을,사냥터,타이쿤,던전)
+                if (other.gameObject.CompareTag(TagName.RealDoor))
                 {
                     _moveSceneController = other.gameObject.GetComponent<MoveSceneController>();
                     _nextScene = _moveSceneController.NextScene;
 
                     InteractionText.text = _moveSceneController.NextSceneInfo;
                 }
-                else if (other.gameObject.CompareTag(TagName.PotionShop))  //포션상점NPC
+                else if (other.gameObject.CompareTag(TagName.PotionShop)) 
                 {
                     InteractionText.text = "포션상점 - 대화하기";
                     _showUI = UIName.ShopUI;
                 }
-                else if (other.gameObject.CompareTag(TagName.Enhancement)) //강화소NPC
+                else if (other.gameObject.CompareTag(TagName.Enhancement)) 
                 {
                     InteractionText.text = "대장간 - 대화하기";
                     _showUI = UIName.ReforgeUI;
                 }
-                /*else if (other.gameObject.CompareTag(TagName.RealDoor)) // 타이쿤
-                {
-                    InteractionText.text = "타이쿤 - 입장하기";
-                }*/
-                else if (other.gameObject.CompareTag(TagName.QuestNPC)) // 퀘스트
+                else if (other.gameObject.CompareTag(TagName.QuestNPC)) 
                 {
                     InteractionText.text = "퀘스트 보기";
                     _showUI = UIName.QuestUI;
                 }
-                else if (other.gameObject.CompareTag(TagName.DungeonNPC)) // 던전택시
+                else if (other.gameObject.CompareTag(TagName.DungeonNPC)) 
                 {
                     InteractionText.text = "던전 가기";
                     _showUI = UIName.DungeontUI;
@@ -165,7 +155,6 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (InteractionText != null)
         {
-            // UI Text 요소가 존재하면 리스트의 내용을 텍스트로 설정
             InteractionText.text = "";
 
             foreach (var item in _interactionLayerList)
@@ -185,7 +174,6 @@ public class PlayerInteraction : MonoBehaviour
             _interactionLayerList.Remove(itemObject.ItemData.ObjName);
 
             itemObject.GetItem();
-            //Destroy(itemObject.gameObject);
             UpdateUI();
         }
     }
@@ -228,7 +216,6 @@ public class PlayerInteraction : MonoBehaviour
 
                 GameManager.Instance.Player.transform.position = new Vector3(-4, 0, 19);
 
-                //_globalTimeManager.PenaltyTime();
             }
             else if (_curScene == SceneName.VillageScene && _nextScene == SceneName.HuntingScene)
             {
@@ -242,15 +229,6 @@ public class PlayerInteraction : MonoBehaviour
                 }
                
             }
-            /*else if (_curScene == SceneName.Dungeon && _nextScene == SceneName.VillageScene)
-            {
-                GameManager.Instance.Player.transform.position = new Vector3(5, 0, 8);
-            }*/
-            //else if(_curScene == SceneName.VillageScene && _nextScene == SceneName.VillageScene)
-            //{
-            //    GameManager.Instance.Player.transform.position = new Vector3(-15, 0, -160);
-            //    // TODO: 시간 다음날 아침으로 바꾸기
-            //}
 
             LoadingSceneController.LoadScene(_nextScene);
             _nextScene = string.Empty;

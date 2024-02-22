@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -71,10 +70,10 @@ public class ShopPotionInfoPopup : MonoBehaviour
 
     }
 
-    // 슬라이더 이벤트
+
     private void OnSliderValueChanged(float newValue)
     {
-        _itemCurQuantity = Mathf.RoundToInt(newValue); // 소수점을 반올림하여 정수로 변환
+        _itemCurQuantity = Mathf.RoundToInt(newValue); 
         int totalItemGold = _itemCurQuantity * _itemCurGold;
 
         _itemQuantity.text = _itemCurQuantity.ToString();

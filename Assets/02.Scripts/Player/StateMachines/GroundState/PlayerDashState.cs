@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class PlayerDashState : PlayerGroundState
 {
@@ -17,7 +14,6 @@ public class PlayerDashState : PlayerGroundState
 
         _stateMachine.IsDashCoolTime = _stateMachine.Player.DashForceReceiver.IsCoolTime;
 
-        //_stateMachine.MaxStamina = _stateMachine.Player.Data.PlayerData.GetPlayerMaxStamina();
         if(_stateMachine.Player.GroundCheck.IsGrounded())
         {
                 

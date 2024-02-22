@@ -21,6 +21,7 @@ public class LoadingSceneController : MonoBehaviour
     private void Awake()
     {
         Time.timeScale = 1f;
+        //TODO 태그로 변경
         DontObjects = FindObjectOfType<DontDestroy>().gameObject;
     }
 
@@ -48,10 +49,7 @@ public class LoadingSceneController : MonoBehaviour
         _backImage.color = new Color(0f, 0f, 0f, 1f);
         _color = _backImage.color;
         StartCoroutine(LoadSceneProcess());
-        //if(NextScene == SceneName.TitleScene)
-        //{
-        //    Destroy(DontObjects);
-        //}
+
     }
 
     IEnumerator LoadSceneProcess() 
@@ -67,7 +65,7 @@ public class LoadingSceneController : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         AsyncOperation op = SceneManager.LoadSceneAsync(NextScene);
-        op.allowSceneActivation = false; // 씬의 로딩이 끝나면 자동으로 넘어갈지 설정 (false -> 90퍼에서 기다리고 진행)(로딩씬의 내용이 좀 더 보이게)
+        op.allowSceneActivation = false; 
         float timer = 0f;
         while(!op.isDone) 
         {
@@ -79,7 +77,7 @@ public class LoadingSceneController : MonoBehaviour
             }
             else
             {
-                timer += Time.unscaledDeltaTime; //TimeScale에 영향을 받지않는 DeltaTime
+                timer += Time.unscaledDeltaTime; 
                 _bar.fillAmount = Mathf.Lerp(0.9f, 1f, timer);
                 if (_bar.fillAmount >= 1f)
                 {

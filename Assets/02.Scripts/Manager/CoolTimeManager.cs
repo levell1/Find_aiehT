@@ -13,13 +13,13 @@ public class CoolTimeManager : MonoBehaviour
     /// </summary>
     private Dictionary<string, Action> _coolTimeEvents = new Dictionary<string, Action>();
 
-    // 쿨타임을 시작하는 메서드
+
     public void StartCoolTimeCoroutine(string objName, float coolTime, Image? coolTimeImage)
     {
         StartCoroutine(CoolTimeController(objName, coolTime, coolTimeImage));
     }
 
-    // 쿨타임 코루틴
+
     private IEnumerator CoolTimeController(string objName, float coolTime, Image? coolTimeImage)
     {
         float maxCool = coolTime;
@@ -34,14 +34,13 @@ public class CoolTimeManager : MonoBehaviour
             yield return null;
         }
 
-        //해당 이벤트 호출
+
         if (_coolTimeEvents.ContainsKey(objName))
         {
             _coolTimeEvents[objName]?.Invoke();
         }
     }
 
-    // 쿨타임을 사용하는 곳에 이벤트를 추가하는 메서드
     public void AddCoolTimeEvent(string objName, Action action)
     {
         if (!_coolTimeEvents.ContainsKey(objName))
@@ -54,7 +53,6 @@ public class CoolTimeManager : MonoBehaviour
         }
     }
 
-    // 이벤트 구독을 해제하는 함수
     public void RemoveCoolTimeEvent(string objName, Action action)
     {
         if (_coolTimeEvents.ContainsKey(objName))

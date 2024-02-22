@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,8 +14,6 @@ public class SoundManager : MonoBehaviour
     private Dictionary<string, AudioClip> _soundDictionary = new Dictionary<string, AudioClip>();
 
     private Coroutine _coroutine = null;
-
-
 
     public GameObject Prefabs;
     public int Size;
@@ -72,12 +69,7 @@ public class SoundManager : MonoBehaviour
     public void SFXPlay(string sfxName, Vector3 audioPosition, float audioVolume)
     {
         GameObject AudioObject = GetSoundObject();
-        /*GameObject AudioObject = new GameObject(sfxName + "Sound");
-        AudioSource audiosource = AudioObject.AddComponent<AudioSource>();*/
         AudioSource audiosource = AudioObject.GetComponent<AudioSource>();
-        //AudioObject.transform.position = audioPosition;
-
-        //audiosource.outputAudioMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
         _audioClip = _soundDictionary[sfxName];
 
         if (_audioClip != null)
@@ -87,19 +79,13 @@ public class SoundManager : MonoBehaviour
             audiosource.Play();
 
             StartCoroutine(SFXStop(AudioObject, audiosource));
-            //Destroy(audiosource.gameObject, audiosource.clip.length);//오브젝트 풀로 변경
         }
 
     }
     public void SFXPlay(string sfxName)
     {
         GameObject AudioObject = GetSoundObject();
-        /*GameObject AudioObject = new GameObject(sfxName + "Sound");
-        AudioSource audiosource = AudioObject.AddComponent<AudioSource>();*/
         AudioSource audiosource = AudioObject.GetComponent<AudioSource>();
-        //AudioObject.transform.position = Vector3.zero;
-
-        //audiosource.outputAudioMixerGroup = _mixer.FindMatchingGroups("SFX")[0];
         _audioClip = _soundDictionary[sfxName];
 
         if (_audioClip != null)
@@ -109,7 +95,6 @@ public class SoundManager : MonoBehaviour
             audiosource.Play();
 
             StartCoroutine(SFXStop(AudioObject, audiosource));
-            //Destroy(audiosource.gameObject, audiosource.clip.length);//오브젝트 풀로 변경
         }
 
     }

@@ -1,7 +1,4 @@
 using Newtonsoft.Json;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
@@ -9,22 +6,14 @@ using UnityEngine;
 public class JsonReader : MonoBehaviour
 {
     public PlayerSO PlayerSO;
-    private SaveDataManager _saveDataManager;
     private AESManager _aesManager;
     public SavePlayerData LoadedPlayerData { get; private set; }
-    /// 불러오기 (LoadJSON)
-    // 1. new 게임인지 save게임인지 판별 (타이틀에서 새로하기 / 이어하기 버튼으로 판별하기)
-    // 2. 저장된 JSON 다시 덮어주기
+
 
 
     private void Awake()
     {
-        _saveDataManager = GameManager.Instance.SaveDataManger;
         _aesManager = GameManager.Instance.AESManager;
-        //InitPlayerData();
-
-        //PlayerJsonData playerJsonData = LoadJson<PlayerJsonData>(JsonDataName.PlayerData);
-        //PlayerSO.SetPlayerData(playerJsonData.PlayerData);
 
         PlayerSkillData skillData = LoadJson<PlayerSkillData>(JsonDataName.PlayerSkillData);
         PlayerSO.SetPlayerSkillData(skillData);
@@ -34,14 +23,12 @@ public class JsonReader : MonoBehaviour
 
     }
 
-    // 새로하기
     public void InitPlayerData()
     {
         PlayerJsonData playerJsonData = LoadJson<PlayerJsonData>(JsonDataName.PlayerData);
         PlayerSO.SetPlayerData(playerJsonData.PlayerData);
     }
 
-    // 이어하기
     public void LoadPlayerData()
     {
         string saveFilePath = Path.Combine(Application.persistentDataPath, JsonDataName.SaveFile);
@@ -51,7 +38,6 @@ public class JsonReader : MonoBehaviour
 
     public T LoadJson<T>(string FilePath)
     {
-        //StringBuilder jsonFilePathBuilder = new StringBuilder(ResourcePath.JsonLoadPath);
         StringBuilder jsonFilePathBuilder = new StringBuilder(FilePath);
         jsonFilePathBuilder.Append(".json");
         string jsonFilePath = jsonFilePathBuilder.ToString();
@@ -60,8 +46,6 @@ public class JsonReader : MonoBehaviour
         string decryptedJson = _aesManager.AESDecrypt(jsonText);
 
         return JsonConvert.DeserializeObject<T>(decryptedJson);
-        //return JsonUtility.FromJson<T>(jsonText);
-        //return JsonConvert.DeserializeObject<T>(jsonText);
     }
 
     public void SaveJson(object data, string filePath)
@@ -72,12 +56,10 @@ public class JsonReader : MonoBehaviour
         string jsonFilePath = Path.Combine(Application.persistentDataPath, jsonFilePathBuilder.ToString());
         Debug.Log(jsonFilePath);
 
-        //string jsonData = JsonUtility.ToJson(data);
         string jsonData = JsonConvert.SerializeObject(data, Formatting.Indented);
         string encryptedJson = _aesManager.AESEncrypt(jsonData);
 
         File.WriteAllText(jsonFilePath, encryptedJson);
-        //File.WriteAllText(jsonFilePath, jsonData);
     }
 
     public bool CheckJsonFileExist()
@@ -87,5 +69,4 @@ public class JsonReader : MonoBehaviour
 
         return saveFileExists;
     }
-
 }

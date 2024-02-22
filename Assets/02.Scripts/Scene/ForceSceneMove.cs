@@ -37,13 +37,11 @@ public class ForceSceneMove : MonoBehaviour
     {
         if (_globalTimeManager.EventCount == 0)
         {
-            // 타이쿤 시간 됬을 때
             _timeToVillageUI.gameObject.SetActive(true); ;
         }
         else
         {
 
-            //24시 or 잠자기
             GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Sleep);
 
             _sceneMoveUI.CurrentSceneName = SceneName.VillageScene;

@@ -1,5 +1,3 @@
-using System;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -58,8 +56,6 @@ public class SettingUI : BaseUI
 
     private void SaveGame() 
     {
-        //저장관련 시간
-        // 저장이 완료되면 사라지게. 임시
         StartCoroutine(ShowPopupForSeconds(_savePanel, 2f));
     }
     private void ShowExitGame() 

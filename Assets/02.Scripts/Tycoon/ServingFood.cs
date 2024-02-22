@@ -83,7 +83,6 @@ public class ServingFood : MonoBehaviour
 
         if (foodPlace != null)
         {
-            // TODO: Rotation 고정?
             _holdingFood.GetComponent<Collider>().enabled = true;
             _holdingFood.transform.SetParent(foodPlace.transform);
             _holdingFood.transform.localPosition = Vector3.zero;

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -13,7 +10,6 @@ public class Enemy : MonoBehaviour
     [field: Header("Animations")]
     [field: SerializeField] public EnemyAnimationData AnimationData { get; private set; }
 
-    public Rigidbody Rigidbody { get; private set; }
     public Collider Collider { get; private set; }
     public Animator Animator { get; private set; }
     public EnemyHealthSystem HealthSystem { get; private set; }
@@ -42,8 +38,6 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         AnimationData.Initialize();
-
-        Rigidbody = GetComponent<Rigidbody>();
         Collider = GetComponent<Collider>();
         Animator = GetComponentInChildren<Animator>();
         HealthSystem = GetComponent<EnemyHealthSystem>();
@@ -76,9 +70,9 @@ public class Enemy : MonoBehaviour
 
     private void OnDie()
     {
-        // 경험치
+
         StateMachine.Target.PlayerExpSystem.GetExpPlus(EnemyDropEXP);
-        //드랍아이템
+
         if(Data.DropItem != null)
         {
             float dropValue = UnityEngine.Random.Range(0f, 1f);
@@ -90,7 +84,7 @@ public class Enemy : MonoBehaviour
                 }
             }
         }
-        //콜라이더 비활성화
+
         Collider.enabled = false;
     }
 

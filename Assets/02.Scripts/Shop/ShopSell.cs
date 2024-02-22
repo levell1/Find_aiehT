@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class ShopSell : MonoBehaviour
@@ -11,6 +8,7 @@ public class ShopSell : MonoBehaviour
     public GameObject shop;
     public ItemSlotUI[] UISlots;
     public ShopSellPopup popup;
+
     [Header("Selected Item")]
     public int selectedItemIndex;
     public ItemSlot selectedItem;
@@ -39,7 +37,7 @@ public class ShopSell : MonoBehaviour
     {
         for (int i = 0; i < Inventory.Slots.Count; ++i)
         {
-            if (Inventory.Slots[i].Item != null) //슬롯에 아이템이 있으면 같은 인덱스의 UI슬롯에 넣는다.
+            if (Inventory.Slots[i].Item != null) 
             {
                 UISlots[i].Set(Inventory.Slots[i]);
             }
@@ -54,7 +52,7 @@ public class ShopSell : MonoBehaviour
         }
     }
 
-    public void SelectItem(int index) // 선택한 아이템 하단에 정보 표시
+    public void SelectItem(int index) 
     {
         if (Inventory.Slots.Count <= index || Inventory.Slots[index].Item == null) return;
 

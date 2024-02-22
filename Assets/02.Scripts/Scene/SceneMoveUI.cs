@@ -3,8 +3,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
 
 public class SceneMoveUI : MonoBehaviour
 {
@@ -44,14 +42,14 @@ public class SceneMoveUI : MonoBehaviour
     {
         yield return new WaitForSeconds(_duration);
         
-        if (CurrentSceneName == SceneName.VillageScene && _globalTimeManager.EventCount == 0) // 타이쿤 
+        if (CurrentSceneName == SceneName.VillageScene && _globalTimeManager.EventCount == 0) 
         {
             GameManager.Instance.Player.transform.position = new Vector3(4, 0, -160);
         }
-        else if (CurrentSceneName == SceneName.VillageScene && _globalTimeManager.EventCount == 1) //집으로
+        else if (CurrentSceneName == SceneName.VillageScene && _globalTimeManager.EventCount == 1) 
         {
             _healthSystem.Respawn();
-            _staminaSystem.Stamina = _staminaSystem.MaxStamina; //
+            _staminaSystem.Stamina = _staminaSystem.MaxStamina; 
             _globalTimeManager.DayTime = _globalTimeManager.NextMorning;
             GameManager.Instance.Player.transform.position = new Vector3(-11, 0, -128);
         }

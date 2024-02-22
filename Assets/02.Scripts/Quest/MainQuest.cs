@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class MainQuest : Quest
 {
     private MainQuestData _mainQuestData;
@@ -32,10 +28,6 @@ public class MainQuest : Quest
 
     public override string GetQuestDescription()
     {
-        // 손님 화 안내고 클리어
-        // 누적 골드 5만
-        // 던전 1회 입장
-        // 불닭 1회 잡기
         return string.Format($"{_mainQuestDescription}");
     }
 

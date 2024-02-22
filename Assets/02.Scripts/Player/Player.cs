@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -103,7 +102,6 @@ public class Player : MonoBehaviour
         return SceneManager.GetActiveScene().name;
     }
 
-    // TODO 타이쿤일 때 무기 없어짐
     private void OnEnable()
     {
         _stateMachine.SceneName = CurrentSceneName();

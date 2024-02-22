@@ -1,6 +1,4 @@
 using UnityEngine;
-
-
 public class Door : MonoBehaviour
 {
     public Vector3 NextRoomPosition;

@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -46,7 +43,7 @@ public class PlayerUseBase : MonoBehaviour
 
         if(_potion == null || _quantity <= 0)
         {
-            Debug.Log("포션을 장착해주세요");
+            //TODO 포션부족 
         }
         else
         {

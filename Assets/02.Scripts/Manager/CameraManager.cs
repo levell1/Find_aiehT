@@ -8,13 +8,13 @@ public class CameraManager : MonoBehaviour
     public CinemachinePOV VirtualcameraPov;
     public float CameraSpeed;
 
-    private PlayerInput _playerInput; //
+    private PlayerInput _playerInput; 
     private CinemachineVirtualCamera _tycoonCamera;
 
     private void Awake()
     { 
         VirtualcameraPov = VirtualCamera.GetCinemachineComponent<CinemachinePOV>();
-        _playerInput = GameManager.Instance.Player.GetComponent<PlayerInput>(); //
+        _playerInput = GameManager.Instance.Player.GetComponent<PlayerInput>(); 
     }
 
     private void Start()
@@ -30,7 +30,7 @@ public class CameraManager : MonoBehaviour
 
     public void ReturnCamSpeed()
     {
-        CancelInvoke("CursorTimeLock"); //
+        CancelInvoke("CursorTimeLock"); 
 
         Time.timeScale = 1f;
 
@@ -65,7 +65,7 @@ public class CameraManager : MonoBehaviour
     {
         if (_playerInput.gameObject.activeSelf)
         {
-            _playerInput.InputActions.Disable(); //
+            _playerInput.InputActions.Disable(); 
             VirtualCamera.enabled = false;
         }
 
@@ -75,8 +75,8 @@ public class CameraManager : MonoBehaviour
     {
         if (_playerInput.gameObject.activeSelf&& VirtualCamera.enabled == false)
         {
-            _playerInput.InputActions.Enable(); //
-            VirtualCamera.enabled = true; //
+            _playerInput.InputActions.Enable(); 
+            VirtualCamera.enabled = true; 
         }
     }
 }

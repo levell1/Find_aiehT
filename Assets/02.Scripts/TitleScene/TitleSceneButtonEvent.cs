@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,8 +14,6 @@ public class TitleSceneButtonEvent : MonoBehaviour
     [SerializeField] private Button _keyButton;
     [SerializeField] private Button _settingButton;
     
-    
-
     private void Awake()
     {
         _saveDataManager = GameManager.Instance.SaveDataManger;
@@ -44,7 +41,6 @@ public class TitleSceneButtonEvent : MonoBehaviour
     }
     public void OnNewGameButtonEvent()
     {
-        //데이터 초기화 코드
         GameManager.Instance.JsonReaderManager.InitPlayerData();
         GameManager.Instance.GameStateManager.CurrentGameState = GameState.NEWGAME;
         LoadingSceneController.LoadScene(SceneName.TutorialScene);
@@ -54,10 +50,6 @@ public class TitleSceneButtonEvent : MonoBehaviour
 
         _globalTimeManager.gameObject.SetActive(true);
         _questManager.gameObject.SetActive(true);
-
-
-        //HealthSystem healthSystem = GameManager.Instance.Player.GetComponent<HealthSystem>();
-        //healthSystem.SetCurHealth(); // NewGame
     }
     public void OnLoadGameButtonEvent()
     {
@@ -70,9 +62,6 @@ public class TitleSceneButtonEvent : MonoBehaviour
 
         _globalTimeManager.gameObject.SetActive(true);
         _questManager.gameObject.SetActive(true);
-
-        //HealthSystem healthSystem = GameManager.Instance.Player.GetComponent<HealthSystem>();
-        //healthSystem.SetCurHealth(); // LoadGame
     }
     public void ExitButton()
     {

@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class PlayerSpreadSkillState : PlayerSkillState
 {
 
@@ -31,7 +27,7 @@ public class PlayerSpreadSkillState : PlayerSkillState
         {
             if(normalizedTime < 1f)
             {
-                _stateMachine.MovementSpeedModifier = 0; // 공격할 때 안움직임
+                _stateMachine.MovementSpeedModifier = 0; 
                 _stateMachine.Player.SandSkill.EnableCollider();
                 _stateMachine.Player.SkillParticle.PlayParticle();
 

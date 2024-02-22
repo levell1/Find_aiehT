@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,7 +18,6 @@ public class TitleTest : MonoBehaviour
     {
         if (scene.name!=SceneName.TitleScene)
         {
-            //_globalTimeManager.SetActive(true);
             _mainCam.SetActive(true);
             _player.SetActive(true);
             _playerUI.SetActive(true);
@@ -45,10 +43,6 @@ public class TitleTest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            /*if (SceneManager.GetActiveScene().name == SceneName.TutorialScene|| SceneManager.GetActiveScene().name == SceneName.TycoonScene && GameManager.Instance.GlobalTimeManager.Day == 0)
-            {
-                return;
-            }*/
             if (GameManager.Instance.UIManager.PopupStack .Count!=0)
             {
                 if (GameManager.Instance.UIManager.PopupStack.Peek().name == UIName.InventoryUI)

@@ -6,40 +6,7 @@ using UnityEngine;
 
 public class SkillInstantiator : MonoBehaviour
 {
-    //[field: SerializeField] private GameObject SkillPos;
-    //private GameObject _skillPrefabs;
-
-    //[field: SerializeField] private float _instantiateTime = 0.5f;
-
-    //private PlayerSO _playerSO;
-    //private string _skillNames = "Tomato";
-
-    //private void Start()
-    //{
-    //    _playerSO = GetComponent<Player>().Data;
-
-    //    StringBuilder _skillResourcePath = new StringBuilder("Prefabs/Skills/");
-    //    _skillResourcePath.Append(_skillNames);
-
-    //    Debug.Log(_skillResourcePath);
-
-    //    _skillPrefabs = GameManager.instance.ResourceManager.Load<GameObject>("Prefabs/Skills/Tomato");
-
-    //}
-
-    //public void InstantiateTomato()
-    //{
-    //    StartCoroutine(DelayInstantiate());
-    //}
-
-    //IEnumerator DelayInstantiate()
-    //{
-    //    yield return new WaitForSeconds(_instantiateTime);
-    //    Instantiate(_skillPrefabs, SkillPos.transform.position, Quaternion.identity);
-    //}
-
     [field: SerializeField] private GameObject SkillPos;
-   // [field: SerializeField] private GameObject ParticlePos;
 
     private GameObject _skillPrefabs;
 
@@ -85,14 +52,6 @@ public class SkillInstantiator : MonoBehaviour
 
     }
 
-    //public void InstantiateParticle()
-    //{
-    //    foreach (GameObject spreadPrefab in _skillPrefabList.Where(Prefab => Prefab != null && Prefab.name == "Spread"))
-    //    {
-    //        InstanatiateSkill(spreadPrefab, ParticlePos.transform.position);
-    //    }
-
-    //}
 
     private void InstanatiateSkill(GameObject skillPrefabs, Vector3 position)
     {
@@ -104,7 +63,4 @@ public class SkillInstantiator : MonoBehaviour
         yield return new WaitForSeconds(_instantiateTime); 
         Instantiate(skillPrefabs, position, Quaternion.identity);
     }
-
-
-
 }

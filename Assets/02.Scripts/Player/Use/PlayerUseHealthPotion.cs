@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class PlayerUseHealthPotion : PlayerUseBase
 {
@@ -40,7 +37,7 @@ public class PlayerUseHealthPotion : PlayerUseBase
         }
         else
         {
-            Debug.Log("포션이 다 떨어졌습니다. 장착해주세요");
+            //TODO 포션 장착
         }
 
     }

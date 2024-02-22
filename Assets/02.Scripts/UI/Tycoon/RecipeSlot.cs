@@ -74,11 +74,6 @@ public class RecipeSlot : MonoBehaviour
         }
         
     }
-
-    private void Start()
-    {
-        
-    }
     private void ClickFood() 
     {
         _InvenData = GameManager.Instance.Inventory.Slots;
@@ -100,7 +95,7 @@ public class RecipeSlot : MonoBehaviour
         {
             if (i< _groceryKindCount)
             {
-                _myGroceryCount[i].text = _InvenGroceryCount[i].ToString();//인벤개수
+                _myGroceryCount[i].text = _InvenGroceryCount[i].ToString();
                 _ingredientImage[i].color = new Color(255, 255, 255, 1f);
                 _ingredientImage[i].sprite = FoodData.Ingredients[i].IngredientSO.Sprite;
                 _ingredienName[i].text = FoodData.Ingredients[i].IngredientSO.ObjName;
@@ -109,7 +104,7 @@ public class RecipeSlot : MonoBehaviour
             _ingredientImage[i].sprite = null;
             _ingredientImage[i].color = new Color(255, 255, 255, 0f);
             _ingredienName[i].text= null;
-            _myGroceryCount[i].text = null;//인벤개수
+            _myGroceryCount[i].text = null;
         }
         
 

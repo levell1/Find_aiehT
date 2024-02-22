@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,7 +22,6 @@ public class OrderFoodUI : MonoBehaviour
 
     private void Update()
     {
-        //카메라 바라보게 하기
         OrderFoodCanvas.transform.LookAt(OrderFoodCanvas.transform.position + _camera.transform.rotation * Vector3.forward, _camera.transform.rotation* Vector3.up);
     }
 

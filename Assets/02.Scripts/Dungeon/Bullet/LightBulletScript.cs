@@ -10,7 +10,6 @@ public class LightBulletScript : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _player = GameManager.Instance.Player.transform;
     }
-
     private void Start()
     {
         GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.LightMagic,Vector3.zero,0.1f);
@@ -48,5 +47,4 @@ public class LightBulletScript : MonoBehaviour
     {
         GameManager.Instance.PoolingManager.ReturnObject(gameObject);
     }
-
 }

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -67,8 +66,6 @@ public class AiehtAI : Tree
                    new RunAwayNode(_pigTransform,_navMeshAgent,_navMeshAgent.speed),
                 }
             ),
-           
-
         });
         return root;
     }
@@ -103,6 +100,4 @@ public class AiehtAI : Tree
             count++;
         }
     }
-
-
 }

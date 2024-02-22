@@ -119,7 +119,7 @@ public class EnemyHealthSystem : MonoBehaviour
 
     private IEnumerator HitCancel()
     {
-        yield return new WaitForSeconds(HitCool); //해당시간동안 플레이어를 추격한다.
+        yield return new WaitForSeconds(HitCool); 
         Hit = false;
         _coroutine = null;
     }
@@ -156,10 +156,10 @@ public class EnemyHealthSystem : MonoBehaviour
             {
                 EnemyName.color = Color.white;
             }
-            else if (_player.Data.PlayerData.PlayerLevel < _enemySO.AppropriateLevel[i]) // 별로 차이 안날 때
+            else if (_player.Data.PlayerData.PlayerLevel < _enemySO.AppropriateLevel[i]) 
             {
                 EnemyName.color = Color.yellow;
-                if (_enemySO.AppropriateLevel[0] - _player.Data.PlayerData.PlayerLevel >= 3) // 많이 차이 날 때
+                if (_enemySO.AppropriateLevel[0] - _player.Data.PlayerData.PlayerLevel >= 3) 
                 {
                     EnemyName.color = Color.red;
                 }

@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-
 public class Tutorial0 : MonoBehaviour
 {
     private TutorialManager _tutorialManager;

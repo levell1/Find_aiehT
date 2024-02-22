@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GroundCheck : MonoBehaviour
@@ -16,10 +14,6 @@ public class GroundCheck : MonoBehaviour
         IsGrounded();
     }
 
-    /// <summary>
-    /// ground 체크 레이
-    /// </summary>
-    /// <returns></returns>
     public bool IsGrounded()
     {
 

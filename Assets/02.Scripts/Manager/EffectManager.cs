@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -8,7 +6,6 @@ public class EffectManager : MonoBehaviour
 {
     [SerializeField] private GameObject _weaponPos;
 
-    private WaitForSeconds _StepSound = new WaitForSeconds(0.3f);
     private WaitForSeconds _healingEffectTime = new WaitForSeconds(2f);
     private WaitForSeconds _levelupEffectTime = new WaitForSeconds(3f);
     private WaitForSeconds _eatEffectTime = new WaitForSeconds(6f);

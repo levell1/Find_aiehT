@@ -22,7 +22,7 @@ public class PoolingManager : MonoBehaviour
         Initialize();
     }
 
-    private void Initialize() //미리 생성 해둘 오브젝트
+    private void Initialize() 
     {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
         foreach (var pool in Pools)
@@ -30,7 +30,6 @@ public class PoolingManager : MonoBehaviour
             _poolObject = new Queue<GameObject>();
             for (int i = 0; i < pool.Size; i++)
             {
-                // TODO: 모든 오브젝트에 필요하지 않은 코드인데 써도 되나?
                 int randomNum = UnityEngine.Random.Range(0, pool.Prefabs.Length);
 
                 var newObj = Instantiate(pool.Prefabs[randomNum], pool.SpawnPoint);
@@ -41,13 +40,13 @@ public class PoolingManager : MonoBehaviour
         }
     }
 
-    public void ReturnObject(GameObject obj) //오브젝트 비활성화 시킬 메서드
+    public void ReturnObject(GameObject obj) 
     {
         _poolObject.Enqueue(obj);
         obj.SetActive(false);
     }
 
-    public GameObject GetObject(string objname) // 호출
+    public GameObject GetObject(string objname) 
     {
         if (poolDictionary.ContainsKey(objname))
         {
@@ -60,9 +59,7 @@ public class PoolingManager : MonoBehaviour
         else
         {
             Debug.LogError($"{objname} - key값 존재하지 않음");
-            return null;    // TODO
+            return null;    
         }
     }
-
-    //추가 생산
 }

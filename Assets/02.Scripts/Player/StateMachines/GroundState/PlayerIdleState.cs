@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerIdleState : PlayerGroundState
@@ -25,7 +23,6 @@ public class PlayerIdleState : PlayerGroundState
     {
         base.Update();
 
-        // 이동이 일어났다면
         if(_stateMachine.MovementInput != Vector2.zero)
         {
             OnMove();

@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class NatureDailyQuest : Quest
 {
-    //private DailyQuestData _natureQuestData;
     public NatureDailyQuest(QuestSO data, int questNumber) : base(data, questNumber)
     {
         for (int i = _minTargetID; i < _maxTargetID; i++)
@@ -17,8 +13,6 @@ public class NatureDailyQuest : Quest
     protected override void InitQuest()
     {
         _minTargetID = ItemDatas.ItemList[0].ItemID;
-
-        // 마지막 위치의 데이터를 불러오는 법
         _maxTargetID = ItemDatas.ItemList[^1].ItemID;
 
         _maxTargetQuantity = _natureQuestData.maxTargetQuantity;

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -50,21 +47,17 @@ public class PotionInventory : MonoBehaviour
             _hpDefaultPotionID = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveQuickSlotPotions.Keys.ElementAt(0);
             _spDefaultPotionID = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveQuickSlotPotions.Keys.ElementAt(1);
 
-            //HPPotionQuick.DefaultPotionInit(PotionDataList.PotionList[_hpDefaultPotionID - _potionKey]);
-            //SPPotionQuick.DefaultPotionInit(PotionDataList.PotionList[_spDefaultPotionID - _potionKey]);
 
             if (PotionDataList.PotionList[i].ID == _hpDefaultPotionID)
             {
                 int HPQuickSlotQuantity = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveQuickSlotPotions[PotionDataList.PotionList[i].ID];
                 Potions[i].SetQuickSlot(PotionDataList.PotionList[i], HPQuickSlotQuantity);
-                //HPPotionQuick.ShowPotionToQuickslot(, HPQuickSlotQuantity);
             }
 
             if (PotionDataList.PotionList[i].ID == _spDefaultPotionID)
             {
                 int SPQuickSlotQuantity = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveQuickSlotPotions[PotionDataList.PotionList[i].ID];
                 Potions[i].SetQuickSlot(PotionDataList.PotionList[i], SPQuickSlotQuantity);
-                //SPPotionQuick.ShowPotionToQuickslot(, );
             }
 
             

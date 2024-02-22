@@ -86,6 +86,4 @@ public class BossHealthSystem : MonoBehaviour
             _meshRenderers[i].SetPropertyBlock(propBlock);
         }
     }
-
-
 }

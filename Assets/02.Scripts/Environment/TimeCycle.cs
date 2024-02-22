@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TimeCycle : MonoBehaviour
 {
-    public Vector3 Noon;  //빛의 각도 조절
+    public Vector3 Noon;  
 
     [Header("Sun")]
     public Light Sun;
@@ -17,8 +15,8 @@ public class TimeCycle : MonoBehaviour
     public AnimationCurve MoonIntensity;
 
     [Header("Other Lighting")]
-    public AnimationCurve LightingIntensityMultiplier;  //환경광
-    public AnimationCurve ReflectionIntensityMultiplier;  //반사광
+    public AnimationCurve LightingIntensityMultiplier;  
+    public AnimationCurve ReflectionIntensityMultiplier;  
 
     
 
@@ -33,7 +31,7 @@ public class TimeCycle : MonoBehaviour
 
     private void UpdateLighting(Light lightSource, Gradient colorGradient, AnimationCurve intensityCurve)
     {
-        float intensity = intensityCurve.Evaluate(GameManager.Instance.GlobalTimeManager.DayTime);  //AnimationCurve.Evaluate(*)는 *의 값의 커브값을 리턴해준다. (그래프)
+        float intensity = intensityCurve.Evaluate(GameManager.Instance.GlobalTimeManager.DayTime);  
 
         lightSource.transform.eulerAngles = (GameManager.Instance.GlobalTimeManager.DayTime - ((lightSource == Sun) ? 0.25f : 0.75f)) * Noon * 4.0f;
         lightSource.color = colorGradient.Evaluate(GameManager.Instance.GlobalTimeManager.DayTime);

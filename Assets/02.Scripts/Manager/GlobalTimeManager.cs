@@ -7,10 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class GlobalTimeManager : MonoBehaviour
 {
-    [Range(0.0f, 1.0f)] //인스펙터 창에서 0~1 스크롤로 조절 가능
+    [Range(0.0f, 1.0f)] 
     public float DayTime;
-    public float FullDayLength;  //하루
-    public float StartTime; //게임시작시 한번만 사용되는 변수
+    public float FullDayLength;  
+    public float StartTime; 
     private float _totalHours;
     public float Day;
     public float Hour;
@@ -42,19 +42,16 @@ public class GlobalTimeManager : MonoBehaviour
         SceneManager.sceneLoaded += LoadedsceneEvent;
     }
 
-    // TODO
-    // DAY 기본값이 0일차, Load했을때는 Load한 날짜
-    // 00시에 저장하니 로딩쪽에서 시간을 빼고 다시 더하는 작업때문에 날짜가 변해버림
     private void OnEnable()
     {
         GameStateManager gameStateManager = GameManager.Instance.GameStateManager;
 
-        _timeRate = 1.0f / FullDayLength; //얼마큼씩 변하는지 계산 1/하루
+        _timeRate = 1.0f / FullDayLength; 
         
         if(gameStateManager.CurrentGameState == GameState.LOADGAME)
         {
             float LoadTime = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveDayTime;
-            //DayTime = LoadTime - (_penaltyTime) * 4;
+
             DayTime = LoadTime;
             Day = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveDay;
         }
@@ -118,7 +115,6 @@ public class GlobalTimeManager : MonoBehaviour
     {
         DayTime = (DayTime + _timeRate * Time.deltaTime) % 1.0f;
 
-        // 하루를 24시간으로 다시 나눠버리기~
         _totalHours = DayTime * 24f;
         Hour = Mathf.Floor(_totalHours);
         Minutes = Mathf.Floor((_totalHours - Hour) * 60f);
@@ -130,14 +126,8 @@ public class GlobalTimeManager : MonoBehaviour
         }
     }
 
-    public void PenaltyTime()
-    {
-        DayTime += _penaltyTime;
-    }
-
     private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
     {
-        //DayTime += _penaltyTime;
         ItemRespawn();
         if (_coroutine != null)
         {
@@ -163,7 +153,6 @@ public class GlobalTimeManager : MonoBehaviour
         }
 
     }
-
     public void NightChecker()
     {
         OnNightCheck?.Invoke();
@@ -184,8 +173,8 @@ public class GlobalTimeManager : MonoBehaviour
 
     public bool EnterTycoonTime()
     {
-        //테스트용
-        if (07f <= Hour && Hour <= 20f)
+        
+        if (07f <= Hour && Hour <= 24f)
         {
             return true;
         }
@@ -231,19 +220,19 @@ public class GlobalTimeManager : MonoBehaviour
 
         playerInteraction.ErrorText.text = ErrorMessageTxt.OneHourLeft;
         StartCoroutine(playerInteraction.ErrorMessage());
-        yield return new WaitForSeconds(oneHour / 2f); //30분
+        yield return new WaitForSeconds(oneHour / 2f); 
 
         playerInteraction.ErrorText.text = ErrorMessageTxt.ThirtyMinutesLeft;
         StartCoroutine(playerInteraction.ErrorMessage());
-        yield return new WaitForSeconds(oneHour / 6f); //10분
+        yield return new WaitForSeconds(oneHour / 6f); 
 
         playerInteraction.ErrorText.text = ErrorMessageTxt.TwentyMinutesLeft;
         StartCoroutine(playerInteraction.ErrorMessage());
-        yield return new WaitForSeconds(oneHour / 6f); //10분
+        yield return new WaitForSeconds(oneHour / 6f);
 
         playerInteraction.ErrorText.text = ErrorMessageTxt.TenMinutesLeft;
         StartCoroutine(playerInteraction.ErrorMessage());
-        yield return new WaitForSeconds(oneHour / 6f); //10분
+        yield return new WaitForSeconds(oneHour / 6f); 
 
         GoodMorning();
 

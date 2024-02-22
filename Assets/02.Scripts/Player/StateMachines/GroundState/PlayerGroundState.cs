@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -37,7 +35,7 @@ public class PlayerGroundState : PlayerBaseState
         base.PhysicsUpdate();
     }
 
-    // 입력키가 떼졌을 때의 동작이다. ground에서 해주는 이유는 ground가 아닌 다른 state에 있을 때의 키입력이 없는 경우는 또 다른 동작을 해야하기 때문
+
     protected override void OnMovementCanceled(InputAction.CallbackContext context)
     {
         if (_stateMachine.MovementInput == Vector2.zero)

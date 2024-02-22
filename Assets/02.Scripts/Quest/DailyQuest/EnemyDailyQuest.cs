@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class EnemyDailyQuest : Quest
 {
@@ -17,7 +14,6 @@ public class EnemyDailyQuest : Quest
     {
         _minTargetID = EnemyDatas.EnemyList[0].EnemyID;
 
-        // 마지막 위치의 데이터를 불러오는 법
         _maxTargetID = EnemyDatas.EnemyList[^1].EnemyID;
         
         _maxTargetQuantity = _enemyQuestData.maxTargetQuantity;

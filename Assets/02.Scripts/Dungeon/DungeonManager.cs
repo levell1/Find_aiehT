@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class DungeonManager : MonoBehaviour
 {
     [SerializeField] private Image _fadeImage;

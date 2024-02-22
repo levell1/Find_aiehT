@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,14 +41,6 @@ public class LevelInfoData
         get { return _exp; }
         set { _exp = value; }
     }
-
-    //public int GetLevel() { return Level; }
-    //public float GetHealth() { return Health; }
-    //public float GetStamina() { return Stamina; }
-    //public float GetAttack() { return Attack; }
-    //public float GetDefence() { return Defence; }
-    //public int GetExp() { return Exp; }
-
 }
 
 [Serializable]

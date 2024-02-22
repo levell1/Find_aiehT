@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,8 +13,7 @@ public class MainQuestList : MonoBehaviour
     private TMP_Text _questStateImageText;
 
     private QuestManager _questManager;
-    private Quest[] _questList; // 매니저에서 가져온 퀘스트 리스트 저장
-    private int _selectedQuestIndex = -1;
+    private Quest[] _questList; 
     private void Awake()
     {
         _questStateImageText = QuestStateImage.GetComponentInChildren<TMP_Text>();
@@ -37,7 +33,6 @@ public class MainQuestList : MonoBehaviour
         {
             Quest quest = _questList[i];
 
-            // 토글이 변경될 때마다 해당 퀘스트의 인덱스를 전달하도록 수정
             int questIndex = i;
             QuestToggle[i].GetComponentInChildren<Text>().text = quest.GetQuestTitle();
             QuestToggle[i].onValueChanged.AddListener((toggle) => { ToggleValueChanged(toggle, questIndex); });
@@ -51,7 +46,6 @@ public class MainQuestList : MonoBehaviour
 
         if (toggle)
         {
-            _selectedQuestIndex = questIndex;
             QuestContent.text = _questList[questIndex].GetQuestDescription();
             QuestReward.text = _questList[questIndex].GetQuestRewardToString();
 

@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -20,7 +18,7 @@ public class AttackInfoData
 public class PlayerAttackData
 {
     [field: SerializeField] public List<AttackInfoData> AttackInfoDatas { get; private set;}
-    public int GetAttackInfoCount() { return AttackInfoDatas.Count; } // 현재 가지고 있는 어택의 개수 
-    public AttackInfoData GetAttackInfo(int index) {  return AttackInfoDatas[index]; } // 현재 사용중인 어택(콤보)의 데이터
+    public int GetAttackInfoCount() { return AttackInfoDatas.Count; } 
+    public AttackInfoData GetAttackInfo(int index) {  return AttackInfoDatas[index]; } 
 
 }

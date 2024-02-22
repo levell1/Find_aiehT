@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
@@ -44,9 +43,7 @@ public class HealthSystem : MonoBehaviour
         OnChangeHpUI?.Invoke(Health, MaxHealth);
     }
 
-    // 로드게임 => Health = 저장된 체력
-    // 새 게임 => Health = MaxHealth
-    // 새게임인지 이어하기인지 알수있는 방법
+
     public void SetCurHealth()
     {
         if(_gameStateManager.CurrentGameState == GameState.NEWGAME)
@@ -125,8 +122,6 @@ public class HealthSystem : MonoBehaviour
                 GameManager.Instance.EffectManager.PlayerLowHpEffect(false);
         }
     }
-
-    // TODO 체젠 추가
 
     public void Respawn()
     {

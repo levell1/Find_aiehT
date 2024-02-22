@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Rendering;
+
 
 public class PlayerComboAttackState : PlayerAttackState
 {
-    private bool _alreadyAppliedForce; // 힘을 적용 햇는지 
-    private bool _alreadyApplyCombo; // 콤보를 적용했는지
+    private bool _alreadyAppliedForce; 
+    private bool _alreadyApplyCombo; 
 
     AttackInfoData _attackInfoData;
 
@@ -39,11 +36,11 @@ public class PlayerComboAttackState : PlayerAttackState
 
     private void TryComboAttack()
     {
-        if (_alreadyApplyCombo) return; // 콤보를 이미 한 경우에 alreadyApplyCombo가 true이기 때문에 return
+        if (_alreadyApplyCombo) return; 
 
-        if (_attackInfoData.ComboStateIndex == -1) return; // 마지막 공격이기 때문에 return
+        if (_attackInfoData.ComboStateIndex == -1) return; 
 
-        if (!_stateMachine.IsAttacking) return; // 공격중이 아니기 때문에 return
+        if (!_stateMachine.IsAttacking) return; 
 
         _alreadyApplyCombo = true;
     }
@@ -53,7 +50,6 @@ public class PlayerComboAttackState : PlayerAttackState
         if (_alreadyAppliedForce) return;
         _alreadyAppliedForce = true;
 
-        //_stateMachine.Player.ForceReceiver.Reset();
 
         float comboForceMultiplier = 1.0f + (_stateMachine.ComboIndex * 0.1f); 
         float scaledForce = _attackInfoData.Force * comboForceMultiplier;
@@ -70,7 +66,7 @@ public class PlayerComboAttackState : PlayerAttackState
 
         float normalizedTime = GetNormalizedTime(_stateMachine.Player.Animator, "Attack");
 
-        if (normalizedTime < 1f) // 애니메이션이 진행중
+        if (normalizedTime < 1f) 
         {
             if (normalizedTime >= _attackInfoData.ForceTransitionTime)
                 TryApplyForce();
@@ -89,24 +85,10 @@ public class PlayerComboAttackState : PlayerAttackState
 
                 _stateMachine.Player.Weapon.SetAttack(totalDamage);
                 _stateMachine.Player.Weapon.EnableCollider();
-                
-
-            // TODO
-            //if (WeaponCollider != null)
-            //    WeaponCollider.enabled = true;
-            //Debug.Log(_stateMachine.Player.Weapon.gameObject.name);
-
-            //Debug.Log("comboIndex" + comboIndex);
-            //Debug.Log("playerAtk" + playerAtk);
-            //Debug.Log("damage" + damage);
-            //Debug.Log("totalDamage" + totalDamage);
-
         }
         else
         {
-            //if (WeaponCollider != null)
-            //    WeaponCollider.enabled = false;
-            //_stateMachine.Player.Weapon.gameObject.SetActive(false);
+
             _stateMachine.Player.Weapon.DisableCollider();
 
             if (_alreadyApplyCombo)

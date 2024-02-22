@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-
 public class BossManager : MonoBehaviour
 {
     [SerializeField] private BossHealthSystem _greenpigHealthSystem;

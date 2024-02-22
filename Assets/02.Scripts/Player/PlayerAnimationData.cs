@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -30,12 +28,10 @@ public class PlayerAnimationData
 
     public int AirParameterHash { get; private set; }
     public int JumpParameterHash { get; private set; }
-    //TODO
     public int FallParameterHash { get; private set; }
     public int DashParameterHash { get; private set; }
 
     public int AttackParameterHash { get; private set; }
-    //TODO
     public int ComboAttackParameterHash { get; private set; }
 
     public int SkillParameterHash { get; private set; }
@@ -51,20 +47,14 @@ public class PlayerAnimationData
 
         AirParameterHash = Animator.StringToHash(_airParameterName);
         JumpParameterHash = Animator.StringToHash(_jumpParmaeterName);
-        //TODO
         FallParameterHash = Animator.StringToHash(_fallParameterName);
         DashParameterHash = Animator.StringToHash(_dashParameterName);
 
         AttackParameterHash = Animator.StringToHash(_attackParameterName);
-        //TODO
         ComboAttackParameterHash = Animator.StringToHash(_comboAttackParameterName);
 
         SkillParameterHash = Animator.StringToHash(_skillParameterName);
         ThrowSkillParameterHash = Animator.StringToHash(_throwSkillParamterName);
         SpreadSkillParameterHash = Animator.StringToHash(_spreadSkillParamterName);
-
-
     }
-
 }
-

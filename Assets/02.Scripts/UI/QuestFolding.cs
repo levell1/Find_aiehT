@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class QuestFolding : MonoBehaviour
@@ -20,9 +18,7 @@ public class QuestFolding : MonoBehaviour
             {
                 togglequest(true);
             }
-            
         }
-
     }
 
     private void togglequest(bool check) 
@@ -30,7 +26,5 @@ public class QuestFolding : MonoBehaviour
         _onButton.SetActive(check);
         _offButton.SetActive(!check);
         _questList.SetActive(check);
-        
     }
-
 }

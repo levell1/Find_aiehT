@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -27,7 +26,6 @@ public class PlayerQuestList : MonoBehaviour
     {
 
         int minCount = Mathf.Min(QuestImageList.Length, acceptedQuests.Count);
-        // 조건이 두개의 수를 비교해서 작은 수를 가져옴
         for(int i = 0; i < minCount; i++)
         {
             QuestImageList[i].GetComponent<PlayerQuestUI>().UpdateQuestUI(acceptedQuests[i], quantity);

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerFallState : PlayerAirState
@@ -29,9 +26,7 @@ public class PlayerFallState : PlayerAirState
 
         if (_stateMachine.Player.GroundCheck.IsGrounded())
         {
-
             GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Landing);
-            Debug.Log("땅");
             _stateMachine.ChangeState(_stateMachine.IdleState);
             return;
         }

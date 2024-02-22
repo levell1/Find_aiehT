@@ -1,22 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class FieldBossRespawn : MonoBehaviour
 {
     private GlobalTimeManager _globalTimeManager;
     private DataManager _dataManager;
     private Enemy _enemy;
-    private Vector3 _enemySpawnPoint;
 
     private void Awake()
     {
         _globalTimeManager = GameManager.Instance.GlobalTimeManager;
         _dataManager = GameManager.Instance.DataManager;
         _enemy = GetComponent<Enemy>();
-        _enemySpawnPoint = transform.position;
     }
 
     private void Start()

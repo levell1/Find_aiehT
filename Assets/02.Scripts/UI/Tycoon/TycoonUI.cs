@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -97,7 +96,6 @@ public class TycoonUI : MonoBehaviour
         GameManager.Instance.CameraManager.NonTycoonCamSetting();
         _resultUI.SetActive(false);
         GameManager.Instance.GlobalTimeManager.gameObject.SetActive(true);
-        //LoadingSceneController.LoadScene(SceneName.VillageScene);
         GameManager.Instance.GlobalTimeManager.TycoonToVillage();
     }
 }

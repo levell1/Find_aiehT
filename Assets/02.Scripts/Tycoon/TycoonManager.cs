@@ -42,7 +42,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
 
     public List<OrderFood> TodayFoods { get { return _todayFoods; } }
 
-    public int TodayMaxCustomerNum // TODO: 레벨 당 손님수 정하는 함수
+    public int TodayMaxCustomerNum 
     {
         get { return _todayMaxCustomerNum; }
         set { _todayMaxCustomerNum = value; }

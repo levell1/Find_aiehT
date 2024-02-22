@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,7 +42,6 @@ public class PotionInventorySlot : MonoBehaviour
         PotionAmount.text = InitQuantity.ToString();
     }
 
-    //TODO 1일차에 포션 3개
     public void TutorialPotion()
     {
         if(PotionSO.ID == 2001)
@@ -63,7 +60,6 @@ public class PotionInventorySlot : MonoBehaviour
 
     public void UpdatePotionQuantity(int quantity)
     {
-        // 팝업에서 전달된 수량을 해당 슬롯에 반영
        
         if (PotionSO == ShopPotionInfoPopup.PotionData)
         {
@@ -97,7 +93,6 @@ public class PotionInventorySlot : MonoBehaviour
         }
     }
 
-    // 포션 사용 후 UI 업데이트
     public void UpdateUsedHPPotionQuantity(int quantity)
     {
         if (PotionSO == HPPotionQuickSlot.PotionSO)

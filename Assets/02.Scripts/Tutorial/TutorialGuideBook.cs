@@ -83,9 +83,6 @@ public class TutorialGuideBook : MonoBehaviour
 
     private void ExitButton()
     {
-        //Time.timeScale = 1f;
-        //Cursor.lockState = CursorLockMode.Locked;
-
         gameObject.SetActive(false);
     }
 

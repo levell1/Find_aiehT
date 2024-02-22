@@ -19,7 +19,7 @@ public class CheckPlayerDistanceNode : Node
     public override NodeState Evaluate()
     {
 
-        var collider = Physics.OverlapSphere(_pigtransform.position, _distance, _playerLayerMask);//주변 콜라이더 추출
+        var collider = Physics.OverlapSphere(_pigtransform.position, _distance, _playerLayerMask);
         if (collider.Length <= 0) return state = NodeState.Failure;
         _animation.SetBool(AnimationParameterName.BossWalk, false);
         return state = NodeState.Success;
@@ -33,7 +33,6 @@ public class CheckPlayerDistanceNotNode : Node
     private Animator _animation;
     private float _distance;
 
-
     public CheckPlayerDistanceNotNode(Transform transform, float distance)
     {
         this._pigtransform = transform;
@@ -43,7 +42,7 @@ public class CheckPlayerDistanceNotNode : Node
 
     public override NodeState Evaluate()
     {
-        var collider = Physics.OverlapSphere(_pigtransform.position, _distance, _playerLayerMask);//주변 콜라이더 추출
+        var collider = Physics.OverlapSphere(_pigtransform.position, _distance, _playerLayerMask);
         if (collider.Length > 0) return state = NodeState.Failure;
         _animation.SetBool(AnimationParameterName.BossWalk, false);
         return state = NodeState.Success;
@@ -67,7 +66,6 @@ public class LevitateNode : Node
         _animation = pigtransform.GetComponent<Animator>();
         _cooltime= cooltime;
     }
-
 
     public override NodeState Evaluate()
     {
@@ -113,8 +111,6 @@ public class RangeAttackNode : Node
         _animation = transform.GetComponent<Animator>();
 
     }
-
-
     public override NodeState Evaluate()
     {
         time += Time.deltaTime;
@@ -175,8 +171,6 @@ public class LightAttack : Node
         _waitTime = WaitTime;
         _LighObject = lighObject;
     }
-
-
     public override NodeState Evaluate()
     {
         _time += Time.deltaTime;
@@ -214,7 +208,6 @@ public class RunAwayNode : Node
         _beforeSpeed = beforeSpeed;
         _randomPoint = GetRandomPositionOnNavMesh();
     }
-
     private Vector3 GetRandomPositionOnNavMesh()
     {
         Vector3 randomDirection = Random.insideUnitSphere * _randomRange;
@@ -222,7 +215,7 @@ public class RunAwayNode : Node
         randomDirection.y= _agent.gameObject.transform.position.y;
 
         NavMeshHit hit;
-        if (NavMesh.SamplePosition(randomDirection, out hit, _randomRange, NavMesh.AllAreas)) // 랜덤 위치가 NavMesh 위에 있는지 확인
+        if (NavMesh.SamplePosition(randomDirection, out hit, _randomRange, NavMesh.AllAreas)) 
         {
             return hit.position;
         }
@@ -232,17 +225,14 @@ public class RunAwayNode : Node
         }
 
     }
-
     public override NodeState Evaluate()
     {
-        //멀리가기
         _agent.SetDestination(_randomPoint);
         _animation.SetBool(AnimationParameterName.BossWalk, true);
         _agent.speed =5f;
         if (_agent.remainingDistance <= _agent.stoppingDistance && !_agent.pathPending)
         {
             _randomPoint = GetRandomPositionOnNavMesh();
-            Debug.Log(_randomPoint);
             _agent.speed = _beforeSpeed;
             _animation.SetBool(AnimationParameterName.BossWalk, false);
             return state = NodeState.Success; 
@@ -272,7 +262,6 @@ public class GoToPlayerNode : Node
         _waitTime = waittime;
         _animation = transform.GetComponent<Animator>();
     }
-
     public override NodeState Evaluate()
     {
         _time += Time.deltaTime;

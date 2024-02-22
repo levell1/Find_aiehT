@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PlayerInput : MonoBehaviour
@@ -11,16 +8,10 @@ public class PlayerInput : MonoBehaviour
     public PlayerInputActions.PlayerActions PlayerActions { get; private set; }
     public PlayerInputActions.TycoonPlayerActions TycoonPlayerActions { get; private set; }
 
-    private InputActionAsset inputActionAsset;
-    private InputActionMap _playerInputActionMap;
-    private InputActionMap _TycoonPlayerInputActionMap;
-
     private void Awake()
     {
         InputActions = new PlayerInputActions();
-        //PlayerActions = InputActions.Player;
         SceneManager.sceneLoaded += LoadedsceneEvent;
-
     }
 
 
@@ -29,7 +20,7 @@ public class PlayerInput : MonoBehaviour
 
         InputActions.Dispose();
 
-        if (scene.name == "LodingScene")
+        if (scene.name == SceneName.LoadingScene)
         {
             return;
         }

@@ -38,7 +38,7 @@ public class TutorialManager : MonoBehaviour
             tutorial.SetActive(false);
         }
 
-        StartTutorial(); //시작시 딜레이를 조금 주고 싶다면 인보크 고민
+        StartTutorial(); 
     }
 
     private void LateUpdate()

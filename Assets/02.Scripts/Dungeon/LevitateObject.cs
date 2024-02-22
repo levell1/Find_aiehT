@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public class LevitateObject : MonoBehaviour
 {
     public bool EndSkill =true;
@@ -13,7 +12,6 @@ public class LevitateObject : MonoBehaviour
 
     private void Awake()
     {
-        
         _particle = GameManager.Instance.EffectManager.CreateGreenPigLevitate(transform);
         _particle.gameObject.transform.localScale = Vector3.one * 1.5f;
         var particles = GameManager.Instance.EffectManager.GreenPigEffect.GetComponentsInChildren<ParticleSystem>();
@@ -57,5 +55,4 @@ public class LevitateObject : MonoBehaviour
             healthSystem.TakeDamage(_dagage);
         }
     }
-
 }
