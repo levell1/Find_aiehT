@@ -1,7 +1,5 @@
 using Cinemachine;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CameraManager : MonoBehaviour
 {

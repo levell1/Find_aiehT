@@ -20,7 +20,8 @@ public class PotionInventorySlot : MonoBehaviour
     private Button _potionInvenButton;
 
     [SerializeField] private int _basicInitQuantity = 3;
-    void OnEnable()
+
+    void Start()
     {
         _potionInvenButton = GetComponent<Button>();
         
