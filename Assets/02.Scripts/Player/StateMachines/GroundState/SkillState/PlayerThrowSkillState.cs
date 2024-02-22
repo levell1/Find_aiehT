@@ -40,8 +40,9 @@ public class PlayerThrowSkillState : PlayerSkillState
 
             float skillDamage = _skillData.SkillDamage;
             float playerDamage = _stateMachine.Player.Data.PlayerData.PlayerAttack;
+            int playerLevel = _stateMachine.Player.Data.PlayerData.PlayerLevel;
 
-            float totalDamage = skillDamage + playerDamage;
+            float totalDamage = skillDamage * playerLevel*2 + playerDamage;
 
             _stateMachine.Player.StaminaSystem.UseSkill(_skillCost);
 
