@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class RecipeSlot : MonoBehaviour
@@ -35,38 +36,48 @@ public class RecipeSlot : MonoBehaviour
     private int _makeFoodCount;
     private int[] _groceryCount = new int[6];
     private int _groceryKindCount;
-    private void Start()
-    {
-        _restaurantUI= GameManager.Instance.UIManager.PopupDic[UIName.RestaurantUI].GetComponent<RestaurantUI>();
-        _maxCustomer = TycoonManager.Instance.TodayMaxCustomerNum;
-        _makeFoodCount = 1;
-        _groceryKindCount = FoodData.Ingredients.Count;
 
-        for (int i = 0; i < 6; i++)
+    private void OnEnable()
+    {
+        if (SceneManager.GetActiveScene().name ==SceneName.TycoonScene)
         {
-            if (i < _groceryKindCount)
+            _restaurantUI = GameManager.Instance.UIManager.PopupDic[UIName.RestaurantUI].GetComponent<RestaurantUI>();
+            _maxCustomer = TycoonManager.Instance.TodayMaxCustomerNum;
+            _makeFoodCount = 1;
+            _groceryKindCount = FoodData.Ingredients.Count;
+
+            for (int i = 0; i < 6; i++)
             {
-                _groceryCount[i] = FoodData.Ingredients[i].FoodNum;
-                continue;
+                if (i < _groceryKindCount)
+                {
+                    _groceryCount[i] = FoodData.Ingredients[i].FoodNum;
+                    continue;
+                }
+                _groceryCount[i] = 0;
             }
-            _groceryCount[i]= 0;
+
+            _foodButton = GetComponent<Button>();
+            _foodButton.onClick.AddListener(ClickFood);
+
+            _foodImage = transform.GetChild(0).GetComponent<Image>();
+            _foodImage.sprite = FoodData.FoodSprite;
+
+            for (int i = 0; i < 6; i++)
+            {
+                if (i < _groceryKindCount)
+                {
+                    _needCountText[i].text = "/  " + (_makeFoodCount * _groceryCount[i]).ToString();
+                    continue;
+                }
+                _needCountText[i].text = null;
+            }
         }
         
-        _foodButton = GetComponent<Button>();
-        _foodButton.onClick.AddListener(ClickFood);
+    }
 
-        _foodImage = transform.GetChild(0).GetComponent<Image>();
-        _foodImage.sprite = FoodData.FoodSprite;
-
-        for (int i = 0; i < 6; i++)
-        {
-            if (i < _groceryKindCount)
-            {
-                _needCountText[i].text = "/  "+(_makeFoodCount * _groceryCount[i]).ToString();
-                continue;
-            }
-            _needCountText[i].text = null;
-        }
+    private void Start()
+    {
+        
     }
     private void ClickFood() 
     {
