@@ -25,11 +25,4 @@ public class ChickBulletBT : Tree
         return root;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.TryGetComponent(out HealthSystem health))
-        {
-            health.TakeDamage(_runDamage);
-        }
-    }
 }
