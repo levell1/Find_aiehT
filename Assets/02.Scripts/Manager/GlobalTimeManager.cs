@@ -90,7 +90,7 @@ public class GlobalTimeManager : MonoBehaviour
             OnOutFieldUI?.Invoke();
         }
 
-        if (IsMornigSave == true && Minutes == 15f)
+        if (IsMornigSave == true &&Hour==7f&& Minutes >= 15f)
         {
             GameManager.Instance.SaveDataManger.SavePlayerDataToJson();
             IsMornigSave = false;
