@@ -88,7 +88,7 @@ public class LoadingSceneController : MonoBehaviour
                         _backImage.color = _color;
                     }
                     op.allowSceneActivation = true;
-                    op.completed += c => { DontObjects.SetActive(true); };
+                    op.completed += c => { DontObjects.SetActive(true);};
                     yield break;
                 }
             }

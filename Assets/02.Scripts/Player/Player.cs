@@ -121,6 +121,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if(GameManager.Instance.GameStateManager.CurrentGameState == GameState.LOADGAME)
+        {
+            GameManager.Instance.GameStateManager.CurrentGameState = GameState.NEWGAME;
+        }
         _stateMachine.HandleInput();
         _stateMachine.Update();
     }

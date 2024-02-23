@@ -8,10 +8,13 @@ public class PlayerQuestList : MonoBehaviour
     public GameObject[] QuestImageList;
     public GameObject[] ProgressList;
 
+
     private void Start()
     {
         GameManager.Instance.GlobalTimeManager.OnInitQuest += Init;
         GameManager.Instance.QuestManager.OnQuestAccepted += PlayerAceeptQuestList;
+
+       
     }
 
     private void Init()
@@ -22,39 +25,36 @@ public class PlayerQuestList : MonoBehaviour
         }
     }
 
-    public void PlayerAceeptQuestList(List<Quest> acceptedQuests, int quantity)
+    public void PlayerAceeptQuestList(Quest acceptedQuests, int quantity, int questNumber, int Index)
     {
 
-        int minCount = Mathf.Min(QuestImageList.Length, acceptedQuests.Count);
-        for(int i = 0; i < minCount; i++)
-        {
-            QuestImageList[i].GetComponent<PlayerQuestUI>().UpdateQuestUI(acceptedQuests[i], quantity);
-        }
+        //int minCount = Mathf.Min(QuestImageList.Length, acceptedQuests.Count);
+        //for (int i = 0; i < minCount; i++)
+        //{
+        QuestImageList[Index].GetComponent<PlayerQuestUI>().UpdateQuestUI(acceptedQuests, quantity);
+        //}
 
-        if(GameManager.Instance.GameStateManager.CurrentGameState == GameState.LOADGAME)
-        {
-            LoadQuantities();
-        }
-        
+        //if (GameManager.Instance.GameStateManager.CurrentGameState == GameState.LOADGAME)
+        //{
+        //    LoadQuantities(questNumber);
+        //}
+        Index += 1;
     }
 
-    private void LoadQuantities()
-    {
-        for (int i = 0; i < GameManager.Instance.QuestManager.LoadAcceptQuestQuantities.Count; i++)
-        {
-            TextMeshProUGUI progressText = ProgressList[i].GetComponentInChildren<TextMeshProUGUI>();
-            Slider progressSlider = ProgressList[i].GetComponentInChildren<Slider>();
+    //private void LoadQuantities(int questNumber)
+    //{
+        //TextMeshProUGUI progressText = ProgressList[_listIndex].GetComponentInChildren<TextMeshProUGUI>();
+        //Slider progressSlider = ProgressList[_listIndex].GetComponentInChildren<Slider>();
 
-            int currentQuantity = GameManager.Instance.QuestManager.LoadProgressQuantities[i];
-            int TargetQuantity = GameManager.Instance.QuestManager.LoadAcceptQuestQuantities[i];
+        //int currentQuantity = GameManager.Instance.QuestManager.LoadProgressQuantities[questNumber];
+        //int TargetQuantity = GameManager.Instance.QuestManager.LoadAcceptQuestQuantities[_listIndex];
 
-            string valueText = string.Format($"{currentQuantity} / {TargetQuantity}");
-            progressText.text = valueText;
+        //string valueText = string.Format($"{currentQuantity} / {TargetQuantity}");
+        //progressText.text = valueText;
 
-            float progressPercentage = (float)currentQuantity /TargetQuantity;
-            progressSlider.value = progressPercentage;
-        }
+        //float progressPercentage = (float)currentQuantity / TargetQuantity;
+        //progressSlider.value = progressPercentage;
 
-    }
+    //}
 
 }

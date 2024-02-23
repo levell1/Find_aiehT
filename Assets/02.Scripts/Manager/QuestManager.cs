@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 
 public enum QuestTarget
@@ -24,7 +25,7 @@ public class QuestManager : MonoBehaviour
     public List<Quest> ActiveDailyQuests = new List<Quest>(); 
     public List<Quest> AcceptQuestList = new List<Quest>(); 
 
-    public delegate void QuestAcceptedEvent(List<Quest> acceptedQuests, int quantity);
+    public delegate void QuestAcceptedEvent(Quest acceptedQuests, int quantity, int questNumber, int Index);
     public event QuestAcceptedEvent OnQuestAccepted;
 
     public event Action<int, int> OnQuestValueUpdate;
@@ -40,13 +41,15 @@ public class QuestManager : MonoBehaviour
 
     private List<int> _questKey;
 
-    public List<int> LoadProgressQuantities;
+    public Dictionary<int, int> LoadProgressQuantities = new Dictionary<int, int>();
     public List<int> LoadAcceptQuestQuantities;
+    private List<int> _loadAcceptQuest;
 
     private GameStateManager _gameStateManager;
     private Player _player;
     private SavePlayerData _savePlayerData;
 
+    public int QuestIndex;
     private void Start()
     {
         GameManager.Instance.GlobalTimeManager.OnInitQuest += InitializeDailyQuest;
@@ -69,15 +72,24 @@ public class QuestManager : MonoBehaviour
     {
         if (_gameStateManager.CurrentGameState == GameState.LOADGAME)
         {
-            Dictionary<int, int> enemyQuestNumber = _savePlayerData.SaveEnemyQuestProgress;
-            Dictionary<int, int> natureQuestNumber = _savePlayerData.SaveNatureQuestProgress;
+            Dictionary<int, int> enemyQuestProgress = _savePlayerData.SaveEnemyQuestProgress;
+            Dictionary<int, int> natureQuestProgress = _savePlayerData.SaveNatureQuestProgress;
 
             Dictionary<int, int> loadActiveQuestDic = _savePlayerData.SaveActiveQuest;
             Dictionary<int, int> loadEnemyQuestRewardDic = _savePlayerData.SaveEnemyQuestReward;
             Dictionary<int, int> loadNautreQuestRewardDic = _savePlayerData.SaveNatureQuestReward;
 
-            _questKey = enemyQuestNumber.Keys.Concat(natureQuestNumber.Keys).ToList();
-            LoadProgressQuantities = enemyQuestNumber.Values.Concat(natureQuestNumber.Values).ToList();
+            foreach (var dic in enemyQuestProgress)
+            {
+                LoadProgressQuantities.Add(dic.Key, dic.Value);
+            }
+
+            foreach (var dic in natureQuestProgress)
+            {
+                LoadProgressQuantities.Add(dic.Key, dic.Value);
+            }
+
+            _questKey = enemyQuestProgress.Keys.Concat(natureQuestProgress.Keys).ToList();
 
             List<int> activeQuestKey = loadActiveQuestDic.Keys.ToList();
             List<int> activeQuestValue = loadActiveQuestDic.Values.ToList();
@@ -104,18 +116,24 @@ public class QuestManager : MonoBehaviour
                 }
             }
 
-            List<int> loadAcceptQuest = _savePlayerData.SaveAcceptQuestID;
+            _loadAcceptQuest = _savePlayerData.SaveAcceptQuestID;
             LoadAcceptQuestQuantities = _savePlayerData.SaveAcceptQuest.Values.ToList();
 
             EnemyQuantityDict = _savePlayerData.SaveEnemyQuestProgress;
             NatureQuantityDict = _savePlayerData.SaveNatureQuestProgress;
 
-            for (int i = 0; i < loadAcceptQuest.Count; i++)
+            int index = 0;
+            do
             {
-                Quest quest = ActiveDailyQuests[i];
-                AcceptQuest(quest);
-            }
-
+                int questNumber = _loadAcceptQuest[index];
+                Quest quest = ActiveDailyQuests.FirstOrDefault(q => q.QuestNumber == questNumber);
+                if (quest != null)
+                {
+                    AcceptQuest(quest);
+                    //_loadAcceptQuest.Remove(questNumber);
+                }
+                index++;
+            } while (_loadAcceptQuest.Count > 0 && index < _loadAcceptQuest.Count);
         }
     }
 
@@ -139,12 +157,11 @@ public class QuestManager : MonoBehaviour
 
     public void InitializeDailyQuest()
     {
-
-        _gameStateManager.CurrentGameState = GameState.NEWGAME;
         ActiveDailyQuests.Clear();
         AcceptQuestList.Clear();
         EnemyQuantityDict.Clear();
         NatureQuantityDict.Clear();
+        QuestIndex = 0;
 
         int enemyQuestID = 10001;
         int natureQuestID = 20001;
@@ -230,23 +247,11 @@ public class QuestManager : MonoBehaviour
 
             if (OnQuestAccepted != null)
             {
-                OnQuestAccepted.Invoke(AcceptQuestList, 0);
+                OnQuestAccepted.Invoke(quest, 0, quest.QuestNumber, QuestIndex);
             }
             else
             {
-                for(int i = 0; i < ActiveDailyQuests.Count; i++)
-                {
-                    if(i < _halfLength)
-                    {
-                        playerQuestList.PlayerAceeptQuestList(AcceptQuestList, LoadProgressQuantities[i]);
-
-                    }
-                    else
-                    {
-                        playerQuestList.PlayerAceeptQuestList(AcceptQuestList, LoadProgressQuantities[i]);
-                    }
-             
-                }
+                playerQuestList.PlayerAceeptQuestList(quest, LoadProgressQuantities[quest.QuestNumber], quest.QuestNumber, QuestIndex);     
             }
 
             if (quest is EnemyDailyQuest)
@@ -260,6 +265,8 @@ public class QuestManager : MonoBehaviour
                 ItemObject.OnQuestTargetInteraction += UpdateNatureQuestProgress;
             }
         }
+
+        QuestIndex++;
     }
 
 
@@ -406,12 +413,11 @@ public class QuestManager : MonoBehaviour
 
         if (quest is EnemyDailyQuest)
         {
-            player.PlayerExpSystem.GetExpPlus(quest.EnemyQuestReward);
+            player.PlayerExpSystem.GetExpPlus(quest.EnemyTotalQuestReward);
         }
         else if(quest is NatureDailyQuest)
         {
-            int rewardGold = player.Data.PlayerData.PlayerGold + quest.NatureItemPrice;
-            player.Data.PlayerData.PlayerGold += rewardGold;
+            player.Data.PlayerData.PlayerGold += quest.NatureToalQuestReward;
         }
         else if(quest is MainQuest)
         {

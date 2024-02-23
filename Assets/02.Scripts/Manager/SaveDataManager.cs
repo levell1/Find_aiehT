@@ -135,6 +135,8 @@ public class SavePlayerData
 
         SaveActiveMainQuest.Clear();
         SaveActiveMainQuestProgress.Clear();
+        SaveNatureQuestReward.Clear();
+        SaveEnemyQuestReward.Clear();
     }
 
     public void SaveSceneData()
