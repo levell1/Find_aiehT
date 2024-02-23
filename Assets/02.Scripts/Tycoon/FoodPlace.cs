@@ -5,10 +5,6 @@ using UnityEngine;
 public class FoodPlace : MonoBehaviour
 {
     #region Field
-
-    // Eat Time 과 맞추기
-    private const float _foodEatTime = 10.0f;
-
     public int SeatNum { get; set; }
 
     private CustomerController _currentCustomer = null;
@@ -86,7 +82,7 @@ public class FoodPlace : MonoBehaviour
 
     IEnumerator SetFoodToCleanState(CookedFood food)
     {
-        yield return new WaitForSeconds(_foodEatTime);
+        yield return TycoonManager.Instance._waitForCustomerEatTime;
 
         food.ShouldClean = true;
     }
