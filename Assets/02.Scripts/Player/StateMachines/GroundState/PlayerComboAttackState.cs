@@ -54,7 +54,7 @@ public class PlayerComboAttackState : PlayerAttackState
         float comboForceMultiplier = 1.0f + (_stateMachine.ComboIndex * 0.1f); 
         float scaledForce = _attackInfoData.Force * comboForceMultiplier;
         
-        _stateMachine.Player.Rigidbody.AddForce(_stateMachine.Player.transform.forward * scaledForce);
+        //_stateMachine.Player.Rigidbody.AddForce(_stateMachine.Player.transform.forward * scaledForce);
     }
 
 
