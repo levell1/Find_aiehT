@@ -28,6 +28,7 @@ public class GlobalTimeManager : MonoBehaviour
     public bool IsActiveOutFieldUI;
     public bool IsMoveVillageToField;
     public bool IsMoveFieldToVillage;
+    public bool IsMornigSave;
     public event Action OnInitQuest;
     public event Action OnOutFieldUI;
     public event Action OnNightCheck;
@@ -89,7 +90,13 @@ public class GlobalTimeManager : MonoBehaviour
             OnOutFieldUI?.Invoke();
         }
 
-        if(Hour >= 18f)
+        if (IsMornigSave == true && Minutes == 15f)
+        {
+            GameManager.Instance.SaveDataManger.SavePlayerDataToJson();
+            IsMornigSave = false;
+        }
+        
+        if (Hour >= 18f)
         {
             IsMoveVillageToField = false;
             IsMoveFieldToVillage = true;
@@ -241,6 +248,7 @@ public class GlobalTimeManager : MonoBehaviour
 
     public void GoodMorning()
     {
+        IsMornigSave = true;
         EventCount = 1;
         OnOutFieldUI?.Invoke();
     }
