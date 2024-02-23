@@ -79,6 +79,8 @@ public class TycoonManager : MonoSingleton<TycoonManager>
 
         _prepareStation.GetComponent<PrepareStation>().OffPrepareStation();
         _TycoonUI.ShowTycoonStartText();
+
+        GameManager.Instance.Player.GetComponent<ServingFood>().IsTycoonGameOver = false;
     }
 
     private void TycoonGameEnd()
@@ -86,7 +88,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
         _TycoonUI.OnReusltUI();
         GameManager.Instance.DataManager.AngryCustomerNum(AngryCustomerNum);
         GameManager.Instance.DataManager.RemoveOrderData();
-        GameManager.Instance.Player.GetComponent<ServingFood>().ThrowAwayFood();
+        GameManager.Instance.Player.GetComponent<ServingFood>().ReturnPlayerSetting();
         _playerInteraction.SetActive(true);
     }
 
