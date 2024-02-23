@@ -93,9 +93,9 @@ public class GlobalTimeManager : MonoBehaviour
 
         if (IsMornigSave == true &&Hour==7f&& Minutes >= 15f)
         {
-            GameManager.Instance.SaveDataManger.SavePlayerDataToJson();
             StartCoroutine(ActiveAutoSaveText());
             IsMornigSave = false;
+            GameManager.Instance.SaveDataManger.SavePlayerDataToJson();
         }
         
         if (Hour >= 18f)
