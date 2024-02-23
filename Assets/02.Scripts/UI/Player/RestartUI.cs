@@ -30,6 +30,7 @@ public class RestartUI : BaseUI
     private void Update()
     {
         Time.timeScale = 0f;
+        Cursor.lockState = CursorLockMode.None;
         GameManager.Instance.CameraManager.DisableCam();
     }
 

@@ -49,8 +49,8 @@ public class SettingUI : BaseUI
 
     private void GoSleep()
     {
-        GameManager.Instance.UIManager.PopupDic[UIName.RestartUI].SetActive(true);
         base.CloseUI();
+        GameManager.Instance.UIManager.PopupDic[UIName.RestartUI].SetActive(true);
         Cursor.lockState = CursorLockMode.None;
     }
 
