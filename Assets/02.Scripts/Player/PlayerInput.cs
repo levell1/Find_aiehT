@@ -19,12 +19,6 @@ public class PlayerInput : MonoBehaviour
     {
 
         InputActions.Dispose();
-
-        if (scene.name == SceneName.LoadingScene)
-        {
-            return;
-        }
-
         InputActions = new PlayerInputActions();
 
         if (scene.name == SceneName.TycoonScene)
