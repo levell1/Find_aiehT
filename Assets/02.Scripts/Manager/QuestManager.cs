@@ -73,6 +73,8 @@ public class QuestManager : MonoBehaviour
             Dictionary<int, int> natureQuestNumber = _savePlayerData.SaveNatureQuestProgress;
 
             Dictionary<int, int> loadActiveQuestDic = _savePlayerData.SaveActiveQuest;
+            Dictionary<int, int> loadEnemyQuestRewardDic = _savePlayerData.SaveEnemyQuestReward;
+            Dictionary<int, int> loadNautreQuestRewardDic = _savePlayerData.SaveNatureQuestReward;
 
             _questKey = enemyQuestNumber.Keys.Concat(natureQuestNumber.Keys).ToList();
             LoadProgressQuantities = enemyQuestNumber.Values.Concat(natureQuestNumber.Values).ToList();
@@ -89,6 +91,7 @@ public class QuestManager : MonoBehaviour
                     EnemyDailyQuest enemyDailyQuest = new EnemyDailyQuest(QuestSO, _questKey[i]);
                     enemyDailyQuest.TargetID = activeQuestKey[i];
                     enemyDailyQuest.TargetQuantity = activeQuestValue[i];
+                    enemyDailyQuest.EnemyTotalQuestReward = loadEnemyQuestRewardDic[_questKey[i]];
                     ActiveDailyQuests.Add(enemyDailyQuest);
                 }
                 else
@@ -96,6 +99,7 @@ public class QuestManager : MonoBehaviour
                     NatureDailyQuest natureDailyQuest = new NatureDailyQuest(QuestSO, _questKey[i]);
                     natureDailyQuest.TargetID = activeQuestKey[i];
                     natureDailyQuest.TargetQuantity = activeQuestValue[i];
+                    natureDailyQuest.NatureToalQuestReward = loadNautreQuestRewardDic[_questKey[i]];
                     ActiveDailyQuests.Add(natureDailyQuest);
                 }
             }
@@ -406,7 +410,7 @@ public class QuestManager : MonoBehaviour
         }
         else if(quest is NatureDailyQuest)
         {
-            int rewardGold = player.Data.PlayerData.PlayerGold + quest.NatureQuestReward;
+            int rewardGold = player.Data.PlayerData.PlayerGold + quest.NatureItemPrice;
             player.Data.PlayerData.PlayerGold += rewardGold;
         }
         else if(quest is MainQuest)

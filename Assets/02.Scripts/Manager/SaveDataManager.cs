@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -79,7 +80,10 @@ public class SavePlayerData
     [HideInInspector] public Dictionary<int, int> SaveActiveQuest = new Dictionary<int, int>();
 
     [HideInInspector] public Dictionary<int, int> SaveEnemyQuestProgress = new Dictionary<int, int>(); 
-    [HideInInspector] public Dictionary<int, int> SaveNatureQuestProgress = new Dictionary<int, int>(); 
+    [HideInInspector] public Dictionary<int, int> SaveNatureQuestProgress = new Dictionary<int, int>();
+
+    [HideInInspector] public Dictionary<int, int> SaveEnemyQuestReward = new Dictionary<int, int>();
+    [HideInInspector] public Dictionary<int, int> SaveNatureQuestReward = new Dictionary<int, int>();
 
     [Header("MainQuest")]
     [HideInInspector] public Dictionary<int, int> SaveActiveMainQuest = new Dictionary<int, int>();
@@ -216,6 +220,16 @@ public class SavePlayerData
         foreach(Quest quest in _questManager.ActiveDailyQuests)
         {
             SaveActiveQuest.Add(quest.TargetID, quest.TargetQuantity);
+        }
+
+        foreach(NatureDailyQuest quest in _questManager.ActiveDailyQuests.OfType<NatureDailyQuest>())
+        {
+            SaveNatureQuestReward.Add(quest.QuestNumber, quest.NatureToalQuestReward);
+        }
+
+        foreach (EnemyDailyQuest quest in _questManager.ActiveDailyQuests.OfType<EnemyDailyQuest>())
+        {
+            SaveEnemyQuestReward.Add(quest.QuestNumber, quest.EnemyTotalQuestReward);
         }
 
         foreach (var quest in _questManager.EnemyQuantityDict)
