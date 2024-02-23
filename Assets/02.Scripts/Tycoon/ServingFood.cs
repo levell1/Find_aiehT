@@ -12,6 +12,13 @@ public class ServingFood : MonoBehaviour
     private List<GameObject> _canCleaningFoods = new();
 
     private const float _minDistanceToPutFood = 2f;
+    
+    public bool IsTycoonGameOver
+    {
+        get { return _isTycoonGameOver; }
+        set { _isTycoonGameOver = value; }
+    }
+    private bool _isTycoonGameOver = false;
 
     private WaitForSeconds _waitCleaningTime = new WaitForSeconds(0f);
     public bool CanThrowAway { get; set; }
@@ -107,10 +114,18 @@ public class ServingFood : MonoBehaviour
         Destroy(food);
     }
 
-    public void ThrowAwayFood()
+    private void ThrowAwayFood()
+    {
+        Destroy(_holdingFood.gameObject);
+    }
+
+    public void ReturnPlayerSetting()
     {
         if (_holdingFood != null)
-            Destroy(_holdingFood.gameObject);
+            ThrowAwayFood();
+
+        _isTycoonGameOver = true;
+        _canCleaningFoods.Clear();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -120,7 +135,7 @@ public class ServingFood : MonoBehaviour
             CookedFood cookedFood = other.gameObject.GetComponent<CookedFood>();
             if (cookedFood != null)
             {
-                if (cookedFood.ShouldClean)
+                if (cookedFood.ShouldClean && !_isTycoonGameOver)
                 {
                     if (!_canCleaningFoods.Contains(other.gameObject))
                     {

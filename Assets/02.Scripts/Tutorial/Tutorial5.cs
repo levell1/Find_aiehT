@@ -27,7 +27,7 @@ public class Tutorial5 : MonoBehaviour
         {
             _tutorialManager.TutorialText.text = TutorialTxt;
         }
-        _player.HealthSystem.TakeDamage(10);
+        _player.HealthSystem.TakeDamage(200);
     }
 
     private void Update()

@@ -15,34 +15,50 @@ public class JsonReader : MonoBehaviour
     {
         _aesManager = GameManager.Instance.AESManager;
 
-        PlayerSkillData skillData = LoadJson<PlayerSkillData>(JsonDataName.PlayerSkillData);
+        PlayerSkillData skillData = LoadJsonFromResource<PlayerSkillData>(JsonDataName.PlayerSkillData);
         PlayerSO.SetPlayerSkillData(skillData);
 
-        PlayerLevelData playerLevelData = LoadJson<PlayerLevelData>(JsonDataName.PlayerLevelData);
+        PlayerLevelData playerLevelData = LoadJsonFromResource<PlayerLevelData>(JsonDataName.PlayerLevelData);
         PlayerSO.SetPlayerLevelData(playerLevelData);
 
     }
 
     public void InitPlayerData()
     {
-        PlayerJsonData playerJsonData = LoadJson<PlayerJsonData>(JsonDataName.PlayerData);
+        PlayerJsonData playerJsonData = LoadJsonFromResource<PlayerJsonData>(JsonDataName.PlayerData);
         PlayerSO.SetPlayerData(playerJsonData.PlayerData);
     }
 
     public void LoadPlayerData()
     {
         string saveFilePath = Path.Combine(Application.persistentDataPath, JsonDataName.SaveFile);
-        LoadedPlayerData = LoadJson<SavePlayerData>(saveFilePath);
+
+        LoadedPlayerData = LoadJsonFromPath<SavePlayerData>(saveFilePath);
         PlayerSO.SetPlayerData(LoadedPlayerData.InitLoadPlayerData());
     }
 
-    public T LoadJson<T>(string FilePath)
+    public T LoadJsonFromPath<T>(string FilePath)
     {
         StringBuilder jsonFilePathBuilder = new StringBuilder(FilePath);
         jsonFilePathBuilder.Append(".json");
         string jsonFilePath = jsonFilePathBuilder.ToString();
 
+        //TextAsset jsonFile = Resources.Load<TextAsset>(FilePath);
         string jsonText = File.ReadAllText(jsonFilePath);
+        string decryptedJson = _aesManager.AESDecrypt(jsonText);
+
+        return JsonConvert.DeserializeObject<T>(decryptedJson);
+    }
+
+    public T LoadJsonFromResource<T>(string FilePath)
+    {
+        //StringBuilder jsonFilePathBuilder = new StringBuilder(FilePath);
+        //jsonFilePathBuilder.Append(".json");
+        //string jsonFilePath = jsonFilePathBuilder.ToString();
+
+        TextAsset jsonFile = Resources.Load<TextAsset>(FilePath);
+        //string jsonText = File.ReadAllText(jsonFilePath);
+        string jsonText = jsonFile.text;
         string decryptedJson = _aesManager.AESDecrypt(jsonText);
 
         return JsonConvert.DeserializeObject<T>(decryptedJson);
