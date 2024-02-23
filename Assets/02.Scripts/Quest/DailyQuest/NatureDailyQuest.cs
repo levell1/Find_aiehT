@@ -8,6 +8,10 @@ public class NatureDailyQuest : Quest
             _randomIDList.Add(i);
         }
         RandomQuest();
+        if(GameManager.Instance.GameStateManager.CurrentGameState == GameState.NEWGAME)
+        {
+            NatureToalQuestReward = NatureItemPrice * TargetQuantity * 5;
+        }
     }
 
     protected override void InitQuest()
@@ -46,8 +50,7 @@ public class NatureDailyQuest : Quest
     }
     public override string GetQuestRewardToString()
     {
-        int questReward = NatureQuestReward * TargetQuantity * 5;
-        return string.Format($"{questReward} GOLD");
+        return string.Format($"{NatureToalQuestReward} GOLD");
     }
 
 }

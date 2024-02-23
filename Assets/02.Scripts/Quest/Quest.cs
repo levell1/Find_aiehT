@@ -21,8 +21,11 @@ public class Quest
     protected int _maxTargetQuantity;
 
     public int EnemyQuestReward;
-    public int NatureQuestReward;
+    public int NatureItemPrice;
     public int MainQuestReward;
+
+    public int NatureToalQuestReward;
+    public int EnemyTotalQuestReward;
 
     public int QuestNumber;
     public int TargetID;
@@ -40,11 +43,12 @@ public class Quest
         QuestData = data;
         _enemyQuestData = data.EnemyQuestData;
         _natureQuestData = data.NatureQuestData;
-       
+
 
         QuestNumber = questNumber;
         EnemyQuestReward = data.EnemyQuestData.reward;
         _player = GameManager.Instance.Player.GetComponent<Player>();
+        
 
         InitQuest();
     }
@@ -78,7 +82,7 @@ public class Quest
                 if (natureItem.ItemID == TargetID)
                 {
                     _natureItemName = natureItem.ObjName;
-                    NatureQuestReward = natureItem.Price;
+                    NatureItemPrice = natureItem.Price;
                     break;
                 }
             }
@@ -103,8 +107,8 @@ public class Quest
 
     public virtual string GetQuestRewardToString()
     {
-        int questReward = EnemyQuestReward * _player.Data.PlayerData.PlayerLevel;
-        return questReward.ToString();
+        EnemyTotalQuestReward = EnemyQuestReward * _player.Data.PlayerData.PlayerLevel;
+        return EnemyTotalQuestReward.ToString();
     }
 
 }

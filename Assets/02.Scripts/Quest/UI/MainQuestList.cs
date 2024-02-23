@@ -53,13 +53,13 @@ public class MainQuestList : MonoBehaviour
             {
                 QuestStateImage.color = new Color(0.3f, 0.69f, 1);
                 _questStateImageText.color = new Color(0, 0, 0);
-                _questStateImageText.text = string.Format("퀘스트 진행중");
+                _questStateImageText.text = string.Format("업적 진행중");
             }
             else
             {
                 QuestStateImage.color = new Color(0.7f, 0.67f, 0);
                 _questStateImageText.color = new Color(1, 1, 1);
-                _questStateImageText.text = string.Format("퀘스트 완료");
+                _questStateImageText.text = string.Format("업적 완료");
             }
 
         }

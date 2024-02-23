@@ -8,6 +8,7 @@ public class EnemyDailyQuest : Quest
             _randomIDList.Add(i);
         }
         RandomQuest();
+        EnemyTotalQuestReward = EnemyQuestReward * _player.Data.PlayerData.PlayerLevel;
     }
 
     protected override void InitQuest()
