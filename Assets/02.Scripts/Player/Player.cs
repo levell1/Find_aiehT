@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     public PlayerUseStaminaPotion PlayerUseStaminaPotion { get; private set; }
     public Inventory Inventory { get; private set; }
     public ServingFood ServingFood { get; private set; }
+    public EquipmentDatas EquipmentDatas { get; private set; }
 
     [field: Header("Weapon")]
     [field: SerializeField] public PlayerWeapon Weapon { get; private set; }
@@ -69,7 +70,7 @@ public class Player : MonoBehaviour
         SkillInstantiator = GetComponent<SkillInstantiator>();
 
         ServingFood = GetComponent<ServingFood>();
-
+        EquipmentDatas = GetComponent<EquipmentDatas>();
 
         _stateMachine = new PlayerStateMachine(this);
 

@@ -171,7 +171,12 @@ public struct SFXSoundPathName
     public const string Pig1 = "Pig1";
     public const string Pig2 = "Pig2";
 
-
-
+}
+public enum Region
+{
+    초원,
+    사막,
+    설산,
+    돌산
 }
 

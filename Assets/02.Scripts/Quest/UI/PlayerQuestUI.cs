@@ -7,6 +7,7 @@ public class PlayerQuestUI : MonoBehaviour
     public TMP_Text QuestTitle;
     public TMP_Text QuestContent;
     public TMP_Text QuestProgress;
+    public TMP_Text QuestRegion;
     public Slider SliderQuestProgress;
 
     private Quest _quest;
@@ -21,6 +22,7 @@ public class PlayerQuestUI : MonoBehaviour
         gameObject.SetActive(true);
         QuestTitle.text = quest.GetQuestTitle();
         QuestContent.text = quest.GetQuestDescription();
+        QuestRegion.text = quest.GetQuestRegion();
 
         UpdateQuantityValue(quantity, quest.TargetID);
 

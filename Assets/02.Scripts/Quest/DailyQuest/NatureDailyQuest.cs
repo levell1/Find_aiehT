@@ -29,19 +29,22 @@ public class NatureDailyQuest : Quest
 
     public override string GetQuestDescription()
     {
-        if (_gameStateManager.CurrentGameState == GameState.LOADGAME)
+        foreach (var natureItem in ItemDatas.ItemList)
         {
-            foreach (var natureItem in ItemDatas.ItemList)
+            if (natureItem.ItemID == TargetID)
             {
-                if (natureItem.ItemID == TargetID)
-                {
-                    _natureItemName = natureItem.ObjName;
-                    break;
-                }
+                _natureItemName = natureItem.ObjName;
+                _natureRegion = natureItem.Region;
+                break;
             }
         }
 
         return string.Format($"{_natureItemName} 채집물을 {TargetQuantity}개 채집해라");
+    }
+
+    public override string GetQuestRegion()
+    {
+        return string.Format($"출몰 지역 : {_natureRegion}");
     }
 
     public override int GetTargetID()

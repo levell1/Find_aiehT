@@ -7,6 +7,7 @@ public class QuestList : MonoBehaviour
     public Toggle[] QuestToggle;
     public TMP_Text QuestContent;
     public TMP_Text QuestReward;
+    public TMP_Text QuestRegion;
 
     public Image QuestStateImage;
     public Button AcceptButton;
@@ -60,6 +61,7 @@ public class QuestList : MonoBehaviour
             _selectedQuestIndex = questIndex;
             QuestContent.text = _questList[questIndex].GetQuestDescription();
             QuestReward.text = _questList[questIndex].GetQuestRewardToString();
+            QuestRegion.text = _questList[questIndex].GetQuestRegion();
 
             if (!_questManager.AcceptQuestList.Contains(_questList[questIndex]))
             {

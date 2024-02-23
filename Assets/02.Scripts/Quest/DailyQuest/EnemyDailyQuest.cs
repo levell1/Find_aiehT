@@ -27,20 +27,23 @@ public class EnemyDailyQuest : Quest
 
     public override string GetQuestDescription()
     {
-        if(_gameStateManager.CurrentGameState == GameState.LOADGAME)
+        foreach (var enemyData in EnemyDatas.EnemyList)
         {
-            foreach (var enemyData in EnemyDatas.EnemyList)
+            if (enemyData.EnemyID == TargetID)
             {
-                if (enemyData.EnemyID == TargetID)
-                {
-                    _enemyName = enemyData.EnemyName;
-                    break;
-                }
+                _enemyName = enemyData.EnemyName;
+                _enemyRegion = enemyData.EnemyRegion;
+                break;
             }
         }
 
         return string.Format($"{_enemyName} 몬스터를 {TargetQuantity}마리 잡아라");
 
+    }
+
+    public override string GetQuestRegion()
+    {
+        return string.Format($"출몰 지역: {_enemyRegion}");
     }
 
     public override int GetTargetID()

@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemySO : ScriptableObject
 {
     [field: SerializeField] public int[] AppropriateLevel { get; private set; }
+    [field: SerializeField] public Region EnemyRegion { get; private set; }
     [field: SerializeField] public float ActiveNameRange { get; private set; }
     [field: SerializeField] public string EnemyName { get; private set; }
     [field: SerializeField] public string EnemyDescription { get; private set; }

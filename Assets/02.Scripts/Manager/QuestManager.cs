@@ -122,18 +122,22 @@ public class QuestManager : MonoBehaviour
             EnemyQuantityDict = _savePlayerData.SaveEnemyQuestProgress;
             NatureQuantityDict = _savePlayerData.SaveNatureQuestProgress;
 
-            int index = 0;
-            do
+            if (_loadAcceptQuest.Count > 0)
             {
-                int questNumber = _loadAcceptQuest[index];
-                Quest quest = ActiveDailyQuests.FirstOrDefault(q => q.QuestNumber == questNumber);
-                if (quest != null)
+                int index = 0;
+                do
                 {
-                    AcceptQuest(quest);
-                    //_loadAcceptQuest.Remove(questNumber);
-                }
-                index++;
-            } while (_loadAcceptQuest.Count > 0 && index < _loadAcceptQuest.Count);
+                    int questNumber = _loadAcceptQuest[index];
+                    Quest quest = ActiveDailyQuests.FirstOrDefault(q => q.QuestNumber == questNumber);
+                    if (quest != null)
+                    {
+                        AcceptQuest(quest);
+                        //_loadAcceptQuest.Remove(questNumber);
+                    }
+                    index++;
+                } while (index < _loadAcceptQuest.Count);
+            }
+
         }
     }
 

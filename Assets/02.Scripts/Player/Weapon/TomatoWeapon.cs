@@ -119,11 +119,11 @@ public class TomatoWeapon : MonoBehaviour
 
     private float SkillTotalDamage()
     {
-        float _playerDamage = _playerSO.PlayerData.PlayerAttack;
-        float _skillDamage = _playerSO.SkillData.GetSkillData(_skillIndex).SkillDamage;
-        float _weaponDamage = _equipmentDatas.SumDmg;
+        float playerDamage = _playerSO.PlayerData.PlayerAttack;
+        float skillDamage = _playerSO.SkillData.GetSkillData(_skillIndex).SkillDamage;
+        float weaponDamage = _equipmentDatas.SumDmg;
 
-        return _playerDamage + (_skillDamage + _weaponDamage)* _playerSO.PlayerData.PlayerLevel*10;
+        return playerDamage + (skillDamage + weaponDamage)* _playerSO.PlayerData.PlayerLevel * 3;
     }
 
     IEnumerator SkillDistance()

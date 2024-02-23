@@ -31,11 +31,14 @@ public class PlayerSpreadSkillState : PlayerSkillState
                 _stateMachine.Player.SandSkill.EnableCollider();
                 _stateMachine.Player.SkillParticle.PlayParticle();
 
-                float skillDamage = _skillData.SkillDamage;
                 float playerDamage = _stateMachine.Player.Data.PlayerData.PlayerAttack;
+                float skillDamage = _skillData.SkillDamage;
+                float weaponDamage = _stateMachine.Player.EquipmentDatas.SumDmg;
+
                 int playerLevel = _stateMachine.Player.Data.PlayerData.PlayerLevel;
 
-                float totalDamage = skillDamage * playerLevel*10 + playerDamage;
+
+                float totalDamage = playerDamage + (skillDamage + weaponDamage) * playerLevel * 3;
 
                 _stateMachine.Player.SandSkill.SetAttack(totalDamage);
 

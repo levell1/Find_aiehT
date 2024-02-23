@@ -17,6 +17,9 @@ public class Quest
     protected string _enemyName;
     protected string _natureItemName;
 
+    protected Region _enemyRegion;
+    protected Region _natureRegion;
+
     protected int _minTargetQuantity = 1;
     protected int _maxTargetQuantity;
 
@@ -73,6 +76,7 @@ public class Quest
                 if (enemyData.EnemyID == TargetID)
                 {
                     _enemyName = enemyData.EnemyName;
+                    _enemyRegion = enemyData.EnemyRegion;
                     break;
                 }
             }
@@ -82,6 +86,7 @@ public class Quest
                 if (natureItem.ItemID == TargetID)
                 {
                     _natureItemName = natureItem.ObjName;
+                    _natureRegion = natureItem.Region;
                     NatureItemPrice = natureItem.Price;
                     break;
                 }
@@ -98,6 +103,11 @@ public class Quest
     public virtual string GetQuestDescription()
     {
         return string.Format($"몬스터 ID {_enemyName}을/를 가진 몬스터를 {TargetQuantity}마리 잡아라");
+    }
+
+    public virtual string GetQuestRegion()
+    {
+        return string.Format($"출몰 지역: {_enemyRegion}");
     }
 
     public virtual int GetTargetID()

@@ -57,7 +57,7 @@ public class PlayerSpreadSkill : MonoBehaviour
 
     public void SetAttack(float damage)
     {
-        this._damage = damage + _equipmentDatas.SumDmg * 2;
+        _damage = damage;
     }
 
     public void EnableCollider()

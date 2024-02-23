@@ -16,7 +16,7 @@ public class ItemSO : ScriptableObject
     [field: SerializeField] public int Price { get; private set; }
     [field: SerializeField] public Sprite Sprite { get; private set; }
     [field: SerializeField] public int MaxStackAmount { get; private set; }
-
+    [field: SerializeField] public Region Region {get; private set;}
     [field: SerializeField] public ItemType type;
 
 

@@ -44,18 +44,18 @@ public class JsonReader : MonoBehaviour
         string jsonFilePath = jsonFilePathBuilder.ToString();
 
         string jsonText = File.ReadAllText(jsonFilePath);
-        //string decryptedJson = _aesManager.AESDecrypt(jsonText);
+        string decryptedJson = _aesManager.AESDecrypt(jsonText);
 
-        return JsonConvert.DeserializeObject<T>(jsonText);
+        return JsonConvert.DeserializeObject<T>(decryptedJson);
     }
 
     public T LoadJsonFromResource<T>(string FilePath)
     {
         TextAsset jsonFile = Resources.Load<TextAsset>(FilePath);
         string jsonText = jsonFile.text;
-        string decryptedJson = _aesManager.AESDecrypt(jsonText);
+       // string decryptedJson = _aesManager.AESDecrypt(jsonText);
 
-        return JsonConvert.DeserializeObject<T>(decryptedJson);
+        return JsonConvert.DeserializeObject<T>(jsonText);
     }
 
     public void SaveJson(object data, string filePath)
@@ -67,10 +67,10 @@ public class JsonReader : MonoBehaviour
         Debug.Log(jsonFilePath);
 
         string jsonData = JsonConvert.SerializeObject(data, Formatting.Indented);
-        //string encryptedJson = _aesManager.AESEncrypt(jsonData);
+        string encryptedJson = _aesManager.AESEncrypt(jsonData);
 
-        File.WriteAllText(jsonFilePath, jsonData);
-        //File.WriteAllText(jsonFilePath, encryptedJson);
+        //File.WriteAllText(jsonFilePath, jsonData);
+        File.WriteAllText(jsonFilePath, encryptedJson);
     }
 
     public bool CheckJsonFileExist()

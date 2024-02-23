@@ -22,7 +22,7 @@ public class MainQuest : Quest
 
     public override string GetQuestTitle()
     {
-        return string.Format("업 적");
+        return string.Format(GetQuestDescription());
     }
 
 

@@ -50,12 +50,19 @@ public class StatusUI : BaseUI
 
     private void OnEnable()
     {
+
+        float playerDamage = _playerData.PlayerData.PlayerAttack;
+        float tomatoSkillDamage = _playerData.SkillData.SkillInfoDatas[0].SkillDamage;
+        float spreadSkillDamage = _playerData.SkillData.SkillInfoDatas[1].SkillDamage;
+        int playerLevel = _playerData.PlayerData.PlayerLevel;
+
         _sumEquipDef = 0;
         _sumequipHealth = 0;
         _weaponDamage = 0;
 
+
         _playerName.text = _playerData.PlayerData.PlayerName;
-        _playerLevel.text = _playerData.PlayerData.PlayerLevel.ToString();
+        _playerLevel.text = playerLevel.ToString();
         
 
         for (int i = 0; i < _equipment.Length; i++)
@@ -68,6 +75,8 @@ public class StatusUI : BaseUI
             _weaponDamage += _equipmentUpgrade.EquipData[i].CurrentAttack;
         }
 
+        float tomatoSkillTotalDamage = playerDamage + (tomatoSkillDamage + _weaponDamage) * playerLevel * 3;
+        float spreadSkillTotalDamage = playerDamage + (spreadSkillDamage + _weaponDamage) * playerLevel * 3;
 
         _equipmentHealth.text = "("+_sumequipHealth.ToString()+")";
         _equipmentDef.text = "("+_sumEquipDef.ToString()+")";
@@ -75,16 +84,18 @@ public class StatusUI : BaseUI
 
         _maxHealth.text = (_playerData.PlayerData.PlayerMaxHealth + _sumequipHealth).ToString();
         _maxStamina.text = _playerData.PlayerData.PlayerMaxStamina.ToString();
-        _attack.text = (_playerData.PlayerData.PlayerAttack + _weaponDamage).ToString();
+        _attack.text = (playerDamage + _weaponDamage).ToString();
         _defence.text = (_playerData.PlayerData.PlayerDef + _sumEquipDef).ToString();
 
         _qSkillName.text = _playerData.SkillData.SkillInfoDatas[0].SkillName+"(Q)";
-        _qSkillDmg.text = _playerData.SkillData.SkillInfoDatas[0].SkillDamage.ToString();
+
+
+        _qSkillDmg.text = tomatoSkillTotalDamage.ToString();
         _qSkillCool.text = _playerData.SkillData.SkillInfoDatas[0].SkillCoolTime.ToString();
         _qSkillStamina.text = _playerData.SkillData.SkillInfoDatas[0].SKillCost.ToString();
 
         _eSkillName.text = _playerData.SkillData.SkillInfoDatas[1].SkillName + "(E)";
-        _eSkillDmg.text = _playerData.SkillData.SkillInfoDatas[1].SkillDamage.ToString();
+        _eSkillDmg.text = spreadSkillTotalDamage.ToString();
         _eSkillCool.text = _playerData.SkillData.SkillInfoDatas[1].SkillCoolTime.ToString();
         _eSkillStamina.text = _playerData.SkillData.SkillInfoDatas[1].SKillCost.ToString();
     }

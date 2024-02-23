@@ -34,6 +34,8 @@ public class CameraManager : MonoBehaviour
 
         Time.timeScale = 1f;
 
+        if (CameraSpeed == 0) CameraSpeed = 0.5f;
+
         VirtualcameraPov.m_VerticalAxis.m_MaxSpeed = CameraSpeed;
         VirtualcameraPov.m_HorizontalAxis.m_MaxSpeed = CameraSpeed;
 
