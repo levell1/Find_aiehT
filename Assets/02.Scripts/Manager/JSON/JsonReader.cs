@@ -38,11 +38,13 @@ public class JsonReader : MonoBehaviour
 
     public T LoadJson<T>(string FilePath)
     {
-        StringBuilder jsonFilePathBuilder = new StringBuilder(FilePath);
-        jsonFilePathBuilder.Append(".json");
-        string jsonFilePath = jsonFilePathBuilder.ToString();
+        //StringBuilder jsonFilePathBuilder = new StringBuilder(FilePath);
+        //jsonFilePathBuilder.Append(".json");
+        //string jsonFilePath = jsonFilePathBuilder.ToString();
 
-        string jsonText = File.ReadAllText(jsonFilePath);
+        TextAsset jsonFile = Resources.Load<TextAsset>(FilePath);
+        //string jsonText = File.ReadAllText(jsonFilePath);
+        string jsonText = jsonFile.text;
         string decryptedJson = _aesManager.AESDecrypt(jsonText);
 
         return JsonConvert.DeserializeObject<T>(decryptedJson);

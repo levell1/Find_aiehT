@@ -66,9 +66,9 @@ public struct PoolingObjectName
 
 public struct JsonDataName
 {
-    public const string PlayerData = "Assets/Resources/JSON/PlayerData";
-    public const string PlayerSkillData = "Assets/Resources/JSON/PlayerSkillData";
-    public const string PlayerLevelData = "Assets/Resources/JSON/LevelData";
+    public const string PlayerData = "JSON/PlayerData";
+    public const string PlayerSkillData = "JSON/PlayerSkillData";
+    public const string PlayerLevelData = "JSON/LevelData";
     public const string SaveFile = "SaveFile";
 }
 
