@@ -6,7 +6,7 @@ public class BulletScript : MonoBehaviour
     private NavMeshAgent _agent;
     private CapsuleCollider _collider;
     private ChickBulletBT _chickBullet;
-    readonly private float _dagage = 30f;
+    readonly private float _damage = 200f;
 
     private void Awake()
     {
@@ -26,7 +26,7 @@ public class BulletScript : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out HealthSystem health))
         {
-            health.TakeDamage(_dagage);
+            health.TakeDamage(_damage);
             GameManager.Instance.PoolingManager.ReturnObject(gameObject);
         }
         else if (other.gameObject.tag == TagName.Wall)

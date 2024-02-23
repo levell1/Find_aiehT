@@ -1,14 +1,23 @@
+using System;
 using System.Collections;
 using UnityEngine;
 public class ThreePig : MonoBehaviour
 {
     [SerializeField] private BossHealthSystem _greenPigHealthSystem;
+    [SerializeField] private BossHealthSystem _aiehtHealthSystem;
     [SerializeField] private Transform[] _pigsTransform = new Transform[3];
     [SerializeField] private Vector3[] _pigsPosition = new Vector3[3];
 
     private void Awake()
     {
         _greenPigHealthSystem.OnDie += ThreePigOn;
+        _aiehtHealthSystem.OnDie += Ending;
+    }
+
+    private void Ending()
+    {
+        _aiehtHealthSystem.OnDie -= Ending;
+        gameObject.SetActive(false);
     }
 
     private void Start()

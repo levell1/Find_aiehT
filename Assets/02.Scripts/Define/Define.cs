@@ -93,6 +93,7 @@ public struct AnimationParameterName
     public const string BossHit = "Hit";
     public const string BossFly = "Fly";
     public const string BossSit = "Sit";
+    public const string BossDead = "Die";
 }
 
 public struct CoolTimeObjName

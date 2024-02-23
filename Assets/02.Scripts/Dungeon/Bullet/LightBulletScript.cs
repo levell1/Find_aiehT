@@ -4,7 +4,7 @@ public class LightBulletScript : MonoBehaviour
 {
     private Transform _player;
     private Rigidbody _rigidbody;
-    readonly private float _lightDamage =30f;
+    readonly private float _lightDamage =20f;
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();

@@ -26,11 +26,11 @@ public class BossHealthSystem : MonoBehaviour
 
     public void SetMaxHealth()
     {
-        _maxHealth = 6000;
+        _maxHealth = 8000;
         //상속으로 다시
         if (gameObject.name=="Aieht")
         {
-            _maxHealth = 8000;
+            _maxHealth = 10000;
         }
         Health = _maxHealth;
         OnChangeHpUI?.Invoke(Health, _maxHealth);
@@ -48,15 +48,16 @@ public class BossHealthSystem : MonoBehaviour
 
         if (gameObject.name == "GreenPig")
         {
-            if (Health / _maxHealth <= 0.99f)
+            if (Health / _maxHealth <= 0.1f)
             {
                 OnDie?.Invoke();
             }
         }
 
-        if (gameObject.name == "Aieht" && Health <= 0)
+        if (gameObject.name == "Aieht" && Health <= 1)
         {
             OnDie?.Invoke();
+            _animation.SetBool(AnimationParameterName.BossDead, true);
         }
     }
 

@@ -23,6 +23,7 @@ public class BossManager : MonoBehaviour
     {
         _endingUI.SetActive(true);
         GameManager.Instance.SoundManager.BgmSoundPlay(BGMSoundName.EndingBGM);
+        _aightHealthSystem.OnDie -= Ending;
     }
 
     private void RespawnNextBoss()
@@ -79,5 +80,6 @@ public class BossManager : MonoBehaviour
             }
             
         }
+        _greenpigHealthSystem.OnDie -= RespawnNextBoss;
     }
 }

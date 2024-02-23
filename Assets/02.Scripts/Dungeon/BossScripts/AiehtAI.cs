@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class AiehtAI : Tree
     private NavMeshAgent _navMeshAgent;
     private LevitateObject _levitateObject;
     [SerializeField] private GameObject _lightObject;
+    private BossHealthSystem _bossHealthSystem;
 
     [Header("대쉬, 충돌")]
     readonly private float _DashWaitTime = 3f;
@@ -26,13 +28,20 @@ public class AiehtAI : Tree
 
     private void Awake()
     {
+        _bossHealthSystem= GetComponent<BossHealthSystem>();
         _playerTransform = GameManager.Instance.Player.transform;
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _pigTransform = gameObject.transform;
         gameObject.GetComponent<BoxCollider>().enabled = false;
         _levitateObject = GetComponentInChildren<LevitateObject>();
         _levitateObject.gameObject.SetActive(false);
+        _bossHealthSystem.OnDie += Ending;
+    }
 
+    private void Ending()
+    {
+        _bossHealthSystem.OnDie -= Ending;
+        gameObject.SetActive(false);
     }
 
     protected override Node SetupBehaviorTree()

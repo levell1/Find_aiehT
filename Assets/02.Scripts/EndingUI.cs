@@ -15,7 +15,6 @@ public class EndingUI : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("1");
         StartCoroutine(FadeEndingImage());
     }
 

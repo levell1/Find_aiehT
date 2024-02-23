@@ -8,7 +8,7 @@ public class RedPig : Tree
     private Transform _pigTransform;
     private NavMeshAgent _navMeshAgent;
     private SkinnedMeshRenderer[] _meshRenderers;
-    readonly private float _runDamage= 200f;
+    readonly private float _runDamage= 800f;
     readonly private float _waitTime = 5f;
     private void Awake()
     {

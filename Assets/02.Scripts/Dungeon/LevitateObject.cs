@@ -5,9 +5,9 @@ public class LevitateObject : MonoBehaviour
     public bool EndSkill =true;
     private float _time = 0;
     private ParticleSystem _particle;
-    readonly private float _staminaDamage =5f;
+    readonly private float _staminaDamage = 50f;
     readonly private float _delayTime = 0.1f;
-    readonly private float _dagage = 500f;
+    readonly private float _dagage = 100f;
     [SerializeField] bool _isBoss=false;
 
     private void Awake()

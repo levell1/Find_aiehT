@@ -72,7 +72,7 @@ public class DungeonManager : MonoBehaviour
 
         yield return tween.WaitForCompletion();
         GameManager.Instance.Player.transform.position = nextRoomPos;
-        tween = _fadeImage.DOFade(0.0f, 2f);
+        tween = _fadeImage.DOFade(0.0f, 1f);
         yield return tween.WaitForCompletion();
 
         _fadeImage.gameObject.SetActive(false);

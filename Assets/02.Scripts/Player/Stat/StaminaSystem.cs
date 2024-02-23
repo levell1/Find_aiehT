@@ -88,10 +88,8 @@ public class StaminaSystem : MonoBehaviour
     }
     public void ReduceStamina(float reduceStamina, float delayTime)
     {
-        if (Stamina < 5) return;
-
+        if (Stamina < 50) return;
         _regenTime += Time.deltaTime;
-
 
         if (_regenTime >= delayTime)
         {
