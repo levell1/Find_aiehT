@@ -10,7 +10,8 @@ public class PlayerQuestUI : MonoBehaviour
     public Slider SliderQuestProgress;
 
     private Quest _quest;
-    private void Start()
+
+    private void OnEnable()
     {
         GameManager.Instance.QuestManager.OnQuestValueUpdate += UpdateQuantityValue;
     }

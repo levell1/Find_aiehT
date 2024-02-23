@@ -38,7 +38,7 @@ public class PlayerSpreadSkillState : PlayerSkillState
                 int playerLevel = _stateMachine.Player.Data.PlayerData.PlayerLevel;
 
 
-                float totalDamage = playerDamage + (skillDamage + weaponDamage) * playerLevel * 3;
+                float totalDamage = playerDamage + (skillDamage + weaponDamage) * playerLevel * 2;
 
                 _stateMachine.Player.SandSkill.SetAttack(totalDamage);
 

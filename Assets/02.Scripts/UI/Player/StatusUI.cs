@@ -75,8 +75,8 @@ public class StatusUI : BaseUI
             _weaponDamage += _equipmentUpgrade.EquipData[i].CurrentAttack;
         }
 
-        float tomatoSkillTotalDamage = playerDamage + (tomatoSkillDamage + _weaponDamage) * playerLevel * 3;
-        float spreadSkillTotalDamage = playerDamage + (spreadSkillDamage + _weaponDamage) * playerLevel * 3;
+        float tomatoSkillTotalDamage = playerDamage + (tomatoSkillDamage + _weaponDamage) * playerLevel * 2;
+        float spreadSkillTotalDamage = playerDamage + (spreadSkillDamage + _weaponDamage) * playerLevel * 2;
 
         _equipmentHealth.text = "("+_sumequipHealth.ToString()+")";
         _equipmentDef.text = "("+_sumEquipDef.ToString()+")";

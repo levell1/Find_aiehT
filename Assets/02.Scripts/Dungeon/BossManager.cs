@@ -9,6 +9,8 @@ public class BossManager : MonoBehaviour
     [SerializeField] private Light _light;
     [SerializeField] private AiehtAI _aieht;
     [SerializeField] private GameObject _pigs;
+    [SerializeField] private GameObject _endingUI;
+
     private void Awake()
     {
         _aightHealthSystem = _aieht.GetComponent<BossHealthSystem>();
@@ -19,7 +21,7 @@ public class BossManager : MonoBehaviour
 
     private void Ending()
     {
-        Debug.Log("엔딩");
+        _endingUI.SetActive(true);
         GameManager.Instance.SoundManager.BgmSoundPlay(BGMSoundName.EndingBGM);
     }
 
