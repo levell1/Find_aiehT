@@ -19,10 +19,11 @@ public class GlobalTimeManager : MonoBehaviour
     private float _currentHour;
     private float _timeRate;
 
-    private float _penaltyTime = 1f / 24f;
+    //private float _penaltyTime = 1f / 24f;
     public float NextMorning = 7f / 24f;
     public int EventCount;
     public TextMeshProUGUI TimeText;
+    public GameObject AutoSaveText;
 
     public bool IsItemRespawn = false;
     public bool IsActiveOutFieldUI;
@@ -93,6 +94,7 @@ public class GlobalTimeManager : MonoBehaviour
         if (IsMornigSave == true &&Hour==7f&& Minutes >= 15f)
         {
             GameManager.Instance.SaveDataManger.SavePlayerDataToJson();
+            StartCoroutine(ActiveAutoSaveText());
             IsMornigSave = false;
         }
         
@@ -251,6 +253,13 @@ public class GlobalTimeManager : MonoBehaviour
         IsMornigSave = true;
         EventCount = 1;
         OnOutFieldUI?.Invoke();
+    }
+
+    private IEnumerator ActiveAutoSaveText()
+    {
+        AutoSaveText.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        AutoSaveText.SetActive(false);
     }
 }
 
