@@ -16,6 +16,9 @@ public struct UIName
     public const string QuestUI = "QuestUI";
     public const string DungeontUI = "GoDungeonUI";
     public const string PlayerBaseUI = "PlayerBaseUI";
+    public const string ChoiceTutorialUI = "ChoiceTutorialUI";
+    public const string TutorialGuideBook1 = "TutorialGuideBook1";
+    public const string TutorialGuideBook2 = "TutorialGuideBook2";
 }
 
 public struct SceneName

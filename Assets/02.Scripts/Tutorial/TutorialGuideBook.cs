@@ -12,22 +12,30 @@ public class TutorialGuideBook : MonoBehaviour
 
     [SerializeField] private Image[] _tutorialImages;
 
-    private int _index = 0;
+    private int _index;
 
     private void Start()
     {
+        _prevBtn.onClick.AddListener(PreviewImage);
+        _nextBtn.onClick.AddListener(NextImage);
+        _exitBtn.onClick.AddListener(ExitButton);
+    }
+
+    private void OnEnable()
+    {
+        GameManager.Instance.CameraManager.DontMoveCam();
+
+        _index = 0;
+
+        _prevBtn.interactable = false;
+        _nextBtn.interactable = true;
+        _exitBtn.interactable = false;
+
         foreach (var images in _tutorialImages)
         {
             images.gameObject.SetActive(false);
         }
         _tutorialImages[_index].gameObject.SetActive(true);
-
-        _prevBtn.onClick.AddListener(PreviewImage);
-        _nextBtn.onClick.AddListener(NextImage);
-        _exitBtn.onClick.AddListener(ExitButton);
-
-        _prevBtn.interactable = false;
-        _exitBtn.interactable = false;
 
         UpdateUI();
     }
@@ -40,11 +48,6 @@ public class TutorialGuideBook : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             GameManager.Instance.CameraManager.DisableCam();
         }
-    }
-
-    private void OnEnable()
-    {
-        GameManager.Instance.CameraManager.DontMoveCam();
     }
 
     private void OnDisable()

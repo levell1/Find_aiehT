@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class SettingUI : BaseUI
 {
+    [SerializeField] private Button _guideButton; //
     [SerializeField] private Button _checksaveButton;
     [SerializeField] private Button _checkExitButton;
     [SerializeField] private GameObject _savePanel;
@@ -17,11 +18,13 @@ public class SettingUI : BaseUI
         _exitCheck.SetActive(false);
         _homeButton.gameObject.SetActive(false);
         _checksaveButton.gameObject.SetActive(true);
+        _guideButton.gameObject.SetActive(true); //
         _checkExitButton.interactable = true;
         _checksaveButton.interactable = true;
         _keyControlButton.interactable = true;
         if (GameManager.Instance.GlobalTimeManager.Day == 0 || SceneManager.GetActiveScene().name == SceneName.TycoonScene)
         {
+            _guideButton.gameObject.SetActive(false); //
             _checksaveButton.interactable = false;
             if (SceneManager.GetActiveScene().name ==SceneName.TitleScene)
             {
@@ -40,11 +43,17 @@ public class SettingUI : BaseUI
     }
     private void Start()
     {
+        _guideButton.onClick.AddListener(OpenGuideBook);
         _checksaveButton.onClick.AddListener(SaveGame);
         _checkExitButton.onClick.AddListener(ShowExitGame);
         _exitButton.onClick.AddListener(ExitGame);
         _keyControlButton.onClick.AddListener(ShowControlKey);
         _homeButton.onClick.AddListener(GoSleep);
+    }
+
+    private void OpenGuideBook()
+    {
+        GameManager.Instance.UIManager.ShowCanvas(UIName.ChoiceTutorialUI);
     }
 
     private void GoSleep()
