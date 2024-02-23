@@ -12,7 +12,7 @@ public class EnemyRespawn : MonoBehaviour
     private void Awake()
     {
         _globalTimeManager = GameManager.Instance.GlobalTimeManager;
-        RespawnDelay = _globalTimeManager.FullDayLength / 48f;
+        RespawnDelay = _globalTimeManager.FullDayLength / 24f;
         _enemy = GetComponent<Enemy>();
         _enemySpawnPoint = transform.position;
         if (SceneManager.GetActiveScene().name==SceneName.DungeonScene)
