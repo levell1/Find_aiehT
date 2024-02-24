@@ -10,7 +10,7 @@ public class PlayerUseBase : MonoBehaviour
     protected int _quantity;
     [SerializeField] protected Image _coolTimeImage;
     protected CoolTimeManager _coolTimeManager;
-
+    private HealthSystem _healthSystem;
     public float CoolTime;
     protected bool _isCoolTime = false;
 
@@ -18,6 +18,7 @@ public class PlayerUseBase : MonoBehaviour
 
     protected virtual void Start()
     {
+        _healthSystem= GetComponent<HealthSystem>();
         _player = GetComponent<Player>();
         _coolTimeManager = GameManager.Instance.CoolTimeManger;
     }
@@ -41,7 +42,7 @@ public class PlayerUseBase : MonoBehaviour
         if (_isCoolTime)
             return;
 
-        if(_potion == null || _quantity <= 0)
+        if(_potion == null || _quantity <= 0 || _healthSystem.Health==0)
         {
             //TODO 포션부족 
         }

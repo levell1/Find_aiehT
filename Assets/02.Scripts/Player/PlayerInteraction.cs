@@ -97,22 +97,22 @@ public class PlayerInteraction : MonoBehaviour
                 }
                 else if (other.gameObject.CompareTag(TagName.PotionShop)) 
                 {
-                    InteractionText.text = "포션상점 - 대화하기";
+                    InteractionText.text = "포션상점";
                     _showUI = UIName.ShopUI;
                 }
                 else if (other.gameObject.CompareTag(TagName.Enhancement)) 
                 {
-                    InteractionText.text = "대장간 - 대화하기";
+                    InteractionText.text = "강화소";
                     _showUI = UIName.ReforgeUI;
                 }
                 else if (other.gameObject.CompareTag(TagName.QuestNPC)) 
                 {
-                    InteractionText.text = "퀘스트 보기";
+                    InteractionText.text = "퀘스트";
                     _showUI = UIName.QuestUI;
                 }
                 else if (other.gameObject.CompareTag(TagName.DungeonNPC)) 
                 {
-                    InteractionText.text = "던전 가기";
+                    InteractionText.text = "던전 입장";
                     _showUI = UIName.DungeontUI;
                 }
             }
