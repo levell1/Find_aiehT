@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemSlot
 {
@@ -16,6 +17,9 @@ public class Inventory : MonoBehaviour
     public GameObject InventoryUI;
     public GameObject Panel;
     public GameObject InvenMain;
+    [SerializeField] private Button _exitBtn;
+    [SerializeField] private Button _recipeBtn;
+    [SerializeField] private GameObject _recipeUI;
 
     [Header("Selected Item")]
     private int _selectedItemIndex;
@@ -26,7 +30,8 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         GameStateManager gameStateManager = GameManager.Instance.GameStateManager;
-
+        _exitBtn.onClick.AddListener(InActiveUI);
+        _recipeBtn.onClick.AddListener(ToggleRecipeUI);
         InventoryUI.SetActive(false);
 
         for (int i = 0; i < UISlots.Length; i++)
@@ -41,6 +46,19 @@ public class Inventory : MonoBehaviour
         }
 
         ClearSeletecItem();
+    }
+
+    private void InActiveUI()
+    {
+        GameManager.Instance.CameraManager.ReturnCamSpeed();
+        GameManager.Instance.UIManager.PopupDic[UIName.InventoryUI].SetActive(false);
+        _recipeUI.SetActive(false);
+
+    }
+
+    private void ToggleRecipeUI()
+    {
+        _recipeUI.SetActive(!_recipeUI.activeSelf);
     }
 
     public void ShopOpen() 
