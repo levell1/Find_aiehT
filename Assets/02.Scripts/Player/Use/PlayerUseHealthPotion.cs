@@ -33,7 +33,6 @@ public class PlayerUseHealthPotion : PlayerUseBase
         if (_quantity > 0)
         {
             _player.HealthSystem.Healing(_healingAmount);
-
         }
         else
         {
