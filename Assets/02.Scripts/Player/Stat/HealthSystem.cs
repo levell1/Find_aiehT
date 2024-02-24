@@ -76,6 +76,7 @@ public class HealthSystem : MonoBehaviour
         if (Health == 0) return;
 
         float _totalDamage = CaculateTotalDamage(damage);
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Hit,Vector3.zero,0.3f);
 
         Health = Mathf.Max(Mathf.Floor(Health - _totalDamage), 0);
         OnChangeHpUI?.Invoke(Health, MaxHealth);

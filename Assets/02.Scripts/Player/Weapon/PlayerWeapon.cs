@@ -14,6 +14,7 @@ public class PlayerWeapon : MonoBehaviour
     private void OnEnable()
     {
         InitializeCollider();
+        _weaponCollider.enabled = false;
     }
 
     private void InitializeCollider()
