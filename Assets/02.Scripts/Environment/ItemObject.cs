@@ -45,7 +45,7 @@ public class ItemObject : MonoBehaviour
     public void GetItem()
     {
         GameManager.Instance.Inventory.AddItem(ItemData);
-
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.GetItem);
         if (ItemData.type == ItemType.DROPITEM)
         {
             Destroy(gameObject);

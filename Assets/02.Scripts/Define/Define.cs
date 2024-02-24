@@ -150,6 +150,7 @@ public struct SFXSoundPathName
     public const string Dash = "Dash";
     public const string Hit = "Hit";
     public const string Landing = "Landing";
+    public const string GetItem = "GetItem";
 
     public const string Heal = "Heal";
     public const string Stamina = "Stamina";
@@ -158,7 +159,7 @@ public struct SFXSoundPathName
 
     public const string Skill1 = "Skill1";
     public const string Skill2 = "Skill2";
-
+    
     public const string Dead = "Dead";
     public const string Sleep = "Sleep";
 
