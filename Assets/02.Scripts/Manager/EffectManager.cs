@@ -102,8 +102,9 @@ public class EffectManager : MonoBehaviour
     {
         while (true)
         {
-            float x = UnityEngine.Random.Range(0.3f, 0.4f);
-            GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Landing);
+            float x = Random.Range(0.3f, 0.4f);
+            int random = Random.Range(1, 4);
+            GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Walk + random.ToString());
             yield return new WaitForSeconds(x);
         }
         

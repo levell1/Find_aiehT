@@ -151,6 +151,9 @@ public struct SFXSoundPathName
     public const string Hit = "Hit";
     public const string Landing = "Landing";
     public const string GetItem = "GetItem";
+    public const string Run = "Run";
+    public const string Walk = "Walk";
+
 
     public const string Heal = "Heal";
     public const string Stamina = "Stamina";
