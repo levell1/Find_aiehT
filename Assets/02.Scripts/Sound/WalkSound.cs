@@ -9,4 +9,9 @@ public class WalkSound : MonoBehaviour
         int random = Random.Range(1, 4);
         GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Walk+ random.ToString());
     }
+    public void RunSoundPlay()
+    {
+        int random = Random.Range(1, 4);
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Walk + random.ToString());
+    }
 }

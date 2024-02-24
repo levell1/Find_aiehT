@@ -89,26 +89,14 @@ public class EffectManager : MonoBehaviour
 
     public void PlayFootStepEffect()
     {
-        _coroutine = StartCoroutine(StepSound());
         _footStepObject.Play();
     }
 
     public void StopFootStepEffect()
     {
-        StopCoroutine(_coroutine);
         _footStepObject.Stop();
     }
-    private IEnumerator StepSound() 
-    {
-        while (true)
-        {
-            float x = Random.Range(0.3f, 0.4f);
-            int random = Random.Range(1, 4);
-            GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Walk + random.ToString());
-            yield return new WaitForSeconds(x);
-        }
-        
-    }
+
     public ParticleSystem CreateCustomerEatParticle(Transform customerEatTransform)
     {
         return Instantiate(_eatFoodEffect, customerEatTransform);
