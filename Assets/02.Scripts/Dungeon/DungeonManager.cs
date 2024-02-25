@@ -14,6 +14,7 @@ public class DungeonManager : MonoBehaviour
 
     private int _stagenum = 1;
     private int _enemyKindNum;
+    private int _dungeonMainQuest = 30002;
     private void Awake()
     {
         _bossHpbar.SetActive(false);
@@ -30,6 +31,15 @@ public class DungeonManager : MonoBehaviour
             _stages[i].SetActive(false);
         }
         NextStagePortalCheck();
+
+        QuestManager _questManager = GameManager.Instance.QuestManager;
+
+        Quest quest = _questManager.ActiveMainQuests[1];
+
+        if(!quest.IsProgress)
+        {
+            _questManager.UpdateMainQuest(_dungeonMainQuest);
+        }
     }
     public void GoNextRoom(Vector3 nextRoomPosition) 
     {

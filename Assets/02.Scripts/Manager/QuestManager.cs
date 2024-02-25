@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
 
 public enum QuestTarget
@@ -221,14 +220,8 @@ public class QuestManager : MonoBehaviour
         {
             _currentPlayerGold = MainQuestQuantityDict[goldQuestNum];
         }
-
-        GoDungeon _goDungeon = GameManager.Instance.UIManager.PopupDic[UIName.GoDungeonUI].GetComponent<GoDungeon>();
-
-        GameManager.Instance.DataManager.OnTycoonMainQuest += UpdateMainQuest; 
         EnemyHealthSystem.OnMainQuestTargetDie += UpdateMainQuest; 
-        _goDungeon.OnEnterDungeon += UpdateMainQuest;
         _player.Data.PlayerData.OnAccumulateGold += UpdateMainQuest;
-
     }
 
     private bool CheckForDuplicateTargetID(int targetID)
@@ -368,16 +361,7 @@ public class QuestManager : MonoBehaviour
         {
             quest.IsProgress = true;
 
-            if (questID == 30001)
-            {
-                GameManager.Instance.DataManager.OnTycoonMainQuest -= UpdateMainQuest; 
-            }
-            else if(questID == 30002)
-            {
-                GoDungeon _goDungeon = GameManager.Instance.UIManager.PopupDic[UIName.GoDungeonUI].GetComponent<GoDungeon>();
-                _goDungeon.OnEnterDungeon -= UpdateMainQuest;
-            }
-            else if (questID == 30003)
+          if (questID == 30003)
             {
                 EnemyHealthSystem.OnMainQuestTargetDie -= UpdateMainQuest; 
             }
@@ -389,6 +373,7 @@ public class QuestManager : MonoBehaviour
         QuestReward(quest);
 
         GameManager.Instance.EffectManager.MainQuestCompleteEffect();
+        //quest.GetQuestDescription();
     }
 
 

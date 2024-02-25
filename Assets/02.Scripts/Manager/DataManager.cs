@@ -21,8 +21,6 @@ public class DataManager : MonoBehaviour
     public Dictionary<int, bool> ItemWaitSpawnDict = new Dictionary<int, bool>();
 
     public Dictionary<int, bool> BossDeadCheckDict = new Dictionary<int, bool>();
-
-    public event Action<int> OnTycoonMainQuest;
     public void AddMenu(FoodSO foodData, int count)
     {
         OrderFood orderFood = new OrderFood();
@@ -63,15 +61,6 @@ public class DataManager : MonoBehaviour
         if (!BossDeadCheckDict.ContainsKey(index))
         {
             BossDeadCheckDict.Add(index, isDead);
-        }
-    }
-
-    public void AngryCustomerNum(int angryCustomNum)
-    {
-        if (angryCustomNum == 0)
-        {
-            int questID = QuestDataList.MainQuestData[0].QuestID;
-            OnTycoonMainQuest?.Invoke(questID);
         }
     }
 }

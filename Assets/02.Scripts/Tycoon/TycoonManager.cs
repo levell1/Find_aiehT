@@ -32,6 +32,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     [SerializeField] private int _todayMaxCustomerNum;
     public int AngryCustomerNum = 0;
     private int _agentPriority = 0;
+    private int _tycoonMainQuest = 30001;
 
     private WaitForSeconds _waitForCustomerSpawnTime;
     public WaitForSeconds _waitForCustomerEatTime;
@@ -86,7 +87,15 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     private void TycoonGameEnd()
     {
         _TycoonUI.OnReusltUI();
-        GameManager.Instance.DataManager.AngryCustomerNum(AngryCustomerNum);
+
+        QuestManager questManager = GameManager.Instance.QuestManager;
+
+        Quest quest = questManager.ActiveMainQuests[0];
+
+        if(!quest.IsProgress && AngryCustomerNum == 0)
+        {
+            questManager.UpdateMainQuest(_tycoonMainQuest);
+        }
         GameManager.Instance.DataManager.RemoveOrderData();
        
         _playerInteraction.SetActive(true);
