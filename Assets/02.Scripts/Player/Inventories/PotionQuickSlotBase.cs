@@ -6,6 +6,7 @@ public abstract class PotionQuickSlotBase : MonoBehaviour
 {
     [HideInInspector] public PotionSO PotionSO;
 
+    // protected Player _player;
     public Image PotionImage;
     public TMP_Text PotionQuantity;
 
@@ -17,6 +18,8 @@ public abstract class PotionQuickSlotBase : MonoBehaviour
         string potionSpritePath = GetPotionSpritePath();
 
         SetDefaultSprite(potionSpritePath);
+
+        //_player = GameManager.Instance.Player.GetComponent<Player>();
     }
 
     protected abstract string GetPotionSpritePath();
@@ -44,9 +47,10 @@ public abstract class PotionQuickSlotBase : MonoBehaviour
         PotionQuantity.text = quantity.ToString();
         PotionImage.sprite = data.sprite;
 
+        QuickSlotUpdateUI(quantity);
     }
 
-    protected virtual void UpdateUI(int quantity) 
+    protected virtual void QuickSlotUpdateUI(int quantity) 
     {
         Quantity = quantity;
         PotionQuantity.text = Quantity.ToString();

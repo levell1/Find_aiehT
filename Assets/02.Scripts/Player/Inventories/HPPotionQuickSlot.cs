@@ -1,7 +1,12 @@
 public class HPPotionQuickSlot : PotionQuickSlotBase
 {
+    private PlayerUseHealthPotion _playerHealthPotion;
+
     protected override void Start()
     {
+        _playerHealthPotion = GameManager.Instance.Player.GetComponent<PlayerUseHealthPotion>();
+        _playerHealthPotion.OnPotionUsed += QuickSlotUpdateUI;
+        //_useHealthPotion.OnPotionUsed += QuickSlotUpdateUI;
         base.Start();
     }
 
@@ -9,4 +14,10 @@ public class HPPotionQuickSlot : PotionQuickSlotBase
     {
         return "Images/Potion/HP_1";
     }
+
+    protected override void QuickSlotUpdateUI(int quantity)
+    {
+        base.QuickSlotUpdateUI(quantity);
+    }
+
 }

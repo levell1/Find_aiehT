@@ -1,12 +1,16 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PotionInventorySlot : MonoBehaviour
 {
     [HideInInspector] public PotionSO PotionSO;
 
+    //private PlayerUseHealthPotion _playerHealthPotion;
+    //private PlayerUseStaminaPotion _playerStaminaPotion;
     public Player Player;
+
     public ShopPotionInfoPopup ShopPotionInfoPopup;
     public HPPotionQuickSlot HPPotionQuickSlot;
     public SPPotionQuickSlot SPPotionQuickSlot;
@@ -99,8 +103,6 @@ public class PotionInventorySlot : MonoBehaviour
         {
             InitQuantity = quantity;
             UpdateUI();
-
-            SetQuickSlot(PotionSO, InitQuantity);
         }
       
     }
@@ -111,8 +113,6 @@ public class PotionInventorySlot : MonoBehaviour
         {
             InitQuantity = quantity;
             UpdateUI();
-
-            SetQuickSlot(PotionSO, InitQuantity);
         }
 
     }
