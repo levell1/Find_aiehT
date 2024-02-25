@@ -9,8 +9,8 @@ public class BluePigAI : Tree
     private Transform _pigTransform;
     private NavMeshAgent _navMeshAgent;
     private SkinnedMeshRenderer[] _meshRenderers;
-    readonly private float _waitTime = 3;
-    readonly private float _knockBack = 5f;
+    readonly private float _waitTime = 2f;
+    readonly private float _knockBack = 4f;
     readonly private float _knockBackCount = 5;
     readonly private float _Dagage = 500f;
     private Vector3 _power;

@@ -48,7 +48,5 @@ public class ShopPotion : MonoBehaviour
                 ShopPotionInfoPopup.gameObject.SetActive(true);
             }
         });
-       
     }
-
 }

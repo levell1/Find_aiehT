@@ -7,7 +7,8 @@ public class LevitateObject : MonoBehaviour
     private ParticleSystem _particle;
     readonly private float _staminaDamage = 50f;
     readonly private float _delayTime = 0.1f;
-    readonly private float _dagage = 100f;
+    readonly private float _damage = 500f;
+    private float _damageDelayTime = 0;
     [SerializeField] bool _isBoss=false;
 
     private void Awake()
@@ -40,6 +41,8 @@ public class LevitateObject : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        _damageDelayTime += Time.deltaTime;
+
         if (other.gameObject.CompareTag(TagName.Player)&& EndSkill == false)
         {
             other.gameObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 20);
@@ -50,9 +53,10 @@ public class LevitateObject : MonoBehaviour
             stamina.ReduceStamina(_staminaDamage, _delayTime);
         }
 
-        if (other.gameObject.TryGetComponent(out HealthSystem healthSystem) && _isBoss == true)
+        if (other.gameObject.TryGetComponent(out HealthSystem healthSystem) && _isBoss == true&& _damageDelayTime>0.5f)
         {
-            healthSystem.TakeDamage(_dagage);
+            _damageDelayTime = 0;
+            healthSystem.TakeDamage(_damage);
         }
     }
 }

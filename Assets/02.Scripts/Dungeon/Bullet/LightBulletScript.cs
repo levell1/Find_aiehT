@@ -4,7 +4,8 @@ public class LightBulletScript : MonoBehaviour
 {
     private Transform _player;
     private Rigidbody _rigidbody;
-    readonly private float _lightDamage =20f;
+    readonly private float _lightDamage =500f;
+    private float _delayTime = 0;
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -37,9 +38,11 @@ public class LightBulletScript : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.TryGetComponent(out HealthSystem health))
+        _delayTime += Time.deltaTime;
+        if (other.gameObject.TryGetComponent(out HealthSystem health)&& _delayTime > 0.5f)
         {
             health.TakeDamage(_lightDamage);
+            _delayTime = 0;
         }
     }
 

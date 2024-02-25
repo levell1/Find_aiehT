@@ -145,7 +145,8 @@ namespace Suntail
             transform.rotation *= Quaternion.Euler(0, _xAxis * mouseSensivity, 0);
         }
 
-        //Playing footstep sound when controller moves and grounded
+        //Playing footstep
+        //when controller moves and grounded
         private void FixedUpdate()
         {
             if (_characterController.isGrounded && (_horizontalMovement != 0 || _verticalMovement != 0))
