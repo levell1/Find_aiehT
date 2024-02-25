@@ -19,6 +19,7 @@ public struct UIName
     public const string ChoiceTutorialUI = "ChoiceTutorialUI";
     public const string TutorialGuideBook1 = "TutorialGuideBook1";
     public const string TutorialGuideBook2 = "TutorialGuideBook2";
+    public const string QuestCompleteUI = "QuestCompleteUI";
 }
 
 public struct SceneName

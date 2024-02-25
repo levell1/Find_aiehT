@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum QuestTarget
@@ -47,6 +48,8 @@ public class QuestManager : MonoBehaviour
     private GameStateManager _gameStateManager;
     private Player _player;
     private SavePlayerData _savePlayerData;
+    private QuestCompleteUI _questCompleteScript;
+    private string _questName;
 
     public int QuestIndex;
     private void Start()
@@ -56,6 +59,7 @@ public class QuestManager : MonoBehaviour
         {
             GameManager.Instance.GlobalTimeManager.OnInitMainQuest += InitializeMainQuest;
         }
+        _questCompleteScript = GameManager.Instance.UIManager.PopupDic[UIName.QuestCompleteUI].GetComponent<QuestCompleteUI>();
     }
 
     private void OnEnable()
@@ -373,7 +377,8 @@ public class QuestManager : MonoBehaviour
         QuestReward(quest);
 
         GameManager.Instance.EffectManager.MainQuestCompleteEffect();
-        //quest.GetQuestDescription();
+        _questName = "업적 달성";
+        _questCompleteScript.ShowCompleteUI(quest.GetQuestDescription(), _questName);
     }
 
 
@@ -396,6 +401,8 @@ public class QuestManager : MonoBehaviour
         }
 
         GameManager.Instance.EffectManager.QuestCompleteEffect();
+        _questName = "일일 퀘스트 완료";
+        _questCompleteScript.ShowCompleteUI(quest.GetQuestDescription(), _questName);
     }
 
     private void QuestReward(Quest quest)
