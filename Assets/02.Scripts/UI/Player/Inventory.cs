@@ -50,8 +50,7 @@ public class Inventory : MonoBehaviour
 
     private void InActiveUI()
     {
-        GameManager.Instance.CameraManager.ReturnCamSpeed();
-        GameManager.Instance.UIManager.PopupDic[UIName.InventoryUI].SetActive(false);
+        GameManager.Instance.UIManager.CloseLastCanvas();
         _recipeUI.SetActive(false);
 
     }
