@@ -16,6 +16,7 @@ public class EffectManager : MonoBehaviour
     private ParticleSystem _healingObject;
     private ParticleSystem _staminaHealingObject;
     private ParticleSystem _playerAttackObject;
+    private ParticleSystem _mainQuestCompleteObject;
     private ParticleSystem _questCompleteObject;
     private ParticleSystem _footStepObject;
 
@@ -24,6 +25,7 @@ public class EffectManager : MonoBehaviour
     [SerializeField] private ParticleSystem _healingEffect;
     [SerializeField] private ParticleSystem _staminaHealingEffect;
     [SerializeField] private ParticleSystem _playerAttackEffect;
+    [SerializeField] private ParticleSystem _mainQuestCompleteEffect;
     [SerializeField] private ParticleSystem _questCompleteEffect;
     [SerializeField] private ParticleSystem _footStepEffect;
     [SerializeField] private ParticleSystem _eatFoodEffect;
@@ -41,6 +43,7 @@ public class EffectManager : MonoBehaviour
         _healingObject = Instantiate(_healingEffect, _player.transform);
         _staminaHealingObject = Instantiate(_staminaHealingEffect, _player.transform);
         _playerAttackObject = Instantiate(_playerAttackEffect, _weaponPos.transform);
+        _mainQuestCompleteObject = Instantiate(_mainQuestCompleteEffect, _player.transform);
         _questCompleteObject = Instantiate(_questCompleteEffect, _player.transform);
         _footStepObject = Instantiate(_footStepEffect, _player.transform);
     }
@@ -71,6 +74,13 @@ public class EffectManager : MonoBehaviour
         GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Quest);
         _questCompleteObject.Play();
         StartCoroutine(StopParticle(_questCompleteObject, _healingEffectTime));
+    }
+
+    public void MainQuestCompleteEffect()
+    {
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Quest);
+        _mainQuestCompleteObject.Play();
+        StartCoroutine(StopParticle(_mainQuestCompleteObject, _healingEffectTime));
     }
 
     public void GreenPigLevitate()

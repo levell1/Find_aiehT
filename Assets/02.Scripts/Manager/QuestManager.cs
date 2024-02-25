@@ -387,6 +387,8 @@ public class QuestManager : MonoBehaviour
             }
         }
         QuestReward(quest);
+
+        GameManager.Instance.EffectManager.MainQuestCompleteEffect();
     }
 
 
