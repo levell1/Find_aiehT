@@ -21,6 +21,7 @@ public class HealthSystem : MonoBehaviour
     public  Action<float,float> OnChangeHpUI;
 
     public bool IsDead = false;
+    public bool IsSceneMove;
 
     private GameStateManager _gameStateManager;
     private void Awake()
@@ -34,6 +35,7 @@ public class HealthSystem : MonoBehaviour
     {
         SetMaxHealth();
         SetCurHealth();
+        IsSceneMove = false;
     }
 
 

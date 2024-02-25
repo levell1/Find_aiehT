@@ -40,8 +40,10 @@ public class SceneMoveUI : MonoBehaviour
 
     private IEnumerator MoveScene()
     {
+        _healthSystem.IsSceneMove = true;
         yield return new WaitForSeconds(_duration);
-        
+        _healthSystem.IsSceneMove = false;
+
         if (CurrentSceneName == SceneName.VillageScene && _globalTimeManager.EventCount == 0) 
         {
             GameManager.Instance.Player.transform.position = new Vector3(4, 0, -160);

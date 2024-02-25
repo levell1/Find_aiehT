@@ -96,6 +96,6 @@ public class TycoonUI : MonoBehaviour
         GameManager.Instance.CameraManager.NonTycoonCamSetting();
         _resultUI.SetActive(false);
         GameManager.Instance.GlobalTimeManager.gameObject.SetActive(true);
-        GameManager.Instance.GlobalTimeManager.TycoonToVillage();
+        GameManager.Instance.GlobalTimeManager.GoodMorning();
     }
 }

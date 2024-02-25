@@ -197,11 +197,6 @@ public class GlobalTimeManager : MonoBehaviour
         }
     }
 
-    public void TycoonToVillage()
-    {
-        GoodMorning();
-    }
-
     public void ItemRespawn()
     {
         if (Hour >= 6f && !IsItemRespawn)

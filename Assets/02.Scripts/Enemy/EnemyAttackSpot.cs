@@ -21,6 +21,8 @@ public class EnemyAttackSpot : MonoBehaviour
 
         if (other.gameObject.TryGetComponent(out HealthSystem health))
         {
+            if(health.IsSceneMove) return;
+
             health.TakeDamage(_enemy.EnemyDamage);
         }
     }
