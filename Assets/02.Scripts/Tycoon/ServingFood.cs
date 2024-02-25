@@ -56,7 +56,7 @@ public class ServingFood : MonoBehaviour
     private void PickupFood()
     {
         _canHoldFood.GetComponentInParent<FoodPlace>().CurrentFood = null;
-        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.PutDownFood, Vector3.zero, 0.5f);
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.PutDownFood, Vector3.zero, 0.3f);
         _holdingFood = _canHoldFood;
         _canHoldFood = null;
 
@@ -95,7 +95,7 @@ public class ServingFood : MonoBehaviour
             _holdingFood.transform.localPosition = Vector3.zero;
             
             foodPlace.CurrentFood = _holdingFood.GetComponent<CookedFood>();
-            GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.PutDownFood, Vector3.zero, 0.5f);
+            GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.PutDownFood, Vector3.zero, 0.3f);
             _holdingFood = null;
         }
     }

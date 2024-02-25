@@ -228,7 +228,7 @@ public class CustomerController : MonoBehaviour
         _animator.SetTrigger(AnimationParameterName.TycoonGetFood);
 
         GetComponentInChildren<CustomerEffect>().PlayGetCoinEffect();
-        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Money,Vector3.zero, 1f);
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Money,Vector3.zero, 0.5f);
         StartCoroutine(EatFood());
     }
 
