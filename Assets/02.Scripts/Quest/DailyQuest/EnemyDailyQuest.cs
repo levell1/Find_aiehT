@@ -43,7 +43,7 @@ public class EnemyDailyQuest : Quest
 
     public override string GetQuestRegion()
     {
-        return string.Format($"출몰 지역: {_enemyRegion}");
+        return string.Format($"출몰 지역 : {_enemyRegion}");
     }
 
     public override int GetTargetID()

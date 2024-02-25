@@ -17,6 +17,7 @@ public class ReforgeUI : BaseUI
     [SerializeField] private PlayerSO _playerData;
     [SerializeField] private TMP_Text _goldText;
     [SerializeField] private Image _equipicon;
+    [SerializeField] private TMP_Text _equipNameText;
     [SerializeField] private TMP_Text _resultText;
     [SerializeField] private TMP_Text _plusStatText;
 
@@ -62,7 +63,7 @@ public class ReforgeUI : BaseUI
                 _itemnum = i;   break;
             }
         }
-
+        _equipNameText.text = _equipmentupgrade.EquipData[_itemnum].Equipment.Name;
         _goldText.text = _equipmentupgrade.EquipData[_itemnum].CurrentUpgradeGold.ToString()+"골드 필요";
         _equipicon.sprite = _equipmentupgrade.EquipData[_itemnum].Equipment.EquipSprite;
         if (_equipmentupgrade.EquipData[_itemnum].CurrentDef != 0)
