@@ -18,13 +18,11 @@ public class SettingUI : BaseUI
         _exitCheck.SetActive(false);
         _homeButton.gameObject.SetActive(false);
         _checksaveButton.gameObject.SetActive(true);
-        _guideButton.gameObject.SetActive(true); //
         _checkExitButton.interactable = true;
         _checksaveButton.interactable = true;
         _keyControlButton.interactable = true;
         if (GameManager.Instance.GlobalTimeManager.Day == 0 || SceneManager.GetActiveScene().name == SceneName.TycoonScene)
         {
-            _guideButton.gameObject.SetActive(false); //
             _checksaveButton.interactable = false;
             if (SceneManager.GetActiveScene().name ==SceneName.TitleScene)
             {
