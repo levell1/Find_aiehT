@@ -35,6 +35,8 @@ public class ForceSceneMove : MonoBehaviour
 
     private void TimeToGoHome()
     {
+        GameManager.Instance.CameraManager.DisableCam();
+
         if (_globalTimeManager.EventCount == 0)
         {
             _timeToVillageUI.gameObject.SetActive(true); ;

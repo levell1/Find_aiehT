@@ -11,16 +11,18 @@ public class TimeToVillageUI : MonoBehaviour
 
     private void Update()
     {
-        Time.timeScale = 0f;
-        Cursor.lockState = CursorLockMode.None;
-        GameManager.Instance.CameraManager.DisableCam();
+        if (Time.timeScale == 1f)
+        {
+            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            GameManager.Instance.CameraManager.DisableCam();
+        }
     }
 
     private void OnDisable()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1f;
-        GameManager.Instance.CameraManager.EnableCam();
     }
 
     public void GoVillageBtn()
