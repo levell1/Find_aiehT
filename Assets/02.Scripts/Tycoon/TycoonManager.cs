@@ -90,12 +90,16 @@ public class TycoonManager : MonoSingleton<TycoonManager>
 
         QuestManager questManager = GameManager.Instance.QuestManager;
 
-        Quest quest = questManager.ActiveMainQuests[0];
-
-        if(!quest.IsProgress && AngryCustomerNum == 0)
+        if (GameManager.Instance.GlobalTimeManager.Day >=1)
         {
-            questManager.UpdateMainQuest(_tycoonMainQuest);
+            Quest quest = questManager.ActiveMainQuests[0];
+
+            if (!quest.IsProgress && AngryCustomerNum == 0)
+            {
+                questManager.UpdateMainQuest(_tycoonMainQuest);
+            }
         }
+        
         GameManager.Instance.DataManager.RemoveOrderData();
        
         _playerInteraction.SetActive(true);
