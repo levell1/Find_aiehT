@@ -52,6 +52,7 @@ public class MainQuestList : MonoBehaviour
 
         if (toggle)
         {
+            RegionText.text = string.Format(" ");
             QuestContent.text = _questList[questIndex].GetQuestDescription();
             QuestReward.text = _questList[questIndex].GetQuestRewardToString();
 
