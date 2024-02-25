@@ -22,13 +22,8 @@ public class RecipeUI : MonoBehaviour
         }
     }
 
-
-
-
-
-
-
-
-
-
+    private void OnDisable()
+    {
+        gameObject.SetActive(false);
     }
+}
