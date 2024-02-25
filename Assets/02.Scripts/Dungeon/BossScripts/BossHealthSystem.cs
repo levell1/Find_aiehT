@@ -45,7 +45,7 @@ public class BossHealthSystem : MonoBehaviour
 
         StartCoroutine(DamageFlash());
         Invoke("Animation", 0.1f);
-
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Pig2);
         if (gameObject.name == "GreenPig")
         {
             if (Health / _maxHealth <= 0.1f)
@@ -56,8 +56,8 @@ public class BossHealthSystem : MonoBehaviour
 
         if (gameObject.name == "Aieht" && Health <= 1)
         {
-            OnDie?.Invoke();
             _animation.SetBool(AnimationParameterName.BossDead, true);
+            OnDie?.Invoke();
         }
     }
 

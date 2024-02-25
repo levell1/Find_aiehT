@@ -85,7 +85,6 @@ public class EffectManager : MonoBehaviour
 
     public void GreenPigLevitate()
     {
-        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Levitate);
         GreenPigEffect.Play();
         StartCoroutine(StopParticle(GreenPigEffect, _greenPigEffect));
 

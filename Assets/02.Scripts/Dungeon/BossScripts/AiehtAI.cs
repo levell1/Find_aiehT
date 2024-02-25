@@ -14,13 +14,13 @@ public class AiehtAI : Tree
     private BossHealthSystem _bossHealthSystem;
 
     [Header("대쉬, 충돌")]
-    readonly private float _DashWaitTime = 3f;
+    readonly private float _DashWaitTime = 2f;
     readonly private float _DashDamage = 1000f;
     readonly private float _knockBack = 7f;
     readonly private float _knockBackCount = 5f;
 
     [Header("스킬 쿨타임")]
-    readonly private float _levitateTiem = 4f;
+    readonly private float _levitateTiem = 2f;
     readonly private float _LightAttackWaitTime = 2f;
   
     private Vector3 _power;
@@ -52,7 +52,7 @@ public class AiehtAI : Tree
             (
                 new List<Node>()
                 {
-                   new CheckPlayerDistanceNotNode(_pigTransform,12.0f),
+                   new CheckPlayerDistanceNotNode(_pigTransform,8.0f),
                    new LightAttack(_playerTransform, _pigTransform,_LightAttackWaitTime,_lightObject),
                    new RunAwayNode(_pigTransform,_navMeshAgent,_navMeshAgent.speed),
                 }
@@ -61,7 +61,7 @@ public class AiehtAI : Tree
             (
                 new List<Node>()
                 {
-                   new CheckPlayerDistanceNode(_pigTransform,12.0f),
+                   new CheckPlayerDistanceNode(_pigTransform,8.0f),
                    new LevitateNode(_pigTransform,_playerTransform,_levitateObject,_levitateTiem),
                    new RunAwayNode(_pigTransform,_navMeshAgent,_navMeshAgent.speed),
                 }
@@ -87,13 +87,6 @@ public class AiehtAI : Tree
             StartCoroutine(KnockBack(5f));
         }
     }
-
-
-    void OnDrawGizmos() {
-        Gizmos.color = Color.white; 
-        Gizmos.DrawSphere(transform.position, 10f);
-    }
-   
 
     IEnumerator KnockBack(float knockBack)
     {
