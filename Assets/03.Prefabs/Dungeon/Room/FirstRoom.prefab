@@ -2660,7 +2660,7 @@ GameObject:
   - component: {fileID: 8532606275105330469}
   - component: {fileID: 3087882100242747449}
   - component: {fileID: 4672607773431139924}
-  - component: {fileID: 5181912788025613784}
+  - component: {fileID: 2968613678402061967}
   m_Layer: 0
   m_Name: Dungeon_Big_Passage
   m_TagString: Wall
@@ -2734,8 +2734,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5181912788025613784
-MeshCollider:
+--- !u!65 &2968613678402061967
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2752,10 +2752,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5028187238696948556, guid: 9534b9817d800ec4cbb6e3c27b4e39de, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 8.000001, y: 5.18272, z: 0.60110307}
+  m_Center: {x: -0.000000119209204, y: 2.3913598, z: 0.0000037550926}
 --- !u!1 &3417197388308290833
 GameObject:
   m_ObjectHideFlags: 0
@@ -3890,7 +3889,7 @@ GameObject:
   - component: {fileID: 100725760931858531}
   - component: {fileID: 8935552737581655494}
   - component: {fileID: 5772049280271757809}
-  - component: {fileID: 7794783067608479739}
+  - component: {fileID: 6088480494986638567}
   m_Layer: 0
   m_Name: Dungeon_Big_Passage
   m_TagString: Wall
@@ -3964,8 +3963,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7794783067608479739
-MeshCollider:
+--- !u!65 &6088480494986638567
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3982,10 +3981,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5028187238696948556, guid: 9534b9817d800ec4cbb6e3c27b4e39de, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 7.999999, y: 5.18272, z: 0.60110295}
+  m_Center: {x: 0.00000035762787, y: 2.3913598, z: -0.000000059604645}
 --- !u!1 &4833734211431742609
 GameObject:
   m_ObjectHideFlags: 0
@@ -4457,7 +4455,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.9528302, g: 0.9463422, b: 0.5258544, a: 1}
+  m_Color: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
   m_Intensity: 100
   m_Range: 30.82
   m_SpotAngle: 30
@@ -5692,7 +5690,7 @@ GameObject:
   - component: {fileID: 7845917810230085698}
   - component: {fileID: 2550435309007172517}
   - component: {fileID: 9087642808314025859}
-  - component: {fileID: 9223012097643722486}
+  - component: {fileID: 7302932824940812207}
   m_Layer: 0
   m_Name: Dungeon_Big_Passage
   m_TagString: Wall
@@ -5766,8 +5764,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &9223012097643722486
-MeshCollider:
+--- !u!65 &7302932824940812207
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5784,10 +5782,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5028187238696948556, guid: 9534b9817d800ec4cbb6e3c27b4e39de, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 7.999999, y: 5.18272, z: 0.60110295}
+  m_Center: {x: 0.00000035762787, y: 2.3913598, z: -0.000000059604645}
 --- !u!1 &7292629680879487364
 GameObject:
   m_ObjectHideFlags: 0
@@ -6039,7 +6036,7 @@ Transform:
   - {fileID: 5463596000016876201}
   - {fileID: 5521877983255853005}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &284192970116543425
 MonoBehaviour:
@@ -6057,7 +6054,7 @@ MonoBehaviour:
   _doors:
   - {fileID: 3830139518928622846}
   - {fileID: 1717267827994701680}
-  - {fileID: 0}
+  - {fileID: 800466512850435684}
   HideRoom: {fileID: 0}
 --- !u!1 &7552215028000760284
 GameObject:
