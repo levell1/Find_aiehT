@@ -7,6 +7,7 @@ public class TitleSceneButtonEvent : MonoBehaviour
     private GlobalTimeManager _globalTimeManager;
     private QuestManager _questManager;
     private JsonReader _jsonReader;
+    private DataManager _dataManager;
 
     public Button NewGameButton;
     public Button LoadGameButton;
@@ -16,6 +17,7 @@ public class TitleSceneButtonEvent : MonoBehaviour
     
     private void Awake()
     {
+        _dataManager = GameManager.Instance.DataManager;
         _saveDataManager = GameManager.Instance.SaveDataManger;
         _jsonReader = GameManager.Instance.JsonReaderManager;
 
@@ -54,6 +56,7 @@ public class TitleSceneButtonEvent : MonoBehaviour
     public void OnLoadGameButtonEvent()
     {
         GameManager.Instance.JsonReaderManager.LoadPlayerData();
+        _dataManager.LoadBossCheck();
         GameManager.Instance.GameStateManager.CurrentGameState = GameState.LOADGAME;
         LoadingSceneController.LoadScene(GameManager.Instance.JsonReaderManager.LoadedPlayerData.CurrentSceneName);
 

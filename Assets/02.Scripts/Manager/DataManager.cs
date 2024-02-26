@@ -29,6 +29,12 @@ public class DataManager : MonoBehaviour
         Orders.Add(orderFood);
     }
 
+    public void LoadBossCheck()
+    {
+        GameManager.Instance.DataManager.BossDeadCheckDict = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveBossCheck;
+        Debug.Log(BossDeadCheckDict);
+    }
+
     public void RemoveOrderData()
     {
         Orders.RemoveRange(0, Orders.Count);

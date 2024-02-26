@@ -28,7 +28,7 @@ public struct SerializableVector3
 [Serializable]
 public class SavePlayerData
 
-{  
+{
     private HealthSystem _healthSystem;
     private StaminaSystem _staminaSystem;
     private PlayerExpSystem _expSystem;
@@ -38,6 +38,7 @@ public class SavePlayerData
     private Inventory _inventory;
     private PotionInventory _potionInventory;
     private QuestManager _questManager;
+    private DataManager _dataManager;
 
     private Player _player;
 
@@ -60,6 +61,9 @@ public class SavePlayerData
     [Header("Equipment")]
     [HideInInspector] public int[] SaveEquipLevel = new int[6];
 
+    [Header("FieldUniqueEnemy")]
+    [HideInInspector] public Dictionary<int, bool> SaveBossCheck = new Dictionary<int, bool>();
+
     [Header("GlobalTime")]
     [HideInInspector] public float SaveDay;
     [HideInInspector] public float SaveHour;
@@ -67,7 +71,7 @@ public class SavePlayerData
     [HideInInspector] public float SaveDayTime;
 
 
-    [Header("Inventory")]   
+    [Header("Inventory")]
     [HideInInspector] public Dictionary<int, int> SaveInventoryItems = new Dictionary<int, int>();
     [HideInInspector] public Dictionary<int, int> SavePotions = new Dictionary<int, int>();
     [HideInInspector] public Dictionary<int, int> SaveQuickSlotPotions = new Dictionary<int, int>();
@@ -79,7 +83,7 @@ public class SavePlayerData
     [HideInInspector] public Dictionary<int, int> SaveAcceptQuest = new Dictionary<int, int>();
     [HideInInspector] public Dictionary<int, int> SaveActiveQuest = new Dictionary<int, int>();
 
-    [HideInInspector] public Dictionary<int, int> SaveEnemyQuestProgress = new Dictionary<int, int>(); 
+    [HideInInspector] public Dictionary<int, int> SaveEnemyQuestProgress = new Dictionary<int, int>();
     [HideInInspector] public Dictionary<int, int> SaveNatureQuestProgress = new Dictionary<int, int>();
 
     [HideInInspector] public Dictionary<int, int> SaveEnemyQuestReward = new Dictionary<int, int>();
@@ -103,6 +107,7 @@ public class SavePlayerData
         _inventory = _player.GetComponent<Inventory>();
 
         _questManager = GameManager.Instance.QuestManager;
+        _dataManager = GameManager.Instance.DataManager;
     }
 
     public void SavePlayer()
@@ -119,6 +124,7 @@ public class SavePlayerData
         SavePlayerInventoryData();
         SavePlayerQuestData();
         SaveMainQuest();
+        SaveBossDeadCheck();
     }
 
     private void ClearList()
@@ -137,6 +143,7 @@ public class SavePlayerData
         SaveActiveMainQuestProgress.Clear();
         SaveNatureQuestReward.Clear();
         SaveEnemyQuestReward.Clear();
+        SaveBossCheck.Clear();
     }
 
     public void SaveSceneData()
@@ -219,12 +226,12 @@ public class SavePlayerData
             SaveAcceptQuest.Add(quest.TargetID, quest.TargetQuantity);
         }
 
-        foreach(Quest quest in _questManager.ActiveDailyQuests)
+        foreach (Quest quest in _questManager.ActiveDailyQuests)
         {
             SaveActiveQuest.Add(quest.TargetID, quest.TargetQuantity);
         }
 
-        foreach(NatureDailyQuest quest in _questManager.ActiveDailyQuests.OfType<NatureDailyQuest>())
+        foreach (NatureDailyQuest quest in _questManager.ActiveDailyQuests.OfType<NatureDailyQuest>())
         {
             SaveNatureQuestReward.Add(quest.QuestNumber, quest.NatureToalQuestReward);
         }
@@ -248,7 +255,7 @@ public class SavePlayerData
 
     public void SaveMainQuest()
     {
-        foreach(var quest in _questManager.MainQuestQuantityDict)
+        foreach (var quest in _questManager.MainQuestQuantityDict)
         {
             SaveActiveMainQuest.Add(quest.Key, quest.Value);
         }
@@ -257,9 +264,16 @@ public class SavePlayerData
         {
             SaveActiveMainQuestProgress.Add(quest.QuestNumber, quest.IsProgress);
         }
-       
+
     }
 
+    public void SaveBossDeadCheck()
+    {
+        foreach (var BossCheck in _dataManager.BossDeadCheckDict)
+        {
+            SaveBossCheck.Add(BossCheck.Key, BossCheck.Value);
+        }
+    }
 }
 
 
