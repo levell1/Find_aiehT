@@ -19,6 +19,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     private List<(GameObject destination, int index)> _availableDestinations = new();
 
     [SerializeField] private GameObject _prepareStation;
+    [SerializeField] private GameObject _exitStation;
     public List<GameObject> ServingStations;
     private List<OrderFood> _todayFoods = new();
     private List<bool> _isCustomerSitting = new();
@@ -79,6 +80,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
         _TycoonUI.UpdateInitUI();
 
         _prepareStation.GetComponent<PrepareStation>().OffPrepareStation();
+        _exitStation.GetComponent<Collider>().enabled = false;
         _TycoonUI.ShowTycoonStartText();
 
         GameManager.Instance.Player.GetComponent<ServingFood>().IsTycoonGameOver = false;
