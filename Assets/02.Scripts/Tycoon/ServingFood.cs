@@ -23,11 +23,18 @@ public class ServingFood : MonoBehaviour
     private WaitForSeconds _waitCleaningTime = new WaitForSeconds(0f);
     public bool CanThrowAway { get; set; }
     public bool CanOpenRecipeUI { get; set; }
+    public bool CanExitRestaurant { get; set; }
     public void TycoonInteraction()
     {
         if (CanOpenRecipeUI)
         {
             GameManager.Instance.UIManager.ShowCanvas(UIName.RestaurantUI);
+        }
+
+        if (CanExitRestaurant)
+        {
+            GameManager.Instance.Player.transform.position = new Vector3(4, 0, -160);
+            LoadingSceneController.LoadScene(SceneName.VillageScene);
         }
 
         if (_holdingFood != null)
