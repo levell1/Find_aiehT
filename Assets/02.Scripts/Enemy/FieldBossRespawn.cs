@@ -24,7 +24,6 @@ public class FieldBossRespawn : MonoBehaviour
 
     private void OnDisable()
     {
-        _globalTimeManager.OnBossRespawn -= Respawn;
         _globalTimeManager.OnNightCheck -= NightEnemyStat;
         _enemy.HealthSystem.OnDie -= DeadEnemy;
     }
