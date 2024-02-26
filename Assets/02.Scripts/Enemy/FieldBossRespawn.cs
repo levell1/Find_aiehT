@@ -17,6 +17,7 @@ public class FieldBossRespawn : MonoBehaviour
     {
         _globalTimeManager.OnBossRespawn += Respawn;
         _globalTimeManager.OnNightCheck += NightEnemyStat;
+        _enemy.HealthSystem.OnDie += DeadEnemy;
 
         DeadCheck();
     }
@@ -25,15 +26,16 @@ public class FieldBossRespawn : MonoBehaviour
     {
         _globalTimeManager.OnBossRespawn -= Respawn;
         _globalTimeManager.OnNightCheck -= NightEnemyStat;
+        _enemy.HealthSystem.OnDie -= DeadEnemy;
+    }
+
+    private void DeadEnemy()
+    {
+        _dataManager.AddBoss(_enemy.Data.EnemyID, _enemy.HealthSystem.IsDead);
     }
 
     private void DeadCheck()
     {
-        if (!_dataManager.BossDeadCheckDict.ContainsKey(_enemy.Data.EnemyID))
-        {
-            _dataManager.BossDeadCheckDict.Add(_enemy.Data.EnemyID, _enemy.HealthSystem.IsDead);
-        }
-
         if (_dataManager.BossDeadCheckDict.ContainsKey(_enemy.Data.EnemyID))
         {
             _enemy.HealthSystem.IsDead = _dataManager.BossDeadCheckDict[_enemy.Data.EnemyID];
