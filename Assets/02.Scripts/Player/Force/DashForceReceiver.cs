@@ -40,17 +40,12 @@ public class DashForceReceiver : MonoBehaviour
         {
             _dashTime += Time.fixedDeltaTime;
 
+            IsCoolTime = true;
+            _dashImage.SetActive(true);
+
             if (_dashTime >= _dashDuration )
             {
                 IsDash = false;
-                
-                if (!IsCoolTime) 
-                {
-                    
-                    IsCoolTime = true;
-                    _dashImage.SetActive(true);
-                }
-                    
                 _coolTimeManager.StartCoolTimeCoroutine(CoolTimeObjName.Dash, _dashCoolTime, _coolTimeImage);
             }
         }
