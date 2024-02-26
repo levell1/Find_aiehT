@@ -15,15 +15,21 @@ public class MainQuestList : MonoBehaviour
 
     private QuestManager _questManager;
     private Quest[] _questList; 
+
+    [SerializeField] private GameObject _acceptQuestButton;
+    [SerializeField] private GameObject _mainQuestImage;
+
     private void Awake()
     {
         _questStateImageText = QuestStateImage.GetComponentInChildren<TMP_Text>();
     }
     private void OnEnable()
     {
+        _mainQuestImage.SetActive(false);
+        _acceptQuestButton.SetActive(false);
         QuestReward.text = string.Format("사냥퀘스트는 경험치, 채집퀘스트는 골드입니다.");
         QuestContent.text = string.Format("퀘스트를 클릭해주세요.");
-        RegionText.text = string.Format("출몰 지역");
+        RegionText.text = string.Format(" ");
     }
     private void Start()
     {
