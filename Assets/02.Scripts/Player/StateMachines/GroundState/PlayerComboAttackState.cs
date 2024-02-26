@@ -54,7 +54,7 @@ public class PlayerComboAttackState : PlayerAttackState
         float comboForceMultiplier = 1.0f + (_stateMachine.ComboIndex * 0.1f); 
         float scaledForce = _attackInfoData.Force * comboForceMultiplier;
         
-        //_stateMachine.Player.Rigidbody.AddForce(_stateMachine.Player.transform.forward * scaledForce);
+        _stateMachine.Player.Rigidbody.AddForce(_stateMachine.Player.transform.forward * scaledForce);
     }
 
 
@@ -62,7 +62,7 @@ public class PlayerComboAttackState : PlayerAttackState
     {
         base.Update();
 
-        ForceMove();
+        //ForceMove();
 
         float normalizedTime = GetNormalizedTime(_stateMachine.Player.Animator, "Attack");
 
@@ -71,20 +71,20 @@ public class PlayerComboAttackState : PlayerAttackState
             if (normalizedTime >= _attackInfoData.ForceTransitionTime)
                 TryApplyForce();
 
-            if (normalizedTime >= _attackInfoData.ComboTransitionTime) 
+            if (normalizedTime >= _attackInfoData.ComboTransitionTime)
             {
                 TryComboAttack();
             
             }
 
-                int comboIndex = _stateMachine.ComboIndex;
-                float playerAtk = _stateMachine.Player.Data.PlayerData.PlayerAttack;
-                float damage = _stateMachine.Player.Data.AttackData.AttackInfoDatas[comboIndex].Damage;
+            int comboIndex = _stateMachine.ComboIndex;
+            float playerAtk = _stateMachine.Player.Data.PlayerData.PlayerAttack;
+            float damage = _stateMachine.Player.Data.AttackData.AttackInfoDatas[comboIndex].Damage;
 
-                float totalDamage = playerAtk + damage;
+            float totalDamage = playerAtk + damage;
 
-                _stateMachine.Player.Weapon.SetAttack(totalDamage);
-                _stateMachine.Player.Weapon.EnableCollider();
+            _stateMachine.Player.Weapon.SetAttack(totalDamage);
+            _stateMachine.Player.Weapon.EnableCollider();
         }
         else
         {

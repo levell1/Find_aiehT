@@ -360,12 +360,17 @@ public class QuestManager : MonoBehaviour
     }
 
     public void CompleteQuest(Quest quest, int questID)
-    {  
+    {
+        if (quest.IsProgress == true)
+        {
+            return;
+        }
+
         if (quest is MainQuest)
         {
             quest.IsProgress = true;
 
-          if (questID == 30003)
+            if (questID == 30003)
             {
                 EnemyHealthSystem.OnMainQuestTargetDie -= UpdateMainQuest; 
             }
@@ -373,6 +378,7 @@ public class QuestManager : MonoBehaviour
             {
                 _player.Data.PlayerData.OnAccumulateGold -= UpdateMainQuest;
             }
+            
         }
         QuestReward(quest);
 
