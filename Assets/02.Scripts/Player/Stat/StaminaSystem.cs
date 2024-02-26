@@ -55,7 +55,7 @@ public class StaminaSystem : MonoBehaviour
     public void UseDash(int dashStamina)
     {
         if (Stamina == 0 || _dash.IsDash) return;
-
+        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Dash);
         Stamina = Mathf.Max(Stamina - dashStamina, 0);
         OnChangeStaminaUI?.Invoke(Stamina, MaxStamina);
     }
