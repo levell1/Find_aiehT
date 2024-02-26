@@ -7,7 +7,7 @@ public class LevitateObject : MonoBehaviour
     private ParticleSystem _particle;
     readonly private float _staminaDamage = 50f;
     readonly private float _delayTime = 0.1f;
-    readonly private float _damage = 500f;
+    readonly private float _damage = 600f;
     private float _damageDelayTime = 0;
     [SerializeField] bool _isBoss=false;
 

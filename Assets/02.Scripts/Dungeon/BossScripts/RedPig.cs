@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,6 +11,9 @@ public class RedPig : Tree
     private SkinnedMeshRenderer[] _meshRenderers;
     readonly private float _runDamage= 800f;
     readonly private float _waitTime = 4f;
+    readonly private float _knockBack = 4f;
+    readonly private float _knockBackCount = 5;
+    private Vector3 _power;
     private void Awake()
     {
         _meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -56,7 +60,22 @@ public class RedPig : Tree
         if (collision.gameObject.TryGetComponent(out HealthSystem health))
         {
             health.TakeDamage(_runDamage);
+            StartCoroutine(KnockBack(5f));
         }
     }
-    
+    //블루피그 같은코드 리펙토링
+    IEnumerator KnockBack(float knockBack)
+    {
+        Vector3 direction = _playerTransform.position - _pigTransform.position;
+        direction.y = 0;
+        _power = Vector3.zero;
+        int count = 0;
+        while (count < _knockBackCount)
+        {
+            _power += direction.normalized * _knockBack;
+            _playerTransform.gameObject.GetComponent<Rigidbody>().AddForce(_power, ForceMode.VelocityChange);
+            yield return new WaitForSeconds(0.01f);
+            count++;
+        }
+    }
 }
