@@ -12,10 +12,13 @@ public class TutorialGuideBook : MonoBehaviour
 
     [SerializeField] private Image[] _tutorialImages;
 
+    private bool _isEnd;
+
     private int _index;
 
     private void Start()
     {
+        _isEnd = false;
         _prevBtn.onClick.AddListener(PreviewImage);
         _nextBtn.onClick.AddListener(NextImage);
         _exitBtn.onClick.AddListener(ExitButton);
@@ -26,10 +29,17 @@ public class TutorialGuideBook : MonoBehaviour
         GameManager.Instance.CameraManager.DontMoveCam();
 
         _index = 0;
+        if (!_isEnd)
+        {
+            _exitBtn.interactable = false;
+        }
+        else
+        {
+            _exitBtn.interactable = true;
+        }
 
         _prevBtn.interactable = false;
         _nextBtn.interactable = true;
-        _exitBtn.interactable = false;
 
         foreach (var images in _tutorialImages)
         {
@@ -79,6 +89,7 @@ public class TutorialGuideBook : MonoBehaviour
         {
             _nextBtn.interactable = false;
             _exitBtn.interactable = true;
+            _isEnd = true;
         }
 
         UpdateUI();
