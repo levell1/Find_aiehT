@@ -14,6 +14,7 @@ public class Tutorial2 : MonoBehaviour
     public string TutorialTxt2;
     private void Awake()
     {
+        TutorialItem.gameObject.SetActive(true);
         _tutorialManager = GetComponentInParent<TutorialManager>();
         TutorialItem.OnInteractionNatureItem += InteractionItem;
     }
