@@ -75,7 +75,7 @@ public class StaminaSystem : MonoBehaviour
 
     public void RegenerateStamina(int regenStamina)
     {
-        if (Stamina == 100) return;
+        if (Stamina == MaxStamina) return;
 
         _regenTime += Time.deltaTime;
 
