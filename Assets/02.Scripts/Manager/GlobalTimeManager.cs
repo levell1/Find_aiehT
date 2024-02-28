@@ -27,7 +27,6 @@ public class GlobalTimeManager : MonoBehaviour
 
     public bool IsItemRespawn = false;
     public bool IsActiveOutFieldUI;
-    public bool IsMoveVillageToField;
     public bool IsMoveFieldToVillage;
     public bool IsMornigSave;
     public event Action OnInitQuest;
@@ -100,7 +99,6 @@ public class GlobalTimeManager : MonoBehaviour
         
         if (Hour >= 18f)
         {
-            IsMoveVillageToField = false;
             IsMoveFieldToVillage = true;
         }
 
@@ -150,7 +148,6 @@ public class GlobalTimeManager : MonoBehaviour
         _isChangeDay = true;
         IsActiveOutFieldUI = true;
         IsItemRespawn = false;
-        IsMoveVillageToField = true;
         IsMoveFieldToVillage = false;
         ++Day;
         OnInitQuest?.Invoke();
