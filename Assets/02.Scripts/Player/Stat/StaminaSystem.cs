@@ -114,4 +114,10 @@ public class StaminaSystem : MonoBehaviour
 
     }
 
+    public void Respawn()
+    {
+        Stamina = MaxStamina;
+        OnChangeStaminaUI?.Invoke(Stamina, MaxStamina);
+    }
+
 }

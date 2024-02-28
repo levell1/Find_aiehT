@@ -51,7 +51,7 @@ public class SceneMoveUI : MonoBehaviour
         else if (CurrentSceneName == SceneName.VillageScene && _globalTimeManager.EventCount == 1) 
         {
             _healthSystem.Respawn();
-            _staminaSystem.Stamina = _staminaSystem.MaxStamina; 
+            _staminaSystem.Respawn();
             _globalTimeManager.DayTime = _globalTimeManager.NextMorning;
             GameManager.Instance.Player.transform.position = new Vector3(-11, 0, -128);
         }
