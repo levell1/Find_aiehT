@@ -39,6 +39,7 @@ public class SavePlayerData
     private PotionInventory _potionInventory;
     private QuestManager _questManager;
     private DataManager _dataManager;
+    private SoundManager _soundManager;
 
     private Player _player;
 
@@ -93,8 +94,15 @@ public class SavePlayerData
     [HideInInspector] public Dictionary<int, int> SaveActiveMainQuest = new Dictionary<int, int>();
     [HideInInspector] public Dictionary<int, bool> SaveActiveMainQuestProgress = new Dictionary<int, bool>();
 
+
+    [Header("SoundVolume")]
+    [HideInInspector] public float MasterSoundVolume;
+    [HideInInspector] public float BGMSoundVolume;
+    [HideInInspector] public float SFXSoundVolume;
+
     public void SetData(GameObject playerObject)
     {
+        
         _player = GameManager.Instance.Player.GetComponent<Player>();
         _playerData = playerObject.GetComponent<Player>().Data;
         _healthSystem = playerObject.GetComponent<HealthSystem>();
@@ -103,6 +111,7 @@ public class SavePlayerData
         _equipmentDatas = playerObject.GetComponent<EquipmentDatas>();
         _potionInventory = playerObject.GetComponent<PotionInventory>();
         _globalTimeManager = GameManager.Instance.GlobalTimeManager;
+        _soundManager = GameManager.Instance.SoundManager;
 
         _inventory = _player.GetComponent<Inventory>();
 
@@ -125,6 +134,8 @@ public class SavePlayerData
         SavePlayerQuestData();
         SaveMainQuest();
         SaveBossDeadCheck();
+        SaveSoundVolumeData();
+
     }
 
     private void ClearList()
@@ -144,6 +155,7 @@ public class SavePlayerData
         SaveNatureQuestReward.Clear();
         SaveEnemyQuestReward.Clear();
         SaveBossCheck.Clear();
+        
     }
 
     public void SaveSceneData()
@@ -273,6 +285,16 @@ public class SavePlayerData
         {
             SaveBossCheck.Add(BossCheck.Key, BossCheck.Value);
         }
+    }
+
+    public void SaveSoundVolumeData()
+    {
+        _soundManager.GetMasterVolume(out MasterSoundVolume);
+        _soundManager.GetSFXVolume(out SFXSoundVolume);
+        _soundManager.GetMusicVolume(out BGMSoundVolume);
+        PlayerPrefs.SetFloat("MasterSoundVolume", MasterSoundVolume);
+        PlayerPrefs.SetFloat("SFXSoundVolume", SFXSoundVolume);
+        PlayerPrefs.SetFloat("BGMSoundVolume", BGMSoundVolume);
     }
 }
 

@@ -21,7 +21,7 @@ public class EnemyRespawn : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().name == SceneName.TutorialScene)
         {
-            RespawnDelay = 5;
+            RespawnDelay = 10;
         }
     }
 

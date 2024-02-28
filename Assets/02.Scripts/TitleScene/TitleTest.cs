@@ -12,8 +12,18 @@ public class TitleTest : MonoBehaviour
     private void Awake()
     {
         SceneManager.sceneLoaded += LoadedsceneEvent;
+        
     }
 
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("BGMSoundVolume"))
+        {
+            GameManager.Instance.SoundManager.SetMasterVolume(PlayerPrefs.GetFloat("MasterSoundVolume"));
+            GameManager.Instance.SoundManager.SetSFXVolume(PlayerPrefs.GetFloat("SFXSoundVolume"));
+            GameManager.Instance.SoundManager.SetMusicVolume(PlayerPrefs.GetFloat("BGMSoundVolume"));
+        }
+    }
     private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
     {
         if (scene.name!=SceneName.TitleScene)
