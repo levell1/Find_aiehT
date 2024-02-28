@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class SettingUI : BaseUI
 {
-    [SerializeField] private Button _guideButton; //
+    [SerializeField] private Button _guideButton; 
     [SerializeField] private Button _checksaveButton;
     [SerializeField] private Button _checkExitButton;
     [SerializeField] private GameObject _savePanel;

@@ -23,6 +23,7 @@ public class SoundManager : MonoBehaviour
     private Queue<GameObject> _poolObject;
 
 
+
     private void Awake()
     {
         _audioClip = GetComponent<AudioClip>();
@@ -161,7 +162,7 @@ public class SoundManager : MonoBehaviour
     {
         _mixer.SetFloat("MasterSound", volume);
     }
-
+    
     public void SetMusicVolume(float volume)
     {
         _mixer.SetFloat("BGSound", volume);
@@ -170,6 +171,22 @@ public class SoundManager : MonoBehaviour
     public void SetSFXVolume(float volume)
     {
         _mixer.SetFloat("SFXSound", volume);
+    }
+
+    public void GetMasterVolume(out float volume)
+    {
+        _mixer.GetFloat("MasterSound",out volume);
+
+    }
+
+    public void GetMusicVolume(out float volume)
+    {
+        _mixer.GetFloat("BGSound", out volume);
+    }
+
+    public void GetSFXVolume(out float volume)
+    {
+        _mixer.GetFloat("SFXSound", out volume);
     }
 
     public void intit()

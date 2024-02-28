@@ -32,7 +32,6 @@ public class DataManager : MonoBehaviour
     public void LoadBossCheck()
     {
         GameManager.Instance.DataManager.BossDeadCheckDict = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveBossCheck;
-        Debug.Log(BossDeadCheckDict);
     }
 
     public void RemoveOrderData()
