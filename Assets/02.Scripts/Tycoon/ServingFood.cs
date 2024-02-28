@@ -33,6 +33,7 @@ public class ServingFood : MonoBehaviour
 
         if (CanExitRestaurant)
         {
+            CanExitRestaurant = false;
             GameManager.Instance.Player.transform.position = new Vector3(4, 0, -160);
             LoadingSceneController.LoadScene(SceneName.VillageScene);
         }
