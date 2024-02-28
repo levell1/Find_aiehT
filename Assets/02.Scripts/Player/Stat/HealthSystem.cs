@@ -11,7 +11,7 @@ public class HealthSystem : MonoBehaviour
     private float _playerDef;
 
     public float Health;
-    private const int _dangerHealth = 30;
+    private int _dangerHealth;
 
     [SerializeField] EquipmentDatas _equipmentDatas;
 
@@ -43,6 +43,7 @@ public class HealthSystem : MonoBehaviour
     {
         MaxHealth = _playerData.PlayerData.PlayerMaxHealth + _equipmentDatas.SumHealth;
         OnChangeHpUI?.Invoke(Health, MaxHealth);
+        SetDangerHealth();
     }
 
 
@@ -69,6 +70,10 @@ public class HealthSystem : MonoBehaviour
         return _totalDamage;
     }
 
+    private void SetDangerHealth()
+    {
+        _dangerHealth = (int)MaxHealth / 100 * 30;
+    }
 
     public void TakeDamage(float damage)
     {
