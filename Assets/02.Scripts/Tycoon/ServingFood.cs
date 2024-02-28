@@ -71,6 +71,7 @@ public class ServingFood : MonoBehaviour
         _holdingFood.transform.position = _handTransform.position;
         _holdingFood.transform.SetParent(_handTransform);
         _holdingFood.GetComponent<Collider>().enabled = false;
+        _holdingFood.GetComponent<CookedFood>().CurrentFoodPlace = null;
 
         OnCheckCreateStation?.Invoke();
     }
