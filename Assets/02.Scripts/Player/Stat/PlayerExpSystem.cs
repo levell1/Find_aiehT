@@ -100,7 +100,7 @@ public class PlayerExpSystem : MonoBehaviour
         OnChangeHpUI?.Invoke(_healthSystem.Health, _healthSystem.MaxHealth);
 
         _staminaSystem.SetMaxStamina();
-        _staminaSystem.Stamina = _staminaSystem.MaxStamina;
+        _staminaSystem.Respawn();
 
         OnChangeEnemyName?.Invoke(); 
         OnLevelUp?.Invoke(PlayerLevel);
