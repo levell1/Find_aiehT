@@ -30,11 +30,6 @@ public class EnemyRespawn : MonoBehaviour
         _globalTimeManager.OnNightCheck += NightEnemyStat;
     }
 
-    private void OnDisable()
-    {
-        _globalTimeManager.OnNightCheck -= NightEnemyStat;
-    }
-
     private void Update()
     {
         if (_enemy.HealthSystem.IsDead)
@@ -49,17 +44,11 @@ public class EnemyRespawn : MonoBehaviour
 
     private void Respawn()
     {
-        _enemy.SetData();
-        if (_globalTimeManager.NightCheck())
-        {
-            NightEnemyStat();
-        }
-
         _respawnTime = 0f;
         _enemy.HealthSystem.IsDead = false;
         _enemy.Collider.enabled = true;
 
-        _enemy.HealthSystem.Health = _enemy.HealthSystem.MaxHealth;
+        _enemy.HealthSystem.Health = _enemy.EnemyMaxHealth;
 
         if (_enemySpawnPoint != null)
         {
@@ -71,5 +60,6 @@ public class EnemyRespawn : MonoBehaviour
     {
         _enemy.EnemyDamage *= 1.3f;
         _enemy.EnemyMaxHealth *= 1.3f;
+        _globalTimeManager.OnNightCheck -= NightEnemyStat;
     }
 }
