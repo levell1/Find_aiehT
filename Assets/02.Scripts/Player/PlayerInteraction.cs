@@ -217,18 +217,6 @@ public class PlayerInteraction : MonoBehaviour
                 GameManager.Instance.Player.transform.position = new Vector3(-4, 0, 19);
 
             }
-            else if (_curScene == SceneName.VillageScene && _nextScene == SceneName.HuntingScene)
-            {
-                if (!_globalTimeManager.IsMoveVillageToField)
-                {
-                    if (_coroutine == null)
-                    {
-                        _coroutine = StartCoroutine(ErrorMessage());
-                    }
-                    return;
-                }
-               
-            }
 
             LoadingSceneController.LoadScene(_nextScene);
             _nextScene = string.Empty;
