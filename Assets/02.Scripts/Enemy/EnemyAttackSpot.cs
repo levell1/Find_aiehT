@@ -24,6 +24,7 @@ public class EnemyAttackSpot : MonoBehaviour
             if(health.IsSceneMove) return;
 
             health.TakeDamage(_enemy.EnemyDamage);
+            Collider.enabled = false;
         }
     }
 }

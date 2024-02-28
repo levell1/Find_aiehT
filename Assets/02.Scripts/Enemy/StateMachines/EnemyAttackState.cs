@@ -22,7 +22,7 @@ public class EnemyAttackState : EnemyBaseState
         StopAnimation(_stateMachine.Enemy.AnimationData.AttackParameterHash);
         StopAnimation(_stateMachine.Enemy.AnimationData.BaseAttackParameterHash);
 
-        _stateMachine.Enemy.Spot.Collider.enabled = false;
+        //_stateMachine.Enemy.Spot.Collider.enabled = false;
     }
 
     public override void Update()
