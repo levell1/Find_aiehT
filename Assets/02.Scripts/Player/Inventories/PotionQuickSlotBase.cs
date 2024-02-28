@@ -28,7 +28,7 @@ public abstract class PotionQuickSlotBase : MonoBehaviour
     {
         Sprite defaultSprite = GameManager.Instance.ResourceManager.Load<Sprite>(spritePath);
 
-        if (defaultSprite != null)
+        if (defaultSprite != null && GameManager.Instance.GameStateManager.CurrentGameState == GameState.NEWGAME)
         {
             PotionImage.sprite = defaultSprite;
         }
