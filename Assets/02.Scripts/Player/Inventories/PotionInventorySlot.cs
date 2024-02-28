@@ -29,10 +29,11 @@ public class PotionInventorySlot : MonoBehaviour
         _potionInvenButton.onClick.RemoveAllListeners();
         _potionInvenButton.onClick.AddListener(() => SetQuickSlot(PotionSO, InitQuantity));
 
-        Player.PlayerUseHealthPotion.OnPotionUsed += UpdateUsedHPPotionQuantity;
-        Player.PlayerUseStaminaPotion.OnPotionUsed += UpdateUsedSPPotionQuantity;
+       
         UpdateUsedHPPotionQuantity();
         UpdateUsedSPPotionQuantity();
+        Player.PlayerUseHealthPotion.OnPotionUsed += UpdateUsedHPPotionQuantity;
+        Player.PlayerUseStaminaPotion.OnPotionUsed += UpdateUsedSPPotionQuantity;
     }
 
     public void Init(PotionSO data)
@@ -100,7 +101,7 @@ public class PotionInventorySlot : MonoBehaviour
 
     public void UpdateUsedHPPotionQuantity()
     {
-        if (PotionSO == HPPotionQuickSlot.PotionSO)
+        if (PotionSO == HPPotionQuickSlot.PotionSO && HPPotionQuickSlot.PotionSO != null)
         {
             InitQuantity = HPPotionQuickSlot.Quantity;
             //InitQuantity = quantity;

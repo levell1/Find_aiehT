@@ -74,11 +74,11 @@ public class PotionInventory : MonoBehaviour
             ShopPotionInfoPopup.OnPurchaseSuccessAction += Potions[i].UpdatePotionQuantity;
         }
 
-        _hpDefaultPotionID = 0;
-        _spDefaultPotionID = 3;
+        //_hpDefaultPotionID = 0;
+        //_spDefaultPotionID = 3;
 
-        HPPotionQuick.DefaultPotionInit(PotionDataList.PotionList[_hpDefaultPotionID]);
-        SPPotionQuick.DefaultPotionInit(PotionDataList.PotionList[_spDefaultPotionID]);
+        //HPPotionQuick.DefaultPotionInit(PotionDataList.PotionList[_hpDefaultPotionID]);
+        //SPPotionQuick.DefaultPotionInit(PotionDataList.PotionList[_spDefaultPotionID]);
     }
 
 }
