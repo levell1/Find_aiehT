@@ -21,11 +21,11 @@ public class SettingBGMSoundSlider : MonoBehaviour
             }
             else if (gameObject.name == "BGMSlider")
             {
-                _volumeSlider.value = PlayerPrefs.GetFloat("SFXSoundVolume");
+                _volumeSlider.value = PlayerPrefs.GetFloat("BGMSoundVolume");
             }
             else if (gameObject.name == "SFXSlider")
             {
-                _volumeSlider.value = PlayerPrefs.GetFloat("BGMSoundVolume");
+                _volumeSlider.value = PlayerPrefs.GetFloat("SFXSoundVolume");
             }
         }
     }
