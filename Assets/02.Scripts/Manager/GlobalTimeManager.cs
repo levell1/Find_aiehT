@@ -164,19 +164,6 @@ public class GlobalTimeManager : MonoBehaviour
         OnNightCheck?.Invoke();
     }
 
-    public bool NightCheck()
-    {
-        if (Hour >= 18f)
-        {
-            OnNightCheck?.Invoke();
-            return true;
-        }
-        else 
-        {
-            return false; 
-        }
-    }
-
     public bool EnterTycoonTime()
     {
         
