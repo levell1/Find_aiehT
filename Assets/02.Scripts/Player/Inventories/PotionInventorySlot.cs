@@ -22,7 +22,7 @@ public class PotionInventorySlot : MonoBehaviour
 
     [SerializeField] private int _basicInitQuantity = 3;
 
-    void Start()
+    private void Start()
     {
         _potionInvenButton = GetComponent<Button>();
         
@@ -31,6 +31,8 @@ public class PotionInventorySlot : MonoBehaviour
 
         Player.PlayerUseHealthPotion.OnPotionUsed += UpdateUsedHPPotionQuantity;
         Player.PlayerUseStaminaPotion.OnPotionUsed += UpdateUsedSPPotionQuantity;
+        UpdateUsedHPPotionQuantity();
+        UpdateUsedSPPotionQuantity();
     }
 
     public void Init(PotionSO data)
@@ -96,6 +98,28 @@ public class PotionInventorySlot : MonoBehaviour
         }
     }
 
+    public void UpdateUsedHPPotionQuantity()
+    {
+        if (PotionSO == HPPotionQuickSlot.PotionSO)
+        {
+            InitQuantity = HPPotionQuickSlot.Quantity;
+            //InitQuantity = quantity;
+            UpdateUI();
+        }
+      
+    }
+
+    public void UpdateUsedSPPotionQuantity()
+    {
+        if (PotionSO == SPPotionQuickSlot.PotionSO)
+        {
+            InitQuantity = SPPotionQuickSlot.Quantity;
+            //InitQuantity = quantity;
+            UpdateUI();
+        }
+
+    }
+
     public void UpdateUsedHPPotionQuantity(int quantity)
     {
         if (PotionSO == HPPotionQuickSlot.PotionSO)
@@ -103,7 +127,7 @@ public class PotionInventorySlot : MonoBehaviour
             InitQuantity = quantity;
             UpdateUI();
         }
-      
+
     }
 
     public void UpdateUsedSPPotionQuantity(int quantity)
