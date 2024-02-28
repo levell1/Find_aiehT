@@ -13,5 +13,8 @@ public class SPPotionQuickSlot : PotionQuickSlotBase
     {
         return "Images/Potion/SP_1";
     }
-
+    protected override void QuickSlotUpdateUI(int quantity)
+    {
+        base.QuickSlotUpdateUI(quantity);
+    }
 }
