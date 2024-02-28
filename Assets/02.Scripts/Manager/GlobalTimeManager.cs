@@ -248,6 +248,8 @@ public class GlobalTimeManager : MonoBehaviour
         IsMornigSave = true;
         EventCount = 1;
         OnOutFieldUI?.Invoke();
+
+        GameManager.Instance.EffectManager.PlayerLowHpEffect(false);
     }
 
     private IEnumerator ActiveAutoSaveText()
