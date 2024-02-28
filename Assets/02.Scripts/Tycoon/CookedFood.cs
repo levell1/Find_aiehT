@@ -14,6 +14,7 @@ public class CookedFood : MonoBehaviour
     private bool _canHold;
     private bool _shouldClean = false;
     private FoodPlace _currentFoodPlace;
+    private ServingFood _playerServingFood;
     #endregion
 
     #region Property
@@ -49,7 +50,7 @@ public class CookedFood : MonoBehaviour
                 _currentFoodPlace.CurrentFood = null;
                 StopAllCoroutines();
             }
-            else if(value.CurrentCustomer != null)
+            else //if(value.CurrentCustomer != null)
             {
                 value.OnCustomerGetFood += SetColliderEnable;
             }
@@ -72,10 +73,18 @@ public class CookedFood : MonoBehaviour
 
         foreach (GameObject food in _edibleFoods)
             food.SetActive(true);
+
+        _playerServingFood = GameManager.Instance.Player.GetComponent<ServingFood>();
     }
 
-    private void SetColliderEnable()
+    public void SetColliderEnable()
     {
+        _canHold = false;
+        // 플레이어의 _canHoldFood에 이 오브젝트가 들어있다면 삭제
+        if(_playerServingFood.CanHoldFood == gameObject)
+        {
+            _playerServingFood.CanHoldFood = null;
+        }
         StartCoroutine(ColliderControl());
     }
 

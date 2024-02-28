@@ -21,6 +21,12 @@ public class ServingFood : MonoBehaviour
     private bool _isTycoonGameOver = false;
 
     private WaitForSeconds _waitCleaningTime = new WaitForSeconds(0f);
+
+    public GameObject CanHoldFood
+    {
+        get { return _canHoldFood; }
+        set { _canHoldFood = value; }
+    }
     public bool CanThrowAway { get; set; }
     public bool CanOpenRecipeUI { get; set; }
     public bool CanExitRestaurant { get; set; }

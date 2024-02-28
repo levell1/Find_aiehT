@@ -199,6 +199,11 @@ public class CustomerController : MonoBehaviour
         --menu[targetFoodNum].FoodCount;
         if (menu[targetFoodNum].FoodCount == 0)
             menu.Remove(menu[targetFoodNum]);
+
+        //if(_targetFoodPlace.CurrentFood != null)
+        //{
+        //    _targetFoodPlace.CurrentFood.SetColliderEnable();
+        //}
     }
 
     private void RemoveList(GameObject obj)
