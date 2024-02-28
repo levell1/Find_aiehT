@@ -30,7 +30,6 @@ public class EndingUI : MonoBehaviour
             yield return new WaitForSecondsRealtime(1f);
         }
 
-        GameManager.Instance.Player.transform.position = new Vector3(-11, 0, -128);
-        LoadingSceneController.LoadScene(SceneName.VillageScene);
+        GameManager.Instance.GlobalTimeManager.GoodMorning();
     }
 }

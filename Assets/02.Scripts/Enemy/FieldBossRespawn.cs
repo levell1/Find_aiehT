@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FieldBossRespawn : MonoBehaviour
 {
@@ -38,9 +39,17 @@ public class FieldBossRespawn : MonoBehaviour
         if (_dataManager.BossDeadCheckDict.ContainsKey(_enemy.Data.EnemyID))
         {
             _enemy.HealthSystem.IsDead = _dataManager.BossDeadCheckDict[_enemy.Data.EnemyID];
+
             if (_enemy.HealthSystem.IsDead)
             {
-                gameObject.SetActive(false);
+                if (SceneManager.GetActiveScene().name == SceneName.DungeonScene)
+                {
+                    _enemy.HealthSystem.IsDead = false;
+                }
+                else
+                {
+                    gameObject.SetActive(false);
+                }
             }
         }
     }
