@@ -23,9 +23,9 @@ public class Inventory : MonoBehaviour
 
     [Header("Selected Item")]
     private int _selectedItemIndex;
-    public ItemSlot selectedItem;
-    public TextMeshProUGUI selectedItemName;
-    public TextMeshProUGUI selectedItemDescription;
+    public ItemSlot SelectedItem;
+    public TextMeshProUGUI SelectedItemName;
+    public TextMeshProUGUI SelectedItemDescription;
 
     private void Start()
     {
@@ -48,11 +48,11 @@ public class Inventory : MonoBehaviour
         ClearSeletecItem();
     }
 
-    private void InActiveUI()
+
+    public void InActiveUI()
     {
         GameManager.Instance.UIManager.CloseLastCanvas();
         _recipeUI.SetActive(false);
-
     }
 
     private void ToggleRecipeUI()
@@ -175,18 +175,18 @@ public class Inventory : MonoBehaviour
     {
         if (Slots.Count <= index || Slots[index].Item == null) return;
 
-        selectedItem = Slots[index];
+        SelectedItem = Slots[index];
         _selectedItemIndex = index;
 
-        selectedItemName.text = selectedItem.Item.ObjName;
-        selectedItemDescription.text = selectedItem.Item.Description;
+        SelectedItemName.text = SelectedItem.Item.ObjName;
+        SelectedItemDescription.text = SelectedItem.Item.Description;
     }
 
     public void ClearSeletecItem()
     {
-        selectedItem = null;
-        selectedItemName.text = string.Empty;
-        selectedItemDescription.text = string.Empty;
+        SelectedItem = null;
+        SelectedItemName.text = string.Empty;
+        SelectedItemDescription.text = string.Empty;
     }
 
     public void RemoveItem(ItemSO item, int num) 
