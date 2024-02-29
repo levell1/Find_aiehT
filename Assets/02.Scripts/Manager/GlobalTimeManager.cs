@@ -27,7 +27,6 @@ public class GlobalTimeManager : MonoBehaviour
 
     public bool IsItemRespawn = false;
     public bool IsActiveOutFieldUI;
-    public bool IsMoveFieldToVillage;
     public bool IsMornigSave;
     public event Action OnInitQuest;
     public event Action OnOutFieldUI;
@@ -97,11 +96,6 @@ public class GlobalTimeManager : MonoBehaviour
             IsMornigSave = false;
             GameManager.Instance.SaveDataManger.SavePlayerDataToJson();
         }
-        
-        if (Hour >= 18f)
-        {
-            IsMoveFieldToVillage = true;
-        }
 
         if(Hour == 23f && SceneManager.GetActiveScene().name == SceneName.HuntingScene)
         {
@@ -149,7 +143,6 @@ public class GlobalTimeManager : MonoBehaviour
         _isChangeDay = true;
         IsActiveOutFieldUI = true;
         IsItemRespawn = false;
-        IsMoveFieldToVillage = false;
         ++Day;
         OnInitQuest?.Invoke();
         OnBossRespawn?.Invoke();

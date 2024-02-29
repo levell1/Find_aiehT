@@ -208,14 +208,7 @@ public class PlayerInteraction : MonoBehaviour
             }
             else if (_curScene == SceneName.HuntingScene && _nextScene == SceneName.VillageScene)
             {
-                if (_globalTimeManager.IsMoveFieldToVillage)
-                {
-                    GameManager.Instance.GlobalTimeManager.GoodMorning();
-                    return;
-                }
-
                 GameManager.Instance.Player.transform.position = new Vector3(-4, 0, 19);
-
             }
 
             LoadingSceneController.LoadScene(_nextScene);
