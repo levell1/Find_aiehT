@@ -8,6 +8,7 @@ public class ReturnToVillage : MonoBehaviour
     public float ReturnDelay;
     public TextMeshProUGUI Returntext;
     public GameObject ReturnEffect;
+    private float _delay;
     private float _curHealth;
     private bool _isRunning;
 
@@ -26,6 +27,12 @@ public class ReturnToVillage : MonoBehaviour
 
     private void Update()
     {
+        if (_isRunning)
+        {
+            _delay -= Time.deltaTime;
+            Returntext.text = string.Format(" 귀환 까지 남은시간 : {0:0} ", _delay);
+        }
+
         if (_curHealth != _healthSystem.Health && _isRunning)
         {
             CancelReturn();
@@ -50,7 +57,7 @@ public class ReturnToVillage : MonoBehaviour
 
         _playerInput.InputActions.Disable();
         _curHealth =_healthSystem.Health;
-
+        _delay = ReturnDelay;
 
         _coroutine = StartCoroutine(GoVillageCo());
     }
