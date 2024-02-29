@@ -40,6 +40,7 @@ public class GlobalTimeManager : MonoBehaviour
     private void Start()
     {
         _isChangeDay = true;
+        IsActiveOutFieldUI = true;
         SceneManager.sceneLoaded += LoadedsceneEvent;
     }
 
@@ -83,14 +84,14 @@ public class GlobalTimeManager : MonoBehaviour
             ChangeDay();
         }
 
-        if (Hour == 18f && IsActiveOutFieldUI && SceneManager.GetActiveScene().name == SceneName.HuntingScene)
+        if (Hour == 18f && Minutes == 0f && IsActiveOutFieldUI && SceneManager.GetActiveScene().name == SceneName.HuntingScene)
         {
             EventCount = 0;
             IsActiveOutFieldUI = false;
             OnOutFieldUI?.Invoke();
         }
 
-        if (IsMornigSave == true &&Hour==7f&& Minutes >= 15f)
+        if (IsMornigSave == true && Hour == 7f && Minutes >= 15f)
         {
             StartCoroutine(ActiveAutoSaveText());
             IsMornigSave = false;
