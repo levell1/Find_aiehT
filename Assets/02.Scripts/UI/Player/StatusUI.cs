@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,10 @@ public class StatusUI : BaseUI
     private float _sumEquipDef = 0;
     private float _sumequipHealth = 0;
     private float _weaponDamage = 0;
+
+    private bool _isActiveUI;
+
+    private Coroutine _coroutine;
 
     [SerializeField] private EquipmentDatas _equipmentUpgrade;
     [Header("기본스탯")]
@@ -42,6 +47,7 @@ public class StatusUI : BaseUI
 
     private void Awake()
     {
+        _isActiveUI = false;
 
         _equipmentUpgrade = GameManager.Instance.Player.GetComponent<EquipmentDatas>();
         _playerData = GameManager.Instance.Player.GetComponent<Player>().Data;
@@ -50,6 +56,10 @@ public class StatusUI : BaseUI
 
     private void OnEnable()
     {
+        if (_coroutine == null)
+        {
+            _coroutine = StartCoroutine(ActiveUIC0());
+        }
 
         float playerDamage = _playerData.PlayerData.PlayerAttack;
         float tomatoSkillDamage = _playerData.SkillData.SkillInfoDatas[0].SkillDamage;
@@ -100,4 +110,29 @@ public class StatusUI : BaseUI
         _eSkillStamina.text = _playerData.SkillData.SkillInfoDatas[1].SKillCost.ToString();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P) && _isActiveUI)
+        {
+            GameManager.Instance.UIManager.CloseLastCanvas();
+        }
+    }
+
+    private void OnDisable()
+    {
+        _isActiveUI = false;
+
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+            _coroutine = null;
+        }
+    }
+
+    private IEnumerator ActiveUIC0()
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
+        _isActiveUI = true;
+        _coroutine = null;
+    }
 }

@@ -12,6 +12,7 @@ public class InventoryUI : MonoBehaviour
     private void Awake()
     {
         Inventory = GameManager.Instance.Inventory;
+        _isActiveUI = false;
     }
 
     private void OnEnable()
@@ -20,11 +21,6 @@ public class InventoryUI : MonoBehaviour
         {
             _coroutine = StartCoroutine(ActiveUIC0());
         }
-    }
-
-    private void Start()
-    {
-        _isActiveUI = false;
     }
 
     private void Update()
