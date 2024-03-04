@@ -11,17 +11,12 @@ public class CookedFood : MonoBehaviour
 
     private CapsuleCollider _collider;
 
-    private bool _canHold;
     private bool _shouldClean = false;
     private FoodPlace _currentFoodPlace;
     private ServingFood _playerServingFood;
     #endregion
 
     #region Property
-    public bool CanHold {
-        get { return _canHold; }
-        set { _canHold = value; } 
-    }
 
     public bool ShouldClean
     {
@@ -32,7 +27,6 @@ public class CookedFood : MonoBehaviour
 
             if (_shouldClean)
             {
-                _canHold = false;
                 foreach (GameObject food in _edibleFoods)
                     food.SetActive(false);
             }
@@ -68,7 +62,6 @@ public class CookedFood : MonoBehaviour
 
     private void OnEnable()
     {
-        _canHold = true;
         _shouldClean = false;
 
         foreach (GameObject food in _edibleFoods)
@@ -79,8 +72,8 @@ public class CookedFood : MonoBehaviour
 
     public void SetColliderEnable()
     {
-        _canHold = false;
-        // 플레이어의 _canHoldFood에 이 오브젝트가 들어있다면 삭제
+        _collider.enabled = false;
+
         if(_playerServingFood.CanHoldFood == gameObject)
         {
             _playerServingFood.CanHoldFood = null;
@@ -90,7 +83,6 @@ public class CookedFood : MonoBehaviour
 
     IEnumerator ColliderControl()
     {
-        _collider.enabled = false;
         yield return TycoonManager.Instance._waitForCustomerEatTime;
         _collider.enabled = true;
     }

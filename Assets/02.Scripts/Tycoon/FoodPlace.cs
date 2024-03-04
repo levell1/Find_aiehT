@@ -13,22 +13,18 @@ public class FoodPlace : MonoBehaviour
         get { return _currentCustomer; }
         set
         {
-            if (value == null)
+            if (value == null && _currentCustomer != null)
             {
-                if (_currentCustomer != null)
-                {
-                    _currentCustomer.OnCustomerExit -= CustomerExit;
-                    _currentCustomer.OnSelectFood -= MatchCustomerFood;
-                }
+                _currentCustomer.OnCustomerExit -= CustomerExit;
+                _currentCustomer.OnSelectFood -= MatchCustomerFood;
+            }
+            if (value != null)
+            {
+                value.OnCustomerExit += CustomerExit;
+                value.OnSelectFood += MatchCustomerFood;
             }
 
             _currentCustomer = value;
-
-            if (_currentCustomer != null)
-            {
-                _currentCustomer.OnCustomerExit += CustomerExit;
-                _currentCustomer.OnSelectFood += MatchCustomerFood;
-            }
         }
     }
 
@@ -68,8 +64,6 @@ public class FoodPlace : MonoBehaviour
 
         TycoonManager.Instance._TycoonUI.UpdateCurrentGold(_currentFood._FoodSO.Price);
 
-        // TODO: Object Pool
-        _currentFood.CanHold = false;
         StartCoroutine(SetFoodToCleanState(_currentFood));
     }
 

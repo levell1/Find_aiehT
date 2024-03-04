@@ -157,7 +157,7 @@ public class ServingFood : MonoBehaviour
                         _canCleaningFoods.Add(other.gameObject);
                     }
                 }
-                else if (cookedFood.CanHold && _holdingFood == null)
+                else if (_holdingFood == null)
                 {
                     _canHoldFood = other.gameObject;
                 }
