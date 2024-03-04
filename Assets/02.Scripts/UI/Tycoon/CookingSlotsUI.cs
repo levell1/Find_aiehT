@@ -20,7 +20,12 @@ public class CookingSlotsUI : MonoBehaviour
 
     private void Update()
     {
-        if (_cookingUI.CookingSlotsUIs[0] == this && TycoonManager.Instance._FoodCreater.CanMakeFood)
+        if (!TycoonManager.Instance._FoodCreater.CanMakeFood)
+        {
+            _time = 0f;
+            CookingTimeUI.fillAmount = 0f;
+        }
+        else if (_cookingUI.CookingSlotsUIs[0] == this && TycoonManager.Instance._FoodCreater.CanMakeFood)
         {
             _time += Time.deltaTime;
             CookingTimeUI.fillAmount = _time / TycoonManager.Instance._FoodCreater.FoodCreateDelayTime;
@@ -28,6 +33,7 @@ public class CookingSlotsUI : MonoBehaviour
             if (_time >= TycoonManager.Instance._FoodCreater.FoodCreateDelayTime)
             {
                 _cookingUI.CookingSlotsUIs.Remove(_cookingUI.CookingSlotsUIs[0]);
+                _time = 0f;
                 Destroy(gameObject);
             }
         }
