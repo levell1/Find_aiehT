@@ -32,7 +32,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     [SerializeField] private int _currentCustomerNum;   //TODO: SerializeField 제거
     [SerializeField] private int _todayMaxCustomerNum;
     public int AngryCustomerNum = 0;
-    private int _agentPriority = 0;
+    public int AgentPriority = 0;
     private int _tycoonMainQuest = 30001;
 
     private WaitForSeconds _waitForCustomerSpawnTime;
@@ -130,6 +130,28 @@ public class TycoonManager : MonoSingleton<TycoonManager>
         }
     }
 
+    public int DecideCustomerDestination(Customer customer)
+    {
+        _availableDestinations = _destinations
+                .Select((d, i) => (d, i))
+                .Where(tuple => !_isCustomerSitting[tuple.i])
+                .ToList();
+
+        int seatNum = UnityEngine.Random.Range(0, _availableDestinations.Count);
+        customer.AgentDestination = _availableDestinations[seatNum].destination.transform;
+
+        return _availableDestinations[seatNum].index;
+    }
+
+    public void SetCustomerFoodPlace(Customer customer,int seatIndex)
+    {
+        FoodPlace foodPlace = _destinations[seatIndex].GetComponentInParent<FoodPlace>();
+        foodPlace.CurrentCustomer = customer;
+        customer.TargetFoodPlace = foodPlace;
+
+        _isCustomerSitting[seatIndex] = true;
+    }
+
     IEnumerator CreateCustomerCoroutine()
     {
         while (_todayMaxCustomerNum > 0)
@@ -138,40 +160,8 @@ public class TycoonManager : MonoSingleton<TycoonManager>
 
             if (_currentCustomerNum < _maxCustomerNum)
             {
-                // 손님이 없는 자리만 List로
-                _availableDestinations = _destinations
-                .Select((d, i) => (d, i))
-                .Where(tuple => !_isCustomerSitting[tuple.i])
-                .ToList();
+                GameManager.Instance.PoolingManager.GetObject(PoolingObjectName.Customer);
 
-                if (_availableDestinations.Count <= 0)
-                    continue;
-
-                // 손님 생성
-                GameObject customerObject = GameManager.Instance.PoolingManager.GetObject(PoolingObjectName.Customer);
-                CustomerController customerController = customerObject.GetComponent<CustomerController>();
-
-                // 손님 자리 배치
-                int seatNum = UnityEngine.Random.Range(0, _availableDestinations.Count);
-                customerController.AgentDestination = _availableDestinations[seatNum].destination.transform;
-
-                // FoddCreater의 음식 제조 event를 위해 구독
-                _FoodCreater.SubscribeCreateFoodEvent(customerController);
-
-                int currentDestinationIndex = _availableDestinations[seatNum].index;
-
-                // 손님의 자리(FoodPlace)에 손님 지정, 손님의 스크립트에 자리 지정 (이벤트를 위해)
-                FoodPlace foodPlace = _destinations[currentDestinationIndex].GetComponentInParent<FoodPlace>();
-                foodPlace.CurrentCustomer = customerController;
-                customerController.TargetFoodPlace = foodPlace;
-
-                // AI 우선순위 지정
-                customerController.AgentPriority = ++_agentPriority;
-
-                // 자리가 있음을 알려주는 bool값 true
-                _isCustomerSitting[currentDestinationIndex] = true;
-
-                // 현재 손님 수 ++, 오늘 올 손님 --
                 ++_currentCustomerNum;
                 --_todayMaxCustomerNum;
 
