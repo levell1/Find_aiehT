@@ -28,7 +28,7 @@ public class SoundManager : MonoBehaviour
     {
         _audioClip = GetComponent<AudioClip>();
         _mixer = Resources.Load<AudioMixer>("Sound/AudioMixer");
-        intit();
+        Init();
     }
 
     private void Start()
@@ -189,7 +189,7 @@ public class SoundManager : MonoBehaviour
         _mixer.GetFloat("SFXSound", out volume);
     }
 
-    public void intit()
+    public void Init()
     {
         _poolObject = new Queue<GameObject>();
         for (int i = 0; i < Size; i++)
