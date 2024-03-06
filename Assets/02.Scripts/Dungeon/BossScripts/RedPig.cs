@@ -14,6 +14,7 @@ public class RedPig : Tree
     readonly private float _knockBack = 4f;
     readonly private float _knockBackCount = 5;
     private Vector3 _power;
+
     private void Awake()
     {
         _meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -35,13 +36,6 @@ public class RedPig : Tree
     {
         Node root = new SelectorNode(new List<Node>
         {
-            new SequenceNode
-            (
-                new List<Node>()
-                {
-                    new CheckPlayerDistanceNode(_pigTransform,2.0f),
-                }
-            ),
             new SequenceNode
             (
                 new List<Node>()

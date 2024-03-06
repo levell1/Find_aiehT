@@ -12,7 +12,7 @@ public class BluePigAI : Tree
     readonly private float _waitTime = 2f;
     readonly private float _knockBack = 4f;
     readonly private float _knockBackCount = 5;
-    readonly private float _Dagage = 500f;
+    readonly private float _damage = 500f;
     private Vector3 _power;
 
     private void Awake()
@@ -45,7 +45,7 @@ public class BluePigAI : Tree
     {
         if (other.gameObject.TryGetComponent(out HealthSystem health))
         {
-            health.TakeDamage(_Dagage);
+            health.TakeDamage(_damage);
             StartCoroutine(KnockBack(5f));
         }
     }

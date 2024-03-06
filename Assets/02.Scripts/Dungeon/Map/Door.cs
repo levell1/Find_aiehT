@@ -17,7 +17,6 @@ public class Door : MonoBehaviour
     {
         var dir = transform.forward * 17f;
         NextRoomPosition = transform.position + dir;
-        
     }
 
     private void OnTriggerEnter(Collider other)

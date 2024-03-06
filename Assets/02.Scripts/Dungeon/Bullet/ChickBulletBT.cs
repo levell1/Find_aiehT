@@ -7,7 +7,6 @@ public class ChickBulletBT : Tree
     private Transform _playerTransform;
     private Transform _chickTransform;
     private NavMeshAgent _navMeshAgent;
-    readonly private float _runDamage = 10f;
     readonly private float _waitTime = 1f;
     private void Awake()
     {

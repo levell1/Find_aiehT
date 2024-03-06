@@ -172,7 +172,6 @@ public struct SFXSoundPathName
     public const string Portal = "Portal";
     public const string Upgrade = "Upgrade";
 
-    public const string LightMagic = "LightMagic";
     public const string Levitate = "Levitate";
     public const string Pig1 = "Pig1";
     public const string Pig2 = "Pig2";

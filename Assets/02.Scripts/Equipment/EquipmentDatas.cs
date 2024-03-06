@@ -3,7 +3,7 @@ using UnityEngine;
 public class EquipmentDatas : MonoBehaviour
 {
     public EquipmentData[] EquipData = new EquipmentData[6];
-    private int[] LoadEquipLevels = new int[6];
+    private int[] _loadEquipLevels = new int[6];
 
     private HealthSystem _healthSystem;
 
@@ -21,14 +21,12 @@ public class EquipmentDatas : MonoBehaviour
     {
         GameStateManager gameStateManager = GameManager.Instance.GameStateManager;
         
-
         for (int i = 0; i < 6; i++)
         {
-            //데이터 불러와서 level에 저장
             if (gameStateManager.CurrentGameState == GameState.LOADGAME)
             {
-                LoadEquipLevels[i] = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveEquipLevel[i];
-                EquipData[i].Level = LoadEquipLevels[i];
+                _loadEquipLevels[i] = GameManager.Instance.JsonReaderManager.LoadedPlayerData.SaveEquipLevel[i];
+                EquipData[i].Level = _loadEquipLevels[i];
                 SetEquipCurrent(i);
             }
             else if(gameStateManager.CurrentGameState == GameState.NEWGAME)
@@ -46,14 +44,20 @@ public class EquipmentDatas : MonoBehaviour
         SetEquipCurrent(i);
         SumEquipStat();
         _healthSystem.SetMaxHealth();
-        
     }
     public void SetEquipCurrent(int i) 
-    { 
-        EquipData[i].CurrentUpgradeGold = Mathf.Ceil(EquipData[i].Equipment.UpgradeGold + EquipData[i].Equipment.UpgradeGold* (Mathf.Pow(EquipData[i].Level, 2) / 2));
-        EquipData[i].Currenthealth = Mathf.Ceil(EquipData[i].Equipment.EquipmentHealth+ EquipData[i].Equipment.EquipmentHealth * (Mathf.Pow(EquipData[i].Level, 2) / 2));
-        EquipData[i].CurrentDef = Mathf.Ceil(EquipData[i].Equipment.EquipmentDef+ EquipData[i].Equipment.EquipmentDef * (Mathf.Pow( EquipData[i].Level, 2) / 2));
-        EquipData[i].CurrentAttack = Mathf.Ceil(EquipData[i].Equipment.EquipmentDmg + EquipData[i].Equipment.EquipmentDmg * (Mathf.Pow(EquipData[i].Level, 2) / 2));
+    {
+        int equipgold = EquipData[i].Equipment.UpgradeGold; 
+        int equiphealth = EquipData[i].Equipment.EquipmentHealth;
+        int equipdef = EquipData[i].Equipment.EquipmentDef; 
+        int equipdmg = EquipData[i].Equipment.EquipmentDmg;
+
+        float setvalue = (Mathf.Pow(EquipData[i].Level, 2) / 2);
+
+        EquipData[i].CurrentUpgradeGold = Mathf.Ceil(equipgold + equipgold * setvalue);
+        EquipData[i].Currenthealth = Mathf.Ceil(equiphealth + equiphealth * setvalue);
+        EquipData[i].CurrentDef = Mathf.Ceil(equipdef + equipdef * setvalue);
+        EquipData[i].CurrentAttack = Mathf.Ceil(equipdmg + equipdmg * setvalue);
     }
 
     public void SumEquipStat() 

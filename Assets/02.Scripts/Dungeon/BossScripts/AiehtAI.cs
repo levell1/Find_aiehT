@@ -14,14 +14,14 @@ public class AiehtAI : Tree
     private BossHealthSystem _bossHealthSystem;
 
     [Header("대쉬, 충돌")]
-    readonly private float _DashWaitTime = 2f;
-    readonly private float _DashDamage = 1000f;
+    readonly private float _dashWaitTime = 2f;
+    readonly private float _dashDamage = 1000f;
     readonly private float _knockBack = 7f;
     readonly private float _knockBackCount = 5f;
 
     [Header("스킬 쿨타임")]
     readonly private float _levitateTiem = 2f;
-    readonly private float _LightAttackWaitTime = 2f;
+    readonly private float _lightAttackWaitTime = 2f;
   
     private Vector3 _power;
 
@@ -53,7 +53,7 @@ public class AiehtAI : Tree
                 new List<Node>()
                 {
                    new CheckPlayerDistanceNotNode(_pigTransform,8.0f),
-                   new LightAttack(_playerTransform, _pigTransform,_LightAttackWaitTime,_lightObject),
+                   new LightAttack(_playerTransform, _pigTransform,_lightAttackWaitTime,_lightObject),
                    new RunAwayNode(_pigTransform,_navMeshAgent,_navMeshAgent.speed),
                 }
             ),
@@ -71,7 +71,7 @@ public class AiehtAI : Tree
                 new List<Node>()
                 {
                    new CheckPlayerDistanceNotNode(_pigTransform,20.0f),
-                   new DashToPlayer(_playerTransform, _pigTransform, _navMeshAgent,_DashWaitTime),
+                   new DashToPlayer(_playerTransform, _pigTransform, _navMeshAgent,_dashWaitTime),
                    new RunAwayNode(_pigTransform,_navMeshAgent,_navMeshAgent.speed),
                 }
             ),
@@ -83,7 +83,7 @@ public class AiehtAI : Tree
     {
         if (other.gameObject.TryGetComponent(out HealthSystem health))
         {
-            health.TakeDamage(_DashDamage);
+            health.TakeDamage(_dashDamage);
             StartCoroutine(KnockBack(5f));
         }
     }

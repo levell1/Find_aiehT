@@ -8,17 +8,15 @@ public class CheckPlayerDistanceNode : Node
     private Animator _animation;
     private float _distance;
     
-
     public CheckPlayerDistanceNode(Transform transform,float distance)
     {
-        this._pigtransform = transform;
-        this._distance = distance;
+        _pigtransform = transform;
+        _distance = distance;
         _animation = transform.GetComponent<Animator>();
     }
 
     public override NodeState Evaluate()
     {
-
         var collider = Physics.OverlapSphere(_pigtransform.position, _distance, _playerLayerMask);
         if (collider.Length <= 0) return state = NodeState.Failure;
         _animation.SetBool(AnimationParameterName.BossWalk, false);
@@ -35,8 +33,8 @@ public class CheckPlayerDistanceNotNode : Node
 
     public CheckPlayerDistanceNotNode(Transform transform, float distance)
     {
-        this._pigtransform = transform;
-        this._distance = distance;
+        _pigtransform = transform;
+        _distance = distance;
         _animation = transform.GetComponent<Animator>();
     }
 
@@ -58,13 +56,13 @@ public class LevitateNode : Node
     private float _time;
     private float _cooltime;
 
-    public LevitateNode(Transform pigtransform, Transform playerTransform, LevitateObject levitateObject, float cooltime)
+    public LevitateNode(Transform pigTransform, Transform playerTransform, LevitateObject levitateObject, float coolTime)
     {
         _levitateObject = levitateObject;
-        _pigTransform = pigtransform;
+        _pigTransform = pigTransform;
         _player = playerTransform;
-        _animation = pigtransform.GetComponent<Animator>();
-        _cooltime= cooltime;
+        _animation = pigTransform.GetComponent<Animator>();
+        _cooltime= coolTime;
     }
 
     public override NodeState Evaluate()
@@ -102,20 +100,21 @@ public class RangeAttackNode : Node
     private Transform _player;
     private Transform _pigTransform;
     private Animator _animation;
-    private float _Bulletangle = 10f;
-    float time = 0;
-    public RangeAttackNode(Transform _playerTransform, Transform transform)
+    private float _bulletangle = 10f;
+    private float _time = 0;
+    private GameObject[] _bullet = new GameObject[3];
+    public RangeAttackNode(Transform playerTransform, Transform transform)
     {
-        _player = _playerTransform;
-        this._pigTransform = transform;
+        _player = playerTransform;
+        _pigTransform = transform;
         _animation = transform.GetComponent<Animator>();
 
     }
     public override NodeState Evaluate()
     {
-        time += Time.deltaTime;
+        _time += Time.deltaTime;
 
-        if (time <= 1f)
+        if (_time <= 1f)
         {
             Quaternion rotation = Quaternion.LookRotation(_player.position - _pigTransform.position);
             _pigTransform.rotation = Quaternion.Lerp(_pigTransform.rotation, rotation, Time.deltaTime * 4);
@@ -128,26 +127,21 @@ public class RangeAttackNode : Node
 
             _animation.SetBool(AnimationParameterName.BossAttack, true);
 
-            GameObject bullet1 = GameManager.Instance.PoolingManager.GetObject("Bullet");
-            bullet1.transform.rotation = Quaternion.LookRotation(direction);
-            bullet1.transform.position = _pigTransform.position + _pigTransform.forward * 2 ;
-            bullet1.GetComponent<Rigidbody>().velocity = bullet1.transform.forward * 5f;
+            for (int i = 0; i < _bullet.Length; i++)
+            {
+                _bullet[i] = GameManager.Instance.PoolingManager.GetObject("Bullet");
+                _bullet[i].transform.rotation = Quaternion.LookRotation(direction);
+            }
+            _bullet[1].transform.Rotate(Vector3.up * _bulletangle);
+            _bullet[2].transform.Rotate(Vector3.down * _bulletangle);
 
+            for (int i = 0; i < _bullet.Length; i++)
+            {
+                _bullet[i].transform.position = _pigTransform.position + _pigTransform.forward * 2;
+                _bullet[i].GetComponent<Rigidbody>().velocity = _bullet[i].transform.forward * 5f;
+            }
 
-            GameObject bullet2 = GameManager.Instance.PoolingManager.GetObject("Bullet");
-            bullet2.transform.rotation = Quaternion.LookRotation(direction);
-            bullet2.transform.Rotate(Vector3.up * _Bulletangle);
-            bullet2.transform.position = _pigTransform.position + _pigTransform.forward * 2 ;
-            bullet2.GetComponent<Rigidbody>().velocity = bullet2.transform.forward * 5f;
-
-
-            GameObject bullet3 = GameManager.Instance.PoolingManager.GetObject("Bullet");
-            bullet3.transform.rotation = Quaternion.LookRotation(direction);
-            bullet3.transform.Rotate(Vector3.down * _Bulletangle);
-            bullet3.transform.position = _pigTransform.position + _pigTransform.forward * 2 ;
-            bullet3.GetComponent<Rigidbody>().velocity = bullet3.transform.forward * 5f;
-            
-            time = 0;
+            _time = 0;
             return state = NodeState.Success;
         }
         return state = NodeState.Failure;
@@ -162,14 +156,14 @@ public class LightAttack : Node
     private Animator _animation;
     private float _time = 0;
     private float _waitTime;
-    private GameObject _LighObject;
-    public LightAttack(Transform _playerTransform, Transform transform, float WaitTime, GameObject lighObject)
+    private GameObject _lighObject;
+    public LightAttack(Transform playerTransform, Transform transform, float waitTime, GameObject lighObject)
     {
-        _player = _playerTransform;
-        this._pigTransform = transform;
+        _player = playerTransform;
+        _pigTransform = transform;
         _animation = transform.GetComponent<Animator>();
-        _waitTime = WaitTime;
-        _LighObject = lighObject;
+        _waitTime = waitTime;
+        _lighObject = lighObject;
     }
     public override NodeState Evaluate()
     {
@@ -183,7 +177,7 @@ public class LightAttack : Node
         }
         else
         {
-            GameObject lightObject = Object.Instantiate(_LighObject);
+            GameObject lightObject = Object.Instantiate(_lighObject);
             lightObject.transform.rotation = Quaternion.identity;
             lightObject.transform.position = _pigTransform.position + _pigTransform.forward * 2;
             _animation.SetBool(AnimationParameterName.BossFly, false);
@@ -254,12 +248,12 @@ public class GoToPlayerNode : Node
     private float _time=0;
     private float _waitTime = 0;
 
-    public GoToPlayerNode(Transform player, Transform transform,NavMeshAgent agent, float waittime)
+    public GoToPlayerNode(Transform player, Transform transform, NavMeshAgent agent, float waitTime)
     {
-        this._player = player;
-        this._pigTransform = transform;
-        this._agent = agent;
-        _waitTime = waittime;
+        _player = player;
+        _pigTransform = transform;
+        _agent = agent;
+        _waitTime = waitTime;
         _animation = transform.GetComponent<Animator>();
     }
     public override NodeState Evaluate()
@@ -273,7 +267,7 @@ public class GoToPlayerNode : Node
         }
         else
         {
-             _agent.SetDestination(_player.transform.position);
+            _agent.SetDestination(_player.transform.position);
             _agent.speed = _agentAttackSpeed;
             _animation.SetBool(AnimationParameterName.BossFear, false);
             _animation.SetBool(AnimationParameterName.BossRun, true);
@@ -308,9 +302,9 @@ public class DashToPlayer : Node
 
     public DashToPlayer(Transform player, Transform transform, NavMeshAgent agent, float waitTime)
     {
-        this._playerTransform = player;
-        this._pigTransform = transform;
-        this._agent = agent;
+        _playerTransform = player;
+        _pigTransform = transform;
+        _agent = agent;
         _waitTime = waitTime;
         _animation = transform.GetComponent<Animator>();
         _collider = _pigTransform.gameObject.GetComponent<BoxCollider>();
@@ -368,6 +362,7 @@ public class DashToPlayer : Node
         {
             _dashPosition = _playerTransform.position + ((_playerTransform.position - _pigTransform.position).normalized * i * 10);
             _dashPosition.y = _pigTransform.position.y;
+
             NavMeshHit hit;
             if (NavMesh.SamplePosition(_dashPosition, out hit, 1f, NavMesh.AllAreas))
             {

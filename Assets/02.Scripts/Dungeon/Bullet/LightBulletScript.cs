@@ -13,7 +13,6 @@ public class LightBulletScript : MonoBehaviour
     }
     private void Start()
     {
-        GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.LightMagic,Vector3.zero,0.1f);
         Invoke("ReturnForSec", 7f);
     }
 
@@ -21,7 +20,7 @@ public class LightBulletScript : MonoBehaviour
     {
         _rigidbody.velocity = transform.forward * 6f;
         var ballTargetRotation = Quaternion.LookRotation(_player.position - transform.position);
-        transform.rotation = Quaternion.Lerp(transform.rotation, ballTargetRotation, Time.deltaTime * 4);
+        transform.rotation = Quaternion.Lerp(transform.rotation, ballTargetRotation, Time.deltaTime * 5);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,7 +31,7 @@ public class LightBulletScript : MonoBehaviour
         }
         else if (other.gameObject.tag == TagName.Wall)
         {
-            GameManager.Instance.PoolingManager.ReturnObject(gameObject);
+            Destroy(gameObject);
         }
     }
 
@@ -48,6 +47,6 @@ public class LightBulletScript : MonoBehaviour
 
     private void ReturnForSec() 
     {
-        GameManager.Instance.PoolingManager.ReturnObject(gameObject);
+        Destroy(gameObject);
     }
 }
