@@ -137,6 +137,11 @@ public struct ErrorMessageTxt
     public const string ThirtyMinutesLeft = "30분 남았습니다.";
     public const string OneHourLeft = "1시간 뒤에 사냥터에서 퇴장됩니다.";
 }
+public struct SceneMoveTxt
+{
+    public const string SceneMoveGoHome = "마을로 돌아갑니다.";
+    public const string SceneMoveGoSleep = "어우 졸려 ~ ";
+}
 public struct SFXSoundPathName
 {
     public const string ClickSound = "Click";

@@ -28,7 +28,7 @@ public class Tutorial1 : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag(TagName.Player))
         {
             _tutorialManager.DoMove(_duration, _easeType);
         }

@@ -47,7 +47,7 @@ public class ForceSceneMove : MonoBehaviour
             GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.Sleep);
 
             _sceneMoveUI.CurrentSceneName = SceneName.VillageScene;
-            _sceneMoveUI.Description.text = "어우 졸려 ~ ";
+            _sceneMoveUI.Description.text = SceneMoveTxt.SceneMoveGoSleep;
             _sceneMoveUI.gameObject.SetActive(true);
         }
     }
