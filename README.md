@@ -10,8 +10,6 @@
 
 [**FindAieht 플레이 영상**](https://www.youtube.com/watch?v=OdmmBRaD1U4)
 
-<iframe width="708" height="398" src="https://www.youtube.com/embed/OdmmBRaD1U4" title="프로젝트 FindAieht 플레이영상 ( Rpg+Tycoon )" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
 <br><br>
 
 ## 📜 프로젝트 개요 및 목표 📜​
