@@ -28,7 +28,7 @@ public class TimeToVillageUI : MonoBehaviour
     public void GoVillageBtn()
     {
         _sceneMoveUI.CurrentSceneName = SceneName.VillageScene;
-        _sceneMoveUI.Description.text = "마을로 돌아갑니다.";
+        _sceneMoveUI.Description.text = SceneMoveTxt.SceneMoveGoHome;
         _sceneMoveUI.gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
