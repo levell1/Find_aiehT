@@ -84,6 +84,7 @@ public class TycoonManager : MonoSingleton<TycoonManager>
         _TycoonUI.ShowTycoonStartText();
 
         GameManager.Instance.Player.GetComponent<ServingFood>().IsTycoonGameOver = false;
+        GameManager.Instance.Player.GetComponent<ServingFood>().CanThrowAway = false;
     }
 
     private void TycoonGameEnd()
