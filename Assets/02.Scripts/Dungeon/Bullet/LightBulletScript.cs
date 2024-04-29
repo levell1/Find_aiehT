@@ -29,7 +29,7 @@ public class LightBulletScript : MonoBehaviour
         {
             health.TakeDamage(_lightDamage);
         }
-        else if (other.gameObject.tag == TagName.Wall)
+        else if (other.gameObject.CompareTag(TagName.Wall))
         {
             Destroy(gameObject);
         }

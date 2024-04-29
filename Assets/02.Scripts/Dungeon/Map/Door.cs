@@ -21,7 +21,7 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag ==TagName.Player)
+        if (other.gameObject.CompareTag(TagName.Player))
         {
             _dungeonManager.GoNextRoom(NextRoomPosition);
         }
