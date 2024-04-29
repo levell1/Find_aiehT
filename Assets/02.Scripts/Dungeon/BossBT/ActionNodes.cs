@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -131,6 +132,7 @@ public class RangeAttackNode : Node
             {
                 _bullet[i] = GameManager.Instance.PoolingManager.GetObject("Bullet");
                 _bullet[i].transform.rotation = Quaternion.LookRotation(direction);
+                // 테스트 해보기 _bullet[i].transform.Rotate(Vector3.up * _bulletangle * (float)(Math.Pow(-1, i)));
             }
             _bullet[1].transform.Rotate(Vector3.up * _bulletangle);
             _bullet[2].transform.Rotate(Vector3.down * _bulletangle);
