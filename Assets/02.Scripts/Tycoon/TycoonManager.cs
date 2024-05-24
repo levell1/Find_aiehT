@@ -29,8 +29,8 @@ public class TycoonManager : MonoSingleton<TycoonManager>
     public float CustomerWaitTime;
 
     [SerializeField] private int _maxCustomerNum;
-    [SerializeField] private int _currentCustomerNum;   //TODO: SerializeField 제거
     [SerializeField] private int _todayMaxCustomerNum;
+    private int _currentCustomerNum;
     public int AngryCustomerNum = 0;
     public int AgentPriority = 0;
     private int _tycoonMainQuest = 30001;
@@ -52,14 +52,14 @@ public class TycoonManager : MonoSingleton<TycoonManager>
 
     #endregion
 
+    #region MonoBehaviour
+
     private void Start()
     {
         for (int i = 0; i < _destinations.Count; ++i)
         {
             _isCustomerSitting.Add(false);
             _destinations[i].GetComponentInParent<FoodPlace>().SeatNum = i;
-
-            //TODO: Inspector 창에서 넣어주기 vs 여기서 코드로 넣기
             ServingStations.Add(_destinations[i].transform.parent.gameObject);
         }
 
@@ -70,20 +70,28 @@ public class TycoonManager : MonoSingleton<TycoonManager>
         DecideTodayCustomerNum();
     }
 
+    #endregion
+
+    #region Method
+
     public void TycoonGameStart()
     {
         DecideTodayFoods();
 
         _playerInteraction.SetActive(false);
-        GameManager.Instance.CameraManager.TycoonCamSetting();
-        StartCoroutine(CreateCustomerCoroutine());
-        _TycoonUI.UpdateInitUI();
 
+        GameManager.Instance.CameraManager.TycoonCamSetting();
+        
         _prepareStation.GetComponent<PrepareStation>().OffPrepareStation();
         _exitStation.GetComponent<Collider>().enabled = false;
+
+        _TycoonUI.UpdateInitUI();
         _TycoonUI.ShowTycoonStartText();
 
+        StartCoroutine(CreateCustomerCoroutine());
+
         GameManager.Instance.Player.GetComponent<ServingFood>().IsTycoonGameOver = false;
+        GameManager.Instance.Player.GetComponent<ServingFood>().CanThrowAway = false;
     }
 
     private void TycoonGameEnd()
@@ -152,6 +160,10 @@ public class TycoonManager : MonoSingleton<TycoonManager>
         _isCustomerSitting[seatIndex] = true;
     }
 
+    #endregion
+
+    #region Coroutine
+
     IEnumerator CreateCustomerCoroutine()
     {
         while (_todayMaxCustomerNum > 0)
@@ -169,4 +181,6 @@ public class TycoonManager : MonoSingleton<TycoonManager>
             }
         }
     }
+
+    #endregion
 }

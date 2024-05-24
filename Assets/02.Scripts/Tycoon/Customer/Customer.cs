@@ -49,7 +49,7 @@ public class Customer : MonoBehaviour
         }
     }
 
-    public FoodSO TargetFood { get; set; }
+    public FoodSO TargetFood { get; set; } = null;
 
     public Transform AgentDestination
     {
@@ -129,7 +129,6 @@ public class Customer : MonoBehaviour
         }
         else
         {
-            //TODO
             _collidingAIs.RemoveAll(ai => !ai.activeSelf || ai.GetComponent<NavMeshAgent>().isStopped);
             CheckCollidingAICount();
         }
