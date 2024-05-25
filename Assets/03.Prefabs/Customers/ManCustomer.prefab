@@ -2504,10 +2504,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2305891891905435380}
-  - component: {fileID: 288792909221262638}
   - component: {fileID: 232089930580320112}
   - component: {fileID: 5385060894444348347}
   - component: {fileID: 6044684547708602485}
+  - component: {fileID: 1838194096084039980}
   m_Layer: 0
   m_Name: ManCustomer
   m_TagString: AI
@@ -2534,18 +2534,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &288792909221262638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7286533660298944346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dda68ba0dbf5bdf43a999a0c38d4986c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!195 &232089930580320112
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2618,6 +2606,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &1838194096084039980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7286533660298944346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 512ceb0535f9f9e4d9abdb4caa8f7674, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7364292709527660603
 GameObject:
   m_ObjectHideFlags: 0

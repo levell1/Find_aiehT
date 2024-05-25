@@ -26,16 +26,6 @@ public class FoodCreater : MonoBehaviour
         GameManager.Instance.Player.GetComponent<ServingFood>().OnCheckCreateStation += Check;
     }
 
-    public void SubscribeCreateFoodEvent(CustomerController customer)
-    {
-        customer.OnCreateFood += StartCreateFood;
-    }
-
-    public void UnsubscribeCreateFoodEvent(CustomerController customer)
-    {
-        customer.OnCreateFood -= StartCreateFood;
-    }
-
     private void Check()
     {
         if (_canMakeFood) return;
@@ -47,7 +37,7 @@ public class FoodCreater : MonoBehaviour
             _co = StartCoroutine(MakeFood());
     }
 
-    private void StartCreateFood(FoodSO obj)
+    public void StartCreateFood(FoodSO obj)
     {
         _foodQueue.Enqueue(obj);
 

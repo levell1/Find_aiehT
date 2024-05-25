@@ -20,8 +20,6 @@ public class ServingFood : MonoBehaviour
     }
     private bool _isTycoonGameOver = false;
 
-    private WaitForSeconds _waitCleaningTime = new WaitForSeconds(0f);
-
     public GameObject CanHoldFood
     {
         get { return _canHoldFood; }
@@ -117,11 +115,7 @@ public class ServingFood : MonoBehaviour
 
     private void CleaningFood()
     {
-        // TODO: Player Clean Anim, Player position 고정
         int lastIndex = _canCleaningFoods.Count - 1;
-
-        //StartCoroutine(CleanFood(_canCleaningFoods[lastIndex]));
-
         GameObject food = _canCleaningFoods[lastIndex];
         food.GetComponent<CookedFood>().CurrentFoodPlace = null;
         GameManager.Instance.SoundManager.SFXPlay(SFXSoundPathName.PutDownFood,Vector3.zero, 0.3f);
@@ -186,19 +180,4 @@ public class ServingFood : MonoBehaviour
             }
         }
     }
-
-    #region Coroutine
-
-    IEnumerator CleanFood(GameObject food)
-    {
-        food.GetComponent<CookedFood>().CurrentFoodPlace = null;
-        _canCleaningFoods.Remove(food);
-
-        Destroy(food);
-
-        yield break;
-        //yield return _waitCleaningTime;
-    }
-
-    #endregion
 }

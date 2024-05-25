@@ -5,7 +5,7 @@ using UnityEngine;
 public class CookedFood : MonoBehaviour
 {
     #region Field
-    [SerializeField] public FoodSO _FoodSO;    
+    [SerializeField] public FoodSO _FoodSO = null;
     [SerializeField] private string _foodName;
     [SerializeField] private List<GameObject> _edibleFoods;
 
@@ -44,7 +44,7 @@ public class CookedFood : MonoBehaviour
                 _currentFoodPlace.CurrentFood = null;
                 StopAllCoroutines();
             }
-            else //if(value.CurrentCustomer != null)
+            else
             {
                 value.OnCustomerGetFood += SetColliderEnable;
             }

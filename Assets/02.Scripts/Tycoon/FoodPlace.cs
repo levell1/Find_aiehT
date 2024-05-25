@@ -7,8 +7,8 @@ public class FoodPlace : MonoBehaviour
     #region Field
     public int SeatNum { get; set; }
 
-    private CustomerController _currentCustomer = null;
-    public CustomerController CurrentCustomer
+    private Customer _currentCustomer = null;
+    public Customer CurrentCustomer
     {
         get { return _currentCustomer; }
         set
@@ -28,7 +28,7 @@ public class FoodPlace : MonoBehaviour
         }
     }
 
-    private CookedFood _currentFood;
+    private CookedFood _currentFood = null;
     public CookedFood CurrentFood
     {
         get { return _currentFood; }
@@ -54,11 +54,9 @@ public class FoodPlace : MonoBehaviour
 
     private void MatchCustomerFood()
     {
-        if (_currentCustomer == null
-            || _currentFood == null
-            || _currentFood.ShouldClean
-            ||(_currentCustomer.TargetFoodName != _currentFood._FoodSO.CookedFoodObject.name))
-            return;
+        if (_currentCustomer == null || _currentFood == null) return;
+        if (_currentFood.ShouldClean) return;
+        if (_currentCustomer.TargetFood.name != _currentFood._FoodSO.CookedFoodObject.name) return;
 
         OnCustomerGetFood?.Invoke();
 
